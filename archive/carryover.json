@@ -1,12 +1,301 @@
 {
-  "generated_at": "2026-06-01T01:59:22.401927+00:00",
-  "updated_date": "20260503-20260601",
+  "generated_at": "2026-06-01T22:33:05.442273+00:00",
+  "updated_date": "20260601",
   "carryover_days": 9,
   "tag_states": {
     "agent-vuln": {
-      "updated_date": "20260503-20260601",
+      "updated_date": "20260601",
       "carryover_days": 9,
-      "items": []
+      "items": [
+        {
+          "id": "2605.30604v1",
+          "source": "arxiv",
+          "title": "An Organization-Scoped LLM Agent Runtime Architecture for Regulated Cybersecurity Operations",
+          "abstract": "Regulated cybersecurity workflows lack a runtime substrate that enforces organization-level scope across retrieval, tool calls, memory, findings, reports, and audit while remaining model-agnostic and locally deployable. Recent large language model (LLM) agent systems report strong results on isolated cybersecurity tasks, yet they do not by themselves define an auditable platform architecture for regulated security operations centre (SOC) and compliance workflows, where a single analyst may trigger actions that bind the organization, and where the runtime must integrate with existing SIEM/XDR stacks as a primary source of context and alert-driven triggers rather than operate as a standalone analytical layer. This paper proposes an organization-scoped LLM agent runtime architecture for financial cybersecurity. The contribution is a typed Security Context that is created at every entry point, including SIEM/XDR notifications ingested as first-class triggers, and enforced at every component boundary, combined with a shared Runtime Core, logical specialist subagents, a governed Tool Adapter Layer exposing SIEM/XDR query, enrichment, and response primitives under uniform policy and audit, structured findings with evidence references, tiered human-in-the-loop (HITL) gates, and append-only audit. Model Context Protocol (MCP), extended telemetry, digital twins for pentesting, graph retrieval, and federated knowledge sharing are treated as optional extension paths rather than mandatory runtime assumptions. We describe an implementable slice as the architecture's testability surface, and we propose a falsifiable evaluation plan with metric-level pass criteria for architecture readiness, security-policy enforcement, evidence traceability, output quality, and operational observability.",
+          "authors": [
+            "George Fatouros",
+            "Georgios Makridis",
+            "George Kousiouris",
+            "John Soldatos",
+            "Dimosthenis Kyriazis"
+          ],
+          "primary_category": "cs.CR",
+          "categories": [
+            "cs.CR",
+            "cs.AI",
+            "cs.CL",
+            "cs.IR"
+          ],
+          "published": "2026-05-28T21:51:38+00:00",
+          "link": "https://arxiv.org/pdf/2605.30604v1",
+          "tags": [
+            "keyword:agent-vuln",
+            "query:agent-vuln"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "LLM agent runtime for regulated cybersecurity operations",
+          "llm_evidence_cn": "面向受监管网络安全操作的LLM代理运行时架构",
+          "llm_evidence": "面向受监管网络安全操作的LLM代理运行时架构",
+          "canonical_evidence": "面向受监管网络安全操作的LLM代理运行时架构",
+          "llm_tldr_en": "Proposes an organization-scoped LLM agent runtime architecture for regulated SOC and compliance workflows, integrating with SIEM/XDR stacks.",
+          "llm_tldr_cn": "受监管的网络安全工作流需要一个可审计的运行时平台来执行组织级范围控制，但现有LLM代理系统缺乏这种架构。本文提出一种组织范围的LLM代理运行时架构，支持检索、工具调用、内存、发现、报告和审计的强制执行，并能与SIEM/XDR集成。该架构为代理驱动的安全分析提供了合规基础。",
+          "llm_tldr": "受监管的网络安全工作流需要一个可审计的运行时平台来执行组织级范围控制，但现有LLM代理系统缺乏这种架构。本文提出一种组织范围的LLM代理运行时架构，支持检索、工具调用、内存、发现、报告和审计的强制执行，并能与SIEM/XDR集成。该架构为代理驱动的安全分析提供了合规基础。",
+          "llm_tags": [
+            "query:agent-vuln"
+          ],
+          "matched_query_tag": "query:agent-vuln",
+          "matched_query_text": "agent based security analysis",
+          "matched_requirement_id": "req-6",
+          "selection_source": "carryover_cache",
+          "paper_id": "2605.30604v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2605.28914v1",
+          "source": "arxiv",
+          "title": "AIRGuard: Guarding Agent Actions with Runtime Authority Control",
+          "abstract": "Tool-using language agents turn model decisions into external side effects: they read files, run scripts, call APIs, send messages, and invoke Model Context Protocol tools. This makes agent attacks different from jailbreaks. The harmful step is often not an obviously forbidden output, but an ordinary executable action that becomes unsafe because attacker-controlled context steers authorized access against the user's interest. We identify this failure mode as authority confusion: untrusted resources may inform reasoning, but they must not authorize side effects. We present AIRGuard, a runtime guard that operationalizes least privilege as action-time authorization. AIRGuard normalizes heterogeneous tool calls, derives task authority into step-level authority, tracks source and target trust, simulates sensitive side effects, audits cross-step risk, and enforces decisions before actions execute. On AgentTrap, AIRGuard reduces Sonnet 4.6 attack success from 36.3% without defense to 5.5%. On DTAP-150, AIRGuard preserves 76.0% benign utility with Haiku 4.5, compared with 52.0% for ARGUS and 42.0% for MELON. An ablation further shows that prompt-only policy helps only modestly, whereas a dedicated runtime authority-control layer gives the agent system direct control over tool-mediated side effects. Code and data are available at https://github.com/Sophie508/AIRGuard.",
+          "authors": [
+            "Suliu Qin",
+            "Haomin Zhuang",
+            "Yujun Zhou",
+            "Yufei Han",
+            "Xiangliang Zhang"
+          ],
+          "primary_category": "cs.CR",
+          "categories": [
+            "cs.CR",
+            "cs.AI"
+          ],
+          "published": "2026-05-27T17:48:14+00:00",
+          "link": "https://arxiv.org/pdf/2605.28914v1",
+          "tags": [
+            "keyword:agent-vuln",
+            "query:agent-vuln"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "runtime guard for agent actions preventing authority confusion",
+          "llm_evidence_cn": "运行时防护智能体动作防止权限混淆",
+          "llm_evidence": "运行时防护智能体动作防止权限混淆",
+          "canonical_evidence": "运行时防护智能体动作防止权限混淆",
+          "llm_tldr_en": "AIRGuard is a runtime authority control guard for tool-using language agents, enforcing least privilege to prevent authority confusion attacks.",
+          "llm_tldr_cn": "工具型语言智能体的动作可导致外部副作用，存在权限混淆风险。本文提出AIRGuard，一个运行时防护机制，将最小权限原则应用于动作时授权。它统一不同工具调用规范，推导任务级权限并分解为步骤级权限。实验表明AIRGuard能有效阻止多种权限攻击，且性能开销低。",
+          "llm_tldr": "工具型语言智能体的动作可导致外部副作用，存在权限混淆风险。本文提出AIRGuard，一个运行时防护机制，将最小权限原则应用于动作时授权。它统一不同工具调用规范，推导任务级权限并分解为步骤级权限。实验表明AIRGuard能有效阻止多种权限攻击，且性能开销低。",
+          "llm_tags": [
+            "query:agent-vuln"
+          ],
+          "matched_query_tag": "query:agent-vuln",
+          "matched_query_text": "agent based security analysis",
+          "matched_requirement_id": "req-6",
+          "selection_source": "carryover_cache",
+          "paper_id": "2605.28914v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2605.30667v1",
+          "source": "arxiv",
+          "title": "Automatically Attacking Software Reverse Engineering AI Agents",
+          "abstract": "Software tools for reverse engineering executable binary files, such as Ghidra, enable malware analysts to safely conduct robust static analysis without having access to original source code. Coupled with the analytic power of large language models (LLM), agentic systems enabled with tools, such as GhidraMCP, can allow analysts to automate a previously human driven process. Although this automation can increase the productivity of a single malware analyst, it also introduces a new area of vulnerability for malware obfuscation. This paper presents an adversarial technique using genetic algorithm-based prompt generation, a modification of an adversarial attack known as AutoDAN, to demonstrate the ability to deceive LLM-powered disassembly and decompilation systems into misinterpreting binary executables, effectively corrupting their analytical output. This proof-of-concept methodology exploits inherent vulnerabilities in how LLMs process and interpret decompiled machine code via prompt injection by using extraneous string variable assignments to pass surreptitious instructions to the LLM while not impacting the functionality of the executable file. We demonstrate this capability through several concise examples. This approach could enable attackers to bypass automated detection systems that rely on LLM-driven analysis pipelines. By studying and understanding this attack, insights can be gained regarding the security implication of integrating LLMs into cybersecurity toolchains and building more robust agentic code analysis systems.",
+          "authors": [
+            "Brian Crawford",
+            "Justin Phillips",
+            "Patrick McClure"
+          ],
+          "primary_category": "cs.CR",
+          "categories": [
+            "cs.CR",
+            "cs.AI"
+          ],
+          "published": "2026-05-28T23:58:25+00:00",
+          "link": "https://arxiv.org/pdf/2605.30667v1",
+          "tags": [
+            "keyword:agent-vuln",
+            "query:agent-vuln"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "automatic attack on LLM-powered reverse engineering agents",
+          "llm_evidence_cn": "自动攻击LLM驱动的逆向工程代理",
+          "llm_evidence": "自动攻击LLM驱动的逆向工程代理",
+          "canonical_evidence": "自动攻击LLM驱动的逆向工程代理",
+          "llm_tldr_en": "Applies genetic algorithm-based prompt generation to automatically deceive LLM-powered reverse engineering agents, demonstrating a new vulnerability in automated malware analysis pipelines.",
+          "llm_tldr_cn": "本文采用基于遗传算法的提示生成技术，自动欺骗由大语言模型驱动的逆向工程代理（如GhidraMCP），使其产生误判。该攻击利用AutoDAN变体，在恶意软件分析自动化流程中引入新漏洞。实验表明攻击能有效误导反汇编和反编译系统，威胁安全分析自动化。",
+          "llm_tldr": "本文采用基于遗传算法的提示生成技术，自动欺骗由大语言模型驱动的逆向工程代理（如GhidraMCP），使其产生误判。该攻击利用AutoDAN变体，在恶意软件分析自动化流程中引入新漏洞。实验表明攻击能有效误导反汇编和反编译系统，威胁安全分析自动化。",
+          "llm_tags": [
+            "query:agent-vuln"
+          ],
+          "matched_query_tag": "query:agent-vuln",
+          "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
+          "matched_requirement_id": "req-7",
+          "selection_source": "carryover_cache",
+          "paper_id": "2605.30667v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2605.28334v1",
+          "source": "arxiv",
+          "title": "Towards Cybersecurity SuperIntelligence (CSI): What's the best harness for cybersecurity?",
+          "abstract": "What is the best harness for cybersecurity AI? Cybersecurity systems are converging on a single execution scaffold per agent, an iterative shell loop driven by a Large Language Model (LLM). However, scaffolds are not interchangeable, rarely interoperable, and no single scaffold dominates across all challenge types. In our path towards researching Cybersecurity SuperIntelligence (CSI), we present a meta-scaffold that unifies heterogeneous agent harnesses under a common orchestration layer, enabling any LLM-driven scaffold to be deployed, benchmarked, and composed within the same infrastructure. Using CSI, we benchmark five scaffolds (CSI::Claude, CSI::Codex, CSI::GCAI, CSI::Mistral, CSI::CAI) on the 33 cybench challenges, holding the model fixed at alias2-mini. The best individual scaffolds solve 15/33 (45.5%); the four-scaffold union solves 17/33 (51.5%), with the fifth (CSI::Mistral, 10/33) contributing one exclusive solve. We find that no single scaffold is the best harness: it is the combination of structurally heterogeneous scaffolds that yields the highest coverage. We validate this through CSI's blackboard-based multi-agent architecture, in which scaffold-specialised agents run in parallel and exchange intermediate findings via a shared substrate (a blackboard). The blackboard solves 19/33 (57.6%), a 27% relative gain over CSI::Claude, one of the best individual scaffolds (15/33, 45.5%), 25% faster (20.2 h vs. 26.8 h), at comparable cost ($5,480 vs. $5,122).",
+          "authors": [
+            "Víctor Mayoral-Vilches",
+            "Francesco Balassone",
+            "María Sanz-Gómez",
+            "Paul Zabalegui Landa",
+            "Daniel Sánchez Prieto",
+            "Marina Oteiza Álvarez",
+            "Davide Quarta",
+            "Martin Pinzger"
+          ],
+          "primary_category": "cs.CR",
+          "categories": [
+            "cs.CR"
+          ],
+          "published": "2026-05-27T11:37:18+00:00",
+          "link": "https://arxiv.org/pdf/2605.28334v1",
+          "tags": [
+            "keyword:agent-vuln",
+            "query:agent-vuln"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "meta-scaffold unifying agent harnesses for autonomous cybersecurity tasks; enabling agent-based security analysis",
+          "llm_evidence_cn": "提出统一网络安全代理脚手架的超元架构，支持基于代理的安全分析",
+          "llm_evidence": "提出统一网络安全代理脚手架的超元架构，支持基于代理的安全分析",
+          "canonical_evidence": "提出统一网络安全代理脚手架的超元架构，支持基于代理的安全分析",
+          "llm_tldr_en": "CSI presents a meta-scaffold unifying heterogeneous LLM-driven agent harnesses under a common orchestration layer, benchmarked on cybench challenges for autonomous cybersecurity.",
+          "llm_tldr_cn": "本文针对网络安全AI系统，指出当前代理脚手架互不兼容且缺乏统一基准的问题，提出了CSI超元架构，将多种LLM驱动的代理脚手架（如Claude、Codex等）整合到统一的编排层下。在33个cybench挑战上进行了基准测试，展示了不同脚手架的性能差异。该工作为构建和评估自主网络安全代理提供了标准化基础设施，推动网络安全超级智能的研究。",
+          "llm_tldr": "本文针对网络安全AI系统，指出当前代理脚手架互不兼容且缺乏统一基准的问题，提出了CSI超元架构，将多种LLM驱动的代理脚手架（如Claude、Codex等）整合到统一的编排层下。在33个cybench挑战上进行了基准测试，展示了不同脚手架的性能差异。该工作为构建和评估自主网络安全代理提供了标准化基础设施，推动网络安全超级智能的研究。",
+          "llm_tags": [
+            "query:agent-vuln"
+          ],
+          "matched_query_tag": "query:agent-vuln",
+          "matched_query_text": "agent based security analysis",
+          "matched_requirement_id": "req-6",
+          "selection_source": "carryover_cache",
+          "paper_id": "2605.28334v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2605.28214v1",
+          "source": "arxiv",
+          "title": "Out of Sight, Not Out of Mind: Unveiling Latent Attack in Latent-based Multi-Agent Systems",
+          "abstract": "Latent-based multi-agent systems replace parts of explicit inter-agent communication with hidden representations, offering a new direction for efficient and flexible agent collaboration. However, moving coordination into latent space may also move attacks beyond the reach of visible-text inspection. In this paper, we study whether latent states can carry attack-associated information that remains effective during clean executions. To examine this question, we introduce a latent attack framework that reactivates attack-induced effects through latent interventions without reusing adversarial text. Extensive experiments show that the resulting latent-only attacks can substantially degrade task performance in clean executions, especially when applied to inter-agent KV-cache handoffs rather than local hidden states. Further control analyses indicate that this degradation cannot be reduced to arbitrary perturbations or invalid generation. Overall, our findings suggest that latent-based collaboration does not remove attack risk. It shifts part of the risk into less observable execution states, calling for safeguards beyond visible-text inspection.",
+          "authors": [
+            "Chenxi Wang",
+            "Ruiyang Huang",
+            "Jiayan Sun",
+            "Lei Wei",
+            "Yifan Wu"
+          ],
+          "primary_category": "cs.CR",
+          "categories": [
+            "cs.CR",
+            "cs.LG",
+            "cs.MA"
+          ],
+          "published": "2026-05-27T09:32:22+00:00",
+          "link": "https://arxiv.org/pdf/2605.28214v1",
+          "tags": [
+            "keyword:agent-vuln",
+            "query:agent-vuln"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "latent attack framework targeting multi-agent systems with hidden representations; directly studies security vulnerabilities",
+          "llm_evidence_cn": "针对潜在表示多Agent系统提出潜在攻击框架，直接研究安全漏洞",
+          "llm_evidence": "针对潜在表示多Agent系统提出潜在攻击框架，直接研究安全漏洞",
+          "canonical_evidence": "针对潜在表示多Agent系统提出潜在攻击框架，直接研究安全漏洞",
+          "llm_tldr_en": "This paper reveals that latent states in multi-agent systems can carry attack information, enabling latent-only attacks that degrade performance without adversarial text.",
+          "llm_tldr_cn": "本文针对基于潜在表示的多Agent系统，发现隐藏表示中的协调信息可被攻击利用。作者提出潜在攻击框架，通过潜在干预在不使用对抗文本的情况下重新激活攻击效果，实验证明这类攻击能显著降低任务性能。该工作揭示了多Agent协作中新的攻击面，强调了超越显式文本检查的安全需求。",
+          "llm_tldr": "本文针对基于潜在表示的多Agent系统，发现隐藏表示中的协调信息可被攻击利用。作者提出潜在攻击框架，通过潜在干预在不使用对抗文本的情况下重新激活攻击效果，实验证明这类攻击能显著降低任务性能。该工作揭示了多Agent协作中新的攻击面，强调了超越显式文本检查的安全需求。",
+          "llm_tags": [
+            "query:agent-vuln"
+          ],
+          "matched_query_tag": "query:agent-vuln",
+          "matched_query_text": "multi-agent system security vulnerabilities",
+          "matched_requirement_id": "req-1",
+          "selection_source": "carryover_cache",
+          "paper_id": "2605.28214v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2605.30677v1",
+          "source": "arxiv",
+          "title": "Investigating Detection and Obfuscation of Prompt Injection Attacks Against Software Reverse Engineering AI Agents",
+          "abstract": "Agentic software reverse engineering systems are vulnerable to prompt injection attacks placed into the source code of executable binary files. This research demonstrates defensive tactics for detecting the presences of prompt injection strings in the decompiler output of adversarial example programs. Methods for obfuscating these attacks and subsequent methods for defending against these obfuscations are also explored. This research advances the understanding of risk and security of agentic software analysis systems necessary for their deployment into production-level cyber workflows.",
+          "authors": [
+            "Brian Crawford",
+            "Patrick McClure"
+          ],
+          "primary_category": "cs.CR",
+          "categories": [
+            "cs.CR",
+            "cs.AI",
+            "cs.SE"
+          ],
+          "published": "2026-05-29T00:13:35+00:00",
+          "link": "https://arxiv.org/pdf/2605.30677v1",
+          "tags": [
+            "keyword:agent-vuln",
+            "query:agent-vuln"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "prompt injection vulnerabilities in software reverse engineering AI agents",
+          "llm_evidence_cn": "软件逆向工程AI代理的提示注入漏洞",
+          "llm_evidence": "软件逆向工程AI代理的提示注入漏洞",
+          "canonical_evidence": "软件逆向工程AI代理的提示注入漏洞",
+          "llm_tldr_en": "Investigates detection and obfuscation of prompt injection attacks against agentic reverse engineering systems, relevant to LLM agent vulnerability analysis.",
+          "llm_tldr_cn": "本文研究针对软件逆向工程AI代理的提示注入攻击。作者探索了在反编译器输出中检测提示注入字符串的防御策略，同时研究了攻击混淆及应对方法。该工作揭示了大语言模型代理在网络安全工作流中的风险，为代理漏洞分析提供了实证。",
+          "llm_tldr": "本文研究针对软件逆向工程AI代理的提示注入攻击。作者探索了在反编译器输出中检测提示注入字符串的防御策略，同时研究了攻击混淆及应对方法。该工作揭示了大语言模型代理在网络安全工作流中的风险，为代理漏洞分析提供了实证。",
+          "llm_tags": [
+            "query:agent-vuln"
+          ],
+          "matched_query_tag": "query:agent-vuln",
+          "matched_query_text": "large language model agent vulnerability analysis",
+          "matched_requirement_id": "req-2",
+          "selection_source": "carryover_cache",
+          "paper_id": "2605.30677v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2605.29251v1",
+          "source": "arxiv",
+          "title": "Provably Secure Agent Guardrail",
+          "abstract": "As large language models transition from bounded generative engines to agents with expansive execution privileges, AI going out of control precipitates a fundamental crisis in artificial intelligence security. Existing defense architectures heavily rely on empirical semantic guardrails and probabilistic large model adjudicators, mechanisms that fail to provide deterministic security lower bounds when facing complex semantic symbol decoupling attacks. To overcome this empirical semantic guardrail dilemma, this paper proposes a new security paradigm for agents based on the fundamental limitations of logical reasoning. Based on this paradigm, we further introduce an executable Proof-Constrained Action (ePCA) framework with a neural symbolic isolation architecture. This framework abandons semantic trust in natural language, forcing agents to losslessly formalize their intentions into first-order logical mathematical constraints before performing physical operations. Empirical evaluations of macroscopic and microscopic two-dimensional dynamic adversarial systems demonstrate that our formal verification mechanism achieves zero attack success rate and zero false positive rate across the evaluated scenarios, with extremely low computational latency. This research provides a conditional formal foundation under explicit system assumptions and an engineering paradigm for constructing the underlying defense foundation for future intelligent systems.",
+          "authors": [
+            "Benlong Wu",
+            "Weiming Zhang",
+            "Kejiang Chen",
+            "Han Fang",
+            "Nenghai Yu"
+          ],
+          "primary_category": "cs.AI",
+          "categories": [
+            "cs.AI",
+            "cs.CR"
+          ],
+          "published": "2026-05-28T02:12:41+00:00",
+          "link": "https://arxiv.org/pdf/2605.29251v1",
+          "tags": [
+            "keyword:agent-vuln",
+            "query:agent-vuln"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "provably secure guardrail for agent safety",
+          "llm_evidence_cn": "可证明安全的代理护栏",
+          "llm_evidence": "可证明安全的代理护栏",
+          "canonical_evidence": "可证明安全的代理护栏",
+          "llm_tldr_en": "Proposes a provably secure agent guardrail using logical reasoning to bound agent actions, addressing security risks in autonomous systems.",
+          "llm_tldr_cn": "本文针对LLM代理执行权限扩大带来的失控风险，提出基于逻辑推理局限性的新安全范式，并实现可执行证明约束动作（ePCA）框架。该框架通过神经符号隔离架构提供确定性安全下界，克服了传统语义护栏的脆弱性，为自治代理系统提供了形式化的安全保证。",
+          "llm_tldr": "本文针对LLM代理执行权限扩大带来的失控风险，提出基于逻辑推理局限性的新安全范式，并实现可执行证明约束动作（ePCA）框架。该框架通过神经符号隔离架构提供确定性安全下界，克服了传统语义护栏的脆弱性，为自治代理系统提供了形式化的安全保证。",
+          "llm_tags": [
+            "query:agent-vuln"
+          ],
+          "matched_query_tag": "query:agent-vuln",
+          "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+          "matched_requirement_id": "req-8",
+          "selection_source": "carryover_cache",
+          "paper_id": "2605.29251v1",
+          "carry_days": 1
+        }
+      ]
     }
   }
 }

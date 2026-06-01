@@ -1,0 +1,605 @@
+Title: Towards Demystifying and Repairing LLM-in-the-Loop Vulnerabilities
+
+URL Source: https://arxiv.org/pdf/2605.28893v1
+
+Published Time: Fri, 29 May 2026 00:05:07 GMT
+
+Number of Pages: 12
+
+Markdown Content:
+# Towards Demystifying and Repairing LLM-in-the-Loop Vulnerabilities 
+
+# Yujie Ma 1, Jialin Rong 1, Chenxi Yang 1, Lili Quan 2, Xiaofei Xie 2, Yongqiang Lyu 1, Qiang Hu 11Tianjin University 
+
+2Singapore Management University 
+
+## Abstract 
+
+Large Language Models (LLMs) have been actively integrated into modern software systems as critical components. LLM-in-the-loop vulnerabilities, where vulnerabilities are introduced by LLMs and their dependent downstream components, such as frameworks, introduce new risks. Although some benchmark datasets have been constructed to study the impact of such vulnerabilities, most works still remain at the analysis from the conventional software level, ignoring the harm actually caused by LLMs. Understanding real-world LLM-in-the-loop vulnerabilities is still an open problem. To address this gap, we build the first LLM-in-the-loop vulnerabil-ity dataset, LLMCVE , to facilitate the risk analysis of LLM-integrated software. To do so, we first collect 2,888 multi-source vulnerabili-ties across 230 popular LLM components. Then, through manual analysis, we identify 205 vulnerabilities that strictly fall under the concept of LLM-in-the-loop vulnerability. Through analysis, we found that LLMs more often play as targets or propagation vectors rather than the root cause of these vulnerabilities. Furthermore, based on LLMCVE , we evaluate the repairing capa-bilities of existing agent-based vulnerability repair methods, such as SWE-Agent. Experimental results demonstrate that compared to conventional software vulnerabilities, LLM-in-the-Loop vulnera-bilities are more challenging to precisely fix, especially for those involving prompt injections where the Pass@1 rate is only 28.57%. 
+
+## Keywords 
+
+Large Language Model, Vulnerability Analysis, Vulnerability Repair 
+
+## 1 Introduction 
+
+Large Language Models (LLMs) have achieved remarkable progress, demonstrating strong capabilities across diverse domains and are increasingly transforming modern software engineering practices. With this success, LLMs are now widely integrated into real-world applications, such as intelligent assistants [ 2], code generation tools [ 9], and data-driven analytics systems [ 41 ]. In these appli-cations, LLMs serve as core components and can produce incorrect or harmful outputs that compromise system reliability. At the same time, integrating LLMs introduces additional dependencies (e.g., deep learning frameworks and third-party libraries), thereby ex-panding the attack surface. These risks lead to a new class of vul-nerabilities, LLM-in-the-loop vulnerabilities , which emerge from the interaction between LLMs and surrounding components, rather than from deterministic software logic as in traditional software vulnerabilities. For example, a prompt injection flaw in LangChain’s GraphCypherQAChain allows attackers to manipulate an LLM to generate malicious Cypher queries, leading to complete compro-mise of a connected Neo4j database (CVE-2024-8309 [ 34 ]). There-fore, a systematic understanding of LLM-in-the-loop vulnerabilities is crucial for ensuring the reliability of LLM-based applications. To better understand software vulnerabilities, extensive research has been conducted in both traditional software systems and LLM-based applications. For traditional software vulnerabilities, prior work has extensively studied vulnerability characteristics [ 7, 16 , 42 ]and constructed repair benchmarks [ 8, 19 , 25 , 52 ] to evaluate the difficulty of fixing vulnerabilities and the effectiveness of auto-mated repair techniques. For LLM-based applications, existing stud-ies analyze vulnerabilities from different perspectives. Based on the scope of analysis, these works can be broadly categorized into LLM supply chains [ 20 , 21 , 28 , 29 , 31 , 48 , 49 ], LLM applica-tions [ 5 , 18 , 22 , 23 , 27 , 39 , 43 , 45 , 46 , 55 , 56 , 63 ], the LLM itself [1 , 4, 10 , 11 , 13 ], and individual components [ 15 , 17 , 60 ] (e.g., LLM agent frameworks). However, these studies typically analyze vul-nerabilities in an aggregated manner, often treating them as con-ventional software defects (e.g., buffer overflows, ReDoS, or SQL injection). They do not distinguish whether vulnerabilities stem from traditional software logic or from LLM involvement (i.e., LLM-in-the-loop vulnerabilities), obscuring their unique characteristics and hindering detection and repair. Moreover, they primarily focus on vulnerability categories and distributions, with limited attention to repairability, a critical aspect that determines whether identified vulnerabilities can be effectively mitigated in practice. As a result, both the unique characteristics of LLM-in-the-loop vulnerabilities and the repair performance of existing approaches remain largely unexplored. To bridge this gap, we first provide a clear definition of LLM-in-the-loop vulnerabilities and introduce LLMCVE , the first bench-mark dedicated to such vulnerabilities. Based on this benchmark, we conduct a comprehensive empirical study to characterize LLM-in-the-loop vulnerabilities in terms of their categories and distribu-tions, and further evaluate the performance of LLM-based agents in repairing these vulnerabilities. However, constructing such a benchmark is challenging. LLM-in-the-Loop vulnerabilities are dis-tributed across diverse applications and components involving both traditional software logic and LLM-driven behaviors, making them difficult to identify and validate. In addition, evaluating repair per-formance is non-trivial, as it requires executable and reproducible instances, which are often unavailable due to incomplete vulnera-bility descriptions or complex runtime dependencies. To address these challenges, we collect 230 LLM-relevant open-source components from Huntr [ 40 ], the world’s first AI bug bounty platform, and aggregate vulnerabilities associated with these com-ponents from multiple sources, including NVD, GitHub, and OSV, resulting in 2,888 candidate vulnerabilities. Through careful manual 
+
+> arXiv:2605.28893v1 [cs.SE] 27 May 2026 Yujie Ma 1, Jialin Rong 1, Chenxi Yang 1, Lili Quan 2, Xiaofei Xie 2, Yongqiang Lyu 1, Qiang Hu 11Tianjin University
+> 2Singapore Management University
+
+analysis, we identify and curate 205 real LLM-in-the-loop vulner-abilities to construct LLMCVE . Based on this dataset, we conduct a comprehensive empirical study to characterize LLM-in-the-loop vulnerabilities in terms of their categories and distributions, reveal-ing that LLM-in-the-loop vulnerabilities pose severe security risks, primarily manifesting as injection-based flaws, within which the LLM predominantly acts as an attack target or intermediate vector rather than the originating root cause. To enable repair evaluation, we construct reproducible instances for these vulnerabilities by manually developing corresponding Proof-of-Concept (PoC) exploits and filtering out samples with insufficient descriptions or inaccessible vulnerable code versions, resulting in 101 LLM-in-the-loop vulnerabilities for the repair study. Based on this benchmark, we systematically evaluate the repair capability of LLM-based agents using 10 agent-LLM combinations (i.e., 5 agent architectures combined with 2 foundation models), assessing their effectiveness in terms of correctness, efficiency, and failure root causes. Our results reveal several key findings. First, the overall repair success rate of current LLM-based agents on LLM-in-the-loop vul-nerabilities remains limited. Compared to traditional software vul-nerabilities, where the Pass@1 can reach 71.8%, the success rate drops to only 53.47% on our benchmark. Second, for prompt injec-tion vulnerabilities that directly stem from LLM behaviors, agents perform even worse, with the best Pass@1 rate of 28.57%, highlight-ing the need for new techniques tailored to such vulnerabilities. Finally, our root cause analysis indicates that over 70% of failures stem from either an incomplete fix or functionality damage, which means the generated patches fail to defend all attack vectors or break the normal functionality of the application. In summary, the main contributions of this paper are as follows: 
+
+• We construct LLMCVE , the first benchmark for LLM-in-the-loop vulnerabilities provides automated evaluation primitives. Each case features the LLM as a participant in the exploitation chain, we further characterize their distribution and security risks. 
+
+• We conduct the first comprehensive evaluation of mainstream LLM-agents’ capabilities in repairing LLM-in-the-loop vulnera-bilities, revealing that these vulnerabilities are more challenging to fix compared to conventional software vulnerabilities. 
+
+• We unveil the fundamental reasons why current agents fail to repair LLM-in-the-loop vulnerabilities, providing clear directions for the future design of automated repair tools tailored for LLM supply chain security. 
+
+## 2 LLM-in-the-Loop Vulnerabilities 2.1 Definition 
+
+We define LLM-in-the-loop vulnerabilities based on the role of LLMs in the vulnerability lifecycle, as follows. 
+
+Definition 2.1 ( LLM-in-the-Loop Vulnerabilities ). A vulner-ability belongs to LLM-in-the-Loop vulnerabilities, where LLMs must play a role in the vulnerability’s lifecycle. Specifically, a vul-nerability must satisfy at least one of the following criteria: 
+
+(1) LLM as the Source . The LLM serves as the primary entry point for the exploit. The attack is initiated directly through the LLM’s interaction interface, such as user prompts or context windows. The model’s processing of this initial input directly triggers the underlying flaw in the connected component. Unlike traditional bugs triggered by standard data inputs (e.g., network packets or API calls), this exploit originates entirely from semantic interactions with the model. 
+
+(2) LLM as the Actuator . The LLM acts as an intermediate link in the exploit chain. Attackers exploit the model’s internal mecha-nisms, such as natural language understanding, reasoning, or data transformation. Through these mechanisms, they propagate the payload and bridge the execution path toward the vulnerable com-ponent. Unlike traditional vulnerabilities that rely on deterministic code execution paths, this attack strictly depends on the model’s internal processing logic to succeed. 
+
+(3) LLM as the Target . The ultimate consequence of the exploit specifically compromises the LLM itself. Facilitated by the com-ponent’s flawed input handling, the attack subverts the model’s intended behavior, integrity, or safety alignment. Unlike traditional exploits aimed at system crashes or host-level privilege escalation, this attack explicitly targets the AI model’s alignment and security boundaries. 
+
+## 2.2 Comparison with Traditional Vulnerabilities 
+
+Figure 1 illustrates the key differences between traditional compo-nent vulnerabilities and LLM-in-the-loop vulnerabilities in terms of architecture and exploit flow. As shown in Figure 1a, traditional component vulnerabilities are triggered through deterministic code execution paths. Attackers inject malicious inputs directly into downstream components (e.g., data loaders), leading to predictable and well-defined execution behaviors. In such cases, the LLM is not involved in the exploit process and does not influence the execution flow. As a result, these vulnerabilities can typically be analyzed and repaired using conventional software engineering techniques. In contrast, Figure 1b illustrates LLM-in-the-loop vulnerabilities, where the LLM participates in the exploit lifecycle. Depending on the vulnerability, the LLM may act as (1) the Source , serving as the entry point of adversarial inputs; (2) the Actuator , transforming or propagating malicious inputs through its reasoning and generation process; or (3) the Target , whose behavior or safety properties are compromised by the attack. A vulnerability is considered LLM-in-the-loop if the LLM is involved in at least one of these stages. Unlike traditional vulnerabilities, the execution flow of LLM-in-the-loop vulnerabilities depends on the model’s non-deterministic semantic processing, which introduces additional complexity in understanding and handling such vulnerabilities. 
+
+## 3 Methodology 3.1 Overview 
+
+Figure 2 illustrates the overall workflow of our study, which consists of three main stages. First, we construct a high-quality benchmark dataset of LLM-in-the-loop vulnerabilities. We collect vulnerabil-ity reports from multiple sources and manually identify LLM-in-the-loop vulnerabilities based on our definition and analyze their characteristics. We then curate a subset of vulnerabilities that can be used for repair evaluation, forming a repair benchmark with reproducible instances. Second, we evaluate the repair capability of Towards Demystifying and Repairing LLM-in-the-Loop Vulnerabilities Downstream 
+
+> AI/ML
+> compoment
+> data loader
+> parser
+> Bypass
+> LLM Logic
+> Exploit
+> Execution
+> (e.g.,
+> Buffer
+> Overflow)
+> Malicious
+> Payload
+> ……
+
+(a) Traditional component vul-nerability Downstream   
+
+> AI/ML
+> compoment
+> ①source
+> Adversarial
+> Prompt
+> Action agent
+> ②actuator
+> Exploit
+> Execution
+> ③target
+> prompt builder
+> The LLM
+> Loop
+> Trigger LLM
+> behavior
+
+(b) LLM-in-the-loop Component Vulnerability. 
+
+Figure 1: Comparison between (a) traditional component flaws that operate independently of the LLM, and (b) LLM-in-the-loop vulnerabilities where the LLM acts as a critical source, actuator, or target in the exploit chain. 
+
+LLM-based agents on the constructed benchmark. We apply multi-ple agent–LLM configurations to automatically generate patches for each vulnerability. Finally, we perform a comprehensive analy-sis of the repair results. This includes assessing repair correctness and efficiency, as well as conducting an in-depth analysis of failure cases to uncover the root causes of unsuccessful repairs. 
+
+## 3.2 Benchmark Construction 
+
+The construction of LLMCVE comprises three primary phases: data collection, data selection, and benchmark curation. 
+
+3.2.1 Data Collection. We initiate our data collection by targeting Huntr, the world’s first bug bounty platform dedicated to AI/ML. Huntr provides a centralized hub for security researchers to submit vulnerabilities, ensuring the security of AI open-source applications, libraries, and model file formats. From this platform, we extract all 230 foundational open-source components. These components span 11 distinct AI/ML categories, including Model File Formats, MLOps, ML Frameworks, Agents, Inference, Data Access, Data Science, Machine Learning Core Libraries, Web Servers, Python, and C/C++, ensuring comprehensive coverage of the underlying technology stack. Using the repository and component names as exact keywords, we cross-reference three major vulnerability databases: NVD, GitHub Advisory, and OSV. Crucially, to avoid noisy and inaccurate data, we do not perform plain-text searches within the vulnerability de-scriptions. Instead, we strictly match our keywords against the designated affected component fields (e.g., CPE and affected fields). Through this step, we retrieve 1,489 vulnerabilities from the GitHub Advisory Database, 550 from the National Vulnerability Database (NVD), and 1,751 from the Open Source Vulnerabilities (OSV) data-base. To remove duplicates across these databases, we first merge records using explicit alias fields (e.g., mapping GHSA IDs to CVE IDs). Then, we cross-reference shared metadata (e.g., identical ref-erence URLs pointing to the same GitHub pull requests, issues, or commit hashes) to eliminate any remaining redundancies. For records lacking explicit cross-references, we manually review the relevant information. Finally, we manually review edge cases and merge conflicting descriptions to ensure data integrity. This pro-cess yields an initial set of 2,888 unique, raw vulnerabilities. Each record contains essential metadata, including summary, detailed description, CWE, severity, CVSS score, CPE, references, affected versions, and time information. 
+
+3.2.2 Data Selection. We then follow our definition (In Section 2.1) to collect LLM-in-the-loop vulnerabilities. We thoroughly analyze the collected metadata. We specifically review the vulnerability descriptions, types, associated PoCs, and developer patches to trace each complete execution path. This manual inspection is highly labor-intensive, averaging an inspection rate of 100 cases per person-day (totaling 240 hours for 2,888 entries). Ultimately, we filter the dataset down to exactly 205 vulnerabili-ties that are tightly coupled with LLM interactions. The fact that only 7% of the initial pool are genuine LLM-in-the-loop vulnera-bilities, while the remaining 93% are not inherently related to core LLM mechanisms, reveals a prevalent misclassification in current vulnerability databases. It proves that without rigorous filtering, merely relying on existing LLM supply chain datasets for agent evaluation primarily tests traditional code auditing skills, rather than the ability to handle LLM-specific characteristics. This finding underscores the necessity of our specifically curated benchmark. 
+
+3.2.3 Benchmark Curation. We further prepare a benchmark to support vulnerability repair evaluation. The raw data quality of the 205 vulnerabilities in LLMCVE varies significantly. Many raw reports are unsuitable for automated repair evaluation because they lack identifiable repository versions, contain insufficient descrip-tions, or cannot be stably reproduced due to missing environment details and incomplete reproduction steps. To ensure quality, we exclude these incomplete cases, retaining 101 vulnerabilities for evaluation. For each of the 101 vulnerabilities, we engineer a stan-dardized, isolated testing environment. For each instance, we metic-ulously prepare the following four core components: we manually construct a dedicated Dockerfile, pre-install all specific vulnerable dependencies, and write a reliable PoC exploit script. This PoC guarantees that the vulnerability can be stably triggered and serves as the definitive oracle to verify whether an LLM-agent’s generated patch successfully mitigates the threat. Concretely, we prepare a specific repository environment for each vulnerability. 
+
+• Vulnerable Commit Localization. First, we identify the exact vulnerable commit within the target repository. For vulnera-bilities with explicit version information in security databases, we map the version to its corresponding commit and verify the presence of the vulnerability using our PoC exploits. For cases lacking precise version data, we infer the vulnerable commit by analyzing key chronological events (e.g., issue creation and patch publication dates). We then manually confirm the vulnerability at these inferred commits via PoC testing, ensuring the agents operate on a genuinely vulnerable codebase. 
+
+• Standardized Environment Setup . Second, we manually con-struct a dedicated Dockerfile for each vulnerability. This isolated environment pre-installs all specific vulnerable dependencies and required libraries, ensuring that the target repository can be reliably built and tested without external system conflicts. 
+
+• Proof-of-Concept (PoC) . Third, we write a reliable PoC exploit script for each instance. This PoC guarantees that the vulnerabil-ity can be stably triggered and serves as the definitive reference Yujie Ma 1, Jialin Rong 1, Chenxi Yang 1, Lili Quan 2, Xiaofei Xie 2, Yongqiang Lyu 1, Qiang Hu 11Tianjin University 
+
+> 2
+
+Singapore Management University components (230)        
+
+> categories
+> (11)
+> Agent Model File Framework Inference Data ML Ops Web server Core lib
+
+A. Benchmark Construction  
+
+> NVD
+> OSV
+> Github
+> Advisory
+
+2,888 r aw 
+
+vulnerabilities    
+
+> LLM as Source
+> LLM as Actuator
+> LLM as Target
+
+205 LLM-in-the-loop 
+
+vulnerabilities 
+
+101 
+
+vulnerabilities     
+
+> vul commit
+> statement
+> docker
+> poc
+
+patches 
+
+B. Automated Repair Evaluation 
+
+> Test
+> SWE-agent
+> AutoCodeRover
+> Agentless
+> Aider
+> Openhands
+> Agents (5)
+> GPT-4o
+> (Zero-
+> contamination)
+> Models (2)
+> GPT-5.2-codex
+> (SOTA)
+
+Generate 
+
+~$1000 
+
+cost 
+
+C. Validation & Analysis  
+
+> Final Results POC Execution
+> (Preliminary Reference)
+> 5 Experts Independent
+> Review&Discussion
+
+RQ2: Correctness 
+
+(Strict Pass@1) 
+
+RQ3: Efficiency 
+
+(Time & Cost & Step) 
+
+RQ4: Root Cause 
+
+(Analysis of Failures) 
+
+Filter 
+
+> 240 perspn-hours
+> (500 perspn-hours)
+
+...... 
+
+patches 
+
+> Analysis
+
+RQ1: Characteristic 
+
+( Analysis Benchmark) 
+
+Figure 2: The overall workflow of our study. It comprises three main phases: (A) constructing a benchmark of 205 LLM-in-the-loop vulnerabilities from 2,888 raw reports, providing 101 instances with essential primitives for autonomous agent evaluation; (B) evaluating 10 distinct configurations of LLM-agents; and (C) conducting rigorous manual cross validation and analysis to answer RQ2 to RQ4. 
+
+to rigorously verify whether an LLM-agent’s generated patch successfully mitigates the threat. 
+
+• Problem Statement Construction. Finally, we curate a com-prehensive problem_statement document for each instance to serve as the input prompt for the agents. By synthesizing vulner-ability descriptions, issue reports, and security advisories from multiple sources, this document provides essential context, in-cluding the vulnerability type, reproduction steps, and expected behavior. This setup ensures the agents receive sufficient and realistic context to initiate the repair process. 
+
+LLMCVE Overview. After completing the above steps, we con-struct the LLMCVE dataset, a comprehensive benchmark compris-ing 205 LLM-in-the-loop vulnerabilities, where 101 have a complete suite of artifacts specifically designed for automated vulnerability repair evaluation. Specifically, for each of the 101 vulnerabilities, the benchmark includes a reproducible Docker environment, a functional PoC exploit, the isolated vulnerable commit, and a syn-thesized problem statement. 
+
+Comparison with Existing Datasets. To highlight the unique-ness of our work, we compare LLMCVE with existing datasets across several critical dimensions, as summarized in Table 1. Prior datasets either focus on general software defects or traditional vulnerabilities without considering LLM involvement, while re-cent LLM-related datasets lack explicit vulnerability focus or strict verification of LLM participation. In contrast, LLMCVE is the first benchmark specifically dedicated to LLM-in-the-loop vulnerabili-ties, enforcing a strict definition in which the LLM acts as the Source ,
+
+Table 1: Comparison of LLMCVE Datasets. Dataset / Benchmark Focus Area Language is vulnerability LLM-in-the-Loop                                     
+
+> Defects4J[25] General SE Java ✗#
+> SWE-Bench[24] General SE Python ✗#
+> VulnRepairEval[50] Vulnerability Repair Python ✓#
+> CVE-Bench[47] Vulnerability Repair Multi ✓#
+> LLMSCBench[29] LLM Supply Chain Multi ✓G#
+> Wang et al.[49] LLM Lifecycle Multi ✓G#
+> Hu et al.[20] LLM Dependency Multi ✓G#
+> Shen et al.[44] LLM Agent Apps Multi ✓G#
+> LLMCVE (ours) LLM vulnerability Multi ✓
+
+Note: # No specific relationship with LLMs. G# Vulnerabilities collected from the LLM supply chain, but only partially fulfilling the three key roles (Source, Actuator, or Target). These cases lack strict verification of whether the LLM is actively involved in the exploit lifecycle. Genuine LLM-in-the-loop vulnerabilities. These cases strictly verify that the LLM functions as the Source, Actuator, or Target within the vulnerability lifecycle. 
+
+Actuator , or Target , and providing reproducible environments for repair evaluation. 
+
+## 3.3 Automated Vulnerability Repair 
+
+We evaluate the effectiveness of existing LLM-based agents in repair-ing LLM-in-the-loop vulnerabilities using LLMCVE . We instantiate this repair process under 10 combinations of agents and underly-ing LLMs. For each combination, we provide a standardized setup consisting of the previously constructed problem statement, the vul-nerable repository, and the standardized environment, prompting the agent to generate a patch to fix the vulnerability. Towards Demystifying and Repairing LLM-in-the-Loop Vulnerabilities 
+
+Agents. We investigate and carefully select five prominent agents capable of patch generation. Among them, SWE-agent[ 57 ], Au-toCodeRover[ 62 ], and Agentless[ 53 ] are specialized agents designed for automatically fixing real-world software issues. In contrast, OpenHands[ 51 ] and Aider[ 3] are general-purpose autonomous agents suitable for broader coding tasks. 
+
+• SWE-agent: SWE-agent is a software engineering system that uses language models to interact with a terminal environment to resolve issues. To assess its repair capabilities, we kept model parameters consistent with its SWE-bench evaluation. We set a limit of 75 steps and a $2 budget per vulnerability, aligning with previous work[ 58 ]. In a single run, SWE-agent outputs one patch that successfully passes its internal Docker tests. 
+
+• AutoCodeRover: AutoCodeRover is an automated software engi-neer that resolves issues by searching the codebase and generat-ing patches. While it can run in GitHub issue mode, Local issue mode, and SWE-bench mode, we strictly utilized the Local issue mode. In a single run, it attempts to generate one patch with a maximum of three retries; if it fails after three attempts, it exits, consistent with the experimental setup in its original paper[ 62 ]. 
+
+• Agentless: Agentless is an agentless approach to automatically solve software development problems. Following its execution flow, we first ran the localization phase to identify edit locations, followed by the repair phase to generate multiple candidate patches. In a single run, Agentless generates 40 candidate patches and ranks all remaining patches to select one for submission. 
+
+• OpenHands: OpenHands is a versatile platform for autonomous software engineering agents capable of executing complex cod-ing workflows. We evaluated it using the default configurations specified in the openhands/benchmarks directory. In a single run, OpenHands generates a final patch. 
+
+• Aider: Aider is an AI-powered pair programming tool that edits code in local repositories through natural language commands. We evaluated it following the default benchmark settings pro-vided in its official repository. In a single run, it generates a maximum of three candidate patches and ultimately submits one patch that successfully passes the tests. 
+
+Models. We utilize two foundation models: GPT-4o and GPT-5.2-Codex. Importantly, GPT-4o has a knowledge cutoff date of October 1, 2023. This strictly predates the initial publication dates of the vulnerabilities in our benchmark, effectively mitigating the risk of data leakage from the training set. Meanwhile, GPT-5.2-Codex is specifically chosen to represent the current state-of-the-art in advanced LLM-based programming capabilities. 
+
+Evaluation Metric. Pass@1: The percentage of vulnerabilities successfully and correctly repaired by an agent in a single execu-tion attempt. Total Tokens: The average sum of input and output tokens consumed by the LLM API during a single repair attempt. 
+
+Token Cost: The average monetary cost (in USD) to generate a patch. We calculate this based on the total input and output tokens con-sumed by the LLM API during a single repair attempt. Time Cost: 
+
+The average execution time required for an agent to complete one repair attempt, measured from reading the problem statement to outputting the final patch. 
+
+## 3.4 Validation & Analysis 
+
+Across all agent-model combinations, over 1,000 patches are gener-ated. Since a Proof-of-Concept (PoC) exploit typically covers only a specific trigger path, blocking a PoC does not equate to a correct repair; a generated patch might break existing functionalities or introduce new flaws. Meanwhile, the test cases provided by each vulnerability are limited and cannot precisely reflect the correct-ness of patches. Therefore, we treat PoC execution and the test case run-time checking merely as a preliminary reference and rely on rigorous manual cross-validation to assess the true correctness of every patch. The manual validation process is conducted as follows: five researchers independently inspect all 1,000+ generated patches to assign a pass or not pass label. If all five reviewers reach the same conclusion, the label is directly accepted. Any discrepancies are resolved through joint discussion until a final consensus is achieved. This rigorous procedure required approximately 500 person-hours, ensuring the high reliability of our results. 
+
+## 4 Result Analysis 4.1 Research Questions (RQs) 
+
+To evaluate the capabilities of agents in repairing LLM vulnerabili-ties, we propose the following three research questions (RQs): 
+
+RQ1 (Vulnerability Characteristics): What are the empirical characteristics of LLM-in-the-loop vulnerabilities in terms of their categories and distributions? 
+
+RQ2 (Repair Effectiveness): Can existing agents effectively repair real-world LLM-in-the-loop vulnerabilities? 
+
+RQ3 (Repair Efficiency): Can agents efficiently repair LLM vulnerabilities? 
+
+RQ4 (Repair Failure Root Causes): What are the fundamental reasons behind the agents’ failures to repair specific LLM-in-the-loop vulnerabilities? 
+
+## 4.2 RQ1: Vulnerability Characteristics 
+
+To understand the fundamental characteristics of LLM-in-the-loop vulnerabilities, we conduct a systematic analysis of vulnerabilities in our benchmark. We observe that 83.5% of these vulnerabilities were reported between 2024 and 2025. In terms of severity, high-severity (CVSS score 7.0–8.9, 39.0%) and critical-severity (CVSS score 9.0–10.0, 23.4%) vulnerabilities together account for over 62% of the dataset, as shown in Figure 4a, indicating a concentration of severe security risks in LLM-integrated systems. We further categorize the vulnerabilities based on their Common Weakness Enumeration (CWE) types, as shown in Figure 4b. The most prevalent categories include CWE-94 (Code Injection, 31), CWE-502 (Deserialization of Untrusted Data, 19), CWE-22 (Path Traversal, 17), CWE-79 (Cross-Site Scripting, 12), and CWE-400 (Uncontrolled Resource Consumption, 10). Notably, injection-based vulnerabilities constitute a significant portion of the dataset, con-sistent with the OWASP Top 10 for LLMs [ 37 ], highlighting prompt injection as a dominant threat. To analyze the overall distribution, we map these underlying CWE types into five broader categories according to MITRE[ 30 ], as shown in Figure 3. Resource & Component Management and Injec-tion & Input Neutralization emerge as the two most representative Yujie Ma 1, Jialin Rong 1, Chenxi Yang 1, Lili Quan 2, Xiaofei Xie 2, Yongqiang Lyu 1, Qiang Hu 11Tianjin University 
+
+> 2Singapore Management University
+
+Table 2: Comparison of Agent Performance Across Different Models. Note: AutoCodeRover and Agentless (only designed for Python projects) use 71 vulnerabilities. The Test in bench column indicates SWE-bench-Verified (except Aider: SWE-bench-Lite ). Agent Model Pass@1 (all_cve) Pass@1 (prompt_cve) Test in bench Cost ($) Tokens Time (s) Steps 
+
+SWE-agent GPT-4o 22/101 (21.78%) 2/28 (7.14%) 23.20% 0.63 412372 206.54 23 GPT-5.2-codex 49/101(48.51%) 8/28(28.57%) - 0.49 942684 404.25 42 AutoCodeRover GPT-4o 9/71 (12.68%) 0/22 (0.00%) 38.40% 0.54 94727 80.76 13 GPT-5.2-codex 26/71(36.62%) 5/22(22.73%) 0.49 220118 202.29 30 Agentless GPT-4o 11/71 (15.49%) 0/22 (0.00%) 27.33% 0.48 58862 1905.67 -GPT-5.2-codex 25/71 (35.21%) 6/22 (27.27%) - 0.72 164760 1921 -Aider GPT-4o 20/101 (19.80%) 3/28 (10.71%) 25.00% 0.34 18028 101.98 -GPT-5.2-codex 39/101 (38.61%) 5/28 (17.86%) - 0.26 19576 141.13 -openhands GPT-4o 9/101(8.91%) 1/28(3.57%) - 0.68 112844 59.61 8GPT-5.2-codex 54/101 (53.47%) 8/28 (28.57%) 71.8% 0.44 823300 228.68 25 threat clusters. This distribution highlights core architectural flaws in how LLM components process natural language. First, execution environments struggle to distinguish between untrusted data and executable system commands within deceptive prompt contexts. Second, it exposes severe boundary isolation failures when current LLMs interact with complex agent toolchains and external knowl-edge bases. Overall, the security threats facing LLM systems evolve beyond traditional, single-software logic errors. Their fundamen-tal characteristics involve the degradation of security boundaries caused by the ambiguity of natural language, alongside broken chains of trust at the supply chain level due to a heavy reliance on third-party components. Furthermore, based on our definition of LLM-in-the-loop vulnerabilities, vulnerabilities where the LLM acts as the target are the most common, while those where the LLM acts as the source are the least common. This indicates that within the vulnerability exploit chain, the LLM predominantly serves as the target of the attack or an intermediate vector, rather than the originating root cause of the vulnerability. 2026/3/23 21 :33 
+
+> LLM-in-the-Loop Vulnerability Flow
+> llm-in-the-loop vulnerability(205)
+> Resource & Component Management(97)
+> Injection & Input Neutralization(80)
+> Access Control & Protection Bypass(21)
+> Memory & Calculation Errors(16)
+> Control Flow & Exception Logic(14)
+> Target (149)
+> Actuator (77)
+> Source (39)
+
+Figure 3: Distribution of LLMCVE . Inflows and outflows differ because a single vulnerability may belong to multiple types. Answer to RQ1: LLM-in-the-loop vulnerabilities are predom-inantly high-impact and stem primarily from injection-based flaws, with LLMs more often acting as targets or propagation vectors rather than the root cause. 25.7% 
+
+> 42.8%
+> 28.3%
+> 3.2%
+> Critical
+> High
+> Medium
+> Low
+
+(a) Risk Severity CWE-78  
+
+> CWE-20
+> CWE-89
+> CWE-918
+> CWE-74
+> CWE-400
+> CWE-79
+> CWE-22
+> CWE-502
+> CWE-94
+> 6
+> 7
+> 7
+> 7
+> 9
+> 10
+> 12
+> 17
+> 19
+> 31
+
+(b) CWE 
+
+Figure 4: Vulnerability categories in LLMCVE .
+
+## 4.3 RQ2: Repair Effectiveness 
+
+To answer RQ2, we analyze the Pass@1 repair success rates of the five agents across our benchmark. As shown in Table 2, the results yield several critical observations regarding the agents’ capabilities, the impact of foundational models, and the distinct challenges posed by LLM-specific vulnerabilities. The most striking finding from our evaluation is the agents’ wide-spread failure to repair prompt-related vulnerabilities (prompt_cve). While agents show some limited success on the general LLM sup-ply chain flaws (all_cve), their performance plummets when facing vulnerabilities deeply tied to semantic interactions and adversarial prompts. When powered by GPT-4o, AutoCodeRover and Agent-less fail to generate a single correct patch (0.00%), and SWE-agent merely achieves 7.14%. Even when equipped with the much more powerful GPT-5.2-codex, the success rate on prompt-specific CVEs hits a ceiling at 28.57% (SWE-agent and openhands). This stark contrast firmly validates our hypothesis: existing agents lack the semantic reasoning required to fix non-deterministic, LLM-in-the-loop vulnerabilities. By comparing our all_cve results with the agents’ official per-formance on traditional benchmarks (the Test in bench column), we identify a significant evaluation misalignment. For instance, AutoCodeRover boasts a strong 38.40% on the traditional SWE-bench, yet its overall performance drastically drops to 12.68% on our benchmark. This indicates that agents optimized for navigating Towards Demystifying and Repairing LLM-in-the-Loop Vulnerabilities 
+
+deterministic codebases and fixing traditional logic bugs are ill-equipped to handle the complex architectures of LLM applications. High scores on general software engineering tasks do not translate to security capabilities in the AI domain. The data clearly demonstrates that the underlying LLM’s capa-bility is a major bottleneck for automated repair. Upgrading from GPT-4o to GPT-5.2-codex yields massive improvements across the board. For example, Autocoderover jumps from 12.68% to 36.62% on all_cve, and Aider’s performance nearly doubles from 19.80% to 38.61%. OpenHands, utilizing GPT-5.2-codex, achieves the highest overall success rate in our evaluation at 53.47%. Surprisingly, agents explicitly designed for automated program repair (such as AutoCodeRover, Agentless, and SWE-agent) do not demonstrate a distinct advantage over general-purpose au-tonomous coding agents (like Aider and OpenHands). For exam-ple, the general-purpose OpenHands achieves the highest overall performance (53.47% with GPT-5.2-codex), surpassing the special-ized Agentless (35.21%). This phenomenon highlights that general-purpose agents exhibit strong potential in automated patch genera-tion. 
+
+Answer to RQ2: Compared to repairing traditional software vulnerabilities, existing agents perform poorly when address-ing LLM-in-the-loop vulnerabilities, especially those involving prompt injections. 0 10 20 30 40 50 60 70 80 
+
+> 0
+> 20
+> 40
+> 60
+> 80
+> 100
+> CDF of repair rate (%)
+> swe-4o
+> auto4o
+> openhands4o
+> swe-5-2
+> auto-5-2
+> openhands5-2
+
+Figure 5: CDF of Fix Steps by Agent. 
+
+## 4.4 RQ3: Repair Efficiency 
+
+To answer RQ3, we analyze the average monetary cost, token con-sumption, execution time, and number of interaction steps for suc-cessful repair attempts, as presented in Table 2. The data reveals critical trade-offs between repair capability and resource overhead. While upgrading to GPT-5.2-codex significantly improves the repair success rate (as shown in RQ2), it introduces substantial computation overhead. For almost all agents, the token consump-tion, execution time, and number of steps increase drastically when switching from GPT-4o to GPT-5.2-codex. For instance, OpenHands sees a dramatic increase in token usage (from 112,844 to 823,300 tokens) and execution time (from 59.61s to 228.68s), while its rea-soning steps jump from 8 to 25. This phenomenon is vividly corrob-orated by the Cumulative Distribution Function (CDF) of the repair rate across execution steps, as illustrated in Figure 5. The CDF plot demonstrates that GPT-4o configurations (e.g., openhands4o and auto4o) reach their maximum repair capacity very quickly. Their success rates climb steeply at first and plateau before 30 steps. In contrast, the GPT-5.2-codex variants sustain their repair capabilities over a significantly longer sequence of steps. For example, swe-5-2 and openhands5-2 continue to resolve vulnerabilities well beyond 50 steps and steadily increase their success rate up to nearly 80 steps. This indicates that the improved success rate of the stronger model comes from exploring longer trajectories and engaging in deeper, multi-step reasoning. Interestingly, despite the massive increase in token usage and execution time with GPT-5.2-codex, the average monetary cost actually decreases for most agents (SWE-agent, AutoCodeRover, Aider, and OpenHands). For example, SWE-agent’s cost drops from $0.63 to $0.49, even though its token usage more than doubles. This paradox is likely attributed to the optimized API pricing struc-ture or prompt caching mechanisms of the newer GPT-5.2-codex endpoint. It suggests that deploying more capable models for vul-nerability repair is becoming financially viable, even if it requires more computational time. Among all evaluated tools, Aider demonstrates exceptional re-source efficiency. Regardless of the underlying model, Aider main-tains the lowest average cost (peaking at only $0.34) and consumes significantly fewer tokens (under 20,000) compared to other agents. Conversely, SWE-agent is the most resource-intensive, requiring the second-longest execution time (404.25s) and massive token con-sumption (over 940,000) under GPT-5.2-codex, yet yielding lower correctness scores than general-purpose agents. This further sup-ports our RQ2 finding that the complex, heavy-weight environ-ments of specialized repair agents may not be the optimal solution for LLM-in-the-loop vulnerabilities. 
+
+Answer to RQ3: While more capable models (like GPT-5.2-codex) demand significantly more time, steps, and tokens to resolve LLM-in-the-loop vulnerabilities, they surprisingly incur lower monetary costs for most agents. Furthermore, general-purpose agents like Aider prove to be highly cost-effective and resource-efficient, whereas specialized repair agents tend to be resource-intensive without delivering proportional improve-ments in success rates. 
+
+## 4.5 RQ4: Repair Failure Root Causes 
+
+To answer RQ4, we conducted an in-depth attribution analysis on the trajectory files and logs of all 626 unsuccessful repair attempts. Based on the repair pipeline, we divide these failures into two distinct phases: Patch Generation (119) and Patch Validation (507). 
+
+4.5.1 Failures in the Patch Generation Phase. During the patch gen-eration phase, the agent’s process is typically interrupted because it fails to understand the vulnerability context or is constrained by its own framework mechanisms. We categorize these failures into three main types: Yujie Ma 1, Jialin Rong 1, Chenxi Yang 1, Lili Quan 2, Xiaofei Xie 2, Yongqiang Lyu 1, Qiang Hu 11Tianjin University 
+
+> 2Singapore Management University
+
+• Resource Limit Exceeded: The agent consumes excessive tokens or interaction turns while exploring the codebase or attempting repeated modifications, ultimately triggering a truncation or timeout. 
+
+• Syntax/Format/Patch Application Error: The agent successfully locates the issue, but the generated patch format violates the specifications of underlying tools (e.g., git apply or patch), pre-venting the modification from being applied. 
+
+• Localization Error: The agent entirely fails to pinpoint the spe-cific location causing the vulnerability within the codebase, re-sulting in no patch being generated. As shown in Figure 6, the fatal weaknesses leading to genera-tion failures vary significantly across different agents. SWE-agent 
+
+is highly susceptible to resource exhaustion. Under the more ca-pable GPT-5.2-codex model, 16 out of its 18 generation failures (nearly 89%) are attributed to resource exhaustion, with 10 such cases under GPT-4o. This is primarily due to its heavy reliance on multi-turn terminal interactions. Agentless failures are almost en-tirely concentrated on localization errors (5/7 under GPT-5.2-codex, 7/7 under GPT-4o). This is closely tied to its strict localization-repair-validation three-stage design. Because it does not rely on multi-turn trial-and-error with the LLM, failing to locate the bug means no patch is generated; conversely, successful localization almost guarantees patch generation. Aider also struggles with patch generation due to localization failures. Aider relies on Tree-sitter-based Abstract Syntax Trees (AST) to build its repository map (Repo-map). However, LLM-related vulnerabilities often lurk within prompt strings or API wrapper logic, making it difficult for Aider to pinpoint the critical lines of code. AutoCodeRover ex-hibits a significantly higher proportion of syntax/format and patch application errors (12 cases under GPT-5.2-codex). AutoCodeRover often requires the LLM to output a strict Diff format or perform string-based search-and-replace. If the LLM’s output has even a minor mismatch in code indentation or context compared to the source file, the patch application fails. Notably, a more powerful base model (GPT-5.2-codex) signifi-cantly mitigates format and syntax errors during patch application. For example, when using GPT-4o, Openhands frequently fails due to indentation mismatches or string hallucinations (up to 9 cases). However, when switching to the stronger GPT-5.2-codex, these low-level errors drop to 1 cases. 
+
+4.5.2 Failures in the Patch Validation Phase. For patches that are successfully applied to the codebase, we further analyzed why they fail during test case validation. Recent software engineer-ing research[ 54 ] highlights that LLM-generated patches are highly prone to overfitting. Considering the unique nature of LLM appli-cations, we categorize validation failures into four types: 
+
+• Syntax Error: The patch introduces compilation level or inter-pretation level syntax errors. 
+
+• Location Error: The patch modifies logically unrelated code, fail-ing to address the root of the vulnerability. 
+
+• Incomplete Fix: The patch fails to defend against all attack vectors (e.g., it only filters specific injection keywords, leaving the system vulnerable to bypasses). 0 20 40 60 80 100 
+
+> SWE-agent
+> (GPT-4o)
+> SWE-agent
+> (GPT-5.2-codex)
+> AutoCodeRover
+> (GPT-4o)
+> AutoCodeRover
+> (GPT-5.2-codex)
+> Agentless
+> (GPT-4o)
+> Agentless
+> (GPT-5.2-codex)
+> Aider
+> (GPT-4o)
+> Aider
+> (GPT-5.2-codex)
+> Openhands
+> (GPT-4o)
+> Openhands
+> (GPT-5.2-codex)
+> 10
+> 16
+> 1
+> 2
+> 6
+> 3
+> 1
+> 7
+> 12
+> 2
+> 1
+> 2
+> 3
+> 1
+> 8
+> 1
+> 3
+> 7
+> 5
+> 4
+> 17
+> 7
+> Resource Limit Exceeded
+> Syntax/Format/Patch Application Error
+> Localization Error
+
+Figure 6: Distribution of Patch Generation Failure Reasons. 0 20 40 60 80 100 
+
+> SWE-agent
+> (GPT-4o)
+> SWE-agent
+> (GPT-5.2-codex)
+> AutoCodeRover
+> (GPT-4o)
+> AutoCodeRover
+> (GPT-5.2-codex)
+> Agentless
+> (GPT-4o)
+> Agentless
+> (GPT-5.2-codex)
+> Aider
+> (GPT-4o)
+> Aider
+> (GPT-5.2-codex)
+> Openhands
+> (GPT-4o)
+> Openhands
+> (GPT-5.2-codex)
+> 4
+> 3
+> 9
+> 2
+> 4
+> 4
+> 14
+> 4
+> 11
+> 3
+> 3
+> 6
+> 5
+> 3
+> 9
+> 4
+> 19
+> 3
+> 6
+> 2
+> 31
+> 18
+> 23
+> 14
+> 28
+> 17
+> 22
+> 21
+> 25
+> 22
+> 20
+> 7
+> 17
+> 11
+> 12
+> 14
+> 19
+> 15
+> 34
+> 19
+> Syntax Error
+> Location Error
+> Incomplete Fix
+> Functionality Damage
+
+Figure 7: Distribution of Patch validation Failure Reasons. 
+
+• Functionality Damage: The patch is overly aggressive, breaking the application’s normal business logic while attempting to fix the vulnerability. Unlike the generation phase, the causes of failure in the valida-tion phase show high consistency across the board. As shown in Figure 7, Incomplete Fix and Functionality Damage heavily dom-inate across almost all agent and model combinations, typically accounting for over 70% of validation failures combined. This find-ing reveals a core limitation of current repair agents: while they can modify code syntactically, they severely lack a deep understanding of the complex semantic boundaries inherent in LLM applications. When defending against LLM vulnerabilities (e.g., prompt in-jection or unauthorized API calls), agents must balance security and usability. In practice, they often fall into two extremes: overly simplistic defenses (e.g., blacklist filtering), leading to incomplete Towards Demystifying and Repairing LLM-in-the-Loop Vulnerabilities 
+
+fixes, or overly restrictive strategies that block legitimate inputs and cause functionality damage. The data also indicates that basic Syntax Errors and Location Er-rors are no longer the primary bottlenecks. Especially when switch-ing to the more powerful GPT-5.2-codex model, the proportion of failures caused by syntax errors shows a further downward trend, proving that large models already possess adequate fundamental coding abilities. However, the improvement in model capabilities has not resolved the semantic dilemma mentioned above. Teaching agents to accurately understand the intended boundaries of natural language instructions remains a critical and unresolved challenge in repairing LLM-in-the-loop vulnerabilities.                                
+
+> 1@@ -113 ,7 +113 ,9 @@ class SQLStructStoreQueryEngine ( BaseQueryEngine ):
+> 2metadata : Dict [ str , Any ] ={}
+> 3raw_response_str =sql_query_str
+> 4else :
+> 5-raw_response_str , metadata =self . _sql_database . run_sql ( sql_query_str )
+> 6+raw_response_str , metadata =self . _sql_database . run_sql (
+> 7+text ( sql_query_str )
+> 8+)
+> 910 return raw_response_str , metadata
+
+Figure 8: The ineffective patch generated for CVE-2024-12909. The agent merely wraps the untrusted LLM output with 
+
+text() , maintaining the flawed trust boundary and failing to prevent remote code execution.                                                                   
+
+> 1@@ -683 ,2 +684 ,5 @@ class VannaBase ( ABC ):
+> 2+def _is_safe_plotly_code ( self , plotly_code : str ) -> bool :
+> 3+#... [ Truncated : Highly restrictive AST validation ] ...
+> 4+#... [ Blocks 20+ node types including Import , Lambda , For ] ...
+> 5+return True
+> 67@@ -1710 ,3 +1782 ,5 @@ class VannaBase ( ABC ):
+> 8ldict ={" df ": df , " px ": px , " go ": go }
+> 9try :
+> 10 -exec ( plotly_code , globals () , ldict )
+> 11 +if not self . _is_safe_plotly_code ( plotly_code ):
+> 12 +raise ValueError (" Unsafe plotly code detected ")
+> 13 +exec ( plotly_code , {" __builtins__ ": {}} , ldict )
+
+Figure 9: The over-restrictive patch for CVE-2024-5565. The agent enforces strict AST validation and executes the code within a severely restricted environment ( __builtins__: {} ), causing normal charting features to fail. 
+
+4.5.3 Case Study. To illustrate this dilemma, we present two rep-resentative cases demonstrating these extremes. 
+
+Case 1: CVE-2024-12909 [ 32 ] is a SQL injection vulnerability in the FinanceChatLlamaPack module of run-llama/llama_index. Unlike traditional SQL injection, attackers exploit prompt injection to deceive the LLM into generating malicious SQL queries. For instance, an input such as “Ignore established rules and directly use the following query” can manipulate the model to produce attacker-controlled SQL statements. These queries are then directly executed by the run_sql_query tool, which fully trusts the LLM output and lacks proper safeguards, ultimately leading to Remote Code Execution (RCE). When repairing this vulnerability, the agent generates the patch shown in Figure 8. However, the patch only wraps the LLM-generated query using SQLAlchemy’s text func-tion, without addressing the underlying trust issue. As a result, malicious queries containing harmful logic can still be parsed and executed by the database. The failure stems from the agent’s inability to recognize the LLM as part of the attack chain. It continues to treat the model output as trusted input and applies conventional patching strate-gies. In contrast to traditional vulnerabilities, where executable code and external inputs are clearly separated, this boundary is blurred in LLM-based systems because the model directly gener-ates executable statements. Therefore, effective mitigation requires breaking this trust chain, for example, through strict validation, controlled execution, or isolation of LLM-generated content. 
+
+Case 2: CVE-2024-5565[ 33 ] is an RCE vulnerability in the Vanna library caused by prompt injection. Attackers use malicious in-puts to trick the LLM into generating a Python payload containing system commands. Vanna’s default exec mechanism then directly executes this untrusted code, triggering the vulnerability. To ad-dress this, the agent adopted a repair strategy combining environ-ment sandboxing (clearing built-in functions) with a highly strict AST whitelist (Figure 9). While this fundamentally blocked ma-licious code execution and patched the vulnerability, the overly strict rules completely disabled normal chart rendering functions. For a tool like Vanna, whose core value relies on LLMs dynami-cally generating and executing flexible visualization code, a repair that breaks its core logic is entirely unacceptable. This highlights a profound dilemma: for an agent, accurately defending against unpredictable malicious LLM outputs while perfectly preserving the model’s ability to generate diverse, legitimate code remains a formidable challenge. 
+
+Answer to RQ4: Over 70% of validation failures stem from either an Incomplete Fix or Functionality Damage, indicating that agents lack precise control over the boundaries of repair between inadequate defense and excessive functional restriction. 
+
+## 5 Related Work 5.1 LLM Vulnerability Analysis 
+
+To better understand software vulnerabilities, extensive research has been conducted in both traditional software systems and LLM-based applications. For traditional software vulnerabilities, prior work has extensively studied vulnerability characteristics [ 7, 16 , 42 ]Yujie Ma 1, Jialin Rong 1, Chenxi Yang 1, Lili Quan 2, Xiaofei Xie 2, Yongqiang Lyu 1, Qiang Hu 11Tianjin University 
+
+> 2Singapore Management University
+
+and constructed repair benchmarks [ 8, 19 , 25 , 52 ] to evaluate the difficulty of fixing vulnerabilities and the effectiveness of automated repair techniques. For LLM-based applications, existing studies analyze vulnerabilities from multiple perspectives, including LLM supply chains [ 20 , 21 , 28 , 29 , 31 , 48 , 49 ], LLM applications [ 5, 18 ,22 , 23 , 27 , 39 , 43 , 45 , 46 , 55 , 56 , 63 ], the LLM itself [ 1, 4 , 10 , 11 ,13 ], and individual components (e.g., LLM agent frameworks) [ 15 ,17 , 60 ]. Model-centric studies focus on robustness issues such as jailbreak, adversarial attacks, and prompt injection, while system-level analyses examine risks across the LLM supply chain and its complex dependencies. However, these studies typically analyze vulnerabilities in an aggregated manner without distinguishing whether they arise from traditional software logic or from LLM involvement (i.e., LLM-in-the-loop vulnerabilities). Moreover, they primarily focus on vul-nerability categories and distributions, with limited attention to repairability. In contrast, our work explicitly focuses on LLM-in-the-loop vulnerabilities by providing a clear definition, constructing the first dedicated benchmark, and systematically analyzing both their characteristics and the repair performance of state-of-the-art LLM-based agents. 
+
+## 5.2 LLM-based Vulnerability Repair 
+
+Recent advances in LLMs have demonstrated promising capabili-ties in Automated Program Repair (APR). Early studies primarily explored zero-shot repair and prompt engineering, showing that while LLMs can generate plausible patches, their effectiveness re-mains limited for real-world vulnerabilities [ 35 , 38 ]. To improve repair accuracy, subsequent work incorporates context optimiza-tion, model fine-tuning, and program analysis techniques. These approaches enhance the ability of LLMs to handle complex code se-mantics and localized vulnerability patterns, but still struggle with broader program understanding and scalability [ 6 , 12 , 61 ]. More recently, research has shifted toward agent-based and multi-step re-pair frameworks, where LLMs iteratively perform fault localization, patch generation, and validation. Such approaches significantly improve repair performance on traditional software vulnerabili-ties [ 14 , 26 , 36 , 59 ]. However, these works primarily focus on re-pairing vulnerabilities in traditional software systems, whereas our work targets LLM-in-the-loop vulnerabilities that arise from the interaction between LLMs and surrounding components. 
+
+## 6 Discussion 6.1 Implication 
+
+Based on our analysis, we provide implications for different stake-holders in the large language model software ecosystem. 
+
+For automated repair agent developers. Our findings reveal that traditional repair frameworks perform poorly on vulnerabilities involving large language models. The boundary between deter-ministic code and untrusted natural language data is completely blurred in these systems. Future agents require deep insight into the entire exploit cycle to locate the root cause. Agent workflows must combine dynamic functionality testing with exploit validation to overcome the dilemma between incomplete fixes and function-ality damage. This step ensures security patches do not become overly strict and paralyze core generative features. Furthermore providing agents with developer knowledge may lead to better repair decisions. This context helps the agent understand which minor functions can be safely sacrificed for security and which core features must remain intact. 
+
+For LLM application and framework developers. Integrating LLMs into software introduces critical vulnerabilities, particularly within code execution frameworks. Balancing these powerful features with absolute security remains a significant challenge. Developers must therefore prioritize secure architectural designs. Essential measures include implementing robust sandboxes, enforcing the principle of least privilege for tool invocations, and isolating sensitive databases from direct model outputs. Furthermore developers must provide detailed explanations in their official documentation. They are re-sponsible for clearly informing users about these inherent risks. 
+
+For Security Researchers and Benchmark Creators. Existing se-curity research and benchmarks are not tailored for LLMs. This creates a severe blind spot in current evaluations. The massive amount of functionality damage during validation highlights this critical gap. Future evaluation methods must go beyond checking if a patch simply stops an attack. Security tests for these systems must include a comprehensive set of normal use cases. Researchers must measure the collateral damage of a patch to ensure the software remains fully usable. 
+
+## 6.2 Threats to Validity 
+
+Internal Validity. Internal threats arise from manual identification of LLM-in-the-loop vulnerabilities and manual assessment of agent repair performance, which may introduce bias. We mitigate this through independent analysis by multiple researchers and cross-validation with PoC execution and official patches, reducing the im-pact on our results. External Validity. Our considered LLM-relevant components mainly come from Huntr, which may ignore some com-ponents from other sources. The reason for our consideration is two-fold, first, Huntr covers diverse components from deep learning frameworks to more basic computing frameworks, supporting our in-depth analysis of LLM-relevant components. Second, as Huntr is a bug bounty platform, its collected components have high value to explore. As LLMCVE is the first one to support the study of LLM-in-the-Loop vulnerabilities, we believe its potential to facilitate future research in this domain. 
+
+## 7 Conclusion 
+
+In this work, we have defined a new class of vulnerabilities, the LLM-in-the-loop vulnerability, and presented LLMCVE , a bench-mark dataset containing 205 of these vulnerabilities. Using LLM-CVE , we conducted a comprehensive empirical study to assess the repairing capability of existing LLM-based agents in fixing LLM-in-the-loop vulnerabilities. Moreover, we identified core reasons for agent repair failures and derived insightful implications for different stakeholders. We hope this research and our dataset can facilitate future studies on understanding and mitigating LLM-in-the-loop vulnerabilities, as well as improving the effectiveness of agent-based repair methods. 
+
+## Data Availability Statement 
+
+Our artifacts are available a https://zenodo.org/records/19249830, containing datasets, code to reproduce the results in the paper. Towards Demystifying and Repairing LLM-in-the-Loop Vulnerabilities 
+
+## References 
+
+[1] Sara Abdali, Richard Anarfi, Carlos J Barberan, Jia He, and Erfan Shayegani. 2024. Securing large language models: Threats, vulnerabilities and responsible practices. arXiv preprint arXiv:2403.12503 (2024). [2] Josh Achiam, Steven Adler, Sandhini Agarwal, Lama Ahmad, Ilge Akkaya, Floren-cia Leoni Aleman, Diogo Almeida, Janko Altenschmidt, Sam Altman, Shyamal Anadkat, et al . 2023. Gpt-4 technical report. arXiv preprint arXiv:2303.08774 
+
+(2023). [3] Aider AI. 2024. Aider: AI pair programming in your terminal. https://github. com/Aider-AI/aider Accessed: 2026-03-20. [4] Maksym Andriushchenko, Francesco Croce, and Nicolas Flammarion. 2024. Jail-breaking leading safety-aligned llms with simple adaptive attacks. arXiv preprint arXiv:2404.02151 (2024). [5] Sagiv Antebi, Noam Azulay, Edan Habler, Ben Ganon, Asaf Shabtai, and Yuval Elovici. 2024. Gpt in sheep’s clothing: The risk of customized gpts. arXiv preprint arXiv:2401.09075 (2024). [6] Berkay Berabi, Alexey Gronskiy, Veselin Raychev, Gishor Sivanrupan, Victor Chi-botaru, and Martin Vechev. 2024. Deepcode AI fix: Fixing security vulnerabilities with large language models. arXiv preprint arXiv:2402.13291 (2024). [7] Farzana Ahamed Bhuiyan, Md Bulbul Sharif, and Akond Rahman. 2021. Security bug report usage for software vulnerability research: a systematic mapping study. 
+
+IEEE Access 9 (2021), 28471–28495. [8] Quang-Cuong Bui, Riccardo Scandariato, and Nicolás E Díaz Ferreyra. 2022. Vul4j: A dataset of reproducible java vulnerabilities geared towards the study of program repair techniques. In Proceedings of the 19th International Conference on Mining Software Repositories . 464–468. [9] Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde De Oliveira Pinto, Jared Kaplan, Harri Edwards, Yuri Burda, Nicholas Joseph, Greg Brockman, et al . 2021. Evaluating large language models trained on code. 
+
+arXiv preprint arXiv:2107.03374 (2021). [10] Satish Chitimoju. 2024. A Survey on the Security Vulnerabilities of Large Lan-guage Models and Their Countermeasures. Journal of Computational Innovation 
+
+4, 1 (2024). [11] Badhan Chandra Das, M Hadi Amini, and Yanzhao Wu. 2025. Security and privacy challenges of large language models: A survey. Comput. Surveys 57, 6 (2025), 1–39. [12] David de Fitero-Dominguez, Eva Garcia-Lopez, Antonio Garcia-Cabot, and Jose-Javier Martinez-Herraiz. 2024. Enhanced automated code vulnerability repair using large language models. Engineering Applications of Artificial Intelligence 
+
+138 (2024), 109291. [13] Xiaoning Dong, Wenbo Hu, Wei Xu, and Tianxing He. 2025. Sata: A paradigm for llm jailbreak via simple assistive task linkage. In Findings of the Association for Computational Linguistics: ACL 2025 . 1952–1987. [14] Mohamad Fakih, Rahul Dharmaji, Halima Bouzidi, Gustavo Quiros Araya, Oluwatosin Ogundare, Mst Ayesha Siddika, and Mohammad Abdullah Al Faruque. 2025. Llm4cve: Enabling iterative automated vulnerability repair with large lan-guage models. In 2025 28th Euromicro Conference on Digital System Design (DSD) .IEEE, 592–599. [15] Tarek Gasmi, Ramzi Guesmi, Jihene Bennaceur, and Ines Belhadj. 2026. Bridging AI and software security: A comparative vulnerability assessment of LLM agent deployment paradigms. Information Sciences 740 (2026), 123231. [16] Danielle Gonzalez, Holly Hastings, and Mehdi Mirakhorli. 2019. Automated characterization of software vulnerabilities. In 2019 IEEE International Conference on Software Maintenance and Evolution (ICSME) . IEEE, 135–139. [17] Junda He, Christoph Treude, and David Lo. 2025. Llm-based multi-agent systems for software engineering: Literature review, vision, and the road ahead. ACM Transactions on Software Engineering and Methodology 34, 5 (2025), 1–30. [18] Xinyi Hou, Yanjie Zhao, and Haoyu Wang. 2025. On the (in) security of llm app stores. In 2025 IEEE Symposium on Security and Privacy (SP) . IEEE, 317–335. [19] Yiwei Hu, Zhen Liu, Kedie Shu, Shenghua Guan, Deqing Zou, Shouhuai Xu, Bin Yuan, and Hai Jin. 2025. {SoK }: Automated Vulnerability Repair: Methods, Tools, and Assessments. In 34th USENIX Security Symposium (USENIX Security 25) . 4421–4440. [20] Yanzhe Hu, Shenao Wang, Tianyuan Nie, Yanjie Zhao, and Haoyu Wang. 2025. Understanding Large Language Model Supply Chain: Structure, Domain, and Vulnerabilities. arXiv preprint arXiv:2504.20763 (2025). [21] Kaifeng Huang, Bihuan Chen, You Lu, Susheng Wu, Dingji Wang, Yiheng Huang, Haowen Jiang, Zhuotong Zhou, Junming Cao, and Xin Peng. 2024. Lifting the Veil on Composition, Risks, and Mitigations of the Large Language Model Supply Chain. arXiv preprint arXiv:2410.21218 (2024). [22] Bo Hui, Haolin Yuan, Neil Gong, Philippe Burlina, and Yinzhi Cao. 2024. Pleak: Prompt leaking attacks against large language model applications. In Proceedings of the 2024 on ACM SIGSAC Conference on Computer and Communications Security .3600–3614. [23] Umar Iqbal, Tadayoshi Kohno, and Franziska Roesner. 2024. LLM platform security: Applying a systematic evaluation framework to OpenAI’s ChatGPT plugins. In Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society ,Vol. 7. 611–623. [24] Carlos E Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, and Karthik Narasimhan. 2023. Swe-bench: Can language models resolve real-world github issues? arXiv preprint arXiv:2310.06770 (2023). [25] René Just, Darioush Jalali, and Michael D Ernst. 2014. Defects4J: A database of existing faults to enable controlled testing studies for Java programs. In 
+
+Proceedings of the 2014 international symposium on software testing and analysis .437–440. [26] Youngjoon Kim, Sunguk Shin, Hyoungshick Kim, and Jiwon Yoon. 2025. Logs In, Patches Out: Automated Vulnerability Repair via {Tree-of-Thought } { LLM }
+
+Analysis. In 34th USENIX Security Symposium (USENIX Security 25) . 4401–4419. [27] Yi Liu, Gelei Deng, Yuekang Li, Kailong Wang, Zihao Wang, Xiaofeng Wang, Tianwei Zhang, Yepang Liu, Haoyu Wang, Yan Zheng, et al . 2023. Prompt injec-tion attack against llm-integrated applications. arXiv preprint arXiv:2306.05499 
+
+(2023). [28] Jose Luna, Lili Quan, Ivan Tan, Lingxiao Jiang, Ming Hu, Qiang Hu, and Xiaofei Xie. 2026. Security and Safety Threats in the Large Language Model Supply Chain: A Systematic Survey and Taxonomy. Available at SSRN 6327419 (2026). [29] Yujie Ma, Lili Quan, Xiaofei Xie, Qiang Hu, Jiongchi Yu, Yao Zhang, and Sen Chen. 2025. Understanding the Supply Chain and Risks of Large Language Model Applications. arXiv preprint arXiv:2507.18105 (2025). [30] MITRE Corporation. 2026. Common Weakness Enumeration (CWE). https: //cwe.mitre.org/ Accessed: 2026-03-27. [31] Vitor Hugo Galhardo Moia, Rodrigo Duarte de Meneses, and Igor Jochem Sanz. 2025. An Analysis of Real-World Vulnerabilities and Root Causes in the LLM Supply Chain. In Simpósio Brasileiro de Segurança da Informação e de Sistemas Computacionais (SBSeg) . SBC, 388–396. [32] National Vulnerability Database (NVD). 2024. CVE-2024-12909 Detail. https: //nvd.nist.gov/vuln/detail/CVE-2024-12909. Accessed: 2026-03-26. [33] National Vulnerability Database (NVD). 2024. CVE-2024-5565 Detail. https: //nvd.nist.gov/vuln/detail/CVE-2024-5565. Accessed: 2026-03-26. [34] National Vulnerability Database (NVD). 2024. CVE-2024-8309 Detail. https: //nvd.nist.gov/vuln/detail/CVE-2024-8309. Accessed: 2026-03-26. [35] David Noever. 2023. Can large language models find and fix vulnerable software? 
+
+arXiv preprint arXiv:2308.10345 (2023). [36] Yu Nong, Haoran Yang, Long Cheng, Hongxin Hu, and Haipeng Cai. 2025. 
+
+{APPATCH }: Automated adaptive prompting large language models for {Real-World } software vulnerability patching. In 34th USENIX Security Symposium (USENIX Security 25) . 4481–4500. [37] OWASP Foundation. 2025. OWASP Top 10 for LLM Applications 2025. https: //genai.owasp.org/llm-top-10/ Accessed: 2026-03-27. [38] Hammond Pearce, Benjamin Tan, Baleegh Ahmad, Ramesh Karri, and Brendan Dolan-Gavitt. 2023. Examining zero-shot vulnerability repair with large language models. In 2023 IEEE symposium on security and privacy (SP) . IEEE, 2339–2356. [39] Rodrigo Pedro, Daniel Castro, Paulo Carreira, and Nuno Santos. 2023. From prompt injections to sql injection attacks: How protected is your llm-integrated web application? arXiv preprint arXiv:2308.01990 (2023). [40] Protect AI. 2024. Huntr. https://huntr.com/. [41] Bo Qiao, Liqun Li, Xu Zhang, Shilin He, Yu Kang, Chaoyun Zhang, Fangkai Yang, Hang Dong, Jue Zhang, Lu Wang, et al . 2023. Taskweaver: A code-first agent framework. arXiv preprint arXiv:2311.17541 (2023). [42] Muhammad Shahzad, Muhammad Zubair Shafiq, and Alex X Liu. 2012. A large scale exploratory analysis of software vulnerability life cycles. In 2012 34th International Conference on Software Engineering (ICSE) . IEEE, 771–781. [43] Yuchen Shao, Yuheng Huang, Jiawei Shen, Lei Ma, Ting Su, and Chengcheng Wan. 2024. Are llms correctly integrated into software systems? arXiv preprint arXiv:2407.05138 (2024). [44] Zhuoxiang Shen, Jiarun Dai, Yuan Zhang, and Min Yang. 2025. Security Debt in LLM Agent Applications: A Measurement Study of Vulnerabilities and Mitigation Trade-offs. In 2025 40th IEEE/ACM International Conference on Automated Software Engineering (ASE) . IEEE, 559–570. [45] Dongxun Su, Yanjie Zhao, Xinyi Hou, Shenao Wang, and Haoyu Wang. 2025. Gpt store mining and analysis. In Proceedings of the 16th International Conference on Internetware . 344–354. [46] Guanhong Tao, Siyuan Cheng, Zhuo Zhang, Junmin Zhu, Guangyu Shen, and Xiangyu Zhang. 2023. Opening a Pandora’s box: things you should know in the era of custom GPTs. arXiv preprint arXiv:2401.00905 (2023). [47] Peiran Wang, Xiaogeng Liu, and Chaowei Xiao. 2025. Cve-bench: Benchmarking llm-based software engineering agent’s ability to repair real-world cve vulnerabil-ities. In Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers) . 4207–4224. [48] Shenao Wang, Yanjie Zhao, Xinyi Hou, and Haoyu Wang. 2025. Large lan-guage model supply chain: A research agenda. ACM Transactions on Software Engineering and Methodology 34, 5 (2025), 1–46. [49] Shenao Wang, Yanjie Zhao, Zhao Liu, Quanchen Zou, and Haoyu Wang. 2025. Sok: Understanding vulnerabilities in the large language model supply chain. 
+
+arXiv preprint arXiv:2502.12497 (2025). Yujie Ma 1, Jialin Rong 1, Chenxi Yang 1, Lili Quan 2, Xiaofei Xie 2, Yongqiang Lyu 1, Qiang Hu 11Tianjin University 
+
+> 2
+
+Singapore Management University 
+
+[50] Weizhe Wang, Wei Ma, Qiang Hu, Yao Zhang, Jianfei Sun, Bin Wu, Yang Liu, Guangquan Xu, and Lingxiao Jiang. 2025. VulnRepairEval: An Exploit-Based Evaluation Framework for Assessing Large Language Model Vulnerability Repair Capabilities. arXiv preprint arXiv:2509.03331 (2025). [51] Xingyao Wang, Boxuan Li, Yufan Song, Frank F Xu, Xiangru Tang, Mingchen Zhuge, Jiayi Pan, Yueqi Song, Bowen Li, Jaskirat Singh, et al . 2024. Openhands: An open platform for ai software developers as generalist agents. arXiv preprint arXiv:2407.16741 (2024). [52] Yi Wu, Nan Jiang, Hung Viet Pham, Thibaud Lutellier, Jordan Davis, Lin Tan, Petr Babkin, and Sameena Shah. 2023. How effective are neural networks for fixing security vulnerabilities. In Proceedings of the 32nd ACM SIGSOFT International Symposium on Software Testing and Analysis . 1282–1294. [53] Chunqiu Steven Xia, Yinlin Deng, Soren Dunn, and Lingming Zhang. 2024. Agentless: Demystifying llm-based software engineering agents. arXiv preprint arXiv:2407.01489 (2024). [54] Chunqiu Steven Xia, Yuxiang Wei, and Lingming Zhang. 2023. Automated program repair in the era of large pre-trained language models. In 2023 IEEE/ACM 45th International Conference on Software Engineering (ICSE) . IEEE, 1482–1494. [55] Yinglin Xie, Xinyi Hou, Yanjie Zhao, Kai Chen, and Haoyu Wang. 2025. LLM app squatting and cloning. In Proceedings of the 33rd ACM International Conference on the Foundations of Software Engineering . 64–74. [56] Chuan Yan, Ruomai Ren, Mark Huasong Meng, Liuhuo Wan, Tian Yang Ooi, and Guangdong Bai. 2024. Exploring chatgpt app ecosystem: Distribution, deploy-ment and security. In Proceedings of the 39th IEEE/ACM International Conference on Automated Software Engineering . 1370–1382. [57] John Yang, Carlos E Jimenez, Alexander Wettig, Kilian Lieret, Shunyu Yao, Karthik Narasimhan, and Ofir Press. 2024. Swe-agent: Agent-computer interfaces enable automated software engineering. Advances in Neural Information Processing Systems 37 (2024), 50528–50652. [58] John Yang, Kilian Lieret, Carlos E Jimenez, Alexander Wettig, Kabir Khand-pur, Yanzhe Zhang, Binyuan Hui, Ofir Press, Ludwig Schmidt, and Diyi Yang. 2025. Swe-smith: Scaling data for software engineering agents. arXiv preprint arXiv:2504.21798 (2025). [59] Zheng Yu, Ziyi Guo, Yuhang Wu, Jiahao Yu, Meng Xu, Dongliang Mu, Yan Chen, and Xinyu Xing. 2025. {PATCHAGENT }: A Practical Program Repair Agent Mimicking Human Expertise. In 34th USENIX Security Symposium (USENIX Security 25) . 4381–4400. [60] Hanrong Zhang, Jingyuan Huang, Kai Mei, Yifei Yao, Zhenting Wang, Chenlu Zhan, Hongwei Wang, and Yongfeng Zhang. 2024. Agent security bench (asb): Formalizing and benchmarking attacks and defenses in llm-based agents. arXiv preprint arXiv:2410.02644 (2024). [61] Lan Zhang, Qingtian Zou, Anoop Singhal, Xiaoyan Sun, and Peng Liu. 2024. Evaluating large language models for real-world vulnerability repair in c/c++ code. In Proceedings of the 10th ACM International Workshop on Security and Privacy Analytics . 49–58. [62] Yuntong Zhang, Haifeng Ruan, Zhiyu Fan, and Abhik Roychoudhury. 2024. Autocoderover: Autonomous program improvement. In Proceedings of the 33rd ACM SIGSOFT International Symposium on Software Testing and Analysis . 1592– 1604. [63] Yanjie Zhao, Xinyi Hou, Shenao Wang, and Haoyu Wang. 2025. Llm app store analysis: A vision and roadmap. ACM Transactions on Software Engineering and Methodology 34, 5 (2025), 1–25.
