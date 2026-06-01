@@ -25,3 +25,65 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: agent-vuln
+      description: 帮我查找和agent+漏洞挖掘的论文，以及推荐系统+大模型的论文
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: multi-agent security
+          keyword_cn: 多代理安全
+          query: multi-agent system security vulnerabilities
+        - keyword: LLM agent vulnerability
+          keyword_cn: 大语言模型代理漏洞
+          query: large language model agent vulnerability analysis
+        - keyword: vulnerability mining agent
+          keyword_cn: 漏洞挖掘智能体
+          query: vulnerability mining agent techniques
+        - keyword: recommender system large language model
+          keyword_cn: 推荐系统大语言模型
+          query: recommender system with large language model
+        - keyword: large language model recommendation
+          keyword_cn: 大语言模型推荐
+          query: large language model for recommendation
+        - keyword: agent based security analysis
+          keyword_cn: 基于智能体的安全分析
+          query: agent based security analysis
+      intent_queries:
+        - query: how can AI agents be used to automatically find vulnerabilities in software
+          query_cn: AI代理如何自动发现软件漏洞
+          enabled: true
+          source: manual
+          note: ''
+        - query: security risks and vulnerabilities in autonomous agent systems
+          query_cn: 自主代理系统中的安全风险和漏洞
+          enabled: true
+          source: manual
+          note: ''
+        - query: methods for using multi agent systems to mine for vulnerabilities
+          query_cn: 使用多代理系统挖掘漏洞的方法
+          enabled: true
+          source: manual
+          note: ''
+        - query: Research papers on agent based vulnerability mining and detection
+          query_cn: 基于智能体的漏洞挖掘与检测的研究论文
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-06-01T01:51:09.098Z'
+source_backends:
+  arxiv:
+    papers_table: arxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_arxiv_papers
+    vector_rpc_exact: match_arxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_arxiv_papers_bm25
+    sync_table: arxiv_sync_status
+    sync_success_value: success
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq
