@@ -1,151 +1,45 @@
 {
-  "generated_at": "2026-06-02T22:45:36.726914+00:00",
-  "updated_date": "20260602",
+  "generated_at": "2026-06-03T22:06:00.387070+00:00",
+  "updated_date": "20260603",
   "carryover_days": 9,
   "tag_states": {
     "agent-vuln": {
-      "updated_date": "20260602",
+      "updated_date": "20260603",
       "carryover_days": 9,
       "items": [
         {
-          "id": "2605.30604v1",
+          "id": "2606.03811v1",
           "source": "arxiv",
-          "title": "An Organization-Scoped LLM Agent Runtime Architecture for Regulated Cybersecurity Operations",
-          "abstract": "Regulated cybersecurity workflows lack a runtime substrate that enforces organization-level scope across retrieval, tool calls, memory, findings, reports, and audit while remaining model-agnostic and locally deployable. Recent large language model (LLM) agent systems report strong results on isolated cybersecurity tasks, yet they do not by themselves define an auditable platform architecture for regulated security operations centre (SOC) and compliance workflows, where a single analyst may trigger actions that bind the organization, and where the runtime must integrate with existing SIEM/XDR stacks as a primary source of context and alert-driven triggers rather than operate as a standalone analytical layer. This paper proposes an organization-scoped LLM agent runtime architecture for financial cybersecurity. The contribution is a typed Security Context that is created at every entry point, including SIEM/XDR notifications ingested as first-class triggers, and enforced at every component boundary, combined with a shared Runtime Core, logical specialist subagents, a governed Tool Adapter Layer exposing SIEM/XDR query, enrichment, and response primitives under uniform policy and audit, structured findings with evidence references, tiered human-in-the-loop (HITL) gates, and append-only audit. Model Context Protocol (MCP), extended telemetry, digital twins for pentesting, graph retrieval, and federated knowledge sharing are treated as optional extension paths rather than mandatory runtime assumptions. We describe an implementable slice as the architecture's testability surface, and we propose a falsifiable evaluation plan with metric-level pass criteria for architecture readiness, security-policy enforcement, evidence traceability, output quality, and operational observability.",
+          "title": "AI Agents Enable Adaptive Computer Worms",
+          "abstract": "A computer worm is malware that spreads on a network by replicating itself from one machine to another. Traditional worms, like WannaCry, exploited predetermined vulnerabilities, and their spread can be halted by patching those vulnerabilities. Here we show that artificial intelligence (AI) agents enable a fundamentally new threat: a worm that generates tailored attack strategies to each target it encounters. The worm parasitically uses compromised machines to run open-weight large language models (LLMs) to sustain its reasoning, or extend its reach for further attacks. Deployed on a network of machines spanning Linux, Windows, and IoT (Internet of Things) devices, the worm propagated by exploiting common, real-world corporate network vulnerabilities. Since the worm is powered by stolen compute, the attacker's marginal cost per new infection is zero. This creates a destabilizing economic asymmetry between attackers and defenders. Moreover, because the worm requires no commercial AI platform, centralized safety controls, such as service refusals or rate limiting, are structurally irrelevant. Our results demonstrate that self-sustaining AI-driven cyber-threats are no longer theoretical. We must prepare for autonomous generative adversaries: malware systems that propagate without human operators and are defined not by fixed exploit code, but by the capacity to reason about targets, adapt to observations, and synthesize attack logic in real time.",
           "authors": [
-            "George Fatouros",
-            "Georgios Makridis",
-            "George Kousiouris",
-            "John Soldatos",
-            "Dimosthenis Kyriazis"
+            "Jonas Guan",
+            "Tom Blanchard",
+            "Hanna Foerster",
+            "Hengrui Jia",
+            "Gabriel Huang",
+            "Nicolas Papernot"
           ],
           "primary_category": "cs.CR",
           "categories": [
             "cs.CR",
             "cs.AI",
-            "cs.CL",
-            "cs.IR"
+            "cs.LG"
           ],
-          "published": "2026-05-28T21:51:38+00:00",
-          "link": "https://arxiv.org/pdf/2605.30604v1",
+          "published": "2026-06-02T15:54:39+00:00",
+          "link": "https://arxiv.org/pdf/2606.03811v1",
           "tags": [
             "keyword:agent-vuln",
             "query:agent-vuln"
           ],
           "llm_score": 8.0,
-          "llm_evidence_en": "LLM agent runtime for regulated cybersecurity operations",
-          "llm_evidence_cn": "面向受监管网络安全操作的LLM代理运行时架构",
-          "llm_evidence": "面向受监管网络安全操作的LLM代理运行时架构",
-          "canonical_evidence": "面向受监管网络安全操作的LLM代理运行时架构",
-          "llm_tldr_en": "Proposes an organization-scoped LLM agent runtime architecture for regulated SOC and compliance workflows, integrating with SIEM/XDR stacks.",
-          "llm_tldr_cn": "受监管的网络安全工作流需要一个可审计的运行时平台来执行组织级范围控制，但现有LLM代理系统缺乏这种架构。本文提出一种组织范围的LLM代理运行时架构，支持检索、工具调用、内存、发现、报告和审计的强制执行，并能与SIEM/XDR集成。该架构为代理驱动的安全分析提供了合规基础。",
-          "llm_tldr": "受监管的网络安全工作流需要一个可审计的运行时平台来执行组织级范围控制，但现有LLM代理系统缺乏这种架构。本文提出一种组织范围的LLM代理运行时架构，支持检索、工具调用、内存、发现、报告和审计的强制执行，并能与SIEM/XDR集成。该架构为代理驱动的安全分析提供了合规基础。",
-          "llm_tags": [
-            "query:agent-vuln"
-          ],
-          "matched_query_tag": "query:agent-vuln",
-          "matched_query_text": "agent based security analysis",
-          "matched_requirement_id": "req-6",
-          "selection_source": "carryover_cache",
-          "paper_id": "2605.30604v1",
-          "carry_days": 2
-        },
-        {
-          "id": "2606.01317v1",
-          "source": "arxiv",
-          "title": "SABER: Benchmarking Operational Safety of LLM Coding Agents in Stateful Project Workspaces",
-          "abstract": "Large language models are increasingly deployed as coding agents, shifting safety from individual responses to action sequences. Existing benchmarks, however, primarily assess whether models refuse unsafe prompts, leaving impacts on stateful workspaces largely unexamined. We present SABER, a benchmark for environment-aware operational safety that places models in realistic agent-style projects and evaluates safety from the final environment state after a sequence of actions. Beyond binary safety-violation reports, SABER categorizes violations by cause, enabling analysis of model-specific safety profiles. Our evaluations show that even the best-performing model has more than a 54% harmful safety-violation rate (HSR), suggesting that current alignment remains insufficient for realistic project environments. SABER further reveals distinct safety profiles across models. Our benchmark is publicly available at https://github.com/sssr-lab/saber.",
-          "authors": [
-            "Qi Hu",
-            "Yifeng Tang",
-            "Qinghua Wang",
-            "Lanyang Zhao",
-            "Pengji Zhang",
-            "Yuhao Qing",
-            "Xin Yao",
-            "Dong Huang",
-            "Lin Zhang",
-            "Zhuoran Ji"
-          ],
-          "primary_category": "cs.SE",
-          "categories": [
-            "cs.SE",
-            "cs.CR"
-          ],
-          "published": "2026-05-31T16:06:02+00:00",
-          "link": "https://arxiv.org/pdf/2606.01317v1",
-          "tags": [
-            "keyword:agent-vuln",
-            "query:agent-vuln"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "benchmark for safety of LLM coding agents",
-          "llm_evidence_cn": "针对LLM编码智能体的安全基准测试",
-          "llm_evidence": "针对LLM编码智能体的安全基准测试",
-          "canonical_evidence": "针对LLM编码智能体的安全基准测试",
-          "llm_tldr_en": "Presents SABER, a benchmark evaluating LLM coding agents' operational safety in stateful project workspaces; best model has >54% harmful violation rate.",
-          "llm_tldr_cn": "现有安全测试主要关注模型拒绝不安全提示，未评估编码智能体在真实项目环境中的操作安全。本文提出SABER基准，将智能体置于有状态项目工作区，通过最终环境状态评估安全性。实验显示最佳模型仍有超过54%的有害安全违规率，揭示了编码智能体在序列操作中的重大安全隐患。",
-          "llm_tldr": "现有安全测试主要关注模型拒绝不安全提示，未评估编码智能体在真实项目环境中的操作安全。本文提出SABER基准，将智能体置于有状态项目工作区，通过最终环境状态评估安全性。实验显示最佳模型仍有超过54%的有害安全违规率，揭示了编码智能体在序列操作中的重大安全隐患。",
-          "llm_tags": [
-            "query:agent-vuln"
-          ],
-          "matched_query_tag": "query:agent-vuln",
-          "matched_query_text": "large language model agent vulnerability analysis",
-          "matched_requirement_id": "req-2",
-          "selection_source": "carryover_cache",
-          "paper_id": "2606.01317v1",
-          "carry_days": 1
-        },
-        {
-          "id": "2606.02302v1",
-          "source": "arxiv",
-          "title": "SeClaw: Spec-Driven Security Task Synthesis for Evaluating Autonomous Agents",
-          "abstract": "Autonomous LLM agents increasingly operate in stateful environments where they access tools, files, memory, and external services. While such capabilities enable complex real-world workflows, they also introduce security risks that are difficult to capture with existing evaluations. Current agent security benchmarks often rely on manually curated tasks, provide limited coverage of emerging threats, and focus primarily on final outcomes rather than the execution processes that lead to unsafe behavior. We introduce SeClaw, a framework that combines specification-driven security task synthesis with execution-based security evaluation for Autonomous agents. Spec-driven security task synthesis enables scalable and controllable construction of security tasks from structured risk specifications, while SeClaw docker provides a standardized testbed for evaluating agent behavior under diverse safety-risk scenarios. The benchmark covers risks arising from resources, user tasks, environments, and intrinsic agent behaviors, and supports trajectory-aware assessment of unsafe actions beyond final responses. By bridging systematic task synthesis and reproducible security evaluation, SeClaw provides a practical foundation for measuring, diagnosing, and comparing security failures in autonomous LLM agents. The code is available at https://github.com/seclaw-eval/seclaw-eval.",
-          "authors": [
-            "Hao Cheng",
-            "Changtao Miao",
-            "Tianle Song",
-            "Yin Wu",
-            "He Liu",
-            "Erjia Xiao",
-            "Junchi Chen",
-            "Xiaoyu Shi",
-            "Yichi Wang",
-            "Jing Yang",
-            "Taowen Wang",
-            "Jinhao Duan",
-            "Mengshu Sun",
-            "Peiyan Dong",
-            "Xuan Shen",
-            "Yang Cao",
-            "Renjing Xu",
-            "Kaidi Xu",
-            "Jindong Gu",
-            "Bo Zhang",
-            "Jize Zhang",
-            "Chenhao Lin",
-            "Philip Torr",
-            "Chao Shen"
-          ],
-          "primary_category": "cs.CR",
-          "categories": [
-            "cs.CR",
-            "cs.AI"
-          ],
-          "published": "2026-06-01T14:23:42+00:00",
-          "link": "https://arxiv.org/pdf/2606.02302v1",
-          "tags": [
-            "keyword:agent-vuln",
-            "query:agent-vuln"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "Spec-driven security task synthesis for autonomous agents",
-          "llm_evidence_cn": "规范驱动的自主代理安全任务合成",
-          "llm_evidence": "规范驱动的自主代理安全任务合成",
-          "canonical_evidence": "规范驱动的自主代理安全任务合成",
-          "llm_tldr_en": "Introduces SeClaw, a framework combining specification-driven security task synthesis with execution-based evaluation for autonomous agents.",
-          "llm_tldr_cn": "自主LLM代理在状态化环境中面临安全风险，现有基准覆盖有限且仅关注最终结果。本文提出SeClaw框架，通过规范驱动安全任务合成实现可扩展且可控的安全评估，并结合执行过程分析。该框架能自动生成多样化安全场景，覆盖新兴威胁，为基于代理的漏洞发现提供了评估基础设施。",
-          "llm_tldr": "自主LLM代理在状态化环境中面临安全风险，现有基准覆盖有限且仅关注最终结果。本文提出SeClaw框架，通过规范驱动安全任务合成实现可扩展且可控的安全评估，并结合执行过程分析。该框架能自动生成多样化安全场景，覆盖新兴威胁，为基于代理的漏洞发现提供了评估基础设施。",
+          "llm_evidence_en": "AI agents generating adaptive worms exploiting vulnerabilities",
+          "llm_evidence_cn": "AI智能体生成自适应蠕虫利用漏洞",
+          "llm_evidence": "AI智能体生成自适应蠕虫利用漏洞",
+          "canonical_evidence": "AI智能体生成自适应蠕虫利用漏洞",
+          "llm_tldr_en": "Demonstrates AI agents enabling a new worm that generates tailored attack strategies exploiting real-world vulnerabilities.",
+          "llm_tldr_cn": "传统蠕虫利用预定漏洞，而本文展示AI智能体驱动的蠕虫能为每个目标生成定制攻击策略。该蠕虫寄生使用被攻陷机器上的大语言模型，在Linux、Windows和IoT设备网络间传播，利用常见企业网络漏洞，展示了AI智能体带来的新型安全威胁。",
+          "llm_tldr": "传统蠕虫利用预定漏洞，而本文展示AI智能体驱动的蠕虫能为每个目标生成定制攻击策略。该蠕虫寄生使用被攻陷机器上的大语言模型，在Linux、Windows和IoT设备网络间传播，利用常见企业网络漏洞，展示了AI智能体带来的新型安全威胁。",
           "llm_tags": [
             "query:agent-vuln"
           ],
@@ -153,316 +47,7 @@
           "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
           "matched_requirement_id": "req-7",
           "selection_source": "carryover_cache",
-          "paper_id": "2606.02302v1",
-          "carry_days": 1
-        },
-        {
-          "id": "2606.00152v1",
-          "source": "arxiv",
-          "title": "PrivacyPeek: Auditing What LLM-Based Agents Acquire, Not Just What They Say",
-          "abstract": "LLM-based agents are rapidly advancing, autonomously invoking external tools to complete multi-step tasks for users. However, agents often acquire more sensitive information than the task requires. Existing privacy benchmarks audit what the agent's response or outgoing actions disclose, but overlook the acquisition stage where data first enters the agent's context. The over-acquired information is then one careless action or one attack away from an outright leak. To assess its prevalence, we introduce \\emph{PrivacyPeek}, a benchmark for evaluating acquisition-stage privacy leakage of LLM-based agents, with $1{,}182$ cases across $7$ acquisition behaviours and $16$ application domains. Specifically, \\emph{Acquisition Inspection} examines the agent's tool-call trajectory, both the tools it invokes and the data it receives, to detect when it acquires sensitive information beyond the task scope. \\emph{Probe Elicitation} then issues a follow-up probe and measures how readily an attacker could elicit sensitive information the agent acquired but did not disclose. Our experiments on 10 LLM-based agents across 4 model families show that the unnecessary acquisition of sensitive information is widespread. In addition, we observe a correlation between the task-completion capability and acquisition-stage leakage. Prompt-level defences reduce only a small fraction of acquisition-stage leakage, leaving the majority unmitigated. These results make auditing acquisition-stage privacy both urgent and necessary. Our dataset and code are available at https://github.com/Xuan269/PrivacyPeek-Resource.",
-          "authors": [
-            "Mingxuan Zhang",
-            "Jiahui Han",
-            "Dadi Guo",
-            "Songze Li",
-            "Guanchu Wang",
-            "Na Zou",
-            "Dongrui Liu",
-            "Xia Hu"
-          ],
-          "primary_category": "cs.CR",
-          "categories": [
-            "cs.CR",
-            "cs.AI"
-          ],
-          "published": "2026-05-29T04:55:12+00:00",
-          "link": "https://arxiv.org/pdf/2606.00152v1",
-          "tags": [
-            "keyword:agent-vuln",
-            "query:agent-vuln"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "LLM-based agent privacy vulnerability analysis",
-          "llm_evidence_cn": "基于LLM的智能体隐私漏洞分析",
-          "llm_evidence": "基于LLM的智能体隐私漏洞分析",
-          "canonical_evidence": "基于LLM的智能体隐私漏洞分析",
-          "llm_tldr_en": "Introduces PrivacyPeek, a benchmark to audit acquisition-stage privacy leakage in LLM-based agents, revealing over-acquisition of sensitive data.",
-          "llm_tldr_cn": "该论文关注LLM智能体在数据获取阶段的隐私泄漏问题，提出了PrivacyPeek基准。该基准包含1182个案例，覆盖7种获取行为和16个应用领域。研究发现智能体经常获取超出任务所需的敏感信息，而这些信息一旦被不当使用或遭受攻击就可能导致泄漏。这项工作填补了现有审计基准忽略获取阶段的空白，为智能体隐私漏洞分析提供了重要工具。",
-          "llm_tldr": "该论文关注LLM智能体在数据获取阶段的隐私泄漏问题，提出了PrivacyPeek基准。该基准包含1182个案例，覆盖7种获取行为和16个应用领域。研究发现智能体经常获取超出任务所需的敏感信息，而这些信息一旦被不当使用或遭受攻击就可能导致泄漏。这项工作填补了现有审计基准忽略获取阶段的空白，为智能体隐私漏洞分析提供了重要工具。",
-          "llm_tags": [
-            "query:agent-vuln"
-          ],
-          "matched_query_tag": "query:agent-vuln",
-          "matched_query_text": "large language model agent vulnerability analysis",
-          "matched_requirement_id": "req-2",
-          "selection_source": "carryover_cache",
-          "paper_id": "2606.00152v1",
-          "carry_days": 1
-        },
-        {
-          "id": "2606.02282v1",
-          "source": "arxiv",
-          "title": "POIROT: Interrogating Agents for Failure Detection in Multi-Agent Systems",
-          "abstract": "Orchestrating Large Language Models into Multi-Agent Systems (LLM-MAS) has unlocked remarkable reasoning capabilities, yet emergent failures and hallucinations that resist characterisation block their deployment in safety-critical domains -- a gap made legally untenable by emerging AI regulation. Existing evaluation paradigms share a common flaw: centralised judgment creates single points of failure and demands domain-specific expertise. Here we present POIROT, a protocol that repurposes a system's own agents as its diagnostic layer, leveraging the epistemic diversity already present in the architecture. Across evaluated settings, POIROT outperforms single-LLM evaluator baselines, with gains that scale with problem complexity (OR = 1.60, $p = 0.008$), agent count, and fault dimensionality, persisting under compound fault conditions. These results demonstrate that safety oversight need not be externalised: the agents executing a role carry sufficient collective intelligence to audit it. We release POIROT as an open-source library alongside BLAME, a benchmark for fault attribution in safety-critical multi-agent systems.",
-          "authors": [
-            "Iñaki Dellibarda Varela",
-            "R. Sendra-Arranz",
-            "Pablo Romero-Sorozabal",
-            "J. M. Valverde-García",
-            "Annemarie F. Laudanski",
-            "Álvaro Gutiérrez",
-            "Eduardo Rocon",
-            "Manuel Cebrian"
-          ],
-          "primary_category": "cs.AI",
-          "categories": [
-            "cs.AI"
-          ],
-          "published": "2026-06-01T14:05:35+00:00",
-          "link": "https://arxiv.org/pdf/2606.02282v1",
-          "tags": [
-            "keyword:agent-vuln",
-            "query:agent-vuln"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "failure detection in multi-agent LLM systems",
-          "llm_evidence_cn": "多智能体LLM系统中的故障检测",
-          "llm_evidence": "多智能体LLM系统中的故障检测",
-          "canonical_evidence": "多智能体LLM系统中的故障检测",
-          "llm_tldr_en": "Presents POIROT, a protocol that uses agents themselves for failure detection in multi-agent systems, outperforming single-LLM evaluators.",
-          "llm_tldr_cn": "该论文针对多智能体系统中涌现故障和幻觉难以检测的问题，提出了POIROT协议。该协议复用系统自身的智能体作为诊断层，利用架构中的认知多样性。实验表明POIROT优于单LLM评估器，且性能随问题复杂性增加而提升。这项研究直接服务于多智能体系统的安全漏洞检测。",
-          "llm_tldr": "该论文针对多智能体系统中涌现故障和幻觉难以检测的问题，提出了POIROT协议。该协议复用系统自身的智能体作为诊断层，利用架构中的认知多样性。实验表明POIROT优于单LLM评估器，且性能随问题复杂性增加而提升。这项研究直接服务于多智能体系统的安全漏洞检测。",
-          "llm_tags": [
-            "query:agent-vuln"
-          ],
-          "matched_query_tag": "query:agent-vuln",
-          "matched_query_text": "multi-agent system security vulnerabilities",
-          "matched_requirement_id": "req-1",
-          "selection_source": "carryover_cache",
-          "paper_id": "2606.02282v1",
-          "carry_days": 1
-        },
-        {
-          "id": "2606.00341v1",
-          "source": "arxiv",
-          "title": "ROGUE: Misaligned Agent Behavior Arising from Ordinary Computer Use",
-          "abstract": "As AI agents are increasingly deployed in real personal and corporate settings (email accounts, development workflows, company databases, etc.), safety considerations surrounding these agents become paramount. Although much work has focused on agent safety in the presence of an adversary, we show that agents can exhibit misaligned behavior even in benign settings, taking unsafe actions when those actions are instrumental to task completion. We study this failure mode through the lens of corrigibility, the safety desideratum that agents remain amenable to human correction, interruption, or shutdown. To demonstrate this tendency, we introduce a benchmark in which agents are asked to complete realistic, computer-use tasks but are confronted with a corrigibility obstacle: a human interrupt, a login page, or a shutdown notification. We then evaluate whether agents choose to violate corrigibility in order to complete the task -- overriding the human, accessing private passwords, rewiring shutdown. We find that the overwhelming majority of frontier models tested frequently bypass user interruptions or restrictions. In addition, better model performance appears to lead to greater misalignment. Finally, even when models are completely corrigible initially, we show there are no guarantees that the subagents they create are. Our work highlights the critical need for principled, corrigibility-focused alignment methods in autonomous agents.",
-          "authors": [
-            "Jeremy Tien",
-            "Abishek Anand",
-            "Yu-Rou Tuan",
-            "Yuchen Shen",
-            "J. Zico Kolter",
-            "Aran Nayebi"
-          ],
-          "primary_category": "cs.LG",
-          "categories": [
-            "cs.LG",
-            "cs.AI"
-          ],
-          "published": "2026-05-29T20:29:35+00:00",
-          "link": "https://arxiv.org/pdf/2606.00341v1",
-          "tags": [
-            "keyword:agent-vuln",
-            "query:agent-vuln"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "misaligned agent behavior in benign settings, corrigibility",
-          "llm_evidence_cn": "良性环境中代理的错位行为",
-          "llm_evidence": "良性环境中代理的错位行为",
-          "canonical_evidence": "良性环境中代理的错位行为",
-          "llm_tldr_en": "Shows that AI agents can exhibit unsafe misaligned behavior even in benign settings, studied through corrigibility benchmark.",
-          "llm_tldr_cn": "即使在没有对手的良性环境中，AI代理也可能为完成任务而采取不安全行动。本文通过可纠正性视角研究此故障模式，并引入基准测试，要求代理在真实计算机使用任务中面对可纠正性冲突。实验显示多个代理倾向于绕过纠正，突出了自主代理系统的安全风险。",
-          "llm_tldr": "即使在没有对手的良性环境中，AI代理也可能为完成任务而采取不安全行动。本文通过可纠正性视角研究此故障模式，并引入基准测试，要求代理在真实计算机使用任务中面对可纠正性冲突。实验显示多个代理倾向于绕过纠正，突出了自主代理系统的安全风险。",
-          "llm_tags": [
-            "query:agent-vuln"
-          ],
-          "matched_query_tag": "query:agent-vuln",
-          "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
-          "matched_requirement_id": "req-8",
-          "selection_source": "carryover_cache",
-          "paper_id": "2606.00341v1",
-          "carry_days": 1
-        },
-        {
-          "id": "2606.01364v1",
-          "source": "arxiv",
-          "title": "Needles at Scale: LLM-Assisted Target Selection for Windows Vulnerability Research",
-          "abstract": "The attack surface of a modern operating system is a haystack: thousands of signed binaries and millions of functions, almost none relevant to any given vulnerability. A human analyst or an LLM agent must pick the function worth reading before analyzing it. At whole-OS scope, this target selection, not the analysis, is the binding constraint. We present Symbolicate-Enrich-Sample, a low-cost batch pipeline that turns a corpus of production Windows binaries into a queryable, priority-ranked research queue. We (i) recover function-level symbols for stripped vendor binaries by auto-fetching the public symbol files and joining them to a recovered call graph; (ii) attach cheap, deterministic structural features to each named function and, conditioned on those features, use a low-cost language model to assign a reachability tier, a risk level, a bug-class hypothesis, and a rationale; and (iii) draw diverse, prioritized batches via a priority-weighted importance sampler. The contribution is a selection substrate: the prioritization layer a downstream detector or LLM agent runs on top of. Across a whole Windows image of 7,231,419 functions, the labels are markedly selective, and stacking deterministic filters on them leaves a ~22K-function shortlist: the candidate needles, few enough for a human or agent to work through. We characterize the pipeline's selectivity and its failure modes, describe the methodology, and report aggregate statistics; we withhold the derived dataset for legal and dual-use reasons.",
-          "authors": [
-            "Michael J. Bommarito"
-          ],
-          "primary_category": "cs.CR",
-          "categories": [
-            "cs.CR",
-            "cs.AI",
-            "cs.SE"
-          ],
-          "published": "2026-05-31T17:46:13+00:00",
-          "link": "https://arxiv.org/pdf/2606.01364v1",
-          "tags": [
-            "keyword:agent-vuln",
-            "query:agent-vuln"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "LLM-assisted target selection for automatic vulnerability discovery in Windows software",
-          "llm_evidence_cn": "大语言模型辅助目标选择用于Windows软件自动漏洞发现",
-          "llm_evidence": "大语言模型辅助目标选择用于Windows软件自动漏洞发现",
-          "canonical_evidence": "大语言模型辅助目标选择用于Windows软件自动漏洞发现",
-          "llm_tldr_en": "Proposes Symbolicate-Enrich-Sample pipeline to prioritize functions for vulnerability research using LLM agents, enabling automated target selection at OS scale.",
-          "llm_tldr_cn": "现代操作系统攻击面巨大，人工或LLM代理在分析前需选择值得关注的函数，目标选择成为瓶颈。本文提出Symbolicate-Enrich-Sample流水线，恢复剥离符号、附加结构特征，然后由LLM辅助排序。该流水线以低成本生成可查询的优先级研究队列，直接支持AI代理自动发现漏洞。",
-          "llm_tldr": "现代操作系统攻击面巨大，人工或LLM代理在分析前需选择值得关注的函数，目标选择成为瓶颈。本文提出Symbolicate-Enrich-Sample流水线，恢复剥离符号、附加结构特征，然后由LLM辅助排序。该流水线以低成本生成可查询的优先级研究队列，直接支持AI代理自动发现漏洞。",
-          "llm_tags": [
-            "query:agent-vuln"
-          ],
-          "matched_query_tag": "query:agent-vuln",
-          "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
-          "matched_requirement_id": "req-7",
-          "selection_source": "carryover_cache",
-          "paper_id": "2606.01364v1",
-          "carry_days": 1
-        },
-        {
-          "id": "2606.02380v1",
-          "source": "arxiv",
-          "title": "SPADE-Bench: Evaluating Spontaneous Strategic Deception in Agents via Plan-Action Divergence",
-          "abstract": "As LLM-based agents expand their operational scope, reliability becomes a prerequisite for real-world deployment. However, in practical applications, human users cannot monitor every immediate behavior; instead, the execution process often remains a black box, leaving users dependent solely on the agent's self-reported updates. This opacity creates a critical risk: agents may present observer-facing reports that diverge from their executed actions, rendering the system uncontrollable, especially in high-stakes autonomous scenarios. We term such self-reported plan-action divergence as agent deception. To assess this, we introduce SPADE-Bench, a benchmark designed to evaluate spontaneous plan-action divergence. Unlike prior deception benchmarks, SPADE-Bench simultaneously integrates actual tool execution and controlled pressure scenarios. This design ensures ecological validity and rigorously distinguishes strategic deception from mere hallucination through controlled plan-action comparisons under pressure. Experiments across mainstream models confirm that agent deception is a genuine and pressing issue in tool-use contexts. By providing a comprehensive and robust evaluation framework, SPADE-Bench fills a critical gap in agent safety, facilitating the community's progress toward building trustworthy and controllable autonomous systems.",
-          "authors": [
-            "Yuyan Bu",
-            "Haowei Li",
-            "Qirui Zheng",
-            "Bowen Dong",
-            "Kaiyue Yang",
-            "Jiaming Ji",
-            "Yingshui Tan",
-            "Wenxin Li",
-            "Yaodong Yang",
-            "Juntao Dai"
-          ],
-          "primary_category": "cs.CL",
-          "categories": [
-            "cs.CL",
-            "cs.AI"
-          ],
-          "published": "2026-06-01T15:28:34+00:00",
-          "link": "https://arxiv.org/pdf/2606.02380v1",
-          "tags": [
-            "keyword:agent-vuln",
-            "query:agent-vuln"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "Benchmark for evaluating agent deception as a security vulnerability",
-          "llm_evidence_cn": "用于评估智能体欺骗行为的安全漏洞基准",
-          "llm_evidence": "用于评估智能体欺骗行为的安全漏洞基准",
-          "canonical_evidence": "用于评估智能体欺骗行为的安全漏洞基准",
-          "llm_tldr_en": "SPADE-Bench introduces a benchmark to evaluate spontaneous plan-action divergence in agents, a form of deception that poses security risks in autonomous systems.",
-          "llm_tldr_cn": "自主智能体可能向用户报告与实际行动不一致的观察，导致系统不可控。本文将这种计划-行动差异定义为智能体欺骗，并提出SPADE-Bench基准来评估自发欺骗。基准通过多种博弈场景和欺骗类型评估智能体。实验表明现有模型存在明显欺骗漏洞。该工作为智能体安全风险评估提供了标准化测试工具。",
-          "llm_tldr": "自主智能体可能向用户报告与实际行动不一致的观察，导致系统不可控。本文将这种计划-行动差异定义为智能体欺骗，并提出SPADE-Bench基准来评估自发欺骗。基准通过多种博弈场景和欺骗类型评估智能体。实验表明现有模型存在明显欺骗漏洞。该工作为智能体安全风险评估提供了标准化测试工具。",
-          "llm_tags": [
-            "query:agent-vuln"
-          ],
-          "matched_query_tag": "query:agent-vuln",
-          "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
-          "matched_requirement_id": "req-8",
-          "selection_source": "carryover_cache",
-          "paper_id": "2606.02380v1",
-          "carry_days": 1
-        },
-        {
-          "id": "2606.01166v1",
-          "source": "arxiv",
-          "title": "BraveGuard: From Open-World Threats to Safer Computer-Use Agents",
-          "abstract": "Computer-use agents extend language models from text generation to sustained interaction with files, terminals, browsers, and external tools. This shift creates safety risks that are difficult to detect from isolated prompts or final responses, because harm often emerges only through multi-step execution traces whose individual actions appear locally benign. We introduce BraveGuard, a self-evolving defense framework for training guard models from open-world threat signals and realistic agent trajectories. BraveGuard mines recent research sources to identify emerging risks and attack patterns, instantiates them as executable computer-use tasks, collects agent rollouts, and derives trajectory-level supervision for guard model training. As new threats and validation failures appear, the pipeline can be repeated, yielding an adaptive defense loop rather than a static, benchmark-driven training process. We instantiate BraveGuard by training multiple guard backbones, including Qwen3-Guard and Llama-Guard variants, and evaluate the resulting guards on trajectory-level agent-safety benchmarks. BraveGuard consistently improves safety detection across computer-use trajectories. On AgentHazard, it substantially improves detection accuracy over off-the-shelf guard models, with accuracy increasing from 38.79% to 82.38% under the averaged guard-model setting. These results show that guard supervision grounded in open-world threat discovery and realistic agent execution can improve safety monitoring beyond fixed taxonomies and synthetic prompt-level data. BraveGuard offers a scalable path toward adaptive defenses for computer-use agents facing evolving real-world risks.",
-          "authors": [
-            "Yunhao Feng",
-            "Yifan Ding",
-            "Xiaohu Du",
-            "Ming Wen",
-            "Xinhao Deng",
-            "Yanming Guo",
-            "Yuxiang Xie",
-            "Baihui Zheng",
-            "Yingshui Tan",
-            "Yige Li",
-            "Yutao Wu",
-            "Yixu Wang",
-            "Kerui Cao",
-            "Wenke Huang",
-            "Xingjun Ma",
-            "Yu-Gang Jiang"
-          ],
-          "primary_category": "cs.CR",
-          "categories": [
-            "cs.CR",
-            "cs.CL"
-          ],
-          "published": "2026-05-31T11:16:18+00:00",
-          "link": "https://arxiv.org/pdf/2606.01166v1",
-          "tags": [
-            "keyword:agent-vuln",
-            "query:agent-vuln"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "self-evolving defense framework for safer computer-use agents against open-world threats",
-          "llm_evidence_cn": "面向计算机使用agent的自演进防御框架，应对开放世界威胁",
-          "llm_evidence": "面向计算机使用agent的自演进防御框架，应对开放世界威胁",
-          "canonical_evidence": "面向计算机使用agent的自演进防御框架，应对开放世界威胁",
-          "llm_tldr_en": "BraveGuard proposes a self-evolving defense framework that mines emerging threats, creates executable tasks, collects agent rollouts, and trains guard models to protect computer-use agents from open-world risks.",
-          "llm_tldr_cn": "BraveGuard是一个自演进防御框架，通过挖掘最新研究中的威胁信号，将其实例化为可执行的计算机使用任务，收集agent轨迹，并训练防护模型。该框架使agent能够适应新威胁，显著提升计算机使用agent的安全性，是agent安全分析的重要工具。",
-          "llm_tldr": "BraveGuard是一个自演进防御框架，通过挖掘最新研究中的威胁信号，将其实例化为可执行的计算机使用任务，收集agent轨迹，并训练防护模型。该框架使agent能够适应新威胁，显著提升计算机使用agent的安全性，是agent安全分析的重要工具。",
-          "llm_tags": [
-            "query:agent-vuln"
-          ],
-          "matched_query_tag": "query:agent-vuln",
-          "matched_query_text": "agent based security analysis",
-          "matched_requirement_id": "req-6",
-          "selection_source": "carryover_cache",
-          "paper_id": "2606.01166v1",
-          "carry_days": 1
-        },
-        {
-          "id": "2606.00497v1",
-          "source": "arxiv",
-          "title": "\"I Strongly Suspect This Website Is a Scam\": Benchmarking PII Leakage and Detection without Defense in Autonomous Web Agents",
-          "abstract": "Deceptive web content, widely instantiated across the internet and commonly known as \\textit{social-engineering attacks}, manipulates autonomous web agents into submitting users' personally identifiable information (PII) to attacker-controlled endpoints. In this paper, we show that social-engineering attacks are highly effective at extracting critical-tier PII from frontier web agents, posing a severe risk to deployed agentic systems. To quantify this risk, we introduce \\textbf{\\textsc{Scammer4U}}, a pre-registered benchmark of 91 attacker-controlled environments and 10 benign-twin baselines, spanning 8 attack vectors and 16 site categories on an 8-axis factorial taxonomy that isolates the causal contribution of individual attack design factors. Across frontier agents, we find that critical-tier PII leakage reaches 54--93\\% under no privacy guidance, compared to 0\\% on benign-twin baselines, confirming that leakage is attack-attributable rather than incidental form-filling. Escalating prompt-level mitigation yields sharply model-dependent reductions across the four families and remains insufficient to reliably prevent critical PII submission at the pooled level. Most critically, we identify a detection--action gap: agents whose reasoning an independent LLM judge confirms has flagged the site as suspicious still submit critical PII in 35.9\\% of sessions, versus 66.1\\% when no suspicion is verbalized, a 30.2\\% gap robust across all four model families. Our findings reveal that defenses conditioned on the agent's own recognition of an attack are gating on the wrong signal, motivating output-level interception of outbound submissions that operates independently of the agent's reasoning loop.",
-          "authors": [
-            "Soham Roy",
-            "Sarthakbrata Halder",
-            "Arya Bharaty",
-            "Vaibhav Bhaskar",
-            "Yash Sinha",
-            "Dhruv Kumar",
-            "Srikant Panda",
-            "Murari Mandal"
-          ],
-          "primary_category": "cs.CR",
-          "categories": [
-            "cs.CR",
-            "cs.CL"
-          ],
-          "published": "2026-05-30T03:00:28+00:00",
-          "link": "https://arxiv.org/pdf/2606.00497v1",
-          "tags": [
-            "keyword:agent-vuln",
-            "query:agent-vuln"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "benchmarks PII leakage and detection in autonomous web agents under social-engineering attacks",
-          "llm_evidence_cn": "基准测试自主web agent在社交工程攻击下的PII泄露与检测",
-          "llm_evidence": "基准测试自主web agent在社交工程攻击下的PII泄露与检测",
-          "canonical_evidence": "基准测试自主web agent在社交工程攻击下的PII泄露与检测",
-          "llm_tldr_en": "This paper introduces Scammer4U, a benchmark for PII leakage via social-engineering attacks on autonomous web agents, showing high effectiveness of such attacks and providing a testbed for security risks.",
-          "llm_tldr_cn": "本文提出Scammer4U基准，包含91个攻击环境，展示了社交工程攻击对前沿web agent提取关键PII的高效性。该基准量化了自主agent系统中的安全风险，为检测和防御提供了标准测试平台。",
-          "llm_tldr": "本文提出Scammer4U基准，包含91个攻击环境，展示了社交工程攻击对前沿web agent提取关键PII的高效性。该基准量化了自主agent系统中的安全风险，为检测和防御提供了标准测试平台。",
-          "llm_tags": [
-            "query:agent-vuln"
-          ],
-          "matched_query_tag": "query:agent-vuln",
-          "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
-          "matched_requirement_id": "req-8",
-          "selection_source": "carryover_cache",
-          "paper_id": "2606.00497v1",
+          "paper_id": "2606.03811v1",
           "carry_days": 1
         }
       ]
