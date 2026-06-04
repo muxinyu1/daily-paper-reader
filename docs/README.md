@@ -6,73 +6,73 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-03
-- 运行时间：2026-06-03 22:16:16 UTC
+- 最新运行日期：2026-06-04
+- 运行时间：2026-06-04 22:06:00 UTC
 - 运行状态：成功
 - 本次总论文数：17
 - 精读区：6
 - 速读区：11
 
 ### 今日简报（AI）
-1) 今日17篇论文聚焦AI Agent安全，精读2篇分别探讨技能组合风险与PII泄露检测，速读关注注入攻击防御和隐私审计。  
-2) 最值得关注的方向：Agent组合技能可能产生意外风险，以及自主Web Agent在无防御场景下的隐私泄露问题。  
-3) 建议优先阅读《When Safe Skills Collide》和《"I Strongly Suspect This Website Is a Scam"》，并搭配《PrivacyPeek》等工具了解实际防护。
-- 详情：[/202606/03/README](/202606/03/README)
+1) 今日聚焦两篇高分精读：从熵动力学揭秘多智能体协调机制，并引入智能体技能的安全权限框架。  
+2) 最值得关注的两个方向：多智能体系统的动态协作原理、以及智能体技能执行的精细化权限管控。  
+3) 建议读者优先精读《Recognize Your Orchestrator》与《SkillGuard》，理解系统安全与自主性的平衡前沿。
+- 详情：[/202606/04/README](/202606/04/README)
 
 ### 精读区论文标签
-1. [When Safe Skills Collide: Measuring Compositional Risk in Agent Skill Ecosystems](/202606/03/2606.00448v1-when-safe-skills-collide-measuring-compositional-risk-in-agent-skill-ecosystems)  
+1. [Recognize Your Orchestrator: An Entropy Dynamics Perspective for LLM Multi-Agent Systems](/202606/04/2606.01351v1-recognize-your-orchestrator-an-entropy-dynamics-perspective-for-llm-multi-agent-systems)  
    标签：评分：9.0/10、query:agent-vuln
-   evidence：智能体技能生态中的组合风险
-2. ["I Strongly Suspect This Website Is a Scam": Benchmarking PII Leakage and Detection without Defense in Autonomous Web Agents](/202606/03/2606.00497v1-i-strongly-suspect-this-website-is-a-scam-benchmarking-pii-leakage-and-detection-without-defense-in-autonomous-web-agents)  
+   evidence：多智能体编排脆弱性分析
+2. [SkillGuard: A Permission Framework for Agent Skills](/202606/04/2606.03024v1-skillguard-a-permission-framework-for-agent-skills)  
    标签：评分：9.0/10、query:agent-vuln
-   evidence：自主网络智能体的PII泄露基准与检测
-3. [Needles at Scale: LLM-Assisted Target Selection for Windows Vulnerability Research](/202606/03/2606.01364v1-needles-at-scale-llm-assisted-target-selection-for-windows-vulnerability-research)  
+   evidence：智能体技能权限框架保障安全
+3. [Caught in the Act(ivation): Toward Pre-Output and Multi-Turn Detection of Credential Exfiltration by LLM Agents](/202606/04/2606.04141v1-caught-in-the-activation-toward-pre-output-and-multi-turn-detection-of-credential-exfiltration-by-llm-agents)  
    标签：评分：9.0/10、query:agent-vuln
-   evidence：LLM辅助的漏洞研究目标选择
-4. [SNARE: Adaptive Scenario Synthesis for Eliciting Overeager Behavior in Coding Agents](/202606/03/2605.28122v1-snare-adaptive-scenario-synthesis-for-eliciting-overeager-behavior-in-coding-agents)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：合成非对抗场景引发编码智能体的过度行为，从而揭示安全漏洞
-5. [PatchBoard: Schema-Grounded State Mutation for Reliable and Auditable LLM Multi-Agent Collaboration](/202606/03/2605.29313v1-patchboard-schema-grounded-state-mutation-for-reliable-and-auditable-llm-multi-agent-collaboration)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：基于模式的多智能体协作架构，通过验证的状态变更提升可靠性和可审计性
-6. [An Organization-Scoped LLM Agent Runtime Architecture for Regulated Cybersecurity Operations](/202606/03/2605.30604v1-an-organization-scoped-llm-agent-runtime-architecture-for-regulated-cybersecurity-operations)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：面向监管网络安全运营的LLM代理运行时架构
+   evidence：检测LLM智能体中的凭证泄露
+4. [From Untrusted Input to Trusted Memory: A Systematic Study of Memory Poisoning Attacks in LLM Agents](/202606/04/2606.04329v1-from-untrusted-input-to-trusted-memory-a-systematic-study-of-memory-poisoning-attacks-in-llm-agents)  
+   标签：评分：9.0/10、query:agent-vuln
+   evidence：LLM智能体内存投毒攻击
+5. [What If Prompt Injection Never Left? Exploring Cross-Session Stored Prompt Injection in Agentic Systems](/202606/04/2606.04425v1-what-if-prompt-injection-never-left-exploring-cross-session-stored-prompt-injection-in-agentic-systems)  
+   标签：评分：9.0/10、query:agent-vuln
+   evidence：引入跨会话存储提示注入，一种智能体系统中的持久性漏洞
+6. [CyberGym-E2E: Scalable Real-World Benchmark for AI Agents' End-to-End Cybersecurity Capabilities](/202606/04/2606.04460v1-cybergym-e2e-scalable-real-world-benchmark-for-ai-agents-end-to-end-cybersecurity-capabilities)  
+   标签：评分：9.0/10、query:agent-vuln
+   evidence：端到端基准测试评估AI智能体在漏洞发现、PoC生成和补丁开发中的能力
 
 ### 速读区论文标签
-1. [Investigating Detection and Obfuscation of Prompt Injection Attacks Against Software Reverse Engineering AI Agents](/202606/03/2605.30677v1-investigating-detection-and-obfuscation-of-prompt-injection-attacks-against-software-reverse-engineering-ai-agents)  
+1. [EMBGuard: Constructing Hazard-Aware Guardrails for Safe Planning in Embodied Agents](/202606/04/2605.30924v1-embguard-constructing-hazard-aware-guardrails-for-safe-planning-in-embodied-agents)  
    标签：评分：8.0/10、query:agent-vuln
-   evidence：针对逆向工程AI智能体的提示注入攻击检测
-2. [PrivacyPeek: Auditing What LLM-Based Agents Acquire, Not Just What They Say](/202606/03/2606.00152v1-privacypeek-auditing-what-llm-based-agents-acquire-not-just-what-they-say)  
+   evidence：识别具身智能体的物理危险和风险推理
+2. [BraveGuard: From Open-World Threats to Safer Computer-Use Agents](/202606/04/2606.01166v2-braveguard-from-open-world-threats-to-safer-computer-use-agents)  
    标签：评分：8.0/10、query:agent-vuln
-   evidence：大语言模型智能体隐私泄露审计
-3. [ROGUE: Misaligned Agent Behavior Arising from Ordinary Computer Use](/202606/03/2606.00341v1-rogue-misaligned-agent-behavior-arising-from-ordinary-computer-use)  
+   evidence：计算机使用智能体安全防御框架
+3. [What Benchmarks Don't Measure: The Case for Evaluating Abstention Competence in Autonomous Agents](/202606/04/2606.02965v1-what-benchmarks-dont-measure-the-case-for-evaluating-abstention-competence-in-autonomous-agents)  
    标签：评分：8.0/10、query:agent-vuln
-   evidence：良性设置下智能体失调行为带来安全风险
-4. [BraveGuard: From Open-World Threats to Safer Computer-Use Agents](/202606/03/2606.01166v1-braveguard-from-open-world-threats-to-safer-computer-use-agents)  
+   evidence：识别自主代理中的合规偏差，突出代理不安全行动时的安全风险
+4. [Channel Fracture: Architectural Blind Spots in Scheduled Cross-Agent Memory Injection for Multi-Agent Orchestration Systems](/202606/04/2606.04896v1-channel-fracture-architectural-blind-spots-in-scheduled-cross-agent-memory-injection-for-multi-agent-orchestration-systems)  
    标签：评分：8.0/10、query:agent-vuln
-   evidence：针对计算机使用智能体的自进化防御框架
-5. [SeClaw: Spec-Driven Security Task Synthesis for Evaluating Autonomous Agents](/202606/03/2606.02302v1-seclaw-spec-driven-security-task-synthesis-for-evaluating-autonomous-agents)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：规范驱动的自主智能体安全任务合成与评估
-6. [What Breaks When LLMs Code? Characterizing Operational Safety Failures of Agentic Code Assistants](/202606/03/2605.30777v1-what-breaks-when-llms-code-characterizing-operational-safety-failures-of-agentic-code-assistants)  
+   evidence：多智能体编排系统中的系统级安全失效模式
+5. [OpenClawBench: Benchmarking Process-side Anomalies in Real-world Agent Execution Trajectories](/202606/04/2605.29253v1-openclawbench-benchmarking-process-side-anomalies-in-real-world-agent-execution-trajectories)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：系统刻画编码智能体在良性使用中的操作安全失败类型
-7. [SafeMCP: Proactive Power Regulation for LLM Agent Defense via Environment-Grounded Look-Ahead Reasoning](/202606/03/2606.01991v1-safemcp-proactive-power-regulation-for-llm-agent-defense-via-environment-grounded-look-ahead-reasoning)  
+   evidence：代理轨迹中过程侧异常的基准测试
+6. [A New Framework for Cybersecurity Refusals in AI Agents](/202606/04/2606.02644v1-a-new-framework-for-cybersecurity-refusals-in-ai-agents)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：LLM智能体主动防御与功率调节
-8. [POIROT: Interrogating Agents for Failure Detection in Multi-Agent Systems](/202606/03/2606.02282v1-poirot-interrogating-agents-for-failure-detection-in-multi-agent-systems)  
+   evidence：为进攻性安全AI智能体建立拒绝边界的框架
+7. [AI Agents Enable Adaptive Computer Worms](/202606/04/2606.03811v1-ai-agents-enable-adaptive-computer-worms)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：多智能体系统故障检测，用于安全脆弱性分析
-9. [SPADE-Bench: Evaluating Spontaneous Strategic Deception in Agents via Plan-Action Divergence](/202606/03/2606.02380v1-spade-bench-evaluating-spontaneous-strategic-deception-in-agents-via-plan-action-divergence)  
+   evidence：AI智能体驱动自适应蠕虫对自主系统构成新威胁
+8. [Proof-Carrying Agent Actions: Model-Agnostic Runtime Governance for Heterogeneous Agent Systems](/202606/04/2606.04104v1-proof-carrying-agent-actions-model-agnostic-runtime-governance-for-heterogeneous-agent-systems)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：评估智能体欺骗作为自主系统中的安全风险
-10. [GUITestScape: Towards Open-set Evaluation on Exploratory GUI Testing](/202606/03/2605.29532v1-guitestscape-towards-open-set-evaluation-on-exploratory-gui-testing)  
+   evidence：代理行为运行时治理涉及安全授权和证据
+9. [Agent System Operations: Categorization, Challenges, and Future Directions](/202606/04/2606.01581v1-agent-system-operations-categorization-challenges-and-future-directions)  
    标签：评分：6.0/10、query:agent-vuln
-   evidence：自主探索GUI测试的智能体自动发现缺陷
-11. [SABER: Benchmarking Operational Safety of LLM Coding Agents in Stateful Project Workspaces](/202606/03/2606.01317v1-saber-benchmarking-operational-safety-of-llm-coding-agents-in-stateful-project-workspaces)  
+   evidence：智能体系统运维综述，涵盖异常和不安全性
+10. [Agentic Relationship Harm: Benchmarking and Gating Relational Manipulation in AI Agents](/202606/04/2606.03271v1-agentic-relationship-harm-benchmarking-and-gating-relational-manipulation-in-ai-agents)  
    标签：评分：6.0/10、query:agent-vuln
-   evidence：LLM编码智能体的安全基准测试
+   evidence：AI智能体中的关系操纵风险
+11. [StepFinder: A Temporal Semantic Framework for Failure Attribution in Multi-Agent Systems](/202606/04/2606.03467v1-stepfinder-a-temporal-semantic-framework-for-failure-attribution-in-multi-agent-systems)  
+   标签：评分：6.0/10、query:agent-vuln
+   evidence：多智能体系统故障归因涉及错误传播，与安全漏洞相关
 
 
 <div class="dpr-home-promo-card">

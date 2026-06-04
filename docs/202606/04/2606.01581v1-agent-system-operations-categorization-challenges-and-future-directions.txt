@@ -1,0 +1,986 @@
+Title: Agent System Operations: Categorization, Challenges, and Future Directions
+
+URL Source: https://arxiv.org/pdf/2606.01581v1
+
+Published Time: Tue, 02 Jun 2026 01:55:53 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+> IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 1
+
+# Agent System Operations: Categorization, Challenges, and Future Directions 
+
+Zexin Wang ∗∥ , Changhua Pei ∗† , Yuanhao Liu †, Jingjing Li ∗, Yintong Huo ¶, Quan Zhou ∗, Haotian Si ∗, Hang Cui ∗, Zihan Liu ∗, Jianhui Li ∗, Gaogang Xie ∗, Senior Member, IEEE , Fei Sun §, Dan Pei §, Senior Member, IEEE ,David Lo ¶, Fellow, IEEE 
+
+∗ CNIC, CAS † Hangzhou Institute for Advanced Study, UCAS ‡ Tsinghua University § ICT, CAS 
+
+¶ Singapore Management University ∥ UCAS 
+
+Abstract —As the reasoning capabilities of Large Language Models (LLMs) continue to advance, LLM-based agent systems offer advantages in flexibility and interpretability over traditional systems, garnering increasing attention. However, despite the widespread research interest and industrial application of agent systems, these systems, like their traditional counterparts, fre-quently encounter anomalies. These anomalies lead to instability and insecurity, hindering their further development. Therefore, a comprehensive and systematic approach to the operation and maintenance of agent systems is urgently needed. Unfortunately, current research on the operations of agent systems is sparse. To address this gap, we have undertaken a survey on agent system operations with the aim of establishing a clear framework for the field, defining the challenges, and facilitating further development. Specifically, this paper begins by systematically defining anomalies within agent systems, categorizing them into intra-agent anomalies and inter-agent anomalies. Next, we in-troduce a novel and comprehensive operational framework for agent systems, dubbed Agent System Operations (AgentOps). We provide detailed definitions and explanations of its four key stages: monitoring, anomaly detection, root cause localization, and resolution. 
+
+Index Terms —Agent System, Operations. 
+
+I. I NTRODUCTION 
+
+# WITH the advent of technologies such as DeepSeek-R1 [1] and Claude [2], the reasoning capabilities of current Large Language Models (LLMs) are continually being enhanced. Leveraging LLMs as powerful cognitive engines, existing LLM-based agent systems, particularly multi-agent systems, have gained the capacity to accomplish a wide array of complex tasks and social simulations [3], especially when equipped with diverse tools [4]. Compared to traditional systems like microservice architectures [5], agent systems offer better automation, enhanced interpretability, and greater flexibility. Consequently, research and industrial applications of agent systems are flourishing, with an increasing number of online services [6], such as customer support and recom-mendation systems, adopting these agent systems. However, despite the widespread application of agent sys-tems, they are not without their flaws. Compared to traditional microservice systems, the greater flexibility offered by agent systems also introduces more anomalies. As illustrated in 
+
+Corresponding author: Changhua Pei. Email: chpei@cnic.cn This work was funded by the National Natural Science Foundation of China (62202445), and the National Natural Science Foundation of China-Research Grants Council (RGC) Joint Research Scheme (62321166652). 
+
+Fig. 4, task execution often fails due to issues such as halluci-nations. In role-playing scenarios, an attack on a single agent can lead to the collapse of the entire simulation. Therefore, to maintain the security and stability of agent systems and to facilitate their further development, efficient operations and maintenance are necessary. Although operation technologies have been evolving over time, from early manual operations to rule-based methods, and later to Artificial Intelligence for IT Operations (AIOps), agent systems inherently differ significantly from traditional sys-tems. The behavioral characteristics of LLM-driven agents are fundamentally different from those in hard-coded traditional systems. The key differences include: (1) A wide range of anomalies has been observed in agent systems [7], [8], which significantly degrades task success rates. For instance, the success rate of SWE-Agent [9] remains below 40%. (2) Agent systems demand higher observability than traditional systems, requiring additional attention on modules like LLMs [10]. (3) The diversity of anomalies makes it impossible to use a unified approach for anomaly detection and root cause analysis in agent systems [7], [8], [11]. (4) Resolution in agent systems is relatively complex and challenging, requiring consideration from multiple perspectives and iterative optimization [12], [13]. As a result, traditional operation techniques are difficult to apply to agent systems, leading to an urgent need for new, tailored operation technologies for these systems. Currently, there is a lack of comprehensive research on effective operations and maintenance strategies specifically for agent systems. Most studies remain focused on isolated aspects of agent systems rather than addressing their over-all operational challenges. For example, Durante et al. [14] expound on agent paradigms and classifications; Chakraborty et al. [15] delve into hallucinations in foundation models, covering its definition and detection methods; Deng et al. [16] explore security issues in multi-agent systems, primarily covering external malicious attacks and categorizing threats into intra-execution security and interaction security. Shi et al. [17] provide detailed insights into security issues and evaluation methods for GUI agents. To further advance the development of agent systems, this paper introduces the concept of Agent System Op eration s
+
+(AgentOps ), a novel operations and maintenance framework specifically designed for agent systems. First, we provide a precise definition of anomalies within agent systems and   
+
+> arXiv:2606.01581v1 [cs.MA] 1 Jun 2026 IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 2
+
+offer a systematic classification, primarily dividing them into intra-agent and inter-agent anomalies. These two categories encompass the stages of pre-execution, execution, and post-execution in the agent system lifecycle. Additionally, drawing inspiration from traditional operation practices, we divide the operations and maintenance process for agent systems into four phases: monitoring, anomaly detection, root cause localization, and resolution. For each phase, we identify new challenges that arise within agent systems and propose detailed definitions and potential solutions. In section II, we present a detailed discussion of anomaly classification within agent systems. Section III introduces the concept of AgentOps. The subsequent four sections focus respectively on key components of AgentOps: monitoring, anomaly detection, root cause localization (also known as failure attribution [18]), and resolution. Section VIII introduces the datasets and benchmarks. Section IX concludes the paper. II. A NOMALIES IN AGENT SYSTEMS 
+
+A. Definition of Anomalies in Agent Systems 
+
+The leaderboard 1 shows that success rates remain relatively low across different types of agent systems, suggesting the presence of numerous exceptional cases that impede success-ful task completion. Prior work, such as Who&When [18], hypothesizes that anomalies in agent systems primarily arise at specific steps during task execution. Here, execution refers to the phase in which an agent system, after receiving a user instruction, begins reasoning and invokes tools to carry out the task. However, modern definitions of agent systems extend well beyond the execution phase alone. Both the pre-execution and post-execution phases are also critical to task success. First, in the pre-execution phase, as illustrated in Fig. 1, agent frameworks such as Claude Code, Hermes Agent, OpenClaw, and Deep Agent typically perform intent recognition based on the user input and subsequently configure or construct an agent workflow. Such workflows are not static; rather, they are dynamically instantiated and continuously updated as the task evolves. Second, in the post-execution phase, task completion does not necessarily imply task success. For example, when Claude Code builds a software project, the process should not be considered successful merely because the build process terminates; the generated project may still contain bugs or fail to satisfy functional requirements. Similarly, in the domain of operations and maintenance, a root-cause analysis task may proceed without any apparent execution-time abnormality, yet still fail due to premature termination or insufficiently fine-grained analysis. These cases demonstrate that post-execution factors can also critically affect task outcomes. Therefore, we define anomalies in agent systems as any events occurring dur-ing the pre-execution, execution, or post-execution phases that disrupt task progression or prevent effective task completion. Building on the above phase-aware definition, we further analyze anomalies from an orthogonal structural perspec-tive. The pre-execution, execution, and post-execution phases 
+
+> 1
+
+https://hal.cs.princeton.edu/ 1. Pre -execution  3. Post -execution 2. Execution   
+
+> User Input
+> Intent Analysis
+> Agent Workflow
+> Output: Agent Workflow
+> Orchestrator
+> Planner
+> Coder
+> Output: Task Result
+> Unit Test
+> Result Validation
+> Integration Test
+> Output: Validation Result
+> Feedback
+
+Fig. 1. Workflow of agent systems. Execution Stage         
+
+> Taxonomy
+> Intra -
+> Agent
+> Inter -
+> Agent
+> Pre -execution Execution Post -execution
+> Orchestration Anomalies
+> Reasoning Anomalies
+> Action Anomalies
+> Memory Anomalies
+> Task Specification
+> Anomalies
+> Security Anomalies
+> Termination Anomalies
+> Communication
+> Anomalies
+
+Fig. 2. Definition and taxonomy of anomalies in agent systems. 
+
+clarify when anomalies may occur, but they do not specify 
+
+where such anomalies originate within an agent system. Since agent systems can be broadly classified into single-agent and multi-agent systems, anomalies may originate either from the internal workflow of an individual agent or from interactions among multiple agents. This is analogous to traditional ser-vice architectures, where failures may arise within a single service or during inter-service communication. Therefore, as depicted in Fig. 2, we categorize anomalies into two major types: intra-agent anomalies and inter-agent anomalies . Intra-agent anomalies refer to disruptions rooted in an individual agent’s reasoning or tool use, while inter-agent anomalies refer to failures caused by coordination, communication, or dependency issues among agents. 
+
+B. Intra-Agent Anomalies 
+
+As shown in Fig. 3, intra-agent anomalies refer to failures that arise within an individual agent or subagent during task execution. Since most existing agent implementations follow the ReAct paradigm [19], such anomalies commonly manifest as reasoning and action failures. In addition, when agents are deployed in complex vertical domains, naive designs often suffer from memory degradation and security risks caused by long-context processing, unreliable retrieval, and insufficiently constrained tool permissions. These observations highlight the importance of harness engineering for improving the robust-ness, controllability, and safety of agent systems. 
+
+1) Reasoning Anomalies: Reasoning is the cognitive foun-dation that guides an agent’s subsequent actions and enables complex task completion. Recent studies have proposed var-ious techniques to enhance reasoning, including fine-tuning methods such as SFT [20], RLHF [21], Search-R1 [22], and IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 3Sub -Agent  … …  Sub -Agent          
+
+> Agent
+> Configuration
+> Agent
+> Workflow
+> Agent Framework
+> (e.g. Hermes)
+> Multi -Agent System Sub -Agent
+> Input (e.g. Task) Skills
+> Tools
+> …….
+> Observation Reasoning Action
+> Security
+> Memory
+> ......
+> Configuration Harness Engineering
+> Fig. 3. Components of agent systems.
+
+DeepSeek-R1 [1], as well as prompting strategies such as CoT [23], Reflexion [24], Self-Consistency [25], CoK [26], and StepBack [27]. Despite these advances, reasoning anoma-lies remain prevalent, among which hallucination is the most representative. The definition of hallucination has been continuously re-fined in the literature. Rawte et al. [28] define hallucinations as unreliable generations that contradict known facts, while Gallifant et al. [29] regard them as responses unrelated to the original prompt. Chakraborty et al. [15] summarize halluci-nations through four characteristics: compliance, desirability, relevancy, and plausibility. Yang et al. [30] further interpret hallucination as a form of dishonesty, where uncertain answers are expressed with unwarranted confidence. In general, hallu-cinations can be viewed as anomalous generations that deviate from facts, logic, or task requirements. They are difficult to eliminate because LLMs are sensitive to training data, prone to knowledge forgetting, and unable to synchronously incorporate newly emerging knowledge after training. 
+
+2) Action Anomalies: Action anomalies occur when agents fail to correctly execute intended operations through tool invocation or function calls. In practice, such failures may arise from inconsistent interfaces, incorrect API selection, delayed execution, malformed parameters, or system-level failures [31]. Moreover, tool use introduces additional safety risks. Wu et al. [32] show that attackers can exploit function-calling mechanisms through jailbreak prompts, inducing LLMs to invoke sensitive functions or bypass restrictions. Although the Model Context Protocol (MCP) standardizes interactions between LLMs and external tools, it does not fully eliminate action anomalies. In real deployments, configuration changes and misconfigured MCP servers may still lead to failed, unintended, or unsafe actions [33]. 
+
+3) Memory Anomalies: Agent memory can be broadly divided into short-term and long-term memory. Short-term memory corresponds to the LLM context. Although the con-text windows of modern LLMs continue to expand, they often remain insufficient for complex tasks. Many agent frameworks therefore adopt sliding-window strategies, which may discard early but important instructions. Even when the context length is technically sufficient, LLMs may still underutilize informa-tion located in the middle of long contexts, a phenomenon known as the “lost-in-the-middle” problem [34]. PI-LLM [35] also shows that LLMs face intrinsic bottlenecks in working memory. Long-term memory is typically implemented through vector databases and recalled using RAG. However, retrieval-based memory is vulnerable to inaccurate recall, noisy evidence, and unreliable generation. QE-RAG [36] shows that existing RAG systems are highly sensitive to noise, while Astute RAG [37] highlights conflicts between internal parametric knowledge and retrieved external knowledge. Such conflicts may further induce RAG hallucinations [38]. Chen et al. [39] also observe that despite extensive technical improvements, the accuracy of current RAG systems remains limited. 
+
+4) Security Anomalies: Security anomalies refer to cases in which an agent or subagent performs operations that violate predefined security policies, access-control rules, or identity constraints. Typical examples include unauthorized tool invo-cation, actions beyond assigned privileges, misuse of delegated credentials, and operations executed under an incorrect or unverified identity. Since LLM-based agents interact with tools and APIs through natural-language reasoning, their security boundaries are often implicit and difficult to enforce. Importantly, security anomalies do not necessarily originate from an agent’s autonomous intention or internal malfunction. They may be induced by adversarial inputs, prompt injection, malicious tool outputs, or compromised external environments, which manipulate the agent into actions outside its intended authorization scope. These risks are closely related to ex-cessive agency, where agents are granted more autonomy or privileges than necessary, allowing erroneous or manipulated outputs to trigger unsafe operations [40], [41]. In multi-agent systems, security anomalies can further arise from improper authorization propagation during delegation or inter-agent communication, where a compromised agent indirectly causes other agents to perform unauthorized actions. Therefore, robust agent systems require explicit identity management, least-privilege tool access, adversarially robust input and tool-output handling, and policy-aware execution mechanisms. 
+
+C. Inter-Agent Anomalies 
+
+As shown in Fig. 3, inter-agent anomalies refer to failures emerging from the interaction, coordination, and collective behavior of multiple agents. Unlike fixed workflows, many recent frameworks, such as Hermes, dynamically construct subagents from available skills and tools according to user inputs, then perform planning, execution, and result verifica-tion. As a result, inter-agent anomalies may occur throughout the entire lifecycle. In the pre-execution stage, they mainly involve task specification and orchestration failures caused by ambiguous, incomplete, or malicious inputs and inappropriate subagent construction. During execution, communication and trust anomalies may arise when agents exchange information, invoke tools, or rely on unreliable intermediate outputs. In the post-execution stage, termination anomalies occur when the system incorrectly determines task completion or result validity. Furthermore, due to the uncertainty of multi-agent interaction, emergent behavioral anomalies may appear at the system level even when individual agents behave normally. 
+
+1) Task Specification Anomalies: Task specification anoma-lies arise when user goals, task constraints, agent roles, or configurations are ambiguous, incomplete, or inconsistent. Pan et al. [42] show that many task-level failures originate from un-clear task definitions, such as insufficiently specified prompts. IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 4
+
+Altmann et al. [43] further observe that poorly defined tasks may lead to chasing and blocking, even when each agent’s local behavior appears reasonable. SentinelAgent [44] reports that insufficiently specified collaboration modes may cause agents to deviate from intended behaviors, collude, or become vulnerable to prompt injection. Therefore, evaluating task completeness before execution and enabling reflection during execution are important for robust multi-agent operation. Agent configuration is also an essential component of task specification, including prompts, roles, skills, and tools. Pan et al. [42] identify incorrect role configuration as a common source of anomalies. Platon et al. [45] show that unclear configurations and role confusion frequently lead to coordina-tion failures and adversarial misalignment. Similarly, OG [46] argues that actions outside an agent’s designated responsibility can directly cause conflicts, inconsistencies, and inefficiency, while AgentFM [47] identifies vague role configuration as a common failure source for database agents. 
+
+2) Orchestration Anomalies: Orchestration anomalies refer to failures in the global planning process of agent systems. Modern LLM-based multi-agent systems usually involve task decomposition, role assignment, tool and skill selection, inter-agent coordination, and workflow control [48], [49], [50]. Er-rors at this stage may propagate to later execution even before any individual subagent takes action. Typical orchestration anomalies include missing or redundant subtasks, mismatched agent–tool allocation, circular or conflicting dependencies, inefficient workflows, and plans that violate task constraints or security policies. These anomalies are challenging because they are often not attributable to a single faulty agent, but instead emerge from improper global coordination, incomplete task understanding, or unstable planning decisions. 
+
+3) Communication Anomalies: Communication anomalies occur during message exchange among agents. Bronsdon [51] highlights message storms as a typical failure mode, where ex-cessive inter-agent communication causes resource exhaustion, increased latency, and eventual task failure. AgentPrune [52] similarly observes that redundant messages do not necessarily improve system performance; instead, excessive communica-tion may distract agents and reduce coordination efficiency. Therefore, effective communication control is essential for scalable and reliable multi-agent systems. 
+
+4) Termination Anomalies: Termination anomalies occur when an agent system incorrectly determines whether a task should stop or continue. Premature termination is a represen-tative case, where the system stops before completing the required reasoning or execution steps. Pan et al. [42] and Microsoft [53] both regard premature stopping as an important category of agent-system failures. Smurfs [54] shows that in single-agent settings, DFSDT may invoke the termination tool too early, thereby harming the completeness and logical coherence of complex tasks. Zhang et al. [18] further identify premature termination as a common and locatable failure source in multi-agent systems. In contrast, agents may also fail to terminate. Zhu et al. [55] identify undercommitment anomalies, where an agent repeatedly delegates tasks to subagents, forming an infinite recursion chain that eventually reaches recursion-depth limits         
+
+> TABLE I DEFINITION OF SOME SYMBOLS IN THE PAPER .
+> Name Definition DevOps [57] DevOps merges software development and IT opera-tions to shorten the development lifecycle and deliver high-quality software.
+> AIOps [58] AIOps uses machine learning to automate IT opera-tions.
+> AgenticOps [59] Agentic Operations (AgenticOps) refers to the use of agents for the maintenance of traditional systems.
+> AgentOps AgentOps refers to the use of various operational techniques for the maintenance of agent systems.
+
+or timeouts. Drake [56] describes a related phenomenon, termed “neural howlround,” in which agents become trapped in recursive self-optimization or reasoning loops without a clear endpoint. Such non-termination anomalies may stall the system and lead to severe inefficiency or cognitive stagnation. III. W HAT IS AGENT OPS ?Section II identifies a variety of anomalies within agent systems, highlighting the need for their operations and mainte-nance. In this section, we will delve into the origins, definition, and specific scope of AgentOps. To start, Table I presents key concepts that will be referenced throughout the discussion. 
+
+A. Evolution of Operations 
+
+As shown in Fig. 5, the evolution of operations can be understood from two dimensions: the evolution of operational technologies and the evolution of operational objects. Along the technology dimension, operations have advanced from manual intervention and rule-based automation to platform-based observability, intelligent analysis, and, more recently, autonomous operations enabled by LLM agents. Along the object dimension, the target of operations has expanded from traditional IT infrastructure and cloud-native applications to AI/ML systems and emerging agent systems. Different operational paradigms correspond to different stages in this two-dimensional evolution. SRE focuses on en-suring the reliability of applications and infrastructure through engineering practices such as SLO management, monitoring, alerting, and change control. AIOps further introduces intel-ligent techniques to maintain the stability of diverse systems, including anomaly detection, root cause analysis, alert noise reduction, and predictive optimization. As AI/ML systems became increasingly complex, MLOps emerged to manage the lifecycle and reliability of data pipelines, model training, deployment, inference, and drift monitoring. Recently, LLM-based agents have become a new class of operational objects. Unlike traditional systems, whose be-haviors are largely deterministic and specified by program logic, agent systems rely on probabilistic foundation models, dynamic tool invocation, memory, and multi-step reasoning. Their failures may arise not only from infrastructure faults or model degradation, but also from reasoning errors, unsafe actions, tool misuse, and misalignment with user or system IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 5(a) Log anomaly detection misses tool -use policy violations 
+
+Medical scheduling agent 
+
+(b) Trace anomaly detection misses wrong branch selection 
+
+Enterprise reimbursement agent 
+
+User 
+
+request  Reschedule my cardiology appointment to next Friday afternoon, but 
+
+do not cancel the existing appointment until the new one is confirmed. 
+
+1) Expected policy -compliant sequence 
+
+search 
+
+slots 
+
+hold 
+
+slot 
+
+confirm 
+
+new slot 
+
+cancel old 
+
+appt. 
+
+notify 
+
+patient 
+
+2) Actual agent execution 
+
+search 
+
+slots 
+
+cancel 
+
+appt. 
+
+search 
+
+slots 
+
+no suitable 
+
+slot 
+
+notify 
+
+patient 
+
+Traditional logs 
+
+[INFO] search_slots called successfully 
+
+[INFO] cancel_appt called successfully 
+
+[INFO] search_slots called successfully 
+
+[INFO] notify_patient called successfully 
+
+Log anomaly detector 
+
+Missed issue: cancel_appointment occurs before new -slot confirmation 
+
+Failure is semantic tool ordering + constraint violation, not abnormal log syntax. 
+
+User 
+
+request  International conference trip: reimburse registration fee and flight, but 
+
+exclude personal sightseeing expenses. 
+
+Distributed trace: happy -path view 
+
+Agent 
+
+Orchestrator 
+
+Receipt 
+
+Parser 
+
+Expense 
+
+Classifier 
+
+Policy 
+
+Checker 
+
+Reimbursement 
+
+API 
+
+all spans successful  normal latency 
+
+Wrong branch: 
+
+“sightseeing tour ” → 
+
+“conference activity ”
+
+What traditional trace sees 
+
+• Receipt Parser called 
+
+• Expense Classifier called 
+
+• Policy Checker called 
+
+• Reimbursement API called 
+
+What it cannot reveal 
+
+• why the item was misclassified 
+
+• classification confidence 
+
+• decision rationale 
+
+• whether human review should trigger 
+
+Missed issue: erroneous branch selection in the agent decision path 
+
+Structural execution path looks normal; semantic decision path is wrong. 
+
+Error log 
+
+Failed API call 
+
+Timeout 
+
+Rare template 
+
+Fig. 4. Examples of traditional operations in agent systems. Traditional IT 
+
+Infrastructure 
+
+Cloud -naive 
+
+Applications 
+
+AI/ML Systems 
+
+Agent Systems 
+
+Evolution of 
+
+Operational Objects 
+
+Manual Operation  Automation  Observability 
+
+Platform 
+
+Intelligence  Autonomy 
+
+Evolution of Operational Technologies 
+
+SRE 
+
+• SLO/SLA 
+
+• Error budgets 
+
+• Monitoring & Alerting 
+
+AIOps 
+
+• Monitoring 
+
+• Anomaly detection 
+
+• Root cause analysis 
+
+• Resolution 
+
+MLOps 
+
+• Data management 
+
+• Training deployment 
+
+AgentOps 
+
+• Monitoring 
+
+• Anomaly detection 
+
+• Root cause analysis 
+
+AgenticOps 
+
+• Autonomous 
+
+Planning 
+
+• Autonomous 
+
+execution and 
+
+verification 
+
+Fig. 5. Evolution of operations. 
+
+goals. These characteristics make it insufficient to directly apply existing operational techniques to agent systems. This insufficiency can be illustrated by two representative failures. As shwon in Fig. 4, in a medical scheduling agent, the user asks to reschedule an appointment while keeping the original one until a new slot is confirmed. Although the correct trajectory should call cancel_appointment only after confirm_reschedule , the agent may prematurely cancel the existing appointment and later fail to find a new slot. Traditional log anomaly detection may not flag this behavior, since all tool calls can return successful status codes and standard log templates. The failure is instead a semantic tool-use policy violation: the agent violates the required ordering constraint. Similarly, in an enterprise reimbursement agent, a conventional trace may show a normal path from receipt parsing to expense classification, policy checking, and reim-bursement submission, with all spans completing successfully. However, the agent may classify a “sightseeing tour” as a conference activity and reimburse it. The trace captures the structural service-call path, but not the semantic decision path behind the incorrect classification. These examples show that agent failures may be trajectory-level and semantic, involving intent, constraints, tool-use order, and decision rationale, rather Metric                      
+
+> Monitoring
+> Log Trace
+> Traditional Data
+> Parameters Attention
+> Model Data
+> Logits
+> Sta te
+> Checkpoint Data
+> Memory
+> Metric
+> Monitoring
+> Log Trace
+> Traditional Data
+> Anomaly Detection
+> Agent System Monitoring Data
+> Anomaly
+> Anomaly Detection
+> Microservice System Monitoring Data
+> Anomaly
+> Monitoring Data Unreliable!
+> Monitoring Data Reliable!
+> Resolution
+> Resolution
+> Resolution Steps
+> Resolution & Evaluation
+> Rollback Information (Checkpoint)
+> Timeline of Agent System Operations (AgentOps)
+> Timeline of Traditional System Operations
+> Data Categories Data Reliable Iterative Resolution
+> Root Cause Localization
+> ASAS...
+> AS
+> Replace With
+> Correct Action
+> Execution Trajectory
+> ASAction State
+> S
+> Root Cause Localization
+> SPService Pod
+> S
+> S
+> S
+> S
+> S
+> S
+> P
+> P
+> Localization Target
+
+Fig. 6. Comparison of traditional system operations and agent system operations. 
+
+than conventional anomalies in logs, status codes, latency, or traces. Therefore, we propose AgentOps , which refers to opera-tional techniques for maintaining the reliability, safety, and controllability of agent systems. AgentOps is distinct from 
+
+AgenticOps : the former operates on agent systems, whereas the latter uses agent systems as operational actors to main-tain other systems. This distinction motivates the need for a dedicated operational framework for agent systems. 
+
+B. Difference between Traditional Operations and AgentOps 
+
+As shown in Fig. 6, although traditional system operations and agent system operations share a similar timeline, they differ significantly at each stage. Table II gives a detailed task-level mapping of reliability practices in DevOps and Agen-tOps. This is why a new operations framework, AgentOps, is necessary. Below, we will detail these differences. 
+
+• Monitoring : The primary differences lie in the types of monitoring data. Traditional system operations, based on OpenTelemetry [60], focus on monitoring metrics, logs, and traces, which reflect the actual operational state of the system. These data allows for reverse engineering of the system’s state. However, for agent systems, the fundamental distinction is that services are provided by LLM agents, IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 6         
+
+> TABLE II TASK -L EVEL MAPPING OF RELIABILITY PRACTICES IN DEV OPS AND
+> AGENT OPS .
+> Stage Task DevOps AgentOps Anomaly detection Process validation
+> Detects sequential breaks in text logs. Detects uncertainty or hallucination signals in outputs.
+> Health monitor-ing
+> Finds anomalies in infrastructure metric streams. Finds loops, abnormal actions, or trajectory deviations.
+> Output validation
+> Checks formats and deterministic thresholds. Uses LLM-as-a-judge or fact-checking for semantics.
+> Root cause lo-calization Causal analysis Localizes faults through static dependency graphs. Localizes flawed actions or reasoning steps via trajectories.
+> Resolution System recovery Executes predefined runbooks without re-evaluation. Uses self-correction loops and prompt refinement.
+> State rollback Rolls back static database snapshots. Restores agent state to previous stable checkpoints.
+
+which are inherently stochastic. This necessitates additional monitoring of the relevant modules of LLM agents. An LLM agent consists mainly of the LLM and the agent parts. For the LLM aspect, monitoring includes model parameters, at-tention maps, token logits, and other relevant states. For the agent part, it is essential to monitor checkpoints like memory and environment at each step. Monitoring these agent-level checkpoints not only provides a clearer understanding of the agent system’s state but also facilitates rollback operations, a significant advantage of agent systems over traditional systems due to their strong operability.  
+
+> •
+
+Anomaly Detection : The main difference lies in the stage at which anomalies may occur. In traditional system oper-ations, monitoring data such as traces, logs, and metrics are generated by deterministic or rule-based mechanisms and can generally be regarded as correct representations of system behavior. Anomaly detection therefore operates directly on these reliable data to identify abnormal system states. By contrast, in agent systems, such data may be produced or mediated by LLM-based agents, whose proba-bilistic reasoning and generation processes can themselves introduce anomalies. For example, reasoning anomalies may arise while an agent is generating trace data. Consequently, anomaly detection in agent systems needs to inspect not only the resulting monitoring data, but also the underly-ing generation process. This motivates the use of deeper model-level signals, such as attention maps and logits, to detect reasoning or generation anomalies, as discussed in section V. This is also why we include model data as an important component of monitoring.  
+
+> •
+
+Root Cause Localization : The primary distinction lies in the localization space and the target of diagnosis. Traditional system operations perform root cause localization on mi-croservice dependency graphs, where the localization targets are infrastructure-level entities such as pods, services, or nodes. In contrast, root cause localization in agent systems is conducted along the agent’s execution trajectory, with the localization targets being individual agent actions. Ac-cordingly, root cause localization in agent systems is also commonly referred to as failure attribution [18].  
+
+> •
+
+Resolution : The primary distinction lies in the resolution schema. In traditional system operations, once the exact location and root cause of a fault have been identified, the issue can typically be resolved promptly through determin-istic procedures grounded in relevant domain knowledge. In contrast, agent systems exhibit inherent stochasticity, which makes the resolution process substantially more complex. Achieving an optimal state often requires iterative testing, continuous refinement, and, when necessary, rollback based on data collected during the monitoring phase. Moreover, traditional operations primarily focus on the post-execution stage, where faults are addressed after they have occurred. However, such a reactive paradigm is less suitable for AgentOps. Due to the probabilistic nature of LLM-based agent systems, failures may occur frequently and unpredictably; relying solely on post-execution remediation would therefore impose a substantial operational burden. Consequently, an increasing number of approaches seek to intervene at the pre-execution and execution stages, aiming to prevent failures in advance or correct them in a timely manner during system execution. 
+
+C. Difference from Previous AgentOps Work 
+
+Existing literature on AgentOps generally approaches the domain through the lenses of observability, architectural adaptation, and role-based automation. For instance, Dong et al. [61], [62] focus on establishing tracking and tracing pipelines for agent artifacts to ensure system observability. Meanwhile, Biswas et al. [63] and Moshkovich et al. [64] focus on the dynamic nature of agents, proposing frameworks, such as CHANGE and the AgentOps Automation Pipeline, to manage continuous learning, multi-agent consensus, and role-specific optimization. In contrast to prior work, this study conceptualizes Agen-tOps as a structured lifecycle for failure diagnostics and recovery. The distinction is twofold: (1) We shift the focus from traditional metric-based tracing to a taxonomy rooted in agent structural boundaries, encompassing both intra-agent and inter-agent dimensions. (2) Bridging the gap between high-level recommendations and low-level control, our framework introduces concrete execution-level interventions; by utilizing checkpointing and state rollbacks, it effectively addresses the stochastic nature of agent execution paths. 
+
+D. Conclusion 
+
+Inspired by the differences discussed above, we define 
+
+Agent System Op eration s (AgentOps ) as a comprehensive operational framework that spans the pre-execution, execu-tion, and post-execution stages of agent systems. Similar to traditional system operations, AgentOps consists of four key phases: monitoring, anomaly detection, root cause localiza-tion, and resolution. Fig. 7 illustrates these phases through a customer refund processing example, where multiple agents collaboratively decompose a refund request, check refund IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 7Customer Refund Processing Multi -Agent System 
+
+User Request  Planner Agent 
+
+decompose task  ✓ Policy Agent 
+
+check refund policy 
+
+Tool Agent 
+
+call order / payment / 
+
+refund APIs 
+
+⌕ Verifier Agent 
+
+verify refund success 
+
+1 Monitoring  2 Anomaly Detection  3 Root Cause Localization  4 Resolution 
+
+Overview 
+
+Task success rate:  96%  → 72% 
+
+Error rate:  1.2%  → 8.7% 
+
+▥ Failed traces concentrated in 
+
+refund workflow 
+
+Monitored signals 
+
+⌁
+
+task success 
+
+rate 
+
+▤
+
+logs 
+
+⌘
+
+traces 
+
+Workflow trace (sample) 
+
+> Step 1
+> User
+> Request
+> ✓
+> Step 2
+> Policy
+> Agent
+> !
+> Step 3
+> Tool
+> Agent
+> !
+> Step 4
+> Verifier
+> Agent
+> !
+> Step 5
+> Comple
+> te
+> ✓
+
+✓ Healthy  ! Abnormal  Pending/Other 
+
+Abnormal agents 
+
+▲ Policy Agent 
+
+▲ Tool Agent 
+
+▲ Verifier Agent 
+
+Abnormal steps 
+
+▲ Step 2 
+
+▲ Step 3 
+
+▲ Step 4 
+
+A stable anomaly pattern is 
+
+detected across multiple 
+
+agents and steps. 
+
+▤ Policy Agent 
+
+output schema 
+
+changed 
+
+Tool Agent 
+
+API call failed 
+
+⌕ Verifier Agent 
+
+could not verify 
+
+refund. 
+
+A. Expected output 
+
+> {
+> "eligible": true,
+> "refund_reason_code":
+> "DEFECTIVE_PRODUCT",
+> "refund_amount": 1299
+> }
+
+B. Actual output 
+
+> {
+> "eligible": true,
+> "reason": "Defective product",
+> "amount": 1299
+> }
+
+C. Observed downstream errors 
+
+> Tool Agent: 400 Bad Request
+> missing required field: refund_reason_code
+> Verifier Agent: refund_status = unknown
+
+! Root cause: Policy Agent output schema changed 
+
+Rollback to recent healthy checkpoint 
+
+Checkpoint A: 
+
+after Planner 
+
+Agent 
+
+Checkpoint B: 
+
+before Policy 
+
+Agent 
+
+Recovery steps 
+
+Fix schema mapping 
+
+↻ Rerun Policy Agent 
+
+↯ Replay Tool Agent 
+
+⌕ Replay Verifier Agent 
+
+✓
+
+Task recovered successfully 
+
+User response: Your refund has 
+
+been submitted successfully. 
+
+request a refund. 
+
+Fig. 7. Illustration of AgentOps. Frontend 
+
+Checkout/API Recommend/API 
+
+Payment/API ProductCatalog/API 
+
+Checkout/API: { “item ”: “#AX5 ”, ... ...} 
+
+Recommend/API: {“user ”: “uuid220 ”, ... ...} 
+
+ProductCatalog/API: {“category ”: “shoe ”, ... ...} 
+
+Payment/API: {“item ”: “#AX5 ”, ... ...} 
+
+Frontend 1.1s 
+
+> 2.1s
+> 1.5s
+> 1.6s
+> 2.0s
+
+Timeline of trace. 
+
+main-agent 
+
+food-agent tour-agent 
+
+search_food search_place 
+
+food-agent 
+
+tour-agent 
+
+search_place 
+
+search_ food 
+
+main-agent 0.9s 
+
+> 2.1s
+> 1.5s
+> 1.6s
+> 2.0s
+
+Timeline of trace.     
+
+> Input: Help me plan a two-day trip to Beijing, including arrangements for food
+> and sightseeing.
+> Output: I will use the food-agent and tour-agent separately to create the meal
+> plan and sightseeing itinerary.
+> Input: Help me create a two-day meal plan for Beijing.
+> Output: I will use search_food to look for Beijing cuisine.
+> Input: { “location ”:“Beijing ”}
+> Output: Peking Duck, Noodles with Soybean Paste
+> Input: { “location ”:“Beijing ”}
+> Output: The Forbidden City, The Great Wall
+> Input: Help me create a two-day visit plan for Beijing.
+> Output: I will use search_place to search for Beijing's famous landmarks.
+
+Trace of Agent System 
+
+Trace of Microservice System 
+
+Fig. 8. Comparison of trace data in microservice system and agent system. 
+
+eligibility, invoke order/payment/refund APIs, and verify the final refund status. When a schema change in the Policy Agent propagates downstream and causes failures in the Tool Agent and Verifier Agent, AgentOps first detects the abnormal patterns from metrics, logs, and traces, then localizes the true upstream root cause, and finally restores the workflow by rolling back to a healthy checkpoint and replaying the affected steps. We introduce each phase in detail below. IV. H OW TO MONITOR AGENT SYSTEMS ?
+
+A. Illustration of Monitoring Data 
+
+In traditional monitoring data, metrics, logs, and traces collected using OpenTelemetry [60] exist within both mi-croservice systems and agent systems. First, with respect to metrics, traditional microservice sys-tems typically focus on system-level metrics and Application Performance Monitoring (APM) metrics. In contrast, agent systems that incorporate LLM-based agents introduce addi-tional observability requirements, particularly due to the use of LLMs, external tools, and retrieval components. Based on cur-rent agent-system applications, we summarize four commonly used categories of metrics: system metrics, APM metrics, cost-related metrics, and RAG-related metrics. It should be 2025-06-16T10:23:45Z [INFO ] AgentA: Calling weather tool with params {"city":"Singapore"} 
+
+2025-06-16T10:23:46Z [ERROR ] AgentA.tool.weather: APITimeoutError 
+
+2025-06-16T10:23:46Z [INFO ] AgentA: Falling back to cached weather data 
+
+2025-06-16T10:23:46Z [DEBUG ] AgentA.memory.update: {"last_tool":"weather","success":false} 
+
+Fig. 9. Example of log data. Action Action 
+
+Key 1 Checkpoint 1 
+
+Key 2 Checkpoint 2 
+
+Key 3 Checkpoint 3 
+
+... ... 
+
+... ... 
+
+Database Rollback 
+
+Anomaly 
+
+Detection 
+
+Fig. 10. Collection of checkpoint data and its use in rollback processes. 
+
+noted that these categories are not exhaustive. Instead, they are intended to capture representative and frequently adopted metric types in practical agent-system deployments. Regarding traces, as illustrated in Fig. 8, microservice traces typically refer to interactions between services through API calls. The parameters for these API calls are determined by user actions or predefined system rules, making them relatively stable and straightforward. However, in agent systems, the inputs and outputs of each agent and the interactions between agents, including agent-to-tool calls, are often generated by LLMs, introducing a high degree of uncertainty. These un-certainties are key elements of the trace data; hence, in agent systems, a trace encompasses not only the relationships among agents and tools but also the inputs and outputs at each step. Therefore, trace data is a crucial aspect of an agent system. When it comes to logs, as shown in Fig. 9, microservice sys-tems and agent systems are similar. The logs in a microservice system record the overall behavior of services, whereas in an agent system, they capture the behavior of agents. IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 8                                                                                                             
+
+> TABLE III COMPARISON OF REPRESENTATIVE OBSERVABILITY TOOLS . T HE LISTED TOOLS ARE REPRESENTATIVE EXAMPLES ,AND MANY UNLISTED TOOLS PROVIDE SIMILAR FUNCTIONALITIES .
+> Metric Log Trace Tools System Cost RAG Performance LangDB [65] ✓✓✗✗✓✓
+> LangFuse [66] ✓✓✓✓✓✓
+> MLFlow [67] ✗✓✗✓✓✓
+> Helicone [68] ✓✓✗✓✓✓
+> LangWatch [69] ✓✓✗✓✓✓
+> LlamaTrace [10] ✓✓✗✓✓✓
+> OpenLLMetry [70] ✓✗✗✓✓✓
+> Arize Phoenix [71] ✓✓✗✓✓✓
+> Literal AI [72] ✓✓✗✓✓✓
+> Opik [73] ✓✓✗✓✓✓
+> OpenInference [74] ✓✗✗✓✓✓
+> TruLens [75] ✓✓✗✓✓✓
+> HoneyHive [76] ✓✓✗✓✓✓
+> PromptLayer [77] ✓✓✗✓✓✓
+> AgentOpsMonitor [78] ✓✓✗✓✓✓
+> DeepEval [79] ✓✓✗✓✓✓
+> LangSmith [80] ✓✓✓✓✓✓
+
+B. Monitoring Methods 
+
+Observability tools for LLM-based agent systems are rapidly evolving. Most of these tools follow the general observability paradigm of collecting metrics, logs, and traces, while further extending it with agent-specific functions such as dataset management, experiment tracking, evaluations, prompt optimization, and deployment management. Table III com-pares the functionalities of representative tools. LangDB [65], the first observability tool implemented entirely in Rust, em-phasizes runtime efficiency and integrates router optimization for cost control. Langfuse [66] supports OpenTelemetry in-tegration and is among the most active open-source tools in this area. Helicone [68] combines observability with cache management to reduce latency and resource consumption, and improves reliability through mechanisms such as gateway fallback. HoneyHive [76] supports distributed tracing and multimodal systems, allowing users to define custom spans for fine-grained analysis. PromptLayer [77], originally designed for prompt optimization, incorporates observability features such as prompt ranking. TruLens [75], provided as a Python package, integrates with frameworks such as LlamaIndex and supports iterative optimization with human feedback. OpenLL-Metry [70] follows the OpenTelemetry standard and is com-patible with multiple frameworks, but provides limited support for prompt optimization and evaluation. LangWatch [69] and Literal AI [72] provide standard observability, evaluation, and development functionalities, with LangWatch also available as an MCP server. MLflow [67], originating from traditional machine learning workflows, supports custom metrics for agent systems. DeepEval [79] primarily focuses on evaluation rather than observability, whereas AgentOps [78] emphasizes operational management in addition to observability. 
+
+C. Future Directions 
+
+Current observability for agent systems is still largely de-signed for monitoring. However, effective observability should serve a broader purpose: it should support anomaly detection, root cause localization, and failure resolution throughout the lifecycle of agent execution. As discussed earlier in section III-B, existing observable data in agent systems, such as metrics, logs, and traces, is often unreliable, incomplete, or semantically insufficient. As a result, these signals may not even provide adequate support for comprehensive anomaly de-tection, let alone precise localization and automated recovery. Therefore, one promising direction is to enrich the types of observable data available to agent systems. In particular, model data and checkpoint data can serve as two important extensions to existing observability signals. As data security concerns continue to grow, an increasing number of online agent systems are adopting locally deployed open-source LLMs as inference engines [81]. This deployment paradigm enables agent systems to move beyond black-box observation, where only inputs and outputs are available, and instead collect white-box model data from internal states, such as hidden-layer representations and token logits [82], [83]. Compared with input-output records alone, such model-level data can provide more fine-grained evidence for detecting abnormal be-haviors that originate within the LLM itself, thereby improving the observability of agent reasoning and generation processes. Checkpoint data provides another complementary type of observable data. Compared with traditional microservice sys-tems, agent systems often provide greater controllability, since their execution state at a given moment can be reproduced from recorded data. Therefore, checkpoints can be introduced to periodically capture the execution state of an agent sys-tem, including memory, environment, intermediate results, and other runtime information. As shown in Fig. 10, once an anomaly is detected, the system can roll back to a previously safe checkpoint, incorporate feedback, and resume execution from a corrected state. This mechanism helps prevent erro-neous intermediate states from accumulating and eventually leading to task failure. Similar ideas have already shown effectiveness in coding agents, where version control can prevent incorrect code modifications from propagating and causing cascading failures. In addition to expanding the categories of observable data, future observability should also improve the quality of such data. Rather than relying solely on raw metrics, logs, traces, model data, or checkpoint records, agent systems require processed and risk-aware signals that more directly reflect po-tential failures. For example, hallucination probability inferred from execution traces or token-level uncertainty estimated from logits can provide more actionable evidence than raw records alone. Such high-quality observability signals can help agent frameworks detect, localize, and recover from failures more efficiently, enabling agent systems to remain stable, reliable, and continuously improvable. V. H OW TO DETECT ANOMALIES IN AGENT SYSTEMS ?After obtaining sufficiently diverse and comprehensive monitoring data through multi-dimensional observation, these high-quality data can be utilized to perform operations on the agent system. Among these operations, anomaly detection plays a crucial role, as promptly identifying anomalies within the system is essential for effectively guiding subsequent root cause analysis and resolution. This section primarily focuses IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 9
+
+TABLE IV A SUMMARY OF ANOMALY DETECTION AND MITIGATION METHODS FOR AGENT SYSTEMS . H ERE , MITIGATION DENOTES TARGETED MECHANISMS OR AUXILIARY MODELS DESIGNED TO ADDRESS SPECIFIC ANOMALY CATEGORIES , WHEREAS SECTION VII DISCUSSES ANOMALY RESOLUTION FROM THE PERSPECTIVE OF THE OVERALL AGENT OPS FRAMEWORK .                                                                                                                                     
+
+> Anomaly Level Anomaly Type Method Category Method Input Output Detection Mitigation Intra-Agent Reasoning Anomalies
+> White-box SAPLMA [83] LLM Parameters Anomaly Probability ✓✗
+> OPERA [82] Attention Map Penalty-regenerated Response ✓✓
+> Honesty [30] LLM Parameters (Finetuning) Revised Response ✓✓
+> Grey-box LURE [84] Token Logits, Revisor Model Revised Response ✓✓
+> Conformal [85] Token Logits High-quality Response ✓✓
+> Black-box Debate [86] Multiple Agents Debated Response ✓✓
+> CoK [26] Multiple Data Sources High-quality Response ✓✓
+> Action Anomalies MCP AI-Infra-Guard [33] AI Component MCP Risks ✓✗
+> MCP Guardian [87] AI Component MCP Risks ✓✗
+> Memory Anomalies
+> Short-term Memory PI [88] Long Context Response ✗✓
+> CoA [89] Long Context Response ✗✓
+> Long-term Memory / RAG ReDeep [38] Attention, LLM Parameters Hallucination Results ✓✓
+> LRP4RAG [90] Token Logits Anomaly Probability ✓✗
+> Security Anomalies Graph-based GUARDIAN [91] Agent Graph Anomalous Position ✓✗
+> SentinelAgent [44] Agent Graph Anomalous Position ✓✗
+> Inter-Agent Task Specification Anomalies
+> Classifier-based SpecValidator [92] Task Description Defect Type / Probability ✓✗
+> Ambig-SWE [93] Task Instruction Underspecification Label / Clarification Questions ✓✓
+> CLAMBER [94] User Query Ambiguity Label / Clarifying Question ✓✓
+> Uncertainty-based Ask-or-Assume [95] Task Instruction, Agent State Ask-or-Execute Decision ✓✓
+> Semantic Entropy [96] Sampled Interpretations Semantic Uncertainty Score ✓✗
+> SelfCheckGPT [97] Sampled Responses Consistency Score ✓✗
+> Orchestration Anomalies
+> Single-step Introspective [98] Token Logits High-quality Plan ✓✓
+> API-bank [99] LLM Parameters (Finetuning) High-quality Plan ✗✓
+> ReAct [19] Prompt High-quality Plan ✓✓
+> Multi-step ToolLLM [4] LLM Parameters (Finetuning) High-quality Plan ✗✓
+> Reflexion [24] External Feedback High-quality Plan ✓✓
+> CodeAct [100] Tool Description Code ✗✓
+> Communication Anomalies Redundancy AgentPrune [52] Agent Graph Optimized Agent Graph ✓✓
+> G-Designer [101] Agent Graph Optimized Agent Graph ✓✓
+
+Note. Termination anomalies are not included in this table because they are typically easy to observe or can be detected through rule-based methods, such as checking task success rates or the number of task execution steps. 
+
+on the methods of anomaly detection. A summary of anomaly detection and mitigation in agent systems is presented in Table IV. Below, we primarily introduce detection methods for some common anomalies. 
+
+A. Detecting Methods 1) Detecting Reasoning Anomalies: The methods for de-tecting and mitigating reasoning anomalies can be categorized into white-box, grey-box, and black-box based on the type of input information used. White-box approaches utilize the token sequence, the associated probabilities of each token, and the model parameters. In contrast, grey-box methods do not use model parameters. Lastly, black-box techniques rely solely on the token sequence. 
+
+• White-box . SPALMA [83] posits that LLM parameters contain implicit clues of hallucinations and proposes aparameter-based classifier, trained on a large and diverse dataset, to detect hallucinations in a zero-shot manner. In contrast, OPERA [82] addresses hallucinations during the inference phase by identifying the “partial over-trust” phenomenon in self-attention maps, mitigating it through a column-wise metric, probabilistic penalties, and a rollback strategy. Meanwhile, Honesty [30] attributes hallucinations to queries beyond the model’s knowledge boundaries, advo-cating for a model that is honest about its limitations by in-troducing evolutionary metrics and an IDK (“I don’t know”) response, alongside techniques like prompt engineering and supervised fine-tuning to resolve such anomalies. 
+
+• Grey-box . LURE [84] analyzes three primary causes of hallucinations—co-occurrence, uncertainty, and object po-sition—and uses LLMs to generate samples for training a lightweight revisor that can directly detect and correct re-sponses during the inference phase. Conformal [85], inspired by Conformal prediction, calculates the quality of sampled responses based on token sequence logits and discards them according to a stopping rule. 
+
+• Black-box . Debate [86] reduces hallucinations by having multiple model instances iteratively evaluate and update their answers to the same question, drawing on the perspec-tive of The Society of Mind. CoK [26] enhances factual accuracy by enabling the LLM to actively query and inte-grate information from multiple external knowledge sources during inference, iteratively reviewing and correcting the reasoning chain. 
+
+2) Detecting Memory Anomalies: Since an agent’s memory is divided into short-term memory and long-term memory, memory anomalies can be categorized into short-term memory anomalies and long-term memory anomalies. 
+
+• Short-Term Memory . To address the challenge of extend-ing the context window length, PI [88] proposes position interpolation, which scales the entire window through posi-tion encoding. In contrast, CoA [89] adopts a multi-agent collaborative framework, where different agents handle sep-arate chunks and a managing agent integrates the results, mitigating the “lost in the middle” issue commonly observed in traditional fine-tuning methods. 
+
+• Long-Term Memory . ReDeep [38] mitigates hallucinations by computing two scores—an external context score and a parametric knowledge score—to modulate the contributions of Knowledge FFNs and Copying Heads within the residual stream. LRP4RAG [90], on the other hand, employs the Layer-wise Relevance Propagation (LRP) algorithm, per-IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 10 
+
+forming LRP backward after the generator outputs logits to obtain a relevance matrix, which is then fed into a pre-trained classifier to determine hallucinations. 
+
+3) Detecting Security Anomalies: Security anomalies pose significant threats to system security, and detection methods often rely on graph-based approaches. GUARDIAN [91] high-lights that traditional multi-agent voting approaches overlook dependencies between agents. To address this, it models the agent system as a graph, using an encoder-decoder architecture to compress and reconstruct the entire graph, with anomalies detected based on the reconstruction score. SentinelAgent [44], on the other hand, tackles multi-agent coordination risks by proposing a three-layer hierarchical detection method that operates from global to detailed levels. 
+
+4) Detecting Orchestration Anomalies: Orchestration anomalies can be categorized based on their occurrence location into single-step and multiple-step anomalies.  
+
+> •
+
+Single-step . Introspective [98] combines RAG recall with human feedback-based Conformal Prediction to address common-sense reasoning issues in LLMs. API-bank [99] improves LLM planning capabilities by finetuning the model with dialogue data collected from API calls, using a data-driven approach. ReAct [19], on the other hand, introduces a reasoning and acting framework that splits planning into two stages—reasoning and acting—and implements it through prompt engineering, providing the model with opportunities for reflective error correction.  
+
+> •
+
+Multiple-step . ToolLLM [4] generates both single-tool and multi-tool instructions based on APIs and further proposes a novel depth-first search–based decision tree to construct coherent planning paths. Reflexion [24] leverages exter-nal feedback—such as simple binary environment feed-back, predefined heuristics for common failure cases, and self-evaluation mechanisms like binary classification using LLMs (for decision-making) or self-written unit tests (for programming)—to enable agents to reflect on past execution steps and optimize subsequent trajectories. CodeAct, in turn, formulates the entire planning process as executable Python code, fundamentally reducing hallucinations in tool usage by ensuring precise parameter passing. 
+
+B. Future Directions 
+
+Although existing studies have proposed various detection methods for reasoning, action, memory, orchestration, and communication anomalies, most of them remain category-specific, relying on distinct input signals, detection granu-larities, and modeling assumptions. Therefore, an important future direction is to move from anomaly-specific detectors toward unified and generalizable detection frameworks. Such frameworks should integrate model-internal states, reasoning traces, tool-call records, memory access patterns, and agent in-teraction structures, enabling different anomaly patterns to be characterized within a shared representation space. This would improve the applicability of anomaly detection methods across diverse tasks, architectures, and deployment environments. Moreover, future research should further bridge the intra-agent and inter-agent levels. Existing methods typically focus      
+
+> TABLE V SUMMARY OF ROOT CAUSE LOCALIZATION METHODS IN AGENT SYSTEMS .
+> Category Attribution Basis and Methods Replay & Spectrum
+> Success/failure trajectories; state–action–agent tuples; statistical suspiciousness.
+> Methods: FAMAS [102]
+> Causal Trace Structured traces, communication logs, and causal/dependency graphs; information-flow and propagation analysis.
+> Methods: GraphTracer [103]; AgenTracer [104]
+> LLM Attribution
+> Natural-language logs, segmented trajectories, and failure taxonomies; semantic judgment and taxonomy-guided reasoning.
+> Methods: Who&When [18]; AgentFail [105]
+
+either on anomalies within individual agents or on anomalies emerging from multi-agent collaboration. However, in real-world agent systems, reasoning, memory, or action anomalies at the individual-agent level may further manifest as orchestra-tion failures or communication anomalies at the system level. Cross-level detection methods should therefore jointly model the internal states of individual agents and the interaction structures among multiple agents, so as to identify local abnormal signals at an early stage and capture their system-level manifestations. Finally, online anomaly detection for long-horizon tasks represents another key direction. Practical agent systems often operate continuously in dynamic environments, where anoma-lies may gradually accumulate through iterative planning, tool use, memory updates, and communication processes. Compared with post-hoc detection based on final outputs or offline logs, online detection enables continuous monitoring of agent behaviors during execution, allowing potential abnormal trends to be identified in a timely manner and providing more fine-grained signals for subsequent root-cause analysis and anomaly resolution. VI. H OW TO LOCATE THE ROOT CAUSE OF AGENT 
+
+SYSTEM ANOMALIES ?
+
+A. Definition of Root Cause Localization in AgentOps 
+
+In the context of AgentOps, root cause localization—also referred to as failure attribution—aims to identify which com-ponent causes an anomaly and at which point in the execution it first occurs, by analyzing the execution trajectory of an agent system. In this work, root cause localization primarily focuses on anomalies that arise during the execution phase. 
+
+B. Root Cause Localization Methods 1) Trajectory Replay & Spectrum Analysis: This category quantifies the “suspiciousness” of actions or agents by com-paring the differences between successful and failed trajecto-ries. FAMAS [102] introduces a spectral-analysis framework based on trajectory abstraction, in which execution logs are decomposed into state–action–agent tuples. It further defines a hybrid scoring function that jointly considers failure frequency, IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 11 
+
+internal repetitiveness, and action centrality. By ranking sus-piciousness scores, the system can automatically identify the agents and key actions most likely responsible for the failure. 
+
+2) Causal & Structural Trace Modeling: As system com-plexity increases, researchers have proposed structured tra-jectory modeling methods to capture long-term, cross-agent dependencies. GraphTracer [103] constructs an information dependency graph to explicitly model inter-agent information flow and identifies root nodes causing downstream errors via backward tracing, thus moving beyond superficial, time-series-level causality. AgenTracer [104], on the other hand, generates synthetic failure trajectories through counterfactual replay and fault injection, training a small dedicated LLM to learn the who and when localization tasks. These methods exemplify the shift from semantic log analysis toward causal structure inference, enabling localization to handle multiple root causes and implicit dependencies. Ma et al. [11] propose a causal inference–based framework for failure attribution and critical step prediction in multi-agent systems. By con-structing structured causal graphs and applying counterfactual reasoning, the method identifies root causes of system-level failures and attributes them to specific agents and actions. SentinelAgent [106] introduces a graph-based root cause lo-calization framework for multi-agent systems by modeling inter-agent interactions and execution dynamics as graphs. It detects anomalous coordination and behavior patterns beyond individual agents, achieving improved performance through structural and relational analysis. 
+
+3) LLM-based Attribution: Another mainstream direction is to leverage large language models to perform “log adju-dication” (LLM-as-a-judge). Zhang et al. [18] propose three inference paradigms: All-at-once , where the full failure log is provided and the LLM outputs the faulty agent and step in a single pass; Step-by-step , where log segments are fed incrementally and the LLM decides whether the current step is erroneous, terminating immediately upon detection; and 
+
+Binary Search , which recursively bisects the log interval and uses iterative LLM judgments to progressively narrow down the error span. These strategies exploit LLMs’ semantic rea-soning ability, enabling soft, inference-driven localization even in the absence of highly structured logs. Although experiments show that pure LLM-based judgment still falls short in step-level accuracy, its advantage lies in supporting semi-automated diagnostic workflows when combined with human oversight, providing interpretable, language-based insights that facilitate system debugging. AgentFail [105] further observes that LLMs struggle to reason effectively over complex trajectories. To address the difficulty LLMs face in accurately diagnosing the root causes of complex failures, AgentFail proposes a fine-grained taxon-omy of agent system failures, which is used to guide the struc-tured knowledge representation of LLMs. In the AgentFail benchmark, incorporating this taxonomy into LLM guidance improves localization identification accuracy by approximately 15%. AgentDebug [107] similarly argues that failures in agent systems are closely tied to failure taxonomies. By analyzing a large number of cases, it identifies that different types of failures exhibit distinct tendencies across different stages of an 1 2 3 4 5     
+
+> Length Level
+> 0%
+> 20%
+> 40%
+> 60%
+> 80%
+> 100%
+> Accuracy
+> 12345
+> Length Level
+> 0%
+> 20%
+> 40%
+> 60%
+> 80%
+> 100%
+> Accuracy
+> All at Once
+> Step by Step
+> Binary Search
+> Track-R
+> Fig. 11. Localization accuracy under different context lengths.
+
+agent system’s execution. Accordingly, AgentDebug integrates taxonomy-aware analysis at each step of the agent system to jointly assess system behavior. Upon detecting a failure, the agent replans its trajectory, enabling timely resolution. 
+
+C. Future Directions 
+
+Currently, attribution methods can be broadly divided into two categories: LLM-based methods and non-LLM-based methods (statistical analysis and trace model), which exhibit complementary strengths. LLM-based methods leverage the strong semantic reasoning ability of LLMs and thus enable more precise fault localization. However, as shown in Fig. 11, LLMs are limited by their context window. When agent systems become complex and generate long trajectories, they may suffer from the “lost-in-the-middle” problem, leading to hallucinated or incorrect attribution. In contrast, non-LLM-based methods can learn statistical patterns and dependencies among steps and agents from historical traces, making them effective at identifying suspicious regions in long trajectories. Nevertheless, their predictions are usually coarse-grained and lack fine-grained localization capability. A promising future direction is to integrate two types of methods in a two-stage framework. The first stage uses a non-LLM-based model to narrow down suspicious regions, while the second stage applies an LLM-as-a-Judge to these regions for fine-grained attribution. To validate this idea, we instantiate the first stage with a simple VAE-based reconstruction model and use existing LLM-as-a-Judge methods in the second stage. We find most methods achieve improvements, suggesting that combining LLM-based and non-LLM-based methods is apromising direction for future research. VII. H OW TO RESOLVE THE ANOMALIES ?Once former steps have accurately pinpointed the root location, traditional operations can typically perform rapid recovery actions such as node switching or hardware main-tenance to prevent further economic losses. However, the resolution process in agent systems differs substantially, both in its paradigms and methodologies. The following sections provide a detailed discussion of these distinctions. 
+
+A. Resolution Methods 
+
+To systematically resolve anomalies in complex agentic systems, we categorize resolution strategies according to the stage at which the intervention is applied: pre-execution pre-ventive resolutions , in-execution corrective resolutions , and IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 12                                                                                
+
+> TABLE VI TARGETED ANOMALY TYPES OF RESOLUTION METHODS .✓DENOTES A TARGET ,AND –DENOTES AN INDIRECT TARGET .
+> Method Intra-agent Inter-agent Reas. Act. Mem. Sec. Task Comm. Term. Orch.
+> Pre-execution preventive
+> Task Re-spec. ✓✓––✓–✓✓
+> Plan Verif. ✓✓–––––✓
+> Action Restrict. –✓–✓––––
+> In-execution corrective
+> Obs.-grounded Replan. ✓✓––––✓✓
+> Self-correction ✓✓––––––Redundant Exec. & Select. ✓✓–––––✓
+> Post-execution recovery
+> Rollback & Re-exec. ✓✓✓✓✓✓✓✓
+> Memory & Skill Update ✓✓✓–––✓✓
+> Policy & Prompt Rev. ✓✓–✓✓–✓✓
+
+Note. Reas.=Reasoning, Act.=Action, Mem.=Memory, Sec.=Security, Task=Task Specification, Comm.=Communication, Term.=Termination, Orch.=Orchestration. 
+
+post-execution recovery resolutions . Rather than focusing on how anomalies are diagnosed, this taxonomy emphasizes how an agent system can actively resolve or mitigate failures. These three classes are complementary and are often combined in practical agent frameworks [108], [109], [110]. 
+
+1) Pre-execution Preventive Resolutions: Pre-execution preventive resolutions aim to avoid anomalies before the agent commits to external actions. These strategies are especially useful when actions are costly, unsafe, or irreversible.  
+
+> •
+
+Task Re-specification . A common way to prevent agent failures is to rewrite or refine the task before execution. This includes clarifying ambiguous goals, decomposing complex objectives, adding explicit constraints, specifying success criteria, and converting open-ended requests into executable subtasks. Prompting methods such as Chain-of-Thought, ReAct, and Tree-of-Thoughts make intermediate reasoning or alternative plans explicit, thereby reducing the chance that the agent starts from an ill-formed plan [111], [108], [112].  
+
+> •
+
+Plan Verification . Before execution, the agent can generate a candidate plan and check whether it is feasible, safe, and consistent with user constraints. Plan verification may involve rule-based validators, critic models, verifier agents, or human approval. This strategy prevents invalid action sequences before they are carried out. Multi-agent systems such as AutoGen support planner–critic–executor patterns, where one agent proposes actions and another reviews them before execution [109].  
+
+> •
+
+Action Space Restriction . Agent behavior can be made more reliable by restricting what actions are available be-fore execution begins. This includes limiting tool access, enforcing typed tool schemas, requiring valid parameters, using sandboxed environments, and defining permission boundaries. Tool-use systems such as Toolformer and agent frameworks such as SWE-agent show that the design of tool interfaces and action spaces strongly affects the reliability of agent execution [113], [110]. 
+
+2) In-execution Corrective Resolutions: In-execution cor-rective resolutions intervene while the agent is reasoning, call-ing tools, receiving observations, or updating its state. Their purpose is to correct errors before the execution trajectory becomes unrecoverable.  
+
+> •
+
+Observation-grounded Replanning . During execution, new observations may contradict the original plan or re-veal that the current trajectory is ineffective. The agent can resolve such deviations by revising its plan based on the latest environment feedback or tool outputs. ReAct is a representative framework that interleaves reasoning and acting, enabling the agent to update its next action after each observation [108].  
+
+> •
+
+Self-correction . Self-correction allows the agent to identify and repair its own mistakes during execution. The agent may critique its intermediate reasoning, verify tool outputs, rerun failed steps, or generate revised actions. Methods such as Self-Refine and Reflexion demonstrate that iterative feed-back, critique, and reflection can improve model behavior without updating model parameters [114], [115].  
+
+> •
+
+Redundant Execution and Selection . Instead of commit-ting to a single trajectory, the system may generate multiple candidate actions or run multiple agents in parallel, then select the most reliable output through voting, ranking, or verifier scoring. This resolves stochastic reasoning errors by comparing independent hypotheses. Such mechanisms are commonly used in multi-agent debate and ensemble-style agent execution [116], [86], [109]. 
+
+3) Post-execution Recovery Resolutions: Post-execution re-covery resolutions are applied after an execution attempt has failed or completed with unsatisfactory performance. These strategies focus on restoring a valid state, repairing conse-quences, and reducing recurrence in future runs.  
+
+> •
+
+Rollback and Re-execution . If an agent reaches an invalid or undesirable state, the system can restore a previous checkpoint and re-execute from that point with revised constraints or plans. This requires persistent state tracking, checkpointing, and replayable execution traces. Frameworks such as LangGraph support checkpointing and time-travel execution, which allow developers to resume or fork an agent run from earlier states [117].  
+
+> •
+
+Memory and Skill Update . After a failed or successful run, the agent can store useful experience as memory, corrected procedures, or reusable skills. This allows future executions to avoid similar failures. Reflexion stores verbal feedback from prior attempts, while Voyager builds a skill library that can be reused and composed in later tasks [115], [118].  
+
+> •
+
+Policy and Prompt Revision . When a failure reflects a recurring weakness, the system can revise prompts, policies, tool schemas, or orchestration rules after execution. This dif-fers from runtime self-correction because the modification is persistent and affects future runs. Automatic prompt op-timization methods and evolutionary prompt search provide systematic ways to update instructions based on task-level performance [119], [120], [121], [122]. 
+
+B. Future Directions 
+
+We identify three promising directions for advancing res-olution mechanisms in agent systems. A key direction is to IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 13                                  
+
+> TABLE VII COMPARISON OF DIFFERENT DATASETS AND BENCHMARKS .
+> Dataset #Fail. #Types Scalability and Agent Systems
+> Who&When [18] 184 –Partial. Systems: 127 multi-agent LLM systems. MASFT [123] 1642 14 Yes. Systems: ChatDev, MetaGPT, HyperAgent, AppWorld, AG2, Magentic-One, OpenManus. TRAIL [124] 841 21 No. Systems: –. AgentFail [105] 307 16 Partial. Systems: Dify, Coze. Aegis [125] 24843 14 Yes. Systems: LLM Debate, MacNet, AgentVerse, Dylan, SmolAgents, Magentic-One. AgentDebug [107] 200 17 No. Systems: ALFWorld, WebShop, GAIA.
+
+develop a unified framework that integrates preventive, in-process, and post-hoc resolution mechanisms. Rather than treating these stages as isolated modules, future agent systems should adaptively select suitable resolution strategies accord-ing to the task context, execution state, uncertainty, and risk of error propagation. Such a framework can better balance robustness, efficiency, and correction cost. Another important direction is to improve agents’ self-correction ability during execution. Existing methods such as Reflexion enable feedback-driven reflection, but they often rely on external feedback and may detect errors only after several subsequent steps. This delay can allow mistakes to propagate, especially in long-horizon or multi-agent settings. Future work should therefore enhance both rapid error detection, allowing agents to identify mistakes within only a few steps, and self-driven detection, enabling agents to monitor their own reasoning and actions without relying on external signals. Post-hoc resolution is also crucial for enabling agents to learn from practice. In existing frameworks, such as Hermes-style systems, this process is often formulated as skill accu-mulation, where reusable capabilities are distilled from past trajectories. While recent work explores adversarial or self-learning mechanisms for skill discovery, most frameworks emphasize successful experiences and overlook failures. Fu-ture systems should distill not only successful skills but also reusable lessons from failed trajectories, such as constraints, diagnostic patterns, and failure-aware heuristics, so as to reduce repeated errors and improve long-term robustness. VIII. D ATASETS AND BENCHMARK FOR AGENT OPS 
+
+To better advance the development of AgentOps, recent efforts have introduced a growing number of datasets and benchmarks. Although AgentOps typically consists of four key stages, i.e., monitoring, anomaly detection, root cause analysis, and resolution, not all stages are equally amenable to standardized dataset construction. In particular, monitoring and resolution are difficult to benchmark in a unified manner due to their strong dependence on practical deployment environ-ments, system instrumentation, and downstream operational constraints. Meanwhile, as discussed earlier, anomaly detec-                                                      
+
+> TABLE VIII COVERAGE OF EXISTING STUDIES UNDER OUR PROPOSED FAILURE TAXONOMY .✓DENOTES EXPLICIT COVERAGE AND –DENOTES LITTLE OR NO SUBSTANTIAL COVERAGE .
+> Study Intra-agent Inter-agent Reas. Act. Mem. Sec. Task Comm. Term. Orch.
+> Who&When [18] ✓✓––––––MAST [123] ✓–✓–✓✓✓–TRAIL [124] ✓✓✓✓✓–✓✓
+> AgentFail [105] ✓✓✓–✓–✓✓
+> Aegis [125] ✓–✓–✓✓✓–AgentDebug [107] ✓✓✓✓––––
+
+Note. Reas.=Reasoning, Act.=Action, Mem.=Memory, Sec.=Security, Task=Task Specification, Comm.=Communication, Term.=Termination, Orch.=Orchestration. 
+
+tion is still largely characterized by methods tailored to specific and relatively narrow categories of anomalies, rather than a broadly standardized evaluation paradigm. Consequently, root cause localization, also referred to as failure attribution, has emerged as the most mature and standardized direction for dataset and benchmark development in AgentOps. Therefore, in this section, we primarily summarize existing datasets and benchmarks for root cause localization. As shown in Table VII, most of these datasets are constructed by simulating trajecto-ries using widely adopted agent systems in the community, such as GAIA [126], ALFWorld [127], and WebShop [128], followed by manual or automated annotation. Several clear trends can be observed. First, the number of failure instances has steadily increased. A larger number of failures enables richer failure combinations and allows for more fine-grained evaluation of different methods. Second, the types of failures have become increasingly diverse. Various agent failure taxonomies have been proposed, as comprehen-sive coverage of failure types is essential to assess whether an algorithm exhibits systematic bias toward specific error categories. However, although many taxonomies have been proposed, as shown in Table VIII, their coverage of anomalies remains limited. Most existing taxonomies still focus primarily on the intra-agent dimension, while providing insufficient coverage of inter-agent anomalies. With the emergence of automated multi-agent system construction frameworks such as Hermes Agent, however, efficient inter-agent collaboration is becoming increasingly important. Third, there is a grow-ing preference for automated data generation and annotation. Manual approaches are gradually being phased out due to their high cost and limited scalability. From the evaluation perspective, most existing approaches still rely on LLMs as evaluators. Alternative methods often suffer from inferior performance or involve substantial design complexity. As a result, the majority of current benchmarks primarily focus on evaluating the capabilities of different models themselves, such as Who&When [18]. Moreover, most benchmarks continue to adopt agent-level accuracy and step-level accuracy as their main evaluation metrics. Looking forward, more fine-grained evaluation protocols are required to further promote the development of AgentOps. For example, beyond merely identifying failures, it is crucial to IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 14 
+
+assess whether an agent can efficiently recover from erroneous trajectories after a failure. Such recovery-oriented capabilities are likely to be more critical for real-world AgentOps systems. IX. C ONCLUSION 
+
+The continuous enhancement of LLMs’ reasoning capabil-ities has significantly accelerated the development of agent systems. However, agent systems frequently encounter anoma-lies and currently lack effective operations solutions. This paper offers a novel definition and comprehensive taxonomy of agent system anomalies, categorizing them into intra-agent anomalies and inter-agent anomalies. Furthermore, we propose a new operational framework—AgentOps—designed specif-ically for agent systems. This framework encompasses four key components: monitoring, anomaly detection, root cause localization, and resolution. Each component is thoroughly analyzed and categorized. Overall, this work advances the operations of agent systems, laying the foundation for their more robust and reliable deployment. REFERENCES [1] D. Guo, D. Yang, H. Zhang, J. Song, R. Zhang, R. Xu, Q. Zhu, S. Ma, P. Wang, X. Bi et al. , “Deepseek-r1: Incentivizing reasoning capability in llms via reinforcement learning,” arXiv preprint arXiv:2501.12948 ,2025. [2] A. Anthropic. (2024) The claude 3 model family: Opus, sonnet, haiku. claude-3 model card. [3] N. Li, C. Gao, M. Li, Y. Li, and Q. Liao, “Econagent: large language model-empowered agents for simulating macroeconomic activities,” 2024. [4] Y. Qin, S. Liang, Y. Ye, K. Zhu, L. Yan, Y. Lu, Y. Lin, X. Cong, X. Tang, B. Qian et al. , “Toolllm: Facilitating large language models to master 16000+ real-world apis,” in The Twelfth International Con-ference on Learning Representations , 2024. [5] C. Pei, Z. Wang, F. Liu, Z. Li, Y. Liu, X. He, R. Kang, T. Zhang, J. Chen, J. Li et al. , “Flow-of-action: Sop enhanced llm-based multi-agent system for root cause analysis,” in Companion Proceedings of the ACM on Web Conference 2025 , 2025, pp. 422–431. [6] X. Huang, J. Lian, Y. Lei, J. Yao, D. Lian, and X. Xie, “Recommender ai agent: Integrating large language models for interactive recommen-dations,” ACM Transactions on Information Systems , vol. 43, no. 4, pp. 1–33, 2025. [7] X. Ma, X. Xie, Y. Wang, J. Wang, B. Wu, M. Li, and Q. Wang, “Di-agnosing failure root causes in platform-orchestrated agentic systems: Dataset, taxonomy, and benchmark,” arXiv preprint arXiv:2509.23735 ,2025. [8] J. Zhou, J. Chen, Q. Lu, D. Zhao, and L. Zhu, “Shielda: Structured handling of exceptions in llm-driven agentic workflows,” arXiv preprint arXiv:2508.07935 , 2025. [9] SWE-bench Team. (2025) SWE-bench: A benchmark for evaluating software engineering agents. Leaderboard tracking AI agent performance on software engineering tasks. [Online]. Available: https://www.swebench.com [10] Arize AI, Inc. (2025) Llamatrace — hosted phoenix: Llm tracing & evaluation platform. [Online]. Available: https://phoenix.arize.com/ll amatrace/ [11] G. Ma, J. Zhu, H. Guo, W. Shi, J. Shen, J. Liu, and Y. Liang, “Automatic failure attribution and critical step prediction method for multi-agent systems based on causal inference,” arXiv preprint arXiv:2509.08682 , 2025. [12] W. Zhang, K. Tang, H. Wu, M. Wang, Y. Shen, G. Hou, Z. Tan, P. Li, Y. Zhuang, and W. Lu, “Agent-pro: Learning to evolve via policy-level reflection and optimization,” arXiv preprint arXiv:2402.17574 , 2024. [13] Y. Song, D. Yin, X. Yue, J. Huang, S. Li, and B. Y. Lin, “Trial and error: Exploration-based trajectory optimization for llm agents,” arXiv preprint arXiv:2403.02502 , 2024. [14] Z. Durante, Q. Huang, N. Wake, R. Gong, J. S. Park, B. Sarkar et al. ,“Agent ai: Surveying the horizons of multimodal interaction,” arXiv preprint arXiv:2401.03568 , 2024. [15] N. Chakraborty, M. Ornik, and K. Driggs-Campbell, “Hallucination de-tection in foundation models for decision-making: A flexible definition and review of the state of the art,” ACM Computing Surveys , 2025. [16] Z. Deng, Y. Guo, C. Han, W. Ma, J. Xiong, S. Wen, and Y. Xiang, “Ai agents under threat: A survey of key security challenges and future pathways,” ACM Computing Surveys , vol. 57, no. 7, pp. 1–36, 2025. [17] Y. Shi, W. Yu, W. Yao, W. Chen, and N. Liu, “Towards trustworthy gui agents: A survey,” arXiv preprint arXiv:2503.23434 , 2025. [18] S. Zhang, M. Yin, J. Zhang, J. Liu, Z. Han, J. Zhang, B. Li, C. Wang, H. Wang, Y. Chen et al. , “Which agent causes task failures and when? on automated failure attribution of LLM multi-agent systems,” in Forty-second International Conference on Machine Learning , 2025. [19] S. Yao, J. Zhao, D. Yu, N. Du, I. Shafran, K. Narasimhan, and Y. Cao, “React: Synergizing reasoning and acting in language models,” in 
+
+International Conference on Learning Representations (ICLR) , 2023. [20] J. Wei, M. Bosma, V. Y. Zhao, K. Guu, A. W. Yu, B. Lester, N. Du, A. M. Dai, and Q. V. Le, “Finetuned language models are zero-shot learners,” in International Conference on Learning Representations ,2022. [21] L. Ouyang, J. Wu, X. Jiang, D. Almeida, C. Wainwright, P. Mishkin, C. Zhang, S. Agarwal, K. Slama, A. Ray et al. , “Training language models to follow instructions with human feedback,” Advances in neural information processing systems , vol. 35, pp. 27 730–27 744, 2022. [22] B. Jin, H. Zeng, Z. Yue, J. Yoon, S. Arik, D. Wang, H. Zamani, and J. Han, “Search-r1: Training llms to reason and leverage search engines with reinforcement learning,” arXiv preprint arXiv:2503.09516 , 2025. [23] J. Wei, X. Wang, D. Schuurmans, M. Bosma, F. Xia, E. Chi, Q. V. Le, D. Zhou et al. , “Chain-of-thought prompting elicits reasoning in large language models,” Advances in neural information processing systems ,vol. 35, pp. 24 824–24 837, 2022. [24] N. Shinn, F. Cassano, A. Gopinath, K. Narasimhan, and S. Yao, “Reflexion: Language agents with verbal reinforcement learning,” 
+
+Advances in Neural Information Processing Systems , vol. 36, pp. 8634– 8652, 2023. [25] X. Wang, J. Wei, D. Schuurmans, Q. Le, E. Chi, S. Narang, A. Chowd-hery, and D. Zhou, “Self-consistency improves chain of thought rea-soning in language models,” in The Eleventh International Conference on Learning Representations , 2023. [26] X. Li, R. Zhao, Y. K. Chia, B. Ding, S. Joty, S. Poria, and L. Bing, “Chain-of-knowledge: Grounding large language models via dynamic knowledge adapting over heterogeneous sources,” in The Twelfth In-ternational Conference on Learning Representations , 2024. [27] H. S. Zheng, S. Mishra, X. Chen, H.-T. Cheng, E. H. Chi, Q. V. Le, and D. Zhou, “Take a step back: Evoking reasoning via abstraction in large language models,” in The Twelfth International Conference on Learning Representations , 2024. [28] V. Rawte, A. Sheth, and A. Das, “A survey of hallucination in large foundation models,” arXiv preprint arXiv:2309.05922 , 2023. [29] J. Gallifant, A. Fiske, Y. A. Levites Strekalova, J. S. Osorio-Valencia, R. Parke, R. Mwavu, N. Martinez, J. W. Gichoya, M. Ghassemi, D. Demner-Fushman et al. , “Peer review of gpt-4 technical report and systems card,” PLOS digital health , vol. 3, no. 1, p. e0000417, 2024. [30] Y. Yang, E. Chern, X. Qiu, G. Neubig, and P. Liu, “Alignment for honesty,” Advances in Neural Information Processing Systems , vol. 37, pp. 63 565–63 598, 2024. [31] M. Wang, Y. Zhang, C. Peng, Y. Chen, W. Zhou, J. Gu, C. Zhuang, R. Guo, B. Yu, W. Wang et al. , “Function calling in large language models: Industrial practices, challenges, and future directions,” 2025. [32] Z. Wu, H. Gao, J. He, and P. Wang, “The dark side of function calling: Pathways to jailbreaking large language models,” in Proceedings of the 31st International Conference on Computational Linguistics . Associ-ation for Computational Linguistics, Jan. 2024, pp. 584–592. [33] Tencent. (2025) Ai-infra-guard. [Online]. Available: https://github.c om/Tencent/AI-Infra-Guard [34] N. F. Liu, K. Lin, J. Hewitt, A. Paranjape, M. Bevilacqua, F. Petroni, and P. Liang, “Lost in the middle: How language models use long con-texts,” Transactions of the Association for Computational Linguistics ,vol. 12, pp. 157–173, 2024. [35] C. Wang and J. V. Sun, “Unable to forget: Proactive lnterference reveals working memory limits in llms beyond context length,” in ICML 2025 Workshop on Long-Context Foundation Models , 2025. [36] K. Zhang, Z. Sun, W. Yu, X. Zang, K. Zheng, Y. Song, H. Li, and J. Xu, “Qe-rag: A robust retrieval-augmented generation benchmark for query entry errors,” arXiv preprint arXiv:2504.04062 , 2025. IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 15 
+
+[37] F. Wang, X. Wan, R. Sun, J. Chen, and S. ¨O. Arık, “Astute rag: Overcoming imperfect retrieval augmentation and knowledge conflicts for large language models,” arXiv preprint arXiv:2410.07176 , 2024. [38] Z. Sun, X. Zang, K. Zheng, Y. Song, J. Xu, X. Zhang, W. Yu, and H. Li, “Redeep: Detecting hallucination in retrieval-augmented gener-ation via mechanistic interpretability,” in The Thirteenth International Conference on Learning Representations , 2025. [39] J. Chen, H. Lin, X. Han, and L. Sun, “Benchmarking large language models in retrieval-augmented generation,” in Proceedings of the AAAI Conference on Artificial Intelligence , vol. 38, no. 16, 2024, pp. 17 754– 17 762. [40] Sanjeev. (2025) Emergent behavior in multi-agent systems: How com-plex behaviors arise from simple agent interactions. [41] H. Zhang, J. Huang, K. Mei, Y. Yao, Z. Wang, C. Zhan, H. Wang, and Y. Zhang, “Agent security bench (asb): Formalizing and benchmarking attacks and defenses in llm-based agents,” in International Conference on Learning Representations , vol. 2025, 2025, pp. 35 331–35 366. [42] M. Z. Pan, M. Cemri, L. A. Agrawal, S. Yang, B. Chopra, R. Tiwari, K. Keutzer, A. Parameswaran, K. Ramchandran, D. Klein et al. , “Why do multiagent systems fail?” in ICLR 2025 Workshop on Building Trust in Language Models and Applications , 2025. [43] P. Altmann, J. Sch¨ onberger, S. Illium, M. Zorn, F. Ritz, T. Haider, S. Burton, and T. Gabor, “Emergence in multi-agent systems: A safety perspective,” in International Symposium on Leveraging Applications of Formal Methods . Springer, 2024, pp. 104–120. [44] X. He, D. Wu, Y. Zhai, and K. Sun, “Sentinelagent: Graph-based anomaly detection in multi-agent systems,” arXiv preprint arXiv:2505.24201 , 2025. [45] E. Platon et al. , “Modeling exception management in multi-agent systems.” Ph.D. dissertation, Citeseer, 2007. [46] P. D. OG. (2025) Building high-quality ai agent systems: Best practices. [47] L. Zhang, Y. Zhai, T. Jia, X. Huang, C. Duan, and Y. Li, “Agentfm: Role-aware failure management for distributed databases with llm-driven multi-agents,” in Proceedings of the 33rd ACM International Conference on the Foundations of Software Engineering , 2025, p. 947–958. [48] X. Li, S. Wang, S. Zeng, Y. Wu, and Y. Yang, “A survey on llm-based multi-agent systems: workflow, infrastructure, and challenges,” 
+
+Vicinagearth , vol. 1, no. 1, p. 9, 2024. [49] Q. Wu, G. Bansal, J. Zhang, Y. Wu, B. Li, E. Zhu, L. Jiang, X. Zhang, S. Zhang, J. Liu et al. , “Autogen: Enabling next-gen llm applications via multi-agent conversations,” in First conference on language modeling , 2024. [50] G. Li, H. Hammoud, H. Itani, D. Khizbullin, and B. Ghanem, “Camel: Communicative agents for” mind” exploration of large language model society,” Advances in neural information processing systems , vol. 36, pp. 51 991–52 008, 2023. [51] C. Bronsdon. (2025) Real-time anomaly detection for multi-agent ai systems. [52] G. Zhang, Y. Yue, Z. Li, S. Yun, G. Wan, K. Wang, D. Cheng, J. X. Yu, and T. Chen, “Cut the crap: An economical communication pipeline for llm-based multi-agent systems,” in The Thirteenth International Conference on Learning Representations , 2025. [53] Microsoft, “Taxonomy of failure mode in agentic ai systems,” 2025. [54] J. Chen, J. Liang, and B. Wang, “Smurfs: Multi-agent system using context-efficient dfsdt for tool planning,” in Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers) , 2025, pp. 3281–3298. [55] A. Zhu, L. Dugan, and C. Callison-Burch, “Redel: A toolkit for llm-powered recursive multi-agent systems,” in Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing: System Demonstrations , 2024, pp. 162–171. [56] S. Drake, “’neural howlround’in large language models: a self-reinforcing bias phenomenon, and a dynamic attenuation solution,” 
+
+arXiv preprint arXiv:2504.07992 , 2025. [57] J. Smeds, K. Nybom, and I. Porres, “Devops: a definition and perceived adoption impediments,” in International conference on agile software development . Springer, 2015, pp. 166–177. [58] Q. Cheng, D. Sahoo, A. Saha, W. Yang, C. Liu, G. Woo, M. Singh, S. Saverese, and S. C. Hoi, “Ai for it operations (aiops) on cloud platforms: Reviews, opportunities and challenges,” arXiv preprint arXiv:2304.04661 , 2023. [59] Cisco, “What is agentic operations (agenticops)?” https://www.cisco. com/site/us/en/learn/topics/artificial-intelligence/what-is-agentic-opera tions-agenticops.html, 2026, accessed: 2026-05-15. [60] O. Authors, “Opentelemetry: A cloud native observability framework,” https://opentelemetry.io, 2019. [61] L. Dong, Q. Lu, and L. Zhu, “A taxonomy of agentops for enabling observability of foundation model based agents,” no. arXiv:2411.05285, Nov. 2024, arXiv:2411.05285 [cs.AI]. [Online]. Available: http://arxiv.org/abs/2411.05285 [62] ——, “Agentops: Enabling observability of llm agents,” no. arXiv:2411.05285, Nov. 2024, arXiv:2411.05285 [cs.AI]. [Online]. Available: http://arxiv.org/abs/2411.05285 [63] S. Biswas, H. Bhatt, and K. Vaidhyanathan, “Architecting agentops needs change,” no. arXiv:2601.06456, Jan. 2026, arXiv:2601.06456 [cs.SE]. [Online]. Available: http://arxiv.org/abs/2601.06456 [64] D. Moshkovich and S. Zeltyn, “Taming uncertainty via automation: Observing, analyzing, and optimizing agentic ai systems,” no. arXiv:2507.11277, Nov. 2025, arXiv:2507.11277 [cs.AI]. [Online]. Available: http://arxiv.org/abs/2507.11277 [65] langdb, “Langdb: Llm-enhanced database exploration,” 2025. [Online]. Available: https://github.com/langdb/ai-gateway [66] Langfuse, “Langfuse: Open-source llm tracing and observability,” 2025. [Online]. Available: https://github.com/langfuse/langfuse [67] MLflow Project, a Series of LF Projects, LLC, “MLflow for GenAI: Build Production-Ready AI Applications,” https://mlflow.org/genai, 2025. [68] Helicone, “Helicone: Llm observability platform,” 2025. [Online]. Available: https://github.com/Helicone/helicone [69] LangWatch, “Langwatch,” 2025. [Online]. Available: https://github.c om/langwatch [70] Traceloop. (2025) Openllmetry: Open-source observability for your llm application. [Online]. Available: https://github.com/traceloop/ope nllmetry [71] Arize AI, Inc. (2025) Arize phoenix: Open-source llm tracing & evaluation platform. [Online]. Available: https://phoenix.arize.com/ [72] Literal AI, Inc. (2025) Literal ai: Rag llm evaluation & observability platform. [Online]. Available: https://www.literalai.com/ [73] Comet ML, Inc. (2025) Opik — open-source llm evaluation platform. [Online]. Available: https://www.comet.com/site/products/opik/ [74] Arize AI, Inc. (2025) Openinference: Opentelemetry instrumentation for ai observability. [Online]. Available: https://github.com/Arize-ai/ openinference [75] TruEra Inc. (2025) Trulens: Open-source llm evaluation & observability platform. [Online]. Available: https://www.trulens.org/ [76] HoneyHive AI, Inc. (2025) Honeyhive: Ai observability and evaluation platform. [Online]. Available: https://www.honeyhive.ai/ [77] Magniv, Inc. (2025) Promptlayer: Platform for prompt engineering, management, evaluation, and llm observability. [Online]. Available: https://www.promptlayer.com/ [78] AgentOps.ai. (2025) Agentops: Developer platform for ai agent observability. [Online]. Available: https://www.agentops.ai/ [79] confident-ai. (2024) Deepeval: The llm evaluation framework. [Online]. Available: https://github.com/confident-ai/deepeval [80] LangChain, “LangSmith: The Agent Engineering Platform,” 2026. [Online]. Available: https://www.langchain.com/langsmith-platform [81] L. Hanzlik, Y. Zhang, K. Grosse, A. Salem, M. Augustin, M. Backes, and M. Fritz, “Mlcapsule: Guarded offline deployment of machine learning as a service,” in Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , 2021, pp. 3300–3309. [82] Q. Huang, X. Dong, P. Zhang, B. Wang, C. He, J. Wang, D. Lin, W. Zhang, and N. Yu, “Opera: Alleviating hallucination in multi-modal large language models via over-trust penalty and retrospection-allocation,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , 2024, pp. 13 418–13 427. [83] A. Azaria and T. Mitchell, “The internal state of an llm knows when it’s lying,” in Findings of the Association for Computational Linguistics: EMNLP 2023 , 2023, pp. 967–976. [84] Y. Zhou, C. Cui, J. Yoon, L. Zhang, Z. Deng, C. Finn, M. Bansal, and H. Yao, “Analyzing and mitigating object hallucination in large vision-language models,” in The Twelfth International Conference on Learning Representations , 2024. [85] V. Quach, A. Fisch, T. Schuster, A. Yala, J. H. Sohn, T. S. Jaakkola, and R. Barzilay, “Conformal language modeling,” in The Twelfth International Conference on Learning Representations , 2024. [86] Y. Du, S. Li, A. Torralba, J. B. Tenenbaum, and I. Mordatch, “Improv-ing factuality and reasoning in language models through multiagent debate,” in Forty-first International Conference on Machine Learning ,2023. IEEE TRANSACTIONS OF SOFTWARE ENGINEERING, VOL. 00, NO. 0, AUGUST 0000 16 
+
+[87] S. Kumar, A. Girdhar, R. Patil, and D. Tripathi, “Mcp guardian: A security-first layer for safeguarding mcp-based ai system,” in Pro-ceedings of the 6th International Conference on Advanced Natural Language Processing (AdNLP 2025) , 2025. [88] S. Chen, S. Wong, L. Chen, and Y. Tian, “Extending context window of large language models via positional interpolation,” arXiv preprint arXiv:2306.15595 , 2023. [89] Y. Zhang, R. Sun, Y. Chen, T. Pfister, R. Zhang, and S. Arik, “Chain of agents: Large language models collaborating on long-context tasks,” 
+
+Advances in Neural Information Processing Systems , vol. 37, pp. 132 208–132 237, 2024. [90] H. Hu, Y. Sun, and Q. Zhang, “Lrp4rag: Detecting hallucinations in retrieval-augmented generation via layer-wise relevance propagation,” 
+
+arXiv preprint arXiv:2408.15533 , 2024. [91] J. Zhou, L. Wang, and X. Yang, “Guardian: Safeguarding llm multi-agent collaborations with temporal graph modeling,” arXiv preprint arXiv:2505.19234 , 2025. [92] A. Akli, M. Papadakis, M. Cordy, and Y. L. Traon, “Defective task descriptions in llm-based code generation: Detection and analysis,” 
+
+arXiv preprint arXiv:2604.24703 , 2026. [93] S. Vijayvargiya, X. Zhou, A. Yerukola, M. Sap, and G. Neubig, “Ambig-swe: Interactive agents to overcome underspecificity in soft-ware engineering,” in The Fourteenth International Conference on Learning Representations , 2026. [94] T. Zhang, P. Qin, Y. Deng, C. Huang, W. Lei, J. Liu, D. Jin, H. Liang, and T.-S. Chua, “Clamber: A benchmark of identifying and clarifying ambiguous information needs in large language models,” in Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) , 2024, pp. 10 746– 10 766. [95] N. Edwards and S. Schuster, “Ask or assume? uncertainty-aware clarification-seeking in coding agents,” arXiv preprint arXiv:2603.26233 , 2026. [96] L. Kuhn, Y. Gal, and S. Farquhar, “Semantic uncertainty: Linguistic invariances for uncertainty estimation in natural language generation,” 
+
+arXiv preprint arXiv:2302.09664 , 2023. [97] P. Manakul, A. Liusie, and M. Gales, “Selfcheckgpt: Zero-resource black-box hallucination detection for generative large language mod-els,” in Proceedings of the 2023 conference on empirical methods in natural language processing , 2023, pp. 9004–9017. [98] K. Liang, Z. Zhang, and J. Fern´ andez Fisac, “Introspective planning: Guiding language-enabled agents to refine their own uncertainty,” arXiv e-prints , pp. arXiv–2402, 2024. [99] M. Li, Y. Zhao, B. Yu, F. Song, H. Li, H. Yu, Z. Li, F. Huang, and Y. Li, “Api-bank: A comprehensive benchmark for tool-augmented llms,” in 
+
+Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing , 2023, pp. 3102–3116. [100] X. Wang, Y. Chen, L. Yuan, Y. Zhang, Y. Li, H. Peng, and H. Ji, “Exe-cutable code actions elicit better llm agents,” in Forty-first International Conference on Machine Learning , 2024. [101] G. Zhang, Y. Yue, X. Sun, G. Wan, M. Yu, J. Fang, K. Wang, T. Chen, and D. Cheng, “G-designer: Architecting multi-agent communication topologies via graph neural networks,” in Forty-second International Conference on Machine Learning , 2025. [102] Y. Ge, L. Xie, Z. Li, Y. Pei, and T. Zhang, “Who is introducing the failure? automatically attributing failures of multi-agent systems via spectrum analysis,” arXiv preprint arXiv:2509.13782 , 2025. [103] H. Zhang, Y. Shi, X. Gu, H. You, Z. Zhang, L. Gan, Y. Yuan, and J. Huang, “Graphtracer: Graph-guided failure tracing in llm agents for robust multi-turn deep search,” arXiv preprint arXiv:2510.10581 , 2025. [104] G. Zhang, J. Wang, J. Chen, W. Zhou, K. Wang, and S. Yan, “Agentracer: Who is inducing failure in the llm agentic systems?” arXiv preprint arXiv:2509.03312 , 2025. [105] X. Ma, X. Xie, Y. Wang, J. Wang, B. Wu, M. Li, and Q. Wang, “Di-agnosing failure root causes in platform-orchestrated agentic systems: Dataset, taxonomy, and benchmark,” arXiv preprint arXiv:2509.23735 ,2025. [106] X. He, D. Wu, Y. Zhai, and K. Sun, “Sentinelagent: Graph-based anomaly detection in multi-agent systems,” arXiv preprint arXiv:2505.24201 , 2025. [107] K. Zhu, Z. Liu, B. Li, M. Tian, Y. Yang, J. Zhang, P. Han, Q. Xie, F. Cui, W. Zhang et al. , “Where llm agents fail and how they can learn from failures,” arXiv preprint arXiv:2509.25370 , 2025. [108] S. Yao, J. Zhao, D. Yu, N. Du, I. Shafran, K. Narasimhan, and Y. Cao, “React: Synergizing reasoning and acting in language models,” in 
+
+International Conference on Learning Representations , 2023. [109] Q. Wu, G. Bansal, J. Zhang, Y. Wu, B. Li, E. Zhu, L. Jiang, X. Zhang, S. Zhang, J. Liu, A. H. Awadallah, R. W. White, D. Burger, and C. Wang, “Autogen: Enabling next-gen llm applications via multi-agent conversation,” arXiv preprint arXiv:2308.08155 , 2023. [110] J. Yang, C. E. Jimenez, A. Wettig, K. Lieret, S. Yao, K. Narasimhan, and O. Press, “Swe-agent: Agent-computer interfaces enable automated software engineering,” arXiv preprint arXiv:2405.15793 , 2024. [111] J. Wei, X. Wang, D. Schuurmans, M. Bosma, B. Ichter, F. Xia, E. H. Chi, Q. V. Le, and D. Zhou, “Chain-of-thought prompting elicits reasoning in large language models,” in Advances in Neural Information Processing Systems , 2022. [112] S. Yao, D. Yu, J. Zhao, I. Shafran, T. L. Griffiths, Y. Cao, and K. Narasimhan, “Tree of thoughts: Deliberate problem solving with large language models,” in Advances in Neural Information Processing Systems , 2023. [113] T. Schick, J. Dwivedi-Yu, R. Dess` ı, R. Raileanu, M. Lomeli, L. Zettle-moyer, N. Cancedda, and T. Scialom, “Toolformer: Language models can teach themselves to use tools,” in Advances in Neural Information Processing Systems , 2023. [114] A. Madaan, N. Tandon, P. Gupta, S. Hallinan, L. Gao, S. Wiegreffe, U. Alon, N. Dziri, S. Prabhumoye, Y. Yang, S. Gupta, B. P. Majumder, K. Hermann, S. Welleck, A. Yazdanbakhsh, and P. Clark, “Self-refine: Iterative refinement with self-feedback,” in Advances in Neural Information Processing Systems , 2023. [115] N. Shinn, F. Cassano, E. Berman, A. Gopinath, K. Narasimhan, and S. Yao, “Reflexion: Language agents with verbal reinforcement learning,” in Advances in Neural Information Processing Systems ,2023. [116] X. Wang, J. Wei, D. Schuurmans, Q. V. Le, E. H. Chi, S. Narang, A. Chowdhery, and D. Zhou, “Self-consistency improves chain of thought reasoning in language models,” in International Conference on Learning Representations , 2023. [117] LangChain, “Langgraph: Persistence and time travel,” Documentation for checkpointing, replay, and fork-based agent execution, 2024, avail-able at: https://docs.langchain.com/oss/python/langgraph/persistence. [118] G. Wang, Y. Xie, Y. Jiang, A. Mandlekar, C. Xiao, Y. Zhu, L. Fan, and A. Anandkumar, “Voyager: An open-ended embodied agent with large language models,” arXiv preprint arXiv:2305.16291 , 2023. [119] T. Shin, Y. Razeghi, R. L. Logan IV, E. Wallace, and S. Singh, “Autoprompt: Eliciting knowledge from language models with auto-matically generated prompts,” in Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP) ,2020. [120] X. Liu, K. Ji, Y. Fu, W. L. Tam, Z. Du, Z. Yang, and J. Tang, “P-tuning: Prompt tuning can be comparable to fine-tuning universally across scales and tasks,” in Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers) ,2022. [121] Z. Shi and A. Lipani, “Dept: Decomposed prompt tuning for parameter-efficient fine-tuning,” in The Twelfth International Conference on Learning Representations , 2024. [122] C. Fernando, D. Banarse, H. Michalewski, S. Osindero, and T. Rockt¨ aschel, “Promptbreeder: Self-referential self-improvement via prompt evolution,” in Proceedings of the 41st International Conference on Machine Learning , 2024. [123] M. Cemri, M. Z. Pan, S. Yang, L. A. Agrawal, B. Chopra, R. Tiwari, K. Keutzer, A. Parameswaran, D. Klein, K. Ramchandran et al. , “Why do multi-agent llm systems fail?” arXiv preprint arXiv:2503.13657 ,2025. [124] D. Deshpande, V. Gangal, H. Mehta, J. Krishnan, A. Kannappan, and R. Qian, “Trail: Trace reasoning and agentic issue localization,” arXiv preprint arXiv:2505.08638 , 2025. [125] F. Kong, R. Zhang, H. Yin, G. Zhang, X. Zhang, Z. Chen, Z. Zhang, X. Zhang, S.-C. Zhu, and X. Feng, “Aegis: Automated error generation and identification for multi-agent systems,” arXiv e-prints , pp. arXiv– 2509, 2025. [126] G. Mialon, C. Fourrier, T. Wolf, Y. LeCun, and T. Scialom, “Gaia: a benchmark for general ai assistants,” in The Twelfth International Conference on Learning Representations , 2023. [127] M. Shridhar, X. Yuan, M.-A. Cˆ ot´ e, Y. Bisk, A. Trischler, and M. Hausknecht, “Alfworld: Aligning text and embodied environments for interactive learning,” arXiv preprint arXiv:2010.03768 , 2020. [128] S. Yao, H. Chen, J. Yang, and K. Narasimhan, “Webshop: Towards scalable real-world web interaction with grounded language agents,” 
+
+Advances in Neural Information Processing Systems , vol. 35, pp. 20 744–20 757, 2022.

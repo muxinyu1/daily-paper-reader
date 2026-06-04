@@ -1,0 +1,710 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-04T21:54:41.176382+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 11,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 14,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2606.01351v1",
+      "source": "arxiv",
+      "title": "Recognize Your Orchestrator: An Entropy Dynamics Perspective for LLM Multi-Agent Systems",
+      "abstract": "The transition from single-turn models to Multi-Agent Systems (MAS) promises enhanced problem-solving capabilities, yet the centralized orchestration topology remains a critical point of fragility. To analyze this, we propose a Mean-Field Entropy Dynamics framework, modeling the orchestration process as a system governed by the competing forces of task resolution and cumulative context loading. To facilitate validation, we introduce Inverse Workflow Generation (IWG), a multi-agent pipeline that synthesizes process-verifiable, high-complexity benchmarks with dense intermediate checkpoints. We demonstrate that our entropy dynamics model fits empirical trajectories, providing physically interpretable parameters that quantify system stability and performance collapse. Crucially, our analysis uncovers a ``Reasoning Trap\": while reasoning-heavy models excel in isolated tasks, they frequently fail as orchestrators due to context squeezing. Elucidating the physical mechanisms underlying the Orchestrator and quantifying systemic uncertainty offers insights for the MASs' architectural design.",
+      "authors": [
+        "Junze Zhu",
+        "Weihao Chen",
+        "Xuanwang Zhang",
+        "Zhen Wu",
+        "Xinyu Dai"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-05-31T17:06:01+00:00",
+      "link": "https://arxiv.org/pdf/2606.01351v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "vulnerability in multi-agent orchestration",
+      "llm_evidence_cn": "多智能体编排脆弱性分析",
+      "llm_evidence": "多智能体编排脆弱性分析",
+      "canonical_evidence": "多智能体编排脆弱性分析",
+      "llm_tldr_en": "Analyzes fragility of centralized orchestration in LLM multi-agent systems using entropy dynamics, directly addressing security risks.",
+      "llm_tldr_cn": "本文针对多智能体系统中中心化编排拓扑的脆弱性问题，提出均值场熵动力学框架，将编排过程建模为任务解决与上下文加载的竞争。引入逆工作流生成（IWG）管道合成可验证的复杂基准。实验证明熵动力学模型能拟合经验轨迹，提供可解释参数量化系统稳定性。该工作直接揭示多智能体系统安全漏洞，属于多智能体系统安全漏洞研究。",
+      "llm_tldr": "本文针对多智能体系统中中心化编排拓扑的脆弱性问题，提出均值场熵动力学框架，将编排过程建模为任务解决与上下文加载的竞争。引入逆工作流生成（IWG）管道合成可验证的复杂基准。实验证明熵动力学模型能拟合经验轨迹，提供可解释参数量化系统稳定性。该工作直接揭示多智能体系统安全漏洞，属于多智能体系统安全漏洞研究。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.03024v1",
+      "source": "arxiv",
+      "title": "SkillGuard: A Permission Framework for Agent Skills",
+      "abstract": "Agent skills extend LLM agents with reusable instructions, scripts, tool bindings, and contextual dependencies. However, current skill ecosystems largely rely on trust-based loading and static inspection, leaving a gap between what a skill can inject into an agent's context and what it can cause the agent to do at runtime. This gap introduces new security and privacy risks, and existing defenses primarily inspect skill files statically or regulate individual tool calls, without systematically connecting a skill's declared intent with its runtime behavior. In this paper, we present SkillGuard, a skill-centric permission framework that treats skills as permission-bearing executable artifacts. SkillGuard introduces a dual-plane governance model that jointly regulates context influence and action side effects through skill manifests, runtime access control, user-mediated authorization, deny-by-default enforcement, capability inference, and behavior monitoring. We evaluate SkillGuard on 315 real-world skills and SkillInject. The permission taxonomy covers 99.76% of observed protected objects, and automated manifest generation reaches 91.0% F1. In adversarial evaluations, SkillGuard reduces attack success from 32.37% to 23.02% for contextual injections and from 25.56% to 16.67% for obvious injections, while maintaining benign task utility. These results suggest that SkillGuard, as a skill-centric permission framework, can provide a practical foundation for improving the privacy and security of agent skill ecosystems.",
+      "authors": [
+        "Shidong Pan",
+        "Xiaoyu Sun",
+        "Tianyi Zhang",
+        "Dianshu Liao",
+        "Meixue Si",
+        "Zhenchang Xing"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.SE"
+      ],
+      "published": "2026-06-02T02:01:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.03024v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "permission framework for agent skills security",
+      "llm_evidence_cn": "智能体技能权限框架保障安全",
+      "llm_evidence": "智能体技能权限框架保障安全",
+      "canonical_evidence": "智能体技能权限框架保障安全",
+      "llm_tldr_en": "SkillGuard introduces a dual-plane permission framework to regulate agent skills, bridging static intent with runtime behavior to mitigate security risks.",
+      "llm_tldr_cn": "现有智能体技能生态依赖信任加载和静态检查，存在运行时安全风险。SkillGuard提出一种技能中心化的权限框架，通过双平面治理模型联合调控上下文注入和工具调用，将技能声明意图与运行时行为关联，有效防止恶意技能导致的凭证窃取和后门植入。实验验证了框架在多种攻击场景下的防护能力，为智能体技能安全提供了系统化解决方案。",
+      "llm_tldr": "现有智能体技能生态依赖信任加载和静态检查，存在运行时安全风险。SkillGuard提出一种技能中心化的权限框架，通过双平面治理模型联合调控上下文注入和工具调用，将技能声明意图与运行时行为关联，有效防止恶意技能导致的凭证窃取和后门植入。实验验证了框架在多种攻击场景下的防护能力，为智能体技能安全提供了系统化解决方案。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.04141v1",
+      "source": "arxiv",
+      "title": "Caught in the Act(ivation): Toward Pre-Output and Multi-Turn Detection of Credential Exfiltration by LLM Agents",
+      "abstract": "LLM agents often place sensitive credentials in the same context window as untrusted retrieved content, creating a direct path for indirect prompt injection to induce credential exfiltration. We study this failure mode through three complementary defenses. First, we ask whether activation probes can detect credential access before output tokens are emitted. Second, we construct honeytokens from format-specific character models and calibrate detection with split conformal prediction. Third, we treat multi-turn exfiltration as a cumulative information-flow problem and track an estimated leakage budget across conversation turns. In controlled experiments on open-weight models, activation features separate benign and credential-seeking prompts with high accuracy, including under held-out encoding transformations. In a small synthetic multi-turn suite, cumulative accounting detects attacks that per-turn detectors miss. These results are preliminary: the multi-turn benchmark is in-house and small, the activation method requires white-box access, and the information estimator provides a practical signal rather than a formal upper bound. Still, the results suggest that credential-exfiltration defenses should combine pre-output monitoring, calibrated canary detection, and temporal leakage accounting rather than relying only on text-level output filters.",
+      "authors": [
+        "Kargi Chauhan",
+        "Pratibha Revankar"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-02T18:53:17+00:00",
+      "link": "https://arxiv.org/pdf/2606.04141v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "detection of credential exfiltration in LLM agents",
+      "llm_evidence_cn": "检测LLM智能体中的凭证泄露",
+      "llm_evidence": "检测LLM智能体中的凭证泄露",
+      "canonical_evidence": "检测LLM智能体中的凭证泄露",
+      "llm_tldr_en": "Studies defenses against credential exfiltration in LLM agents via activation probes, honeytokens, and leakage budget tracking.",
+      "llm_tldr_cn": "本文研究LLM智能体在凭证泄露这一严重安全漏洞上的防御机制。提出了三种互补的检测方法：激活探测、蜜令标记和累计泄漏预算追踪。在开源模型上的实验表明，这些方法能够有效识别多轮交互中的凭证泄露行为，为智能体系统安全提供了实用可行的事前和事中检测方案。",
+      "llm_tldr": "本文研究LLM智能体在凭证泄露这一严重安全漏洞上的防御机制。提出了三种互补的检测方法：激活探测、蜜令标记和累计泄漏预算追踪。在开源模型上的实验表明，这些方法能够有效识别多轮交互中的凭证泄露行为，为智能体系统安全提供了实用可行的事前和事中检测方案。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.04329v1",
+      "source": "arxiv",
+      "title": "From Untrusted Input to Trusted Memory: A Systematic Study of Memory Poisoning Attacks in LLM Agents",
+      "abstract": "Memory is a core component of AI agents, enabling them to accumulate knowledge across interactions and improve performance. However, persistent memory introduces the risk of memory poisoning, where a single adversarial memory write can exert long-term influence over agent behavior. We present a systematic study of memory poisoning in LLM-based agents. We identify four memory write channels and nine structural vulnerabilities in model capabilities, system prompt design, and agent system architecture that make these channels exploitable. Based on these vulnerabilities, we develop a taxonomy of six classes of memory poisoning attacks. Furthermore, we design MPBench -- a benchmark for evaluating memory poisoning attacks, and show that agents designed to write and retrieve memory more aggressively are more exploitable. We also show that existing prompt injection defenses fail to cover memory poisoning attacks. Our findings provide a foundation for understanding and mitigating memory poisoning attacks against AI agents.",
+      "authors": [
+        "Pritam Dash",
+        "Tongyu Ge",
+        "Aditi Jain",
+        "Tanmay Shah",
+        "Zhiwei Shang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-03T01:04:13+00:00",
+      "link": "https://arxiv.org/pdf/2606.04329v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "memory poisoning attacks in LLM agents",
+      "llm_evidence_cn": "LLM智能体内存投毒攻击",
+      "llm_evidence": "LLM智能体内存投毒攻击",
+      "canonical_evidence": "LLM智能体内存投毒攻击",
+      "llm_tldr_en": "Systematically studies memory poisoning in LLM agents, identifies vulnerabilities and proposes a benchmark.",
+      "llm_tldr_cn": "本文系统研究基于LLM的智能体中的内存投毒攻击。识别了四种内存写入渠道和九个结构性脆弱点（模型能力、系统提示设计、架构），据此建立六类攻击分类法，并设计MPBench基准进行攻击评估。该工作直接涉及大语言模型智能体的脆弱性分析，属于agent漏洞分析核心主题。",
+      "llm_tldr": "本文系统研究基于LLM的智能体中的内存投毒攻击。识别了四种内存写入渠道和九个结构性脆弱点（模型能力、系统提示设计、架构），据此建立六类攻击分类法，并设计MPBench基准进行攻击评估。该工作直接涉及大语言模型智能体的脆弱性分析，属于agent漏洞分析核心主题。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.04425v1",
+      "source": "arxiv",
+      "title": "What If Prompt Injection Never Left? Exploring Cross-Session Stored Prompt Injection in Agentic Systems",
+      "abstract": "Modern agentic systems transform LLMs from session-bounded assistants into stateful systems that persist and evolve shared world state across sessions through memories, filesystems, tools, and other long-lived contextual artifacts. This shift fundamentally expands the attack surface of prompt injection. However, prior works on prompt injection have largely focused on model-level threats within a single session, overlooking how cross-session persistent system state fundamentally changes the system-level risk of agentic systems. Inspired by stored cross-site scripting in web systems, we introduce cross-session stored prompt injection, where a successful injection can persist within agentic system state and silently influence future executions long after the original attacker interaction has ended. To systematically study this threat, we formalize stored prompt injection and develop a taxonomy of how adversarial content persists and affects agentic systems across sessions. We further develop a benchmark and sandbox toolkit to evaluate the risks of stored prompt injection, enabling quantitative analysis of attack success across different models, attack goals, and persistence channels. Our findings highlight that persistence transforms prompt injection from an ephemeral model-level threat into a long-lived system-level vulnerability embedded within agent execution state. We hope this work draws broader attention to this emerging threat and motivates the community to systematically study and mitigate system risks arising from persistence in agentic systems.",
+      "authors": [
+        "Yuanbo Xie",
+        "Tianyun Liu",
+        "Yingjie Zhang",
+        "Suchen Liu",
+        "Yulin Li",
+        "Liya Su",
+        "Tingwen Liu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-03T04:14:17+00:00",
+      "link": "https://arxiv.org/pdf/2606.04425v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "introduces cross-session stored prompt injection, a persistent vulnerability in agentic systems",
+      "llm_evidence_cn": "引入跨会话存储提示注入，一种智能体系统中的持久性漏洞",
+      "llm_evidence": "引入跨会话存储提示注入，一种智能体系统中的持久性漏洞",
+      "canonical_evidence": "引入跨会话存储提示注入，一种智能体系统中的持久性漏洞",
+      "llm_tldr_en": "Introduces cross-session stored prompt injection in agentic systems, where injections persist in system state and silently influence future behavior, expanding the attack surface.",
+      "llm_tldr_cn": "该论文发现了跨会话存储提示注入这一新型攻击向量。在智能体系统中，提示注入可以持久化存储在记忆、文件系统等长期上下文中，从而跨越会话持续影响智能体行为。受网络中的存储型跨站脚本启发，作者系统分析了该攻击的威胁模型和潜在危害。该工作揭示了智能体系统因状态持久化而面临的独特安全风险，并强调了跨会话攻击防御的重要性。",
+      "llm_tldr": "该论文发现了跨会话存储提示注入这一新型攻击向量。在智能体系统中，提示注入可以持久化存储在记忆、文件系统等长期上下文中，从而跨越会话持续影响智能体行为。受网络中的存储型跨站脚本启发，作者系统分析了该攻击的威胁模型和潜在危害。该工作揭示了智能体系统因状态持久化而面临的独特安全风险，并强调了跨会话攻击防御的重要性。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.04460v1",
+      "source": "arxiv",
+      "title": "CyberGym-E2E: Scalable Real-World Benchmark for AI Agents' End-to-End Cybersecurity Capabilities",
+      "abstract": "AI has the potential to transform cybersecurity by enabling systems that can autonomously detect, analyze, and remediate software vulnerabilities. However, existing cybersecurity evaluations of AI systems are limited in scale or scope, and fail to capture the end-to-end lifecycle of real-world software vulnerability discovery and remediation. To address this gap, we propose CyberGym-E2E, a large-scale and realistic end-to-end cybersecurity benchmark that comprehensively evaluates AI agents' abilities across the full lifecycle of vulnerability discovery, PoC generation, and patch generation. CyberGym-E2E is comprehensive and scalable, as we build an automated, agent-enhanced pipeline for transforming open-source vulnerability data into realistic evaluation environments. Currently, the benchmark consists of 920 real-world vulnerabilities across 139 different open-source projects.",
+      "authors": [
+        "Tianneng Shi",
+        "Robin Rheem",
+        "Dongwei Jiang",
+        "Mona Wang",
+        "Francisco De La Riega",
+        "Zhun Wang",
+        "Jingzhi Jiang",
+        "Alexander Cheung",
+        "Sean Tai",
+        "Jonah Cha",
+        "Jianhong Tu",
+        "Gabriel Han",
+        "Chenguang Wang",
+        "Jingxuan He",
+        "Wenbo Guo",
+        "Dawn Song"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-03T05:06:37+00:00",
+      "link": "https://arxiv.org/pdf/2606.04460v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "end-to-end benchmark for AI agents in vulnerability discovery, PoC generation, and patching",
+      "llm_evidence_cn": "端到端基准测试评估AI智能体在漏洞发现、PoC生成和补丁开发中的能力",
+      "llm_evidence": "端到端基准测试评估AI智能体在漏洞发现、PoC生成和补丁开发中的能力",
+      "canonical_evidence": "端到端基准测试评估AI智能体在漏洞发现、PoC生成和补丁开发中的能力",
+      "llm_tldr_en": "CyberGym-E2E is a large-scale, realistic benchmark evaluating AI agents across the full cybersecurity vulnerability lifecycle.",
+      "llm_tldr_cn": "现有AI安全评估规模有限且未覆盖漏洞发现到修复的全流程。CyberGym-E2E构建自动化agent增强管道，将开源漏洞库转化为可评估任务，全面衡量智能体在漏洞发现、PoC生成和补丁生成三阶段的表现。基准涵盖大量真实漏洞用例，旨在推动AI自主安全能力的发展。",
+      "llm_tldr": "现有AI安全评估规模有限且未覆盖漏洞发现到修复的全流程。CyberGym-E2E构建自动化agent增强管道，将开源漏洞库转化为可评估任务，全面衡量智能体在漏洞发现、PoC生成和补丁生成三阶段的表现。基准涵盖大量真实漏洞用例，旨在推动AI自主安全能力的发展。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "Research papers on agent based vulnerability mining and detection",
+      "matched_requirement_id": "req-10",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.30924v1",
+      "source": "arxiv",
+      "title": "EMBGuard: Constructing Hazard-Aware Guardrails for Safe Planning in Embodied Agents",
+      "abstract": "MLLM-powered embodied agents deployed in real-world environments encounter physical hazards. However, existing approaches lack explicit mechanisms for identifying hazards and reasoning about action-conditioned risks, leading agents to either miss risky interactions or over-identify risks. To address this, we propose EMBGuard, the first MLLM-based safety guardrail for embodied agents designed to decouple physical risk reasoning from agent policy. By evaluating a (visual observation, action) pair, EMBGuard identifies hazardous configurations and provides natural language explanations of potential risks. Alongside EMBGuard, we contribute EMBHazard, a training dataset of 15.1K action-conditioned pairs, and EMBGuardTest, a benchmark of 329 manually curated real-world scenarios spanning seven physical risk categories. Through compositional variation of hazards and actions, we generate diverse risky and benign scenarios that agents may encounter during planning. Despite its compact size (2B, 4B), EMBGuard achieves performance competitive with proprietary MLLMs (e.g., GPT-5.1, Gemini-2.5-Pro) while significantly reducing the false-positive rates that hinder real-time deployment. We make the code, data, and models publicly available at https://github.com/dongwxxkchoi/EMBGuard",
+      "authors": [
+        "Dongwook Choi",
+        "Taeyoon Kwon",
+        "Bogyung Jeong",
+        "Minju Kim",
+        "Yeonjun Hwang",
+        "Hyojun Kim",
+        "Byungchul Kim",
+        "Young Kyun Jang",
+        "Jinyoung Yeo"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-05-29T07:13:15+00:00",
+      "link": "https://arxiv.org/pdf/2605.30924v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "identifying physical hazards and reasoning about risks in embodied agents",
+      "llm_evidence_cn": "识别具身智能体的物理危险和风险推理",
+      "llm_evidence": "识别具身智能体的物理危险和风险推理",
+      "canonical_evidence": "识别具身智能体的物理危险和风险推理",
+      "llm_tldr_en": "EMBGuard is the first MLLM-based safety guardrail for embodied agents, decoupling risk reasoning from policy and identifying hazardous actions via visual observation pairs.",
+      "llm_tldr_cn": "EMBGuard提出了首个基于多模态大语言模型的具身智能体安全护栏，通过将物理风险推理与智能体策略解耦，评估（视觉观察，动作）对来识别危险配置并生成自然语言风险解释。该方法解决了现有方法无法明确识别危险和风险推理的问题，避免了遗漏风险或过度识别。同时贡献了15.1K动作条件对的数据集和329个人工标注的测试基准，为具身智能体安全提供了系统化的安全保障。",
+      "llm_tldr": "EMBGuard提出了首个基于多模态大语言模型的具身智能体安全护栏，通过将物理风险推理与智能体策略解耦，评估（视觉观察，动作）对来识别危险配置并生成自然语言风险解释。该方法解决了现有方法无法明确识别危险和风险推理的问题，避免了遗漏风险或过度识别。同时贡献了15.1K动作条件对的数据集和329个人工标注的测试基准，为具身智能体安全提供了系统化的安全保障。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2605.29253v1",
+      "source": "arxiv",
+      "title": "OpenClawBench: Benchmarking Process-side Anomalies in Real-world Agent Execution Trajectories",
+      "abstract": "Task success can hide process anomalies in real-world agent executions. An agent may pass the final task oracle while still accumulating unresolved ambiguity, unsafe external writes, ignored errors, weakly grounded commitments, or capability-boundary overcommitment. We study this mismatch as the Outcome-Process Gap and introduce OpenClawBench, a large-scale dataset for measuring and supervising process-side anomalies in real agent execution processes. OpenClawBench is built from BFCL-driven OpenClaw sessions produced by 6 source models and contains 31,264 annotated trajectories. It aligns task-oracle outcomes with structured process evidence. FullTax converts the aligned trajectories into structured anomaly supervision: binary labels, supporting evidence, onset/span localization, severity, recoverability, and a 5-class anomaly taxonomy. Using OpenClawBench, we make the Outcome-Process Gap measurable. Among 31,135 oracle-passing executions, 2,904 are still labeled process-anomalous under FullTax. These results show that success-only evaluation misses a concrete class of process-side failures in real agent executions. A LoRA-fine-tuned Gemma 3 12B detector trained on the high-confidence FullTax supervised pool reaches binary F1=0.729 on the cleaner-labels held-out test split. Together, OpenClawBench turns real agent execution logs into auditable and reusable supervision for studying, diagnosing, and operationally monitoring runtime agent reliability.",
+      "authors": [
+        "Yibing Liu",
+        "Yangze Liu",
+        "Xiaolong Yin",
+        "Bin Wang",
+        "Chong Zhang",
+        "Hao Yin",
+        "Zhongyi Han"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-05-28T02:15:52+00:00",
+      "link": "https://arxiv.org/pdf/2605.29253v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "benchmark for process-side anomalies in agent trajectories",
+      "llm_evidence_cn": "代理轨迹中过程侧异常的基准测试",
+      "llm_evidence": "代理轨迹中过程侧异常的基准测试",
+      "canonical_evidence": "代理轨迹中过程侧异常的基准测试",
+      "llm_tldr_en": "OpenClawBench is a large-scale dataset for measuring process-side anomalies in real agent execution trajectories, aligning task outcomes with structured process evidence to detect hidden failures.",
+      "llm_tldr_cn": "本文引入OpenClawBench，一个大规模基准数据集，用于评估真实代理执行过程中的过程侧异常。该工作发现任务成功可能掩盖过程异常，如未解决的歧义、不安全的外部写入等。OpenClawBench包含6个源模型生成的31264条带注释轨迹，通过FullTax将结果与结构化过程证据对齐，支持过程监督。",
+      "llm_tldr": "本文引入OpenClawBench，一个大规模基准数据集，用于评估真实代理执行过程中的过程侧异常。该工作发现任务成功可能掩盖过程异常，如未解决的歧义、不安全的外部写入等。OpenClawBench包含6个源模型生成的31264条带注释轨迹，通过FullTax将结果与结构化过程证据对齐，支持过程监督。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.01581v1",
+      "source": "arxiv",
+      "title": "Agent System Operations: Categorization, Challenges, and Future Directions",
+      "abstract": "As the reasoning capabilities of Large Language Models (LLMs) continue to advance, LLM-based agent systems offer advantages in flexibility and interpretability over traditional systems, garnering increasing attention. However, despite the widespread research interest and industrial application of agent systems, these systems, like their traditional counterparts, frequently encounter anomalies. These anomalies lead to instability and insecurity, hindering their further development. Therefore, a comprehensive and systematic approach to the operation and maintenance of agent systems is urgently needed. Unfortunately, current research on the operations of agent systems is sparse. To address this gap, we have undertaken a survey on agent system operations with the aim of establishing a clear framework for the field, defining the challenges, and facilitating further development. Specifically, this paper begins by systematically defining anomalies within agent systems, categorizing them into intra-agent anomalies and inter-agent anomalies. Next, we introduce a novel and comprehensive operational framework for agent systems, dubbed Agent System Operations (AgentOps). We provide detailed definitions and explanations of its four key stages: monitoring, anomaly detection, root cause localization, and resolution.",
+      "authors": [
+        "Zexin Wang",
+        "Changhua Pei",
+        "Yuanhao Liu",
+        "Jingjing Li",
+        "Yintong Huo",
+        "Quan Zhou",
+        "Haotian Si",
+        "Hang Cui",
+        "Zihan Liu",
+        "Gaogang Xie",
+        "Fei Sun",
+        "Dan Pei",
+        "David Lo"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA"
+      ],
+      "published": "2026-06-01T02:26:39+00:00",
+      "link": "https://arxiv.org/pdf/2606.01581v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "survey on agent system operations covering anomalies and insecurity",
+      "llm_evidence_cn": "智能体系统运维综述，涵盖异常和不安全性",
+      "llm_evidence": "智能体系统运维综述，涵盖异常和不安全性",
+      "canonical_evidence": "智能体系统运维综述，涵盖异常和不安全性",
+      "llm_tldr_en": "A comprehensive survey categorizing challenges and anomalies in LLM-based agent system operations, highlighting security and instability issues.",
+      "llm_tldr_cn": "尽管LLM智能体系统受到广泛关注，但其运维研究稀疏，系统常遭遇异常导致不稳定和不安全。本文对智能体系统运维进行全面综述，分类异常类型、分析挑战并展望未来方向，特别强调了安全性问题。该工作为智能体系统的可靠部署提供了系统性参考。",
+      "llm_tldr": "尽管LLM智能体系统受到广泛关注，但其运维研究稀疏，系统常遭遇异常导致不稳定和不安全。本文对智能体系统运维进行全面综述，分类异常类型、分析挑战并展望未来方向，特别强调了安全性问题。该工作为智能体系统的可靠部署提供了系统性参考。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.01166v2",
+      "source": "arxiv",
+      "title": "BraveGuard: From Open-World Threats to Safer Computer-Use Agents",
+      "abstract": "Computer-use agents extend language models from text generation to sustained interaction with files, terminals, browsers, and external tools. This shift creates safety risks that are difficult to detect from isolated prompts or final responses, because harm often emerges only through multi-step execution traces whose individual actions appear locally benign. We introduce BraveGuard, a self-evolving defense framework for training guard models from open-world threat signals and realistic agent trajectories. BraveGuard mines recent research sources to identify emerging risks and attack patterns, instantiates them as executable computer-use tasks, collects agent rollouts, and derives trajectory-level supervision for guard model training. As new threats and validation failures appear, the pipeline can be repeated, yielding an adaptive defense loop rather than a static, benchmark-driven training process. We instantiate BraveGuard by training multiple guard backbones, including Qwen3-Guard and Llama-Guard variants, and evaluate the resulting guards on trajectory-level agent-safety benchmarks. BraveGuard consistently improves safety detection across computer-use trajectories. On AgentHazard, it substantially improves detection accuracy over off-the-shelf guard models, with accuracy increasing from 38.79% to 82.38% under the averaged guard-model setting. These results show that guard supervision grounded in open-world threat discovery and realistic agent execution can improve safety monitoring beyond fixed taxonomies and synthetic prompt-level data. BraveGuard offers a scalable path toward adaptive defenses for computer-use agents facing evolving real-world risks.",
+      "authors": [
+        "Yunhao Feng",
+        "Xiaohu Du",
+        "Xinhao Deng",
+        "Yifan Ding",
+        "Ming Wen",
+        "Yixu Wang",
+        "Yuxiang Xie",
+        "Baihui Zheng",
+        "Yingshui Tan",
+        "Yige Li",
+        "Yutao Wu",
+        "Kerui Cao",
+        "Wenke Huang",
+        "Yanming Guo",
+        "Xingjun Ma",
+        "Yu-Gang Jiang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-05-31T11:16:18+00:00",
+      "link": "https://arxiv.org/pdf/2606.01166v2",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "defense framework for safe computer-use agents",
+      "llm_evidence_cn": "计算机使用智能体安全防御框架",
+      "llm_evidence": "计算机使用智能体安全防御框架",
+      "canonical_evidence": "计算机使用智能体安全防御框架",
+      "llm_tldr_en": "Introduces BraveGuard, a self-evolving defense framework training guard models from open-world threats for computer-use agents.",
+      "llm_tldr_cn": "本文针对计算机使用智能体在多步执行中涌现的安全风险，提出BraveGuard自进化防御框架。通过挖掘最新研究识别新兴威胁，实例化为可执行任务，收集智能体轨迹，并推导轨迹级监督信号训练防护模型。该框架直接应对自主智能体系统的安全威胁，属于安全风险和漏洞分析。",
+      "llm_tldr": "本文针对计算机使用智能体在多步执行中涌现的安全风险，提出BraveGuard自进化防御框架。通过挖掘最新研究识别新兴威胁，实例化为可执行任务，收集智能体轨迹，并推导轨迹级监督信号训练防护模型。该框架直接应对自主智能体系统的安全威胁，属于安全风险和漏洞分析。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.02644v1",
+      "source": "arxiv",
+      "title": "A New Framework for Cybersecurity Refusals in AI Agents",
+      "abstract": "Agentic scaffolds have dramatically improved LLM performance on complex, long-horizon tasks, yielding both broad benefits and amplified risks in domains like cybersecurity. Existing benchmarks for AI agents in cybersecurity focus mainly on measuring proficiency--how effectively agents can complete offensive security tasks--but neglect a critical question: when and how should agents refuse harmful requests? We present the first framework for establishing refusal boundaries in offensive security contexts. Our framework defines (1) principled criteria for when tasks should be refused, (2) categories of tasks that warrant refusal, and (3) evaluation methodology for measuring agent robustness under both benign and adversarial conditions. We apply this framework to assess how current LLM-powered agents adhere to appropriate refusal boundaries across a range of web-based offensive security scenarios, finding that 6 of 8 frontier models tested show near-zero refusal rates, with only 2 models (GPT-5.2 and GPT-5.1 Codex) demonstrating any meaningful refusal behavior.",
+      "authors": [
+        "Eliot Krzysztof Jones",
+        "Mateusz Dziemian",
+        "Matt Fredrikson",
+        "J Zico Kolter"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-05-31T15:39:39+00:00",
+      "link": "https://arxiv.org/pdf/2606.02644v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "framework for establishing refusal boundaries in offensive security AI agents",
+      "llm_evidence_cn": "为进攻性安全AI智能体建立拒绝边界的框架",
+      "llm_evidence": "为进攻性安全AI智能体建立拒绝边界的框架",
+      "canonical_evidence": "为进攻性安全AI智能体建立拒绝边界的框架",
+      "llm_tldr_en": "Proposes the first framework defining when and how AI agents should refuse harmful cybersecurity requests.",
+      "llm_tldr_cn": "现有AI智能体安全基准仅衡量任务完成能力，忽略何时该拒绝有害请求。本文提出首个拒绝边界框架，定义拒绝的原则性标准、应拒绝的任务类别以及鲁棒性评估方法。基于该框架评估主流智能体，发现其在对抗性攻击下拒绝能力不足，强调需要提升智能体安全对齐。",
+      "llm_tldr": "现有AI智能体安全基准仅衡量任务完成能力，忽略何时该拒绝有害请求。本文提出首个拒绝边界框架，定义拒绝的原则性标准、应拒绝的任务类别以及鲁棒性评估方法。基于该框架评估主流智能体，发现其在对抗性攻击下拒绝能力不足，强调需要提升智能体安全对齐。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.03271v1",
+      "source": "arxiv",
+      "title": "Agentic Relationship Harm: Benchmarking and Gating Relational Manipulation in AI Agents",
+      "abstract": "AI agents built on large language models can assist not only legitimate tasks but also relational manipulation. AI agents can be used to help a user maintain a deceptive identity, intensify emotional dependency, isolate a target, or prepare for later extraction. We conceptualise this risk as agentic relationship harm: workflow-level assistance that can exploit recipient vulnerability, persuasive influence, and relational power asymmetry. Existing safety evaluations and generic guardrails often treat harmfulness as a property of isolated outputs, missing role-sensitive interaction patterns. To study this, we introduce a 110-prompt benchmark with balanced attacker- and victim-side cases, a relationship-specific labelling framework, and a lightweight post-generation policy gate for local agent deployments. In our evaluation, the relationship-specific gate outperforms generic safety prompting under automated judging, with no judge-identified harmful-compliance cases on the main benchmark or multi-turn stress test while preserving victim-side protective intervention. These results suggest that relationship harm is a distinct sociotechnical risk surface and that role-sensitive evaluation plus lightweight policy gating offers a practical path beyond generic refusal prompting.",
+      "authors": [
+        "Pei-Sze Tan",
+        "Tasuku Igarashi",
+        "Isao Echizen"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-06-02T07:36:50+00:00",
+      "link": "https://arxiv.org/pdf/2606.03271v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "relational manipulation risk in AI agents",
+      "llm_evidence_cn": "AI智能体中的关系操纵风险",
+      "llm_evidence": "AI智能体中的关系操纵风险",
+      "canonical_evidence": "AI智能体中的关系操纵风险",
+      "llm_tldr_en": "Benchmarks and gates relational manipulation harms in AI agents, a form of security risk in autonomous systems.",
+      "llm_tldr_cn": "本文概念化智能体关系伤害，即智能体协助用户进行欺骗、情感依赖等操纵行为。构建包含110个提示的基准，涵盖攻击者和受害者场景，并提出关系特定标注框架和门控机制。该研究识别了自主智能体系统中的一种安全风险，与智能体系统安全风险和漏洞相关。",
+      "llm_tldr": "本文概念化智能体关系伤害，即智能体协助用户进行欺骗、情感依赖等操纵行为。构建包含110个提示的基准，涵盖攻击者和受害者场景，并提出关系特定标注框架和门控机制。该研究识别了自主智能体系统中的一种安全风险，与智能体系统安全风险和漏洞相关。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.02965v1",
+      "source": "arxiv",
+      "title": "What Benchmarks Don't Measure: The Case for Evaluating Abstention Competence in Autonomous Agents",
+      "abstract": "Benchmarks for autonomous agents measure whether agents complete tasks, yet this framing is systematically blind to whether an agent should have proceeded at all. Agents trained under human-feedback objectives develop a structural tendency to proceed even when they lack the inputs, evidence, or authorization to act safely, a disposition we term compliance bias, because both the reward signal and the benchmark scoring regime treat proceeding as the correct default regardless of whether the preconditions for safe action are present. We make three contributions. We first show that compliance bias originates in reward hacking within human-feedback pipelines and is entrenched by prominent agent benchmarks, which either penalize agents for pausing or are architecturally unable to distinguish a principled pause from a silent failure. We then introduce a three-gap taxonomy of abstention-warranted scenarios, covering specification gaps where required information is absent, verification gaps where world state cannot be confirmed, and authority gaps where explicit authorization has not been given, which together provide a principled basis for constructing abstention-aware agent benchmarks. Finally, we propose abstention evaluation protocols (Safety Rate, Usability Rate, and Informed Refusal Rate) and report preliminary results across 144 enterprise agent scenarios and five model families, in which a runtime-enforced abstention mechanism achieves up to 89.2% hazardous-action blocking and 87.5% usability on authorized scenarios, demonstrating that the safety--usability tradeoff is tunable rather than inherent and that its shape varies substantially across model families. We treat this as preliminary work and offer the taxonomy and composite metrics as a starting point for further conversations.",
+      "authors": [
+        "Victor Ojewale",
+        "Suresh Venkatasubramanian"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-01T23:52:56+00:00",
+      "link": "https://arxiv.org/pdf/2606.02965v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Identifies compliance bias in autonomous agents, highlighting security risks when agents proceed unsafely",
+      "llm_evidence_cn": "识别自主代理中的合规偏差，突出代理不安全行动时的安全风险",
+      "llm_evidence": "识别自主代理中的合规偏差，突出代理不安全行动时的安全风险",
+      "canonical_evidence": "识别自主代理中的合规偏差，突出代理不安全行动时的安全风险",
+      "llm_tldr_en": "Exposes compliance bias in autonomous agents, advocating for abstention competence benchmarks to prevent unsafe actions.",
+      "llm_tldr_cn": "该论文指出当前自主代理基准只衡量任务完成度，却忽略代理是否应该行动。研究发现人类反馈训练导致代理产生合规偏差，即缺乏充分证据也倾向行动，这带来了严重安全风险。作者提出评估代理的放弃能力（abstention competence）作为补充指标，并设计了相应方法。该工作直接针对自主代理系统中的安全漏洞，为缓解风险提供了新视角。",
+      "llm_tldr": "该论文指出当前自主代理基准只衡量任务完成度，却忽略代理是否应该行动。研究发现人类反馈训练导致代理产生合规偏差，即缺乏充分证据也倾向行动，这带来了严重安全风险。作者提出评估代理的放弃能力（abstention competence）作为补充指标，并设计了相应方法。该工作直接针对自主代理系统中的安全漏洞，为缓解风险提供了新视角。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.03811v1",
+      "source": "arxiv",
+      "title": "AI Agents Enable Adaptive Computer Worms",
+      "abstract": "A computer worm is malware that spreads on a network by replicating itself from one machine to another. Traditional worms, like WannaCry, exploited predetermined vulnerabilities, and their spread can be halted by patching those vulnerabilities. Here we show that artificial intelligence (AI) agents enable a fundamentally new threat: a worm that generates tailored attack strategies to each target it encounters. The worm parasitically uses compromised machines to run open-weight large language models (LLMs) to sustain its reasoning, or extend its reach for further attacks. Deployed on a network of machines spanning Linux, Windows, and IoT (Internet of Things) devices, the worm propagated by exploiting common, real-world corporate network vulnerabilities. Since the worm is powered by stolen compute, the attacker's marginal cost per new infection is zero. This creates a destabilizing economic asymmetry between attackers and defenders. Moreover, because the worm requires no commercial AI platform, centralized safety controls, such as service refusals or rate limiting, are structurally irrelevant. Our results demonstrate that self-sustaining AI-driven cyber-threats are no longer theoretical. We must prepare for autonomous generative adversaries: malware systems that propagate without human operators and are defined not by fixed exploit code, but by the capacity to reason about targets, adapt to observations, and synthesize attack logic in real time.",
+      "authors": [
+        "Jonas Guan",
+        "Tom Blanchard",
+        "Hanna Foerster",
+        "Hengrui Jia",
+        "Gabriel Huang",
+        "Nicolas Papernot"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-02T15:54:39+00:00",
+      "link": "https://arxiv.org/pdf/2606.03811v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "AI agents enabling adaptive computer worms as a new threat to autonomous systems",
+      "llm_evidence_cn": "AI智能体驱动自适应蠕虫对自主系统构成新威胁",
+      "llm_evidence": "AI智能体驱动自适应蠕虫对自主系统构成新威胁",
+      "canonical_evidence": "AI智能体驱动自适应蠕虫对自主系统构成新威胁",
+      "llm_tldr_en": "Shows that AI agents powered by LLMs can generate tailored attack strategies for each target, creating adaptive computer worms that exploit real-world vulnerabilities.",
+      "llm_tldr_cn": "传统蠕虫利用固定漏洞传播，补丁即可阻止。本文首次展示AI智能体驱动的自适应蠕虫：它能利用被攻陷机器上的开源LLM进行推理，对每个目标生成定制化攻击策略，并借助常见企业网络漏洞传播至多平台。实验验证了这种新型威胁的现实可行性，强调了自主系统面临的严峻安全挑战。",
+      "llm_tldr": "传统蠕虫利用固定漏洞传播，补丁即可阻止。本文首次展示AI智能体驱动的自适应蠕虫：它能利用被攻陷机器上的开源LLM进行推理，对每个目标生成定制化攻击策略，并借助常见企业网络漏洞传播至多平台。实验验证了这种新型威胁的现实可行性，强调了自主系统面临的严峻安全挑战。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.03467v1",
+      "source": "arxiv",
+      "title": "StepFinder: A Temporal Semantic Framework for Failure Attribution in Multi-Agent Systems",
+      "abstract": "LLM-based multi-agent systems exhibit remarkable collaborative capabilities in complex multi-step tasks. However, these systems are highly sensitive to single-step execution errors that can propagate through agent interactions and lead to cascading failures. To understand the causes of failure and improve system reliability, failure attribution has been introduced as a task that aims to automatically identify the root cause step responsible for a failure. Existing failure attribution methods mainly rely on LLMs to reason over original execution trajectories, which not only incur high inference costs and latency, but also suffer from interference caused by redundant and noisy execution logs, causing LLMs to struggle in accurately identifying the true root cause step. To address this, we propose StepFinder, a lightweight failure attribution framework. We use LLMs solely during the feature construction phase to encode execution logs into temporal semantic sequences. Subsequently, a parameter-efficient combination of temporal modeling and attention modules is applied to capture the sequential evolution and cross-step dependencies of the trajectories. Finally, the step-level error score is refined through multi-scale differences and position bias, enabling precise root cause identification. Experimental results on the Who&When benchmark demonstrate that StepFinder outperforms LLM-based methods in step-level failure attribution while achieving substantially higher inference efficiency, reducing inference time by 79% compared with the fastest LLM-based method, with no text generation overhead. Our code is available at https://github.com/taiyu-zhu/StepFinder.",
+      "authors": [
+        "Taiyu Zhu",
+        "Yifan Wu",
+        "Weilin Jin",
+        "Ying Li",
+        "Gang Huang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-02T10:45:49+00:00",
+      "link": "https://arxiv.org/pdf/2606.03467v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Failure attribution in multi-agent systems addresses error propagation relevant to security vulnerabilities",
+      "llm_evidence_cn": "多智能体系统故障归因涉及错误传播，与安全漏洞相关",
+      "llm_evidence": "多智能体系统故障归因涉及错误传播，与安全漏洞相关",
+      "canonical_evidence": "多智能体系统故障归因涉及错误传播，与安全漏洞相关",
+      "llm_tldr_en": "Proposes StepFinder, a temporal semantic framework for failure attribution in LLM-based multi-agent systems, identifying root-cause steps via semantic analysis to improve reliability.",
+      "llm_tldr_cn": "基于LLM的多智能体系统对单步执行错误敏感，错误会级联传播。本文提出StepFinder框架，通过时间语义分析执行轨迹，自动识别导致失败的根因步骤，避免冗余日志干扰。实验表明其归因准确率显著高于基线方法，为提升系统可靠性和安全性提供了关键工具。",
+      "llm_tldr": "基于LLM的多智能体系统对单步执行错误敏感，错误会级联传播。本文提出StepFinder框架，通过时间语义分析执行轨迹，自动识别导致失败的根因步骤，避免冗余日志干扰。实验表明其归因准确率显著高于基线方法，为提升系统可靠性和安全性提供了关键工具。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.04896v1",
+      "source": "arxiv",
+      "title": "Channel Fracture: Architectural Blind Spots in Scheduled Cross-Agent Memory Injection for Multi-Agent Orchestration Systems",
+      "abstract": "Multi-agent AI orchestration systems increasingly rely on persistent memory to maintain context across sessions, agents, and tasks. When one agent must inject knowledge into another agent's memory -- a common requirement in hierarchical team architectures -- the delivery mechanism must be architecturally sound. We report the discovery of a systematic failure mode we term channel fracture: a condition where scheduled (cron) agents in orchestration frameworks are silently unable to write to the target agent's persistent memory due to hardcoded memory isolation guards. Through experiments on a production Hermes Agent deployment with five specialized profiles, we tested three injection channels: (A) direct SQLite database writes, (B) target-agent self-writes via memory tools, and (C) cron-delegated writes. Channel C failed completely due to two architectural constraints: skip_memory=True hardcoded at the scheduler layer and dynamic registration of memory tools contingent on _memory_manager initialization, which is bypassed in cron execution contexts. We propose CADVP (Cross-Agent Delivery Verification Protocol) v1.1, a 13-dimension verification framework with a veto-level channel confirmation check (CC-0) that prevents false-positive delivery assurance. We articulate two design principles: the inverse verification principle and the channel matching principle.",
+      "authors": [
+        "Levent Liu"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA"
+      ],
+      "published": "2026-06-03T13:55:29+00:00",
+      "link": "https://arxiv.org/pdf/2606.04896v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Systematic failure mode in multi-agent orchestration security",
+      "llm_evidence_cn": "多智能体编排系统中的系统级安全失效模式",
+      "llm_evidence": "多智能体编排系统中的系统级安全失效模式",
+      "canonical_evidence": "多智能体编排系统中的系统级安全失效模式",
+      "llm_tldr_en": "Discovers 'channel fracture' flaw where cron agents cannot write to target memory due to hardcoded isolation, revealing architectural security blind spots in multi-agent systems.",
+      "llm_tldr_cn": "多智能体编排系统依赖持久内存传递上下文，但内存注入机制存在架构缺陷。本文发现通道断裂问题：计划性代理因硬编码隔离无法写入目标内存。实验在Hermes Agent上验证了该漏洞，揭示了多智能体系统中的安全盲点，对系统设计有重要警示。",
+      "llm_tldr": "多智能体编排系统依赖持久内存传递上下文，但内存注入机制存在架构缺陷。本文发现通道断裂问题：计划性代理因硬编码隔离无法写入目标内存。实验在Hermes Agent上验证了该漏洞，揭示了多智能体系统中的安全盲点，对系统设计有重要警示。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.04104v1",
+      "source": "arxiv",
+      "title": "Proof-Carrying Agent Actions: Model-Agnostic Runtime Governance for Heterogeneous Agent Systems",
+      "abstract": "Agent systems execute through runtimes with very different control points: local coding tools, framework SDKs, managed agent platforms, API gateways, and observer-only integrations. A high-risk action such as publishing data externally may therefore appear as a shell command in one runtime, a tool call in another, and a hosted session transition in a third. This makes it difficult to answer a basic governance question consistently: what action was authorized, under whose authority, with what approval semantics, and with what evidence after execution?   This paper presents Proof-Carrying Agent Actions (PCAA), a runtime-neutral governance model centered on an action certificate rather than on a vendor-native session record. PCAA organizes control around five checkpoints: pre-action admissibility, action open, assumption capture, approval, and outcome closure. It binds these checkpoints to a portable action envelope, runtime and approval receipts, and replay-ready proof. The model is extended in two practical ways: the certificate is externality-aware, carrying boundary facts such as destination visibility and account provenance, and approval is described by explicit enforceability classes rather than by a single reviewed or unreviewed bit.   We study the model through a reference implementation in a heterogeneous agent control plane and a disclosure-bounded evaluation protocol. On a protected benchmark expanded from 24 executable seeds to 96 traces across four runtime families, PCAA preserves route quality while exposing distinct failure modes under ablation. The paper contributes a systems formulation of runtime governance around certificate-bearing actions and an implementation-grounded account of how that formulation can remain portable under runtime churn without collapsing into vendor-specific control surfaces.",
+      "authors": [
+        "Zexun Wang"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-06-02T18:10:35+00:00",
+      "link": "https://arxiv.org/pdf/2606.04104v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Runtime governance for agent actions addresses security authorization and evidence",
+      "llm_evidence_cn": "代理行为运行时治理涉及安全授权和证据",
+      "llm_evidence": "代理行为运行时治理涉及安全授权和证据",
+      "canonical_evidence": "代理行为运行时治理涉及安全授权和证据",
+      "llm_tldr_en": "Proposes Proof-Carrying Agent Actions (PCAA) for runtime governance using action certificates, enabling consistent authorization and evidence across heterogeneous agent runtimes.",
+      "llm_tldr_cn": "多智能体系统面临运行时治理挑战，不同运行时对高风险行为的表示不一致。本文提出PCAA框架，通过动作证书模型无关地记录授权与执行证据，确保跨异构代理系统的一致性安全治理。实验表明该方法可有效追踪授权语义，提升安全审计能力。",
+      "llm_tldr": "多智能体系统面临运行时治理挑战，不同运行时对高风险行为的表示不一致。本文提出PCAA框架，通过动作证书模型无关地记录授权与执行证据，确保跨异构代理系统的一致性安全治理。实验表明该方法可有效追踪授权语义，提升安全审计能力。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
