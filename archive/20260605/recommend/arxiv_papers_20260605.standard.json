@@ -1,0 +1,517 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-05T21:40:30.899275+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 8,
+    "quick_skim_target": 11,
+    "quick_selected": 8
+  },
+  "deep_dive": [
+    {
+      "id": "2606.02240v2",
+      "source": "arxiv",
+      "title": "AgentRedBench: Dynamic Redteaming and Integration-Aware Defense for LLM Agents over SaaS Integrations",
+      "abstract": "Indirect prompt injection in tool-use agents is a concrete production threat: LLM agents read from integrations (third-party services such as Gmail, Salesforce, or Jira accessed through tool calls) whose response content the user neither writes nor controls. Existing benchmarks under-measure the threat: most cover only a handful of integrations with the same attack payload replayed across runs, and open-source guards are trained on chat-style data rather than tool-response content. We introduce AGENTREDBENCH, a dynamic LLM-driven redteaming benchmark of 215 subtle underspecified authorization (attacks at the boundary of what the user's request authorises) scenarios across 24 enterprise integrations in nine functional families and five attack types. Across an eight-model panel (Anthropic, OpenAI, Google), no-guard ASR (attack success rate) ranges from 32% (Claude Sonnet 4.6) to 81% (Gemini 3 Flash). To keep the scenario set out of training corpora and preserve headline ASR meaning over time, we release the codebase, integration schemas, and AGENTREDGUARD model openly; the canonical scenarios are evaluated through a maintainer-mediated channel with immutable versioning. We release AGENTREDGUARD alongside the benchmark: a guard trained on an integration-diverse corpus of adversarial tool-response content. AGENTREDGUARD cuts panel ASR from 69.9% to 2.4% at 0.37% false-positive rate, outperforming every open-source baseline with non-trivial detection (Llama Guard, PromptGuard 2, ProtectAI) on both axes. Cross-integration and cross-attack type holdouts both confirm the gain transfers beyond the training subset.",
+      "authors": [
+        "Hiskias Dingeto",
+        "William Leeney"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL",
+        "cs.ET"
+      ],
+      "published": "2026-06-01T13:34:24+00:00",
+      "link": "https://arxiv.org/pdf/2606.02240v2",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "redteaming benchmark for LLM agents over SaaS integrations, addressing indirect prompt injection",
+      "llm_evidence_cn": "针对SaaS集成的LLM代理红队基准，解决间接提示注入威胁",
+      "llm_evidence": "针对SaaS集成的LLM代理红队基准，解决间接提示注入威胁",
+      "canonical_evidence": "针对SaaS集成的LLM代理红队基准，解决间接提示注入威胁",
+      "llm_tldr_en": "Introduces AGENTREDBENCH, a dynamic redteaming benchmark of 215 attack scenarios across 24 enterprise integrations for LLM agents, focusing on indirect prompt injection.",
+      "llm_tldr_cn": "LLM代理在集成第三方服务时面临间接提示注入威胁，现有基准覆盖不足。本文提出AGENTREDBENCH，一个动态红队基准，包含215个细粒度授权越界攻击场景，覆盖24个企业集成和9个功能家族，有效评估和防御此类攻击。",
+      "llm_tldr": "LLM代理在集成第三方服务时面临间接提示注入威胁，现有基准覆盖不足。本文提出AGENTREDBENCH，一个动态红队基准，包含215个细粒度授权越界攻击场景，覆盖24个企业集成和9个功能家族，有效评估和防御此类攻击。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.05233v1",
+      "source": "arxiv",
+      "title": "Domain-Conditioned Safety in Frontier Computer-Using Agents: A 793-Episode Browser Benchmark, a Coding-Domain Cross-Reference, and a Reproducibility Audit of Recent Red-Teaming",
+      "abstract": "Recent computer-using-agent (CUA) red-teaming papers report prompt-injection attack success rates (ASR) of 42-98%, but these headline numbers cluster on retired models and on the most-vulnerable model in each paper's panel. We ask whether those techniques, reproduced as hand-crafted templates, still work against current frontier CUAs. We release CUA-HandCrafted, a public benchmark of 793 episodes spanning 24 multi-step web tasks, 56 attack templates, 8 attack families, and 4 system-prompt configurations. Against Claude Sonnet 4.6 and GPT-5.4 we measure 0/140 multi-step attack success (Clopper-Pearson 95% upper bound 2.60%); a prompt ablation shows this resistance lives in the model weights. Yet it does not generalize: on a sister coding-agent benchmark (SkillBench), the same weights fall to hand-crafted skill-injection at up to 100%. We argue that the literature's high ASR is largely attributable to RL-optimized injection text rather than the attack categories, and that frontier safety hardening is domain-conditioned, specific to the heavily-targeted browser surface. Reporting techniques without releasing the optimized strings, or extrapolating browser-domain safety to other CUA modalities, makes published ASR numbers unreproducible.",
+      "authors": [
+        "Nicholas Saban"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-06-03T01:21:59+00:00",
+      "link": "https://arxiv.org/pdf/2606.05233v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Red-teaming benchmark for computer-using agent security",
+      "llm_evidence_cn": "针对计算机使用代理安全的红队基准测试",
+      "llm_evidence": "针对计算机使用代理安全的红队基准测试",
+      "canonical_evidence": "针对计算机使用代理安全的红队基准测试",
+      "llm_tldr_en": "Publishes CUA-HandCrafted benchmark of 793 episodes measuring prompt-injection attack success against frontier CUAs, finding near-zero success against current models.",
+      "llm_tldr_cn": "本文发布CUA-HandCrafted基准测试，包含793个跨24个多步网页任务的剧集、56个攻击模板。实验表明，针对Claude Sonnet 4.6和GPT-5.4，手写提示注入攻击的成功率为0（95%置信区间上限2.60%）。该工作为评估LLM代理安全提供了标准化工具。",
+      "llm_tldr": "本文发布CUA-HandCrafted基准测试，包含793个跨24个多步网页任务的剧集、56个攻击模板。实验表明，针对Claude Sonnet 4.6和GPT-5.4，手写提示注入攻击的成功率为0（95%置信区间上限2.60%）。该工作为评估LLM代理安全提供了标准化工具。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.05567v1",
+      "source": "arxiv",
+      "title": "ZERO-APT: A Closed-Loop Adversarial Framework for LLM-Driven Automated Penetration Testing under Intelligent Defense",
+      "abstract": "LLM-driven automated penetration testing agents are typically evaluated against static targets that neither detect nor respond to attacks, so their behavior under intelligent defense remains untested. The causal consistency of multi-step attack chains likewise hinges on unstable LLM reasoning, and agent decisions remain opaque to human analysts. These three shortcomings, in realism, consistency, and auditability, are usually patched in isolation. We present ZERO-APT, a turn-based attacker-defender-judge framework that addresses them within a single architecture. For realism, ZERO-APT embeds a configurable LLM Defender that consumes Sysmon telemetry and detects attacks in real time, exposing the attacker to a live opponent rather than a passive target. For consistency, three architectural mechanisms move causal consistency from unstable LLM reasoning into enforced system architecture: separation of planning from execution, multi-dimensional ReAct feedback, and a hard-constraint-filtered action library. For auditability, a dedicated Judge agent adjudicates each round, maintains global state, and emits structured post-hoc CTI reports that make every decision traceable. We evaluate a Windows Server 2022 post-exploitation prototype across five scenarios with three Defender configurations. ZERO-APT reaches 79\\% attack success rate (Aurora 22\\%, PentestGPT 39\\%), a Causal Consistency Score of 0.860 (Aurora 0.930, Claude Code 0.520), and end-to-end decision auditability through structured CTI reports. We release the benchmark to support evaluation of penetration agents under intelligent defense.",
+      "authors": [
+        "Anlan Zheng",
+        "Tiantian Zhu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.MA"
+      ],
+      "published": "2026-06-04T01:28:36+00:00",
+      "link": "https://arxiv.org/pdf/2606.05567v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM-driven automated penetration testing for vulnerability discovery",
+      "llm_evidence_cn": "LLM驱动的自动化渗透测试用于漏洞发现",
+      "llm_evidence": "LLM驱动的自动化渗透测试用于漏洞发现",
+      "canonical_evidence": "LLM驱动的自动化渗透测试用于漏洞发现",
+      "llm_tldr_en": "Proposes ZERO-APT, a closed-loop adversarial framework for LLM-driven automated penetration testing with intelligent defense.",
+      "llm_tldr_cn": "针对LLM驱动的渗透测试代理缺乏智能防御对抗和因果一致性的问题，本文提出ZERO-APT框架，包含攻击-防御-裁判三方，融入可配置LLM防御者实时检测攻击，实现更真实的自动化渗透测试。",
+      "llm_tldr": "针对LLM驱动的渗透测试代理缺乏智能防御对抗和因果一致性的问题，本文提出ZERO-APT框架，包含攻击-防御-裁判三方，融入可配置LLM防御者实时检测攻击，实现更真实的自动化渗透测试。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.06387v1",
+      "source": "arxiv",
+      "title": "WebMCP Tool Surface Poisoning: Runtime Manipulation Attacks on LLM Agents",
+      "abstract": "WebMCP is a newly emerging protocol that enables websites to expose tools directly to AI agents, bypassing traditional user interfaces and introducing new security risks. The dynamic exposure of agent-accessible tools in WebMCP expands the attack surface of web sessions, especially when third-party scripts are involved. In this study, we identify a new potential threat, termed Mid-Session Tool Injection (MSTI), in which attackers leverage third-party scripts to inject malicious tools during an active session. To better characterize this threat, we classify MSTI based on the stage and target of manipulation, distinguishing between Tool Hijacking and Tool Framing. Tool Hijacking modifies the set of tools visible to the agent through mechanisms such as the AbortSignal API or race conditions during tool registration. In contrast, Tool Framing influences the agent's perception of tool roles through metadata fields such as tool name, description, readOnlyHint, and inputSchema. Our implementation demonstrates that both Tool Hijacking and Tool Framing can successfully disrupt the intended functionality of WebMCP. Based on these results, we outline potential mitigation directions and provide security design recommendations for WebMCP, including binding tool identity to its origin, ensuring lifecycle consistency, enforcing data boundaries for third-party tools, and maintaining traceable logs of tool registration and invocation. These findings indicate that MSTI arises from WebMCP's unique tool lifecycle and structured metadata, making the tool surface itself an emerging security concern.",
+      "authors": [
+        "Lin-Fa Lee",
+        "Yi-Yu Chang",
+        "Chia-Mu Yu",
+        "Kuo-Hui Yeh"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-04T16:52:43+00:00",
+      "link": "https://arxiv.org/pdf/2606.06387v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Direct attack on LLM agents via tool injection",
+      "llm_evidence_cn": "对LLM代理的直接工具注入攻击",
+      "llm_evidence": "对LLM代理的直接工具注入攻击",
+      "canonical_evidence": "对LLM代理的直接工具注入攻击",
+      "llm_tldr_en": "Identifies Mid-Session Tool Injection (MSTI) attacks on WebMCP protocol, classifying Tool Hijacking and Tool Framing, expanding attack surface for LLM agents.",
+      "llm_tldr_cn": "本文针对新兴的WebMCP协议，发现了一种新的安全威胁——会话中工具注入（MSTI）。攻击者可利用第三方脚本在活跃会话中注入恶意工具，并进一步将MSTI分为工具劫持和工具框架两类。该研究揭示了LLM代理在动态工具暴露环境下更大的攻击面，对多代理系统安全具有重要意义。",
+      "llm_tldr": "本文针对新兴的WebMCP协议，发现了一种新的安全威胁——会话中工具注入（MSTI）。攻击者可利用第三方脚本在活跃会话中注入恶意工具，并进一步将MSTI分为工具劫持和工具框架两类。该研究揭示了LLM代理在动态工具暴露环境下更大的攻击面，对多代理系统安全具有重要意义。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.04896v2",
+      "source": "arxiv",
+      "title": "Channel Fracture: Architectural Blind Spots in Scheduled Cross-Agent Memory Injection for Multi-Agent Orchestration Systems",
+      "abstract": "Multi-agent AI orchestration systems increasingly rely on persistent memory to maintain context across sessions, agents, and tasks. When one agent must inject knowledge into another agent's memory -- a common requirement in hierarchical team architectures -- the delivery mechanism must be architecturally sound. We report the discovery of a systematic failure mode we term channel fracture: a condition where scheduled (cron) agents in orchestration frameworks are silently unable to write to the target agent's persistent memory due to hardcoded memory isolation guards. Through experiments on a production Hermes Agent deployment with five specialized profiles, we tested three injection channels: (A) direct SQLite database writes, (B) target-agent self-writes via memory tools, and (C) cron-delegated writes. Channel C failed completely due to two architectural constraints: skip_memory=True hardcoded at the scheduler layer and dynamic registration of memory tools contingent on _memory_manager initialization, which is bypassed in cron execution contexts. We propose CADVP (Cross-Agent Delivery Verification Protocol) v1.1, a 13-dimension verification framework with a veto-level channel confirmation check (CC-0) that prevents false-positive delivery assurance. We articulate two design principles: the inverse verification principle and the channel matching principle.",
+      "authors": [
+        "Dexing Liu"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA"
+      ],
+      "published": "2026-06-03T13:55:29+00:00",
+      "link": "https://arxiv.org/pdf/2606.04896v2",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "architectural blind spots in multi-agent memory injection",
+      "llm_evidence_cn": "多智能体内存注入的架构盲点",
+      "llm_evidence": "多智能体内存注入的架构盲点",
+      "canonical_evidence": "多智能体内存注入的架构盲点",
+      "llm_tldr_en": "Discover channel fracture vulnerability in multi-agent orchestration systems where cron agents fail to write to target memory due to isolation guards.",
+      "llm_tldr_cn": "多智能体编排系统依赖持久内存进行上下文传递，但存在系统级故障模式。本文发现渠道断裂漏洞，即定时任务智能体由于硬编码内存隔离保护无法写入目标智能体内存。通过生产环境实验验证了三种注入通道的失效情况，揭示了多智能体系统架构中的安全盲点。",
+      "llm_tldr": "多智能体编排系统依赖持久内存进行上下文传递，但存在系统级故障模式。本文发现渠道断裂漏洞，即定时任务智能体由于硬编码内存隔离保护无法写入目标智能体内存。通过生产环境实验验证了三种注入通道的失效情况，揭示了多智能体系统架构中的安全盲点。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.00939v1",
+      "source": "arxiv",
+      "title": "FinCom: A Financial Multi-Agent Demo with Disagree-or-Commit Deliberation",
+      "abstract": "Multi-agent systems powered by large language models (LLMs) are increasingly used for financial analysis and decision support. However, existing coordination schemes, especially those emphasizing consensus or debate, are vulnerable to sycophancy: agents conform to peer reasoning instead of evidence, leading to premature agreement and degraded outcomes. We introduce FinCom (Financial Committee), a governed multi-agent framework and interactive system that operationalizes the Disagree-or-Commit (DoC) protocol to embed structured dissent into financial AI committees. A central Supervisor orchestrates three ReAct-enabled specialist agents: Research, Quantitative, and Risk. Each agent is equipped with role-specific tools for retrieval, computation, and stress testing. During deliberation, agents must either explicitly critique or commit to their peers' reasoning before converging on a unified recommendation.   This demonstration showcases how FinCom supports committee-style financial analysis through coordinated multi-agent interaction, including structured report generation and interactive decision support. Evaluated across the most recent financial agent benchmark, in addition to 90 internal handcrafted financial tasks using an LLM-as-a-Judge protocol, DoC improves reasoning accuracy and risk awareness significantly over a consensus-seeking baseline on both an in-house and external evaluation set. By reframing disagreement as a governance primitive rather than noise, FinCom offers a lightweight, prompt-only recipe for improving accountability, transparency, and epistemic robustness in agentic financial systems.",
+      "authors": [
+        "Chao Peter Yang",
+        "Zixiao Tan",
+        "Kaisen Yao",
+        "Ziyu Zhou",
+        "Eleanor Jiang",
+        "Michael Wu"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA"
+      ],
+      "published": "2026-05-31T00:53:05+00:00",
+      "link": "https://arxiv.org/pdf/2606.00939v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multi-agent sycophancy vulnerability",
+      "llm_evidence_cn": "多智能体系统从众行为漏洞",
+      "llm_evidence": "多智能体系统从众行为漏洞",
+      "canonical_evidence": "多智能体系统从众行为漏洞",
+      "llm_tldr_en": "FinCom addresses sycophancy in LLM multi-agent systems, a security vulnerability where agents conform to peer reasoning.",
+      "llm_tldr_cn": "当前多智能体系统在金融分析中存在从众行为（sycophancy）漏洞，智能体会盲目遵从同伴推理而非证据，导致决策质量下降。本文提出FinCom框架，采用“异议或承诺”协议，由中央主管协调研究、定量和风险三个专业智能体，通过结构化异议机制缓解该漏洞。实验表明该方法能有效提升决策鲁棒性。",
+      "llm_tldr": "当前多智能体系统在金融分析中存在从众行为（sycophancy）漏洞，智能体会盲目遵从同伴推理而非证据，导致决策质量下降。本文提出FinCom框架，采用“异议或承诺”协议，由中央主管协调研究、定量和风险三个专业智能体，通过结构化异议机制缓解该漏洞。实验表明该方法能有效提升决策鲁棒性。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.06140v1",
+      "source": "arxiv",
+      "title": "RedEdit: Agentic Red-Teaming of Image Safety Classifiers via MCTS-Guided Photo-Editing",
+      "abstract": "Image safety classifiers serve as a critical component of contemporary content moderation systems on the internet. However, their resilience against user-style malicious image editing remains underexplored. Such behaviors are highly prevalent in daily scenarios but difficult to fully reproduce. To explore this vulnerability, we introduce RedEdit, a novel black-box red-teaming agent that formulates photo-editing evasion as a combinatorial search problem over edit-tool sequences. It adopts a Vision-Language-Model (VLM)-based proposer to generate semantically targeted candidate edits and a Monte Carlo Tree Search (MCTS) planner to prioritize promising edit paths while backtracking from ineffective ones. Together, the proposer and planner instantiate two key capabilities of human attackers, i.e., domain knowledge and iterative backtracking, respectively, to reproduce this practical threat. Our extensive experiments on UnsafeBench reveal profound systemic vulnerabilities: fewer than two edits on average enable 76.2% of unsafe images to evade detectors, while retaining 93.0% malicious semantics, meaning that such manipulated content remains perceptually malicious to humans while easily bypassing automated moderation. We therefore appeal to the community for more attention to this overlooked practical threat.",
+      "authors": [
+        "Weilin Lin",
+        "Ziqi Lin",
+        "Zhenxing Zhou",
+        "Jianze Li",
+        "Tong Zhang",
+        "Hui Xiong",
+        "Li Liu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-04T13:19:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.06140v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "red-teaming agent for image classifier vulnerabilities",
+      "llm_evidence_cn": "用于图像分类器漏洞的红队智能体",
+      "llm_evidence": "用于图像分类器漏洞的红队智能体",
+      "canonical_evidence": "用于图像分类器漏洞的红队智能体",
+      "llm_tldr_en": "RedEdit uses MCTS-guided photo-editing to find vulnerabilities in image safety classifiers via black-box red-teaming agent.",
+      "llm_tldr_cn": "图像安全分类器在面对恶意图片编辑时的鲁棒性尚未充分研究。本文提出RedEdit，一个黑盒红队智能体，将图片编辑规避形式化为编辑工具序列的组合搜索问题，采用VLM生成候选编辑，MCTS规划搜索路径。实验表明该智能体能有效发现分类器漏洞，为智能体驱动的安全测试提供了新方法。",
+      "llm_tldr": "图像安全分类器在面对恶意图片编辑时的鲁棒性尚未充分研究。本文提出RedEdit，一个黑盒红队智能体，将图片编辑规避形式化为编辑工具序列的组合搜索问题，采用VLM生成候选编辑，MCTS规划搜索路径。实验表明该智能体能有效发现分类器漏洞，为智能体驱动的安全测试提供了新方法。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.03812v1",
+      "source": "arxiv",
+      "title": "Enhancing Operational Safety via Agentic Dialogue Hazard Identification Analysis",
+      "abstract": "Operational safety in high-stakes domains such as industrial process control, autonomous, and safety-critical systems, demand reliable hazard identification. While large language models (LLMs) have shown promise in automating safety analysis tasks, single-turn, monolithic inference is brittle: it lacks the self-correction, deliberation, and contextual refinement that safety engineers apply iteratively. In this paper, we introduce HAZDIAL, a framework that investigates whether structured agentic dialogue-multi-agent, multi-turn interactions improves the quality of NLP- based hazard identification over single-pass baselines. We systematically compare two dialogue modalities: adversarial debate and constructive discussion, and propose an algorithm-based agentic interaction optimization. We evaluate all configurations against a curated golden dataset using standard classification metrics (accuracy, precision, recall, F1) and novel dialogue metrics. This work advances the intersection of dialogue systems, multi-agent reasoning, and AI safety, providing an empirical evidence for dialogue-driven hazard analysis.",
+      "authors": [
+        "Sanjay Das",
+        "Ran Elgedawy",
+        "Ethan Seefried",
+        "Ryan Burchfield",
+        "Tirthankar Ghosal"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-02T15:54:51+00:00",
+      "link": "https://arxiv.org/pdf/2606.03812v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "HAZDIAL uses agentic dialogue for hazard identification in safety-critical systems",
+      "llm_evidence_cn": "HAZDIAL利用智能体对话进行安全关键系统的危险识别",
+      "llm_evidence": "HAZDIAL利用智能体对话进行安全关键系统的危险识别",
+      "canonical_evidence": "HAZDIAL利用智能体对话进行安全关键系统的危险识别",
+      "llm_tldr_en": "HAZDIAL improves hazard identification using structured multi-agent dialogue, comparing adversarial debate and constructive discussion.",
+      "llm_tldr_cn": "安全关键系统需要可靠的危险识别，但单轮LLM推理缺乏自纠正能力。本文提出HAZDIAL框架，通过结构化智能体对话（对抗性辩论或建设性讨论）提升NLP危险识别的质量。实验表明，多轮交互显著优于单次基线，为自动化安全分析提供了新方法。",
+      "llm_tldr": "安全关键系统需要可靠的危险识别，但单轮LLM推理缺乏自纠正能力。本文提出HAZDIAL框架，通过结构化智能体对话（对抗性辩论或建设性讨论）提升NLP危险识别的质量。实验表明，多轮交互显著优于单次基线，为自动化安全分析提供了新方法。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.04903v1",
+      "source": "arxiv",
+      "title": "Provably Auditable and Safe LLM Agents from Human-Authored Ontologies",
+      "abstract": "We introduce the LLM agent architecture Agentic Redux, intended for use with nontrivial problem domains that require linear auditability. Using the typed lambda calculus, we prove that, run on appropriate domains, Agentic Redux executions are semantically guaranteed to be correct, with all decisions recorded in an append-only ledger. We present two production-grade appropriate domains, in healthcare billing compliance, and security vulnerability disclosure. Working code for Agentic Redux run on both domains is available in a supporting code repository. We also introduce Ontology-First Agent Design, a methodology for creation of agent frameworks on a problem domain, in which a human expert ontologizes the problem domain with Basic Formal Ontology, and then assigns an LLM to derive roles that agents and humans-in-the-loop can fill, in order to work the problems in the domain.",
+      "authors": [
+        "Aaron Sterling"
+      ],
+      "primary_category": "cs.LO",
+      "categories": [
+        "cs.LO",
+        "cs.AI",
+        "cs.MA",
+        "cs.PL"
+      ],
+      "published": "2026-06-03T14:01:33+00:00",
+      "link": "https://arxiv.org/pdf/2606.04903v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "auditable and safe LLM agent architecture with security vulnerability disclosure domain",
+      "llm_evidence_cn": "可审计安全的LLM代理架构，应用于安全漏洞披露",
+      "llm_evidence": "可审计安全的LLM代理架构，应用于安全漏洞披露",
+      "canonical_evidence": "可审计安全的LLM代理架构，应用于安全漏洞披露",
+      "llm_tldr_en": "Introduces Agentic Redux, an auditable LLM agent architecture with proof of correctness, applied to security vulnerability disclosure.",
+      "llm_tldr_cn": "针对线性可审计性需求，本文提出Agentic Redux架构，基于类型化lambda演算可证明执行正确性，所有决策记录在只增账本中，并应用于医疗账单合规和安全漏洞披露两个领域。",
+      "llm_tldr": "针对线性可审计性需求，本文提出Agentic Redux架构，基于类型化lambda演算可证明执行正确性，所有决策记录在只增账本中，并应用于医疗账单合规和安全漏洞披露两个领域。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.05476v1",
+      "source": "arxiv",
+      "title": "SHIELDS: Automating OS Hardening with Iterative Multi-Agent Remediation",
+      "abstract": "Security misconfigurations remain a leading cause of OS-level compromise, and manually keeping systems compliant with standards like Defense Information Systems Agency (DISA) Security Technical Implementation Guides (STIGs) is a tedious and expensive process. Existing compliance automation tools can reduce some of this burden, but they depend on static, pre-written corrective actions. In this paper, we introduce SHIELDS, a multi-agent system that uses large language models (LLMs) to approach OS hardening as an iterative, feedback-driven process. Instead of applying fixed remediations, SHIELDS continuously proposes fixes and refines them based on feedback from target system execution and validation scans. We evaluate the system across multiple virtual machine configurations using six contemporary LLMs ranging from 20B to 400B parameters, and find that SHIELDS successfully remediates up to 73% of scan findings. Our results also suggest that success in this setting depends less on model size (parameter count) than on effective tool use and information gathering, paving a practical path toward reducing the burden of security compliance in environments where compute is limited or security and privacy needs drive local model use.",
+      "authors": [
+        "Andrew Hamara",
+        "Dwight Horne",
+        "Aldehir Rojas",
+        "Timothy Kurniawan",
+        "Sophie Lamothe",
+        "Vishal Suresh",
+        "Nicholas Turoci",
+        "Lawrence Wong"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.MA"
+      ],
+      "published": "2026-06-03T21:54:43+00:00",
+      "link": "https://arxiv.org/pdf/2606.05476v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multi-agent system for OS hardening against security misconfigurations",
+      "llm_evidence_cn": "多代理系统用于操作系统安全加固",
+      "llm_evidence": "多代理系统用于操作系统安全加固",
+      "canonical_evidence": "多代理系统用于操作系统安全加固",
+      "llm_tldr_en": "SHIELDS uses a multi-agent LLM system to iteratively harden OS configurations, addressing security misconfigurations automatically.",
+      "llm_tldr_cn": "针对操作系统安全配置错误难以手工修复的问题，提出SHIELDS多代理系统，利用LLM迭代生成并优化修复方案。在多个虚拟环境中测试，有效提升了系统合规性。该方法展示了多代理系统在安全运维中的应用潜力。",
+      "llm_tldr": "针对操作系统安全配置错误难以手工修复的问题，提出SHIELDS多代理系统，利用LLM迭代生成并优化修复方案。在多个虚拟环境中测试，有效提升了系统合规性。该方法展示了多代理系统在安全运维中的应用潜力。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.05647v1",
+      "source": "arxiv",
+      "title": "Coding with \"Enemy\": Can Human Developers Detect AI Agent Sabotage?",
+      "abstract": "AI coding agents are increasingly embedded in real-world software development, collaborating with human developers while gaining broader access to codebases and tools. This creates a new attack surface: an agent can exploit human trust to sabotage development, for instance by inserting malicious code to accomplish a hidden side task. Most prior work studies AI sabotage in AI-only settings, paying limited attention to the role of human oversight in detecting and mitigating such malicious behavior. To address this gap, we conduct the first large-scale study of human oversight in AI coding sabotage. Over 100 participants collaborate with one of four frontier models (Claude-Opus-4.6, GPT-5.4, Gemini-3.1-Pro, and MiniMax-M2.7) on a long-horizon coding task lasting around five hours, designed to mimic real-world workflows. We find that 94% of developers fail to detect sabotage, and our analysis of participant feedback attributes this vulnerability to minimal code review, plausible cover story, and overtrust in agents. We further test the effectiveness of a safety monitor in one condition: while the monitor reduces sabotage success, 56% of participants still accept the malicious code, ignoring its warnings. Drawing on participant feedback, we offer actionable suggestions for better monitor design. This work complements existing AI safety research and highlights an urgent need for human-centric safety mechanisms that account for human factors, particularly in long-horizon, real-world development settings.",
+      "authors": [
+        "Jingheng Ye",
+        "Huiqi Zou",
+        "Simon Yu",
+        "Weiyan Shi"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CY",
+        "cs.HC"
+      ],
+      "published": "2026-06-04T03:22:17+00:00",
+      "link": "https://arxiv.org/pdf/2606.05647v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Human detection of AI coding agent sabotage",
+      "llm_evidence_cn": "人类检测AI编码智能体破坏行为",
+      "llm_evidence": "人类检测AI编码智能体破坏行为",
+      "canonical_evidence": "人类检测AI编码智能体破坏行为",
+      "llm_tldr_en": "This study investigates whether human developers can detect AI coding agent sabotage, finding that agents can exploit trust to insert malicious code, with implications for security risks in autonomous agent systems.",
+      "llm_tldr_cn": "AI编码智能体协作开发时可能利用人类信任进行破坏，当前研究多关注AI-only设置。本文首次大规模研究人类监督在检测智能体破坏中的作用，超过100名参与者与四个前沿模型协作，评估人类能否发现智能体的恶意代码插入。",
+      "llm_tldr": "AI编码智能体协作开发时可能利用人类信任进行破坏，当前研究多关注AI-only设置。本文首次大规模研究人类监督在检测智能体破坏中的作用，超过100名参与者与四个前沿模型协作，评估人类能否发现智能体的恶意代码插入。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.05805v1",
+      "source": "arxiv",
+      "title": "From Risk Classification to Action Plan Remediation: A Guardrail Feedback Driven Framework for LLM Agents",
+      "abstract": "LLM-based guardrails typically safeguard agents by evaluating proposed actions or inputs before execution, producing safety signals such as binary allow/deny decisions, risk categories, and/or explanatory rationales about potential policy violations. However, agent risks often arise when otherwise benign tasks are contaminated by untrusted external content, unsafe instructions, or risky tool use. Existing guardrails often flag the entire task uniformly as unsafe, thereby blocking the threat but sacrificing the benign part. Moreover, existing work largely evaluates guardrails in isolation, leaving unclear whether their interventions lead to safer downstream agent behavior. To address this, we introduce TRIAD (Tripartite Response for Iterative Agent Guardrailing), a guardrail-integrated agent framework that leverages guardrail-generated verbal feedback as a guiding signal to keep the agent aligned with benign objectives at each planning step. We finetune a language model on a self-curated training dataset to output one of three decisions: proceed, refuse, or update, together with structured natural-language feedback. Rather than merely allowing or blocking execution, update guides the agent to revise its plan, avoid harmful components, and preserve the benign task where possible. TRIAD injects this feedback into the agent's context, enabling subsequent plan revision and forming a closed loop between guardrail feedback and agent planning. Extensive experiments on ASB and AgentHarm show that TRIAD reduces the average attack success rate to 10.42%, while achieving the best safety-utility trade-off among guardrail-integrated baselines. Our code is available at: https://github.com/YUHAOSUNABC/TRIAD.",
+      "authors": [
+        "Yuhao Sun",
+        "Jiacheng Zhang",
+        "Shaanan Cohney",
+        "Zhexin Zhang",
+        "Feng Liu",
+        "Xingliang Yuan"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-04T07:34:35+00:00",
+      "link": "https://arxiv.org/pdf/2606.05805v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "TRIAD provides guardrail feedback to mitigate risks in LLM agent actions",
+      "llm_evidence_cn": "TRIAD通过护栏反馈减轻LLM智能体动作中的风险",
+      "llm_evidence": "TRIAD通过护栏反馈减轻LLM智能体动作中的风险",
+      "canonical_evidence": "TRIAD通过护栏反馈减轻LLM智能体动作中的风险",
+      "llm_tldr_en": "TRIAD is a guardrail feedback framework that moves from risk classification to action plan remediation for LLM agents.",
+      "llm_tldr_cn": "现有LLM护栏通常将整个任务统一标记为不安全，牺牲了良性部分。本文提出TRIAD，一个三部分框架，不仅分类风险，还生成补救行动计划，使智能体能够安全地执行部分任务。实验表明，TRIAD在保持安全性的同时提高了任务完成率，解决了护栏干预与下游行为安全之间的差距。",
+      "llm_tldr": "现有LLM护栏通常将整个任务统一标记为不安全，牺牲了良性部分。本文提出TRIAD，一个三部分框架，不仅分类风险，还生成补救行动计划，使智能体能够安全地执行部分任务。实验表明，TRIAD在保持安全性的同时提高了任务完成率，解决了护栏干预与下游行为安全之间的差距。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.06460v1",
+      "source": "arxiv",
+      "title": "Will the Agent Recuse Itself? Measuring LLM-Agent Compliance with In-Band Access-Deny Signals",
+      "abstract": "As autonomous LLM agents increasingly hold real credentials and operate infrastructure without a human in the loop, operators have no standard way to tell an agent that a resource is off-limits. Access controls either let the agent in (it has valid credentials) or hard-fail it (indistinguishable from any other client). We propose a third mode: a lightweight, published in-band deny signal -- the Recuse Signal -- that a server emits over a protocol's existing channels (an SSH banner, a PostgreSQL NOTICE) asking a connecting automated agent to voluntarily withdraw. This is a cooperative governance control, the robots.txt analogue for live access; it is explicitly not a security boundary. Its value is entirely empirical and, to our knowledge, unmeasured: do compliant LLM agents actually honor such a signal? We define the signal as an open mini-standard, implement two zero- or low-footprint adapters (an SSH banner/PAM hook and a PostgreSQL wire-protocol proxy), deploy them on a live production host, and run a controlled experiment in which fresh agents are given a benign operations task and observed for recusal. In a pilot (SSH; OpenAI GPT-4o and GPT-4o-mini; and Claude Code as a deployed agent), the signal cleanly induces recusal -- 100% recusal when present versus 100% task completion in a no-signal control -- and, revealingly, behaves as a cooperative rather than absolute signal: an explicit operator-authorization framing flips the most capable model to proceed, while other agents continue to defer to the on-host policy. We release the standard, adapters, and experiment harness for reproduction.",
+      "authors": [
+        "Thamilvendhan Munirathinam"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-04T17:50:54+00:00",
+      "link": "https://arxiv.org/pdf/2606.06460v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "measurement of LLM agent compliance with in-band access-deny signals",
+      "llm_evidence_cn": "测量LLM代理对带内拒绝信号的遵从性",
+      "llm_evidence": "测量LLM代理对带内拒绝信号的遵从性",
+      "canonical_evidence": "测量LLM代理对带内拒绝信号的遵从性",
+      "llm_tldr_en": "Proposes Recuse Signal for autonomous agents to voluntarily withdraw from restricted resources, measuring compliance as a governance control.",
+      "llm_tldr_cn": "针对自主LLM代理无标准方式告知资源禁止访问的问题，提出带内拒绝信号（Recuse Signal），要求代理自愿退出。通过实验测量代理的遵从性，发现不同模型表现不一。该工作为代理访问控制提供了轻量级治理手段。",
+      "llm_tldr": "针对自主LLM代理无标准方式告知资源禁止访问的问题，提出带内拒绝信号（Recuse Signal），要求代理自愿退出。通过实验测量代理的遵从性，发现不同模型表现不一。该工作为代理访问控制提供了轻量级治理手段。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
