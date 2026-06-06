@@ -1,0 +1,290 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-06T20:14:09.084034+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2606.03453v1",
+      "source": "arxiv",
+      "title": "FORGE: Multi-Agent Graduated Exploitation and Detection Engineering",
+      "abstract": "Vulnerability disclosure volumes now far exceed organizational assessment capacity, yet three adjacent research communities (proof-of-concept generation, vulnerability prioritization, and detection rule engineering) operate largely in isolation. Existing automated exploit generation systems report binary pass/fail outcomes, discarding partial progress and producing no signal for the other two communities. This paper presents FORGE, a multi-agent system that bridges these three silos through graduated exploitation depth. Five specialized agents (Intel, Generator, Planner, Exploit, and Detector) execute in a fixed pipeline that (1) generates targeted vulnerable applications from CVE metadata, (2) conducts coached, multi-turn exploitation assessed by an LLM-primary oracle on a four-level taxonomy (L0: no evidence through L3: full compromise), and (3) produces Sigma and Snort detection rules grounded in OpenTelemetry exploitation traces. Graduated depth is the bridging mechanism: deeper exploitation yields richer behavioral traces for detection engineering, while depth data across scoring bands provides ground truth for prioritization validation. A tiered knowledge architecture accumulates intelligence across assessments, transferring build and exploitation experience to subsequent CVEs. Evaluation on 603 CVEs from the CVE-GENIE dataset achieves 67.8% end-to-end L1+ exploitation at USD 1.50 per CVE across eight languages and 187 CWE types. Exploitation rates remain near 68% regardless of EPSS or CVSS band, indicating that pattern-level reachability is orthogonal to metadata-based prioritization. Detection rules from L2+ exploitation achieve significantly higher span-normalized grounding than L1-derived rules (p=0.035), and 93.4% of generated Snort rules produce zero false positives against a synthetic benign corpus.",
+      "authors": [
+        "Farooq Shaikh"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-06-02T10:32:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.03453v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "multi-agent system for vulnerability exploitation and detection engineering",
+      "llm_evidence_cn": "用于漏洞利用和检测工程的多智能体系统",
+      "llm_evidence": "用于漏洞利用和检测工程的多智能体系统",
+      "canonical_evidence": "用于漏洞利用和检测工程的多智能体系统",
+      "llm_tldr_en": "Presents FORGE, a multi-agent system that bridges exploit generation, vulnerability prioritization, and detection rule engineering through graduated exploitation depth.",
+      "llm_tldr_cn": "本文提出FORGE，一个多智能体系统，通过渐进式利用深度连接三个独立领域：漏洞利用生成、优先级排序和检测规则工程。五个专门智能体按固定管道运行，从CVE元数据生成目标易受攻击应用，进行多轮利用，并由LLM评估。实验证明FORGE能有效生成检测规则和利用方案，直接服务于漏洞挖掘和检测。",
+      "llm_tldr": "本文提出FORGE，一个多智能体系统，通过渐进式利用深度连接三个独立领域：漏洞利用生成、优先级排序和检测规则工程。五个专门智能体按固定管道运行，从CVE元数据生成目标易受攻击应用，进行多轮利用，并由LLM评估。实验证明FORGE能有效生成检测规则和利用方案，直接服务于漏洞挖掘和检测。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "vulnerability mining agent techniques",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.01494v1",
+      "source": "arxiv",
+      "title": "ClawHub Security Signals: When VirusTotal, Static Analysis, and SkillSpector Disagree",
+      "abstract": "Agent skills extend AI agents with reusable instructions, tools, scripts, references, and workflows, establishing a security boundary distinct from both model safety and traditional package-malware detection. ClawHub Security Signals is a sanitized dataset of 67,453 latest public OpenClaw skill versions. Each row pairs redacted SKILL.md content and sanitized bundled files where present with a final ClawScan registry verdict and evidence from three scanner families: VirusTotal, static heuristic analysis, and NVIDIA SkillSpector.   Rather than estimating malicious-skill prevalence, we study scanner disagreement. The three scanners rarely flag the same skills: any pair overlaps on at most 10.4% of their combined positives, only 0.69% of skills are flagged by all three, and 81.9% of flagged skills are identified by a single scanner. The disagreement is structured by attack surface. SkillSpector, which raises semantic agentic-risk advisories rather than malware-reputation signals, is positive for 19,209 of 25,504 suspicious rows (75.3%) but only 14 of 206 malicious rows (6.8%). The malicious-verdict region shows the inverse profile: 150 of 206 malicious rows (72.8%) are VirusTotal-positive, consistent with bundled-code malware evidence.   These results show that agent-skill security requires layered governance, not single-scanner allow/block decisions. The corpus is released as a sanitized silver-standard dataset: labels are the registry's automated verdicts, not human-annotated ground truth, and the release represents an early, versioned snapshot intended to support the community while a human-annotated subset is developed. Further research is encouraged, including models tailored for skill-security triage.",
+      "authors": [
+        "Vincent Koc",
+        "Patrick Erichsen",
+        "Jacob Tomlinson",
+        "Agustin Rivera",
+        "Michael Appel",
+        "Nir Paz"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-05-31T23:20:25+00:00",
+      "link": "https://arxiv.org/pdf/2606.01494v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "security signals dataset for agent skills",
+      "llm_evidence_cn": "代理技能的安全信号数据集",
+      "llm_evidence": "代理技能的安全信号数据集",
+      "canonical_evidence": "代理技能的安全信号数据集",
+      "llm_tldr_en": "Introduces ClawHub Security Signals dataset comparing VirusTotal, static analysis, and SkillSpector for agent skill security, showing high scanner disagreement.",
+      "llm_tldr_cn": "该论文关注代理技能的安全边界，发布了ClawHub Security Signals数据集，包含六万多个公共技能版本。通过比较VirusTotal、静态分析和SkillSpector三种扫描器的检测结果，发现它们之间的一致性极低，多数技能仅被一种扫描器标记。该工作为代理技能安全研究提供了重要数据和见解。",
+      "llm_tldr": "该论文关注代理技能的安全边界，发布了ClawHub Security Signals数据集，包含六万多个公共技能版本。通过比较VirusTotal、静态分析和SkillSpector三种扫描器的检测结果，发现它们之间的一致性极低，多数技能仅被一种扫描器标记。该工作为代理技能安全研究提供了重要数据和见解。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.03190v1",
+      "source": "arxiv",
+      "title": "Focused on the User, Overlooking the Risks: Security and Privacy Understandings, Practices and Challenges of Independent Chinese AI Agent Developers",
+      "abstract": "The proliferation of AI agents empowers independent developers, defined as individual or small groups who self-initiate projects rather than fulfill client-based contracts, to create sophisticated autonomous systems, but also introduces novel security and privacy (S&P) challenges beyond traditional corporate structures. We conducted an interview study (N=28) with Chinese developers, whose extensive use of global LLM services offer valuable insights into this population. We investigate their understandings, practices and challenges of S&P challenges in their developed AI agent products. We revealed that independent developers frequently think and act from their users' perspective. They focused on user-facing safety risks such as harmful content while exhibiting low awareness of security vulnerabilities. Consequently, developers rely almost exclusively on ad-hoc, manually crafted safeguards and informal communication, with an absence of formal tools or processes for S&P practices. We found these actions are driven by various inhibitors, primarily a lack of formal training on S&P related skills, accessible security tools and actionable guidance from platforms. Our work contributed the first exploration of independent AI agent developers' S&P understanding, outlining opportunities for tailored security tooling.",
+      "authors": [
+        "Shuning Zhang",
+        "Mingyao Xu",
+        "Zhixin Huang",
+        "Yutong Jiang",
+        "Rongjun Ma",
+        "Yuting Yang",
+        "Xin Yi",
+        "Kanye Ye Wang",
+        "Hewu Li"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-06-02T05:49:37+00:00",
+      "link": "https://arxiv.org/pdf/2606.03190v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "security and privacy challenges in AI agent development",
+      "llm_evidence_cn": "AI代理开发中的安全与隐私挑战",
+      "llm_evidence": "AI代理开发中的安全与隐私挑战",
+      "canonical_evidence": "AI代理开发中的安全与隐私挑战",
+      "llm_tldr_en": "Interview study with 28 independent Chinese AI agent developers reveals security and privacy understandings, practices, and challenges in their products.",
+      "llm_tldr_cn": "AI代理的普及带来了新的安全与隐私挑战，但独立开发者群体缺乏相关研究。本文通过对28位中国独立AI代理开发者的访谈，发现他们从用户角度出发，但对安全隐私的理解和实践存在不足。研究揭示了开发者面临的具体挑战，为提升AI代理产品的安全性提供了实证基础。",
+      "llm_tldr": "AI代理的普及带来了新的安全与隐私挑战，但独立开发者群体缺乏相关研究。本文通过对28位中国独立AI代理开发者的访谈，发现他们从用户角度出发，但对安全隐私的理解和实践存在不足。研究揭示了开发者面临的具体挑战，为提升AI代理产品的安全性提供了实证基础。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.04193v1",
+      "source": "arxiv",
+      "title": "Notarized Agents: Receiver-Attested Confidential Receipts for AI Agent Actions",
+      "abstract": "Current AI agent observability is structurally compromised: the entity producing the activity log is the same entity whose activity is being logged. A compromised or buggy agent can omit, alter, or fabricate its own traces, and the operator running the agent has no independent way to detect tampering. We propose a class of protocols that resolves this by inverting the trust boundary: the service that receives an agent's call signs a receipt of what it observed using its own key, encrypts the receipt to the agent's owner, and publishes it to a public transparency log. The owner reconstructs a tamper-evident trail without trusting the agent or its operator. We instantiate the class as Sello, a protocol combining four properties absent in any current system: (P1) receiver-side signing, (P2) HPKE encryption to an owner public key bound to the authorization token via JWS, (P3) publication to a witness-cosigned Merkle log, and (P4) owner-side discovery by token reference. We describe the protocol, analyze its security under an adversary that controls the agent and its operator, present microbenchmarks of the cryptographic operations, and situate Sello among adjacent receipt-protocol work (Signet, AgentROA, Agent Passport System, draft-farley-acta, SCITT). We discuss known limitations including the suppression attack, service collusion, and the adoption-incentive problem.",
+      "authors": [
+        "Juan Figuera"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.DC"
+      ],
+      "published": "2026-06-02T20:21:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.04193v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "tamper-evident audit trail for AI agent actions",
+      "llm_evidence_cn": "AI智能体行为的防篡改审计追踪",
+      "llm_evidence": "AI智能体行为的防篡改审计追踪",
+      "canonical_evidence": "AI智能体行为的防篡改审计追踪",
+      "llm_tldr_en": "Notarized Agents proposes receiver-attested receipts for agent actions, enabling tamper-evident audit trails without trusting the agent or its operator.",
+      "llm_tldr_cn": "本文提出公证智能体协议，通过服务方对智能体调用签名收据并公开记录，实现不信任智能体或其操作员的防篡改审计。该机制解决了智能体活动日志可能被篡改的问题，为智能体安全审计提供基础设施。",
+      "llm_tldr": "本文提出公证智能体协议，通过服务方对智能体调用签名收据并公开记录，实现不信任智能体或其操作员的防篡改审计。该机制解决了智能体活动日志可能被篡改的问题，为智能体安全审计提供基础设施。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.06324v1",
+      "source": "arxiv",
+      "title": "From Failed Trajectories to Reliable LLM Agents: Diagnosing and Repairing Harness Flaws",
+      "abstract": "LLM-based agents increasingly rely on harnesses that provide execution environments, tool interfaces, context, lifecycle orchestration, observability, verification, and governance. Existing self-improving agents and automatic harness evolution methods mainly improve agents through runtime supervision, prompt optimization, workflow search, or harness modification based on final outcomes. However, they often fail to diagnose where the responsible evidence lies in failed trajectories and which harness layer causes the unreliable behavior, resulting in broad, indirect, or poorly scoped changes. This paper proposes HarnessFix, a trace-guided framework for diagnosing agent failures and repairing agent harnesses. HarnessFix compiles raw execution traces and harness code into a Harness-aware Trace Intermediate Representation (HTIR), which normalizes fragmented trajectory evidence and captures step-level provenance and control-flow relations. It then attributes failures to responsible trajectory steps and harness layers, consolidates recurring diagnoses into actionable flaw records, and maps them to scoped repair operators. Finally, HarnessFix generates and validates harness patches under flaw-specific repair specifications to reduce target flaws without introducing unacceptable regressions. We evaluate HarnessFix on SWE-Bench Verified, Terminal-Bench 2.0 Verified, GAIA and AppWorld. Across these benchmarks, HarnessFix improves held-out test performance over the initial harnesses by 15.2%--50.0%, outperforms human-designed and self-evolution baselines, and reveals recurring harness-flaw patterns across ETCLOVG layers.",
+      "authors": [
+        "Mengzhuo Chen",
+        "Junjie Wang",
+        "Zhe Liu",
+        "Yawen Wang",
+        "Qing Wang"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.MA"
+      ],
+      "published": "2026-06-04T15:58:30+00:00",
+      "link": "https://arxiv.org/pdf/2606.06324v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "reliability and safety of LLM agent systems",
+      "llm_evidence_cn": "LLM代理系统的可靠性与安全性",
+      "llm_evidence": "LLM代理系统的可靠性与安全性",
+      "canonical_evidence": "LLM代理系统的可靠性与安全性",
+      "llm_tldr_en": "HarnessFix diagnoses and repairs agent harness flaws to improve LLM agent reliability and safety, relevant to secure agent operation.",
+      "llm_tldr_cn": "LLM代理依赖执行框架，现有方法难以定位故障层。本文提出HarnessFix，基于轨迹引导的诊断与修复框架，通过编译执行轨迹并逐层分析，找出导致代理失败的根本原因并自动修复。实验表明，HarnessFix显著提升代理成功率，并增强其安全性。",
+      "llm_tldr": "LLM代理依赖执行框架，现有方法难以定位故障层。本文提出HarnessFix，基于轨迹引导的诊断与修复框架，通过编译执行轨迹并逐层分析，找出导致代理失败的根本原因并自动修复。实验表明，HarnessFix显著提升代理成功率，并增强其安全性。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.05390v1",
+      "source": "arxiv",
+      "title": "Ahoy: LLMs Enacting Multiagent Interaction Protocols",
+      "abstract": "An interaction protocol formalizes how the agents in a multiagent system interact, which facilitates implementing agents. Existing approaches yield agent implementations specific to the selected protocols. How can we engineer intelligent agents that can enact protocols but are programming-free? Our contribution, Ahoy, addresses this question by creating LLM agents that dynamically select and enact declarative protocols to achieve user goals. We demonstrate that an \\ahoy agent can correctly and intelligently enact multiple protocols - concurrently if appropriate to the user goal - without specialized training. Ahoy's significance lies in that it brings together declarative protocols and LLMs, both approaches that promise improved knowledge engineering for agents.",
+      "authors": [
+        "Omkar Joshi",
+        "Munindar P. Singh",
+        "Amit K. Chopra"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA"
+      ],
+      "published": "2026-06-03T19:52:33+00:00",
+      "link": "https://arxiv.org/pdf/2606.05390v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multiagent system with LLMs enacting protocols",
+      "llm_evidence_cn": "基于LLM的多智能体协议执行框架",
+      "llm_evidence": "基于LLM的多智能体协议执行框架",
+      "canonical_evidence": "基于LLM的多智能体协议执行框架",
+      "llm_tldr_en": "Ahoy enables LLM agents to dynamically select and enact declarative multiagent interaction protocols without programming, advancing knowledge engineering for agents.",
+      "llm_tldr_cn": "多智能体系统需要交互协议来规范化协作，但现有方法需要针对特定协议专门编程。Ahoy提出利用大语言模型智能体动态选择并执行声明式协议，无需专门训练即可正确实现多种协议并发运行，显著降低了多智能体系统的开发门槛。该工作将声明式协议与LLM结合，为智能体知识工程提供了新思路。",
+      "llm_tldr": "多智能体系统需要交互协议来规范化协作，但现有方法需要针对特定协议专门编程。Ahoy提出利用大语言模型智能体动态选择并执行声明式协议，无需专门训练即可正确实现多种协议并发运行，显著降低了多智能体系统的开发门槛。该工作将声明式协议与LLM结合，为智能体知识工程提供了新思路。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.05391v1",
+      "source": "arxiv",
+      "title": "Human oversight of agentic systems in practice: Examining the oversight work, challenges, and heuristics of developers using software agents",
+      "abstract": "Autonomous software agents hold promise to increase developer productivity but make mistakes and exhibit novel failure modes, making human oversight central to successful human-agent collaboration. Existing research on agent oversight is largely conceptual; normative frameworks exist, but how users actually oversee agents is less known. In this paper, we bridge this gap by providing early empirical anchors for the theoretical discourse on agent oversight. Drawing on interviews with 17 experienced developers, we conduct an exploratory inquiry examining what forms of emergent oversight work developers perform, when, and how. We also document the oversight challenges developers face and the strategies they have started using to address them. We found at least four forms of emergent oversight work: a priori control, co-planning, real-time monitoring, and post hoc review. We show that oversight work is not only reactive and retrospective, as portrayed in existing research, but also preventative and proactive. We describe situated oversight challenges (e.g., difficulty reviewing agent-generated code) and outline heuristics developers adopt to address such challenges (e.g., using test results as guarantees for code correctness). We conclude with high-level takeaways, future research directions, implications for the human-centered design of software agents and for software engineering practice, and limitations of our research.",
+      "authors": [
+        "Shipi Dhanorkar",
+        "Samir Passi",
+        "Mihaela Vorvoreanu"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.AI"
+      ],
+      "published": "2026-06-03T19:53:31+00:00",
+      "link": "https://arxiv.org/pdf/2606.05391v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Human oversight of agentic systems security analysis",
+      "llm_evidence_cn": "人类对代理系统的监督与安全分析",
+      "llm_evidence": "人类对代理系统的监督与安全分析",
+      "canonical_evidence": "人类对代理系统的监督与安全分析",
+      "llm_tldr_en": "Interviews 17 developers to study how they oversee autonomous software agents, revealing challenges and heuristics for safe agent use.",
+      "llm_tldr_cn": "本文通过访谈17位开发者，实证研究用户如何监督自主软件代理。发现开发者面临代理行为不可预测、缺乏透明度等挑战，并总结出启发式方法来加强监督。提供了代理系统安全监督的早期实践经验，为设计更安全的代理协作框架提供参考。",
+      "llm_tldr": "本文通过访谈17位开发者，实证研究用户如何监督自主软件代理。发现开发者面临代理行为不可预测、缺乏透明度等挑战，并总结出启发式方法来加强监督。提供了代理系统安全监督的早期实践经验，为设计更安全的代理协作框架提供参考。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
