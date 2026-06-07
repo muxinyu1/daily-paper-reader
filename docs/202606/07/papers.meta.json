@@ -1,0 +1,69 @@
+{
+  "label": "2026-06-07",
+  "date": "2026-06-07",
+  "generated_at": "2026-06-07T21:12:56",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202606/07/2606.06223v1-from-reward-hack-activations-to-agentic-risk-states-context-calibrated-mechanistic-monitoring-in-llm-agents",
+      "section": "deep",
+      "title_en": "From Reward-Hack Activations to Agentic Risk States: Context-Calibrated Mechanistic Monitoring in LLM Agents",
+      "authors": "Patrick Wilhelm, Odej Kao",
+      "date": "2026-06-04",
+      "pdf": "https://arxiv.org/pdf/2606.06223v1",
+      "score": "8.0",
+      "evidence": "对LLM智能体奖励黑客激活的机制监控以检测风险状态",
+      "tldr": "语言模型智能体在重复观察-推理-行动循环中面临奖励劫持风险，安全监控需结合内部状态与环境上下文。本文在Gameable ALFWorld和WebShop中，为ReAct智能体装备激活基奖励劫持分数、token熵和决策上下文特征，并通过School-of-Reward-Hacks微调适配器。发现微调适配器在暴露代理奖励的环境中将劫持倾向传递到行动选择，但高激活仅标识隐策略状态，不必然导致立即利用；熵和上下文校准的内部特征显著提升风险估计，激活方向引导在混合适配器情景中减少利用行为。研究支持上下文校准的机制性内部监控，即奖励劫持激活识别隐策略状态，熵和决策上下文帮助判断何时该状态变为风险行动。",
+      "tags": "query:agent-vuln",
+      "abstract_en": "Language-model agents act through repeated cycles of observation, reasoning, and action selection, making safety monitoring depend on both internal model state and environment context. We study reward-hacking monitors in ReAct-style agents acting in Gameable ALFWorld and WebShop. Agents are instrumented with activation-based reward-hack scores, token-level entropy, and decision-context features. We find that adapters fine-tuned on \\textit{School-of-Reward-Hacks} dataset can transfer reward-hack tendencies into agentic action selection, especially when the environment exposes proxy-reward affordances. However, mitigating such behavior cannot rely on activation dynamics alone. High reward-hack activation identifies a latent policy state, but does not necessarily imply an immediate exploit action. Across next-step prediction tasks, entropy and context-calibrated internal features improve risk estimation over reward-hack activation alone. Activation-direction steering further reduces proxy-exploit behavior in selected mixed-adapter regimes. Overall, our results support context-calibrated internal monitoring for agents: reward-hack activation identifies a latent policy state, while entropy and decision context help determine when that state becomes risky action.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/07/2606.04051v1-rubas-rubric-based-reinforcement-learning-for-agent-safety",
+      "section": "quick",
+      "title_en": "RUBAS: Rubric-Based Reinforcement Learning for Agent Safety",
+      "authors": "Xian Qi Loye, Qinglin Su, Zhexin Zhang, Shiyao Cui, Qi Zhu, Fei Mi, Hongning Wang, Minlie Huang",
+      "date": "2026-06-02",
+      "pdf": "https://arxiv.org/pdf/2606.04051v1",
+      "score": "7.0",
+      "evidence": "开发基于评分卡的强化学习方法提升agent安全性，应对工具使用风险",
+      "tldr": "大型语言模型演变为工具型智能体带来了真实执行中的安全挑战，现有对齐方法依赖粗略拒绝或静态监督，难以兼顾安全与实用性。RUBAS框架将智能体行为分解为工具使用、参数、响应和帮助性四个维度，通过评分规则提供细粒度可解释奖励，并利用强化学习优化安全工具使用。实验表明，RUBAS在多个智能体安全基准上显著提升安全性，减少工具幻觉，同时保持任务完成能力。该工作为安全关键的工具使用场景提供了有效的对齐训练信号。",
+      "tags": "query:agent-vuln",
+      "abstract_en": "The evolution of LLMs into tool-enabled agents creates a new class of safety challenges associated with real-world execution rather than simple text generation. Existing alignment methods often rely on coarse refusal signals or static supervision, making it difficult to balance safety with useful tool execution across diverse agentic risks. We introduce RUBAS, a rubric-based reinforcement learning framework for agent safety. RUBAS decomposes agent behavior into four dimensions: tool-use safety, argument safety, response safety, and helpfulness. These structured rubrics provide fine-grained and interpretable rewards over complete agent trajectories, enabling reinforcement learning to optimize safe tool use while preserving task completion. Extensive experiments across multiple agent safety benchmarks and models show that RUBAS improves safety over standard alignment baselines, reduces tool-grounded hallucinations, and maintains competitive utility. Our results suggest that multi-dimensional rubric rewards provide an effective training signal for aligning LLM agents in safety-critical tool-use settings.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/07/2606.06114v1-towards-healthy-evolution-exploring-the-role-and-mechanisms-of-human-agent-interaction-in-self-evolving-systems",
+      "section": "quick",
+      "title_en": "Towards Healthy Evolution: Exploring the Role and Mechanisms of Human-Agent Interaction in Self-Evolving Systems",
+      "authors": "Dianxing Shi, Junqi He, Junhao Chen, Bowen Wang, Yuta Nakashima",
+      "date": "2026-06-04",
+      "pdf": "https://arxiv.org/pdf/2606.06114v1",
+      "score": "7.0",
+      "evidence": "大语言模型智能体的安全漂移与人类监督",
+      "tldr": "自我进化智能体通过自对弈提升能力，但自主进化可能导致能力退化和安全漂移。本文提出ANCHOR框架，基于LLM模拟人类监督并在进化各阶段提供反馈。实验表明，有限监督显著缓解安全退化，同时保持核心目标性能稳定；输出验证阶段的监督最有效，增加频率则回报递减。该研究为设计稳定、可控、对齐人类的自我进化系统提供了实证与指导。",
+      "tags": "query:agent-vuln",
+      "abstract_en": "Self-evolving agents improve through continual self-play and self-generated learning signals, but autonomous evolution can also cause capability degradation and safety drift. Although human feedback has proven effective for static and post-trained agents, its role in self-evolving systems remains underexplored. We introduce Agent Norm Correction through Human-like Oversight and Review (ANCHOR), an LLM-based framework that simulates human supervision and delivers feedback at various phases of self-evolution. With ANCHOR, we evaluate two representative open-source self-evolving agent systems across coding, mathematical reasoning, and safety. Our results show that even limited supervision substantially mitigates safety degradation while preserving stable performance on core evolutionary objectives. Further analysis shows that supervision over the output verification phase is the most effective for intervention, whereas increasing supervision frequency yields diminishing returns. These findings provide empirical evidence and practical guidance for designing more stable, controllable, and human-aligned self-evolving agent systems.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/07/2606.05679v1-data-flow-control-data-safety-policies-for-ai-agents",
+      "section": "quick",
+      "title_en": "Data Flow Control: Data Safety Policies for AI Agents",
+      "authors": "Charlie Summers, Eugene Wu",
+      "date": "2026-06-04",
+      "pdf": "https://arxiv.org/pdf/2606.05679v1",
+      "score": "6.0",
+      "evidence": "提出AI agent数据安全策略框架",
+      "tldr": "AI代理在生成SQL和自动化数据分析时，查询正确但可能违反隐私等数据安全约束。本文提出数据流控制框架DFC，通过声明式策略在DBMS内保证元组级数据流合规，并实现Passant重写层无需物化溯源。实验表明，在DuckDB等五个引擎中引入接近零开销，性能比替代方案快几个数量级。DFC是将数据安全从提示和后检融入基础设施的第一步。",
+      "tags": "query:agent-vuln",
+      "abstract_en": "Agents increasingly generate SQL, orchestrate pipelines, and automate data analysis on behalf of users. While recent work improves query correctness, correctness is not safety. A query may be semantically valid yet violate regulatory, privacy, or business constraints that govern how data may be combined and released. We argue that enforcing such constraints is fundamentally a data infrastructure problem.   This paper introduces Data Flow Control (DFC), a framework to declaratively specify and guarantee policy enforcement over tuple-level data flows within a DBMS query. A key challenge is defining a policy language that is optimizer-invariant yet efficient to enforce at scale. We formalize data safety as aggregate predicates over provenance monomials and present Passant, a portable query rewriting layer that enforces DFC policies without materializing provenance. Across five DBMS engines -- DuckDB, Umbra, PostgreSQL, DataFusion, and SQLServer -- Passant achieves ~0% overhead and outperforms alternatives by orders of magnitude. As a result, Data Flow Control is the first step towards moving data safety from prompts and post-hoc checks into the data infrastructure. Data Flow Control is available open source at https://github.com/dataflowcontrol/data-flow-control.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

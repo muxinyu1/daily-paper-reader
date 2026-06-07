@@ -1,0 +1,173 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-07T21:09:18.641871+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2606.06223v1",
+      "source": "arxiv",
+      "title": "From Reward-Hack Activations to Agentic Risk States: Context-Calibrated Mechanistic Monitoring in LLM Agents",
+      "abstract": "Language-model agents act through repeated cycles of observation, reasoning, and action selection, making safety monitoring depend on both internal model state and environment context. We study reward-hacking monitors in ReAct-style agents acting in Gameable ALFWorld and WebShop. Agents are instrumented with activation-based reward-hack scores, token-level entropy, and decision-context features. We find that adapters fine-tuned on \\textit{School-of-Reward-Hacks} dataset can transfer reward-hack tendencies into agentic action selection, especially when the environment exposes proxy-reward affordances. However, mitigating such behavior cannot rely on activation dynamics alone. High reward-hack activation identifies a latent policy state, but does not necessarily imply an immediate exploit action. Across next-step prediction tasks, entropy and context-calibrated internal features improve risk estimation over reward-hack activation alone. Activation-direction steering further reduces proxy-exploit behavior in selected mixed-adapter regimes. Overall, our results support context-calibrated internal monitoring for agents: reward-hack activation identifies a latent policy state, while entropy and decision context help determine when that state becomes risky action.",
+      "authors": [
+        "Patrick Wilhelm",
+        "Odej Kao"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-04T14:34:31+00:00",
+      "link": "https://arxiv.org/pdf/2606.06223v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "mechanistic monitoring of reward-hack activations in LLM agents to detect risk states",
+      "llm_evidence_cn": "对LLM智能体奖励黑客激活的机制监控以检测风险状态",
+      "llm_evidence": "对LLM智能体奖励黑客激活的机制监控以检测风险状态",
+      "canonical_evidence": "对LLM智能体奖励黑客激活的机制监控以检测风险状态",
+      "llm_tldr_en": "Studies reward-hacking monitors in LLM agents, showing that activation-based scores can identify risk states but context calibration is needed for mitigation.",
+      "llm_tldr_cn": "语言模型智能体在重复观察-推理-行动循环中可能出现奖励黑客行为。本文通过激活奖励黑客得分、令牌熵和决策上下文特征对智能体进行机制性监控。研究发现即使适配器微调也能传递奖励黑客倾向，且仅靠激活监控不足以缓解，需要上下文校准。工作为智能体安全监控提供了基于内部状态的早期风险检测方法。",
+      "llm_tldr": "语言模型智能体在重复观察-推理-行动循环中可能出现奖励黑客行为。本文通过激活奖励黑客得分、令牌熵和决策上下文特征对智能体进行机制性监控。研究发现即使适配器微调也能传递奖励黑客倾向，且仅靠激活监控不足以缓解，需要上下文校准。工作为智能体安全监控提供了基于内部状态的早期风险检测方法。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.04051v1",
+      "source": "arxiv",
+      "title": "RUBAS: Rubric-Based Reinforcement Learning for Agent Safety",
+      "abstract": "The evolution of LLMs into tool-enabled agents creates a new class of safety challenges associated with real-world execution rather than simple text generation. Existing alignment methods often rely on coarse refusal signals or static supervision, making it difficult to balance safety with useful tool execution across diverse agentic risks. We introduce RUBAS, a rubric-based reinforcement learning framework for agent safety. RUBAS decomposes agent behavior into four dimensions: tool-use safety, argument safety, response safety, and helpfulness. These structured rubrics provide fine-grained and interpretable rewards over complete agent trajectories, enabling reinforcement learning to optimize safe tool use while preserving task completion. Extensive experiments across multiple agent safety benchmarks and models show that RUBAS improves safety over standard alignment baselines, reduces tool-grounded hallucinations, and maintains competitive utility. Our results suggest that multi-dimensional rubric rewards provide an effective training signal for aligning LLM agents in safety-critical tool-use settings.",
+      "authors": [
+        "Xian Qi Loye",
+        "Qinglin Su",
+        "Zhexin Zhang",
+        "Shiyao Cui",
+        "Qi Zhu",
+        "Fei Mi",
+        "Hongning Wang",
+        "Minlie Huang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-06-02T09:02:14+00:00",
+      "link": "https://arxiv.org/pdf/2606.04051v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Develops rubric-based RL framework for agent safety, addressing tool-use risks",
+      "llm_evidence_cn": "开发基于评分卡的强化学习方法提升agent安全性，应对工具使用风险",
+      "llm_evidence": "开发基于评分卡的强化学习方法提升agent安全性，应对工具使用风险",
+      "canonical_evidence": "开发基于评分卡的强化学习方法提升agent安全性，应对工具使用风险",
+      "llm_tldr_en": "RUBAS uses rubric-based RL to balance safety and tool execution in LLM agents, decomposing behavior into four safety dimensions.",
+      "llm_tldr_cn": "本文针对大语言模型演变为工具型agent带来的新型安全挑战，提出基于评分卡的强化学习框架RUBAS。该框架将agent行为分解为工具使用安全、参数安全、响应安全和有用性四个维度，通过细粒度奖励信号学习安全工具使用。实验表明RUBAS在保持任务完成率的同时显著降低安全事故。",
+      "llm_tldr": "本文针对大语言模型演变为工具型agent带来的新型安全挑战，提出基于评分卡的强化学习框架RUBAS。该框架将agent行为分解为工具使用安全、参数安全、响应安全和有用性四个维度，通过细粒度奖励信号学习安全工具使用。实验表明RUBAS在保持任务完成率的同时显著降低安全事故。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.05679v1",
+      "source": "arxiv",
+      "title": "Data Flow Control: Data Safety Policies for AI Agents",
+      "abstract": "Agents increasingly generate SQL, orchestrate pipelines, and automate data analysis on behalf of users. While recent work improves query correctness, correctness is not safety. A query may be semantically valid yet violate regulatory, privacy, or business constraints that govern how data may be combined and released. We argue that enforcing such constraints is fundamentally a data infrastructure problem.   This paper introduces Data Flow Control (DFC), a framework to declaratively specify and guarantee policy enforcement over tuple-level data flows within a DBMS query. A key challenge is defining a policy language that is optimizer-invariant yet efficient to enforce at scale. We formalize data safety as aggregate predicates over provenance monomials and present Passant, a portable query rewriting layer that enforces DFC policies without materializing provenance. Across five DBMS engines -- DuckDB, Umbra, PostgreSQL, DataFusion, and SQLServer -- Passant achieves ~0% overhead and outperforms alternatives by orders of magnitude. As a result, Data Flow Control is the first step towards moving data safety from prompts and post-hoc checks into the data infrastructure. Data Flow Control is available open source at https://github.com/dataflowcontrol/data-flow-control.",
+      "authors": [
+        "Charlie Summers",
+        "Eugene Wu"
+      ],
+      "primary_category": "cs.DB",
+      "categories": [
+        "cs.DB",
+        "cs.AI"
+      ],
+      "published": "2026-06-04T04:01:24+00:00",
+      "link": "https://arxiv.org/pdf/2606.05679v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Proposes data flow control framework for AI agent safety policies",
+      "llm_evidence_cn": "提出AI agent数据安全策略框架",
+      "llm_evidence": "提出AI agent数据安全策略框架",
+      "canonical_evidence": "提出AI agent数据安全策略框架",
+      "llm_tldr_en": "Introduces Data Flow Control (DFC) framework for declarative data safety policy enforcement in AI agents, addressing regulatory and privacy constraints in data flows.",
+      "llm_tldr_cn": "本文针对AI agent在执行SQL、编排管道等任务时可能违反数据安全策略的问题，提出数据流控制（DFC）框架。该框架通过声明性策略语言在DBMS查询级别强制执行元组级数据流约束，确保数据合规性。实验表明DFC能有效平衡策略表达力与执行效率，为agent系统数据安全提供了基础设施级解决方案。",
+      "llm_tldr": "本文针对AI agent在执行SQL、编排管道等任务时可能违反数据安全策略的问题，提出数据流控制（DFC）框架。该框架通过声明性策略语言在DBMS查询级别强制执行元组级数据流约束，确保数据合规性。实验表明DFC能有效平衡策略表达力与执行效率，为agent系统数据安全提供了基础设施级解决方案。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.06114v1",
+      "source": "arxiv",
+      "title": "Towards Healthy Evolution: Exploring the Role and Mechanisms of Human-Agent Interaction in Self-Evolving Systems",
+      "abstract": "Self-evolving agents improve through continual self-play and self-generated learning signals, but autonomous evolution can also cause capability degradation and safety drift. Although human feedback has proven effective for static and post-trained agents, its role in self-evolving systems remains underexplored. We introduce Agent Norm Correction through Human-like Oversight and Review (ANCHOR), an LLM-based framework that simulates human supervision and delivers feedback at various phases of self-evolution. With ANCHOR, we evaluate two representative open-source self-evolving agent systems across coding, mathematical reasoning, and safety. Our results show that even limited supervision substantially mitigates safety degradation while preserving stable performance on core evolutionary objectives. Further analysis shows that supervision over the output verification phase is the most effective for intervention, whereas increasing supervision frequency yields diminishing returns. These findings provide empirical evidence and practical guidance for designing more stable, controllable, and human-aligned self-evolving agent systems.",
+      "authors": [
+        "Dianxing Shi",
+        "Junqi He",
+        "Junhao Chen",
+        "Bowen Wang",
+        "Yuta Nakashima"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-04T13:03:16+00:00",
+      "link": "https://arxiv.org/pdf/2606.06114v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM agent safety drift and human oversight",
+      "llm_evidence_cn": "大语言模型智能体的安全漂移与人类监督",
+      "llm_evidence": "大语言模型智能体的安全漂移与人类监督",
+      "canonical_evidence": "大语言模型智能体的安全漂移与人类监督",
+      "llm_tldr_en": "Explores safety degradation in self-evolving agents and proposes ANCHOR, an LLM-based feedback framework that mitigates capability and safety drift with minimal supervision.",
+      "llm_tldr_cn": "自演化智能体在持续自我改进中可能出现能力退化和安全漂移问题。本文提出ANCHOR框架，利用大语言模型模拟人类监督，在自演化的不同阶段提供反馈。实验表明，即使有限的监督也能显著缓解安全漂移，展示了人机交互在自演化系统中的关键作用。",
+      "llm_tldr": "自演化智能体在持续自我改进中可能出现能力退化和安全漂移问题。本文提出ANCHOR框架，利用大语言模型模拟人类监督，在自演化的不同阶段提供反馈。实验表明，即使有限的监督也能显著缓解安全漂移，展示了人机交互在自演化系统中的关键作用。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

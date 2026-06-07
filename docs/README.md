@@ -6,41 +6,32 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-06
-- 运行时间：2026-06-06 20:19:29 UTC
+- 最新运行日期：2026-06-07
+- 运行时间：2026-06-07 21:12:50 UTC
 - 运行状态：成功
-- 本次总论文数：7
-- 精读区：2
-- 速读区：5
+- 本次总论文数：4
+- 精读区：1
+- 速读区：3
 
 ### 今日简报（AI）
-今日聚焦多智能体协同攻击检测与安全信号分歧分析，精读两篇高分论文。最值得看《FORGE》提出的渐进式利用与检测工程（10分），以及《ClawHub》揭示的VirusTotal、静态分析与SkillSpector间的安全信号不一致性（8分）。建议关注智能体安全评估中的不一致性问题，并尝试复现FORGE检测框架以提升自动化威胁发现能力。
-- 详情：[/202606/06/README](/202606/06/README)
+今日精读1篇、速读3篇论文，重点关注LLM Agent安全监控与行为对齐。最值得关注《From Reward-Hack Activations to Agentic Risk States: Context-Calibrated Mechanistic Monitoring in LLM Agents》，提出通过上下文校准机制实时检测代理奖励作弊行为。建议优先阅读精读论文，并结合《RUBAS: Rubric-Based Reinforcement Learning for Agent Safety》理解基于评分规则的强化学习安全方法。
+- 详情：[/202606/07/README](/202606/07/README)
 
 ### 精读区论文标签
-1. [FORGE: Multi-Agent Graduated Exploitation and Detection Engineering](/202606/06/2606.03453v1-forge-multi-agent-graduated-exploitation-and-detection-engineering)  
-   标签：评分：10.0/10、query:agent-vuln
-   evidence：用于漏洞利用和检测工程的多智能体系统
-2. [ClawHub Security Signals: When VirusTotal, Static Analysis, and SkillSpector Disagree](/202606/06/2606.01494v1-clawhub-security-signals-when-virustotal-static-analysis-and-skillspector-disagree)  
+1. [From Reward-Hack Activations to Agentic Risk States: Context-Calibrated Mechanistic Monitoring in LLM Agents](/202606/07/2606.06223v1-from-reward-hack-activations-to-agentic-risk-states-context-calibrated-mechanistic-monitoring-in-llm-agents)  
    标签：评分：8.0/10、query:agent-vuln
-   evidence：代理技能的安全信号数据集
+   evidence：对LLM智能体奖励黑客激活的机制监控以检测风险状态
 
 ### 速读区论文标签
-1. [Focused on the User, Overlooking the Risks: Security and Privacy Understandings, Practices and Challenges of Independent Chinese AI Agent Developers](/202606/06/2606.03190v1-focused-on-the-user-overlooking-the-risks-security-and-privacy-understandings-practices-and-challenges-of-independent-chinese-ai-agent-developers)  
+1. [RUBAS: Rubric-Based Reinforcement Learning for Agent Safety](/202606/07/2606.04051v1-rubas-rubric-based-reinforcement-learning-for-agent-safety)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：AI代理开发中的安全与隐私挑战
-2. [From Failed Trajectories to Reliable LLM Agents: Diagnosing and Repairing Harness Flaws](/202606/06/2606.06324v1-from-failed-trajectories-to-reliable-llm-agents-diagnosing-and-repairing-harness-flaws)  
+   evidence：开发基于评分卡的强化学习方法提升agent安全性，应对工具使用风险
+2. [Towards Healthy Evolution: Exploring the Role and Mechanisms of Human-Agent Interaction in Self-Evolving Systems](/202606/07/2606.06114v1-towards-healthy-evolution-exploring-the-role-and-mechanisms-of-human-agent-interaction-in-self-evolving-systems)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：LLM代理系统的可靠性与安全性
-3. [Notarized Agents: Receiver-Attested Confidential Receipts for AI Agent Actions](/202606/06/2606.04193v1-notarized-agents-receiver-attested-confidential-receipts-for-ai-agent-actions)  
+   evidence：大语言模型智能体的安全漂移与人类监督
+3. [Data Flow Control: Data Safety Policies for AI Agents](/202606/07/2606.05679v1-data-flow-control-data-safety-policies-for-ai-agents)  
    标签：评分：6.0/10、query:agent-vuln
-   evidence：AI智能体行为的防篡改审计追踪
-4. [Ahoy: LLMs Enacting Multiagent Interaction Protocols](/202606/06/2606.05390v1-ahoy-llms-enacting-multiagent-interaction-protocols)  
-   标签：评分：6.0/10、query:agent-vuln
-   evidence：基于LLM的多智能体协议执行框架
-5. [Human oversight of agentic systems in practice: Examining the oversight work, challenges, and heuristics of developers using software agents](/202606/06/2606.05391v1-human-oversight-of-agentic-systems-in-practice-examining-the-oversight-work-challenges-and-heuristics-of-developers-using-software-agents)  
-   标签：评分：6.0/10、query:agent-vuln
-   evidence：人类对代理系统的监督与安全分析
+   evidence：提出AI agent数据安全策略框架
 
 
 <div class="dpr-home-promo-card">
