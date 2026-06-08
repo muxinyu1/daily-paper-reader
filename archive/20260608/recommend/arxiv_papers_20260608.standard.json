@@ -1,0 +1,229 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-08T21:28:16.265752+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2606.06529v1",
+      "source": "arxiv",
+      "title": "Attack Selection in Agentic AI Control Evaluations Meaningfully Decreases Safety",
+      "abstract": "An attacker that strategically chooses when to attack is much harder to catch than one that attacks indiscriminately. AI control is a safety framework for deploying capable but untrusted AI agents under the oversight of a weaker, trusted monitor and a limited human audit budget. Control evaluations stress-test these protocols by pitting a red-team attack policy against the blue-team monitor, but current evaluations typically assume attackers that do not strategically select when to attack. We study this capability, attack selection, in agentic settings by decomposing attack decisions into a start policy, which decides when an attacker should attack, and a stop policy, which decides when an attacker should abort an ongoing attack. Across two agentic settings, BashArena and LinuxArena, both policies substantially lower measured empirical safety without changing the underlying attack capability. At a 1% audit budget, our start policy reduces safety by 20pp on both BashArena and LinuxArena, and our stop policy reduces safety by 20pp on BashArena and 28pp on LinuxArena. These reductions should be interpreted as upper bounds on the effect of attack selection. Existing control evaluations may therefore yield overly optimistic safety estimates against selective attackers. We recommend that future evaluations, system cards, and safety cases elicit attack selection to produce more realistic safety estimates.",
+      "authors": [
+        "Catherine Ge-Wang",
+        "Tyler Crosse",
+        "Benjamin Hadad",
+        "Joachim Schaeffer",
+        "Ram Potham",
+        "Tyler Tracy"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-03T11:04:59+00:00",
+      "link": "https://arxiv.org/pdf/2606.06529v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Attack selection in AI control evaluations for autonomous agent systems",
+      "llm_evidence_cn": "自主智能体系统AI控制评估中的攻击选择",
+      "llm_evidence": "自主智能体系统AI控制评估中的攻击选择",
+      "canonical_evidence": "自主智能体系统AI控制评估中的攻击选择",
+      "llm_tldr_en": "This paper studies attack selection in agentic AI control evaluations, showing that strategic attack timing significantly reduces safety, highlighting vulnerabilities in autonomous agent systems.",
+      "llm_tldr_cn": "本文研究智能体AI控制评估中的攻击选择能力，发现攻击者策略性地选择攻击时机（开始/停止策略）会显著降低安全协议的有效性。实验表明当前评估低估了风险，因为未考虑攻击选择的对抗性。该工作揭示了自主智能体系统面临的新一类安全漏洞，对安全评估方法有重要影响。",
+      "llm_tldr": "本文研究智能体AI控制评估中的攻击选择能力，发现攻击者策略性地选择攻击时机（开始/停止策略）会显著降低安全协议的有效性。实验表明当前评估低估了风险，因为未考虑攻击选择的对抗性。该工作揭示了自主智能体系统面临的新一类安全漏洞，对安全评估方法有重要影响。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.07054v1",
+      "source": "arxiv",
+      "title": "TRACE: Trajectory Reasoning through Adaptive Cross-Step Evidence Aggregation for LLM Agents",
+      "abstract": "Autonomous LLM agents can pursue hidden malicious objectives through sequences of individually benign actions, making sabotage difficult to detect using standard trajectory-level monitoring. Existing approaches either evaluate complete trajectories in a single pass or partition them into independently scored windows, limiting their ability to connect evidence across temporally distant actions. We propose TRACE, a monitoring framework for long-horizon LLM agent trajectories. TRACE operates through a TIJ (Triage-Inspect-Judge) loop that identifies high-signal regions, performs targeted inspection while maintaining accumulated evidence across reasoning steps, and synthesizes a trajectory-level verdict. We evaluate TRACE on ten task domains from SHADE-Arena against state-of-the-art baselines. TRACE achieves an aggregate F1 of 0.713 and recall of 0.844, with the largest gains on tasks requiring long-range evidence linking.",
+      "authors": [
+        "Vijitha Mittapalli",
+        "Shreyaa Jayant Dani",
+        "Satya Srujana Pilli",
+        "Snigdha Ansu",
+        "Mohammadreza Teymoorianfard",
+        "Franck Dernoncourt",
+        "Hongjie Chen",
+        "Yu Wang",
+        "Ryan A. Rossi",
+        "Nesreen K. Ahmed"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-06-05T08:54:38+00:00",
+      "link": "https://arxiv.org/pdf/2606.07054v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "detecting hidden malicious objectives in LLM agent trajectories",
+      "llm_evidence_cn": "检测LLM agent轨迹中的隐藏恶意目标",
+      "llm_evidence": "检测LLM agent轨迹中的隐藏恶意目标",
+      "canonical_evidence": "检测LLM agent轨迹中的隐藏恶意目标",
+      "llm_tldr_en": "TRACE is a monitoring framework for LLM agents that aggregates evidence across long trajectories to detect sabotage, addressing security risks in autonomous agent systems.",
+      "llm_tldr_cn": "当前LLM agent可能通过一系列表面上无害的动作实现隐藏恶意目标，现有方法难以跨时间连接证据。本文提出TRACE框架，通过分类-检查-判断循环，在长轨迹中累积证据并生成全局判决。实验表明TRACE能有效检测隐蔽破坏行为，为自主agent系统安全提供新方案。",
+      "llm_tldr": "当前LLM agent可能通过一系列表面上无害的动作实现隐藏恶意目标，现有方法难以跨时间连接证据。本文提出TRACE框架，通过分类-检查-判断循环，在长轨迹中累积证据并生成全局判决。实验表明TRACE能有效检测隐蔽破坏行为，为自主agent系统安全提供新方案。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.07131v1",
+      "source": "arxiv",
+      "title": "MalSkillBench: A Runtime-Verified Benchmark of Malicious Agent Skills",
+      "abstract": "AI coding agents such as Claude Code and Gemini CLI increasingly extend themselves with third-party skills: markdown packages bundling natural-language instructions, executable scripts, and tool permissions. Because a skill is at once code and agent-facing instruction, it introduces a supply chain dependency whose risk is neither pure code nor pure prompt. Detection tools have never been measured against verified ground truth spanning this hybrid space, leaving their effectiveness unknown and wild-only evaluations biased.   We present MalSkillBench, the first runtime-verified benchmark of malicious agent skills: 3,944 malicious skills labeled along a three-dimensional taxonomy of 108 cells. Of these, 3,214 come from a closed-loop Generate-Verify-Feedback pipeline admitting only samples whose malicious behavior fires inside a Docker sandbox under system-call monitoring and an LLM judge; we add 703 in-the-wild and 4,000 matched benign skills. Our measurements are consistent: code injection reaches 94.5% verification yield but prompt injection only 75.8%, the same fragility that later makes it hard to detect; the wild sample is narrow, dominated by one cryptocurrency-theft campaign (86.6% one behavior, 81% from two accounts) with a small but architecturally new tail attacking the agent control plane; the strongest skill-specific detector reaches 98.4% recall on code injection yet collapses on prompt-injection and agent-control attacks, and wild-only scoring swings the ranking by up to 66 recall points; supply-chain scanners and prompt-injection defenses each see only half of a skill, and no combination recovers the code-instruction relationship. Detecting malicious skills therefore requires reasoning jointly over task intent, code, and instructions. We release the dataset, pipeline, baselines, and results.",
+      "authors": [
+        "Wenbo Guo",
+        "Wei Zeng",
+        "Chengwei Liu",
+        "Xiaojun Jia",
+        "Yijia Xu",
+        "Lei Tang",
+        "Yong Fang",
+        "Yang Liu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.SE"
+      ],
+      "published": "2026-06-05T10:43:19+00:00",
+      "link": "https://arxiv.org/pdf/2606.07131v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "benchmark for detecting malicious agent skills in coding agents",
+      "llm_evidence_cn": "检测编码代理中恶意技能的基准测试",
+      "llm_evidence": "检测编码代理中恶意技能的基准测试",
+      "canonical_evidence": "检测编码代理中恶意技能的基准测试",
+      "llm_tldr_en": "MalSkillBench provides the first runtime-verified benchmark of malicious agent skills, enabling evaluation of detection tools against hybrid code-prompt threats.",
+      "llm_tldr_cn": "MalSkillBench提出了首个运行时验证的恶意代理技能基准，包含3944个恶意技能，覆盖三维108种分类。该基准通过闭环生成-验证-反馈流程构建，旨在评估现有检测工具在混合代码与提示威胁场景下的有效性。实验揭示了当前检测工具的不足，为代理供应链安全提供了关键评估资源。",
+      "llm_tldr": "MalSkillBench提出了首个运行时验证的恶意代理技能基准，包含3944个恶意技能，覆盖三维108种分类。该基准通过闭环生成-验证-反馈流程构建，旨在评估现有检测工具在混合代码与提示威胁场景下的有效性。实验揭示了当前检测工具的不足，为代理供应链安全提供了关键评估资源。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.07150v1",
+      "source": "arxiv",
+      "title": "From Privacy to Workflow Integrity: Communication-Graph Metadata in Autonomous Agent Interoperability",
+      "abstract": "Agent-interoperability protocols such as A2A and MCP standardize what agents say to one another, but assume address-based transport over HTTP(S). Such transports protect message content, increasingly with end-to-end encryption. What they leave in the clear is the communication graph: which agent contacts which, when, and how often. In agent systems this graph is more consequential than a privacy framing suggests. Endpoints are often capability-labeled, workflows are structured and chained, and interactions are coupled to real actions, so an observer recovers more than past relationships. It can infer the pending workflow, the task being assembled and the action likely to follow. At machine speed, it can act on that inference before the workflow completes. The threat is therefore one of workflow integrity, not privacy alone: predictive leverage over autonomous action. We give a threat model for the agent communication graph; identify what makes agent metadata distinctively revealing (semanticity, prospectivity, actuation); define transport- and bootstrap-layer privacy properties and weigh candidate transports (SimpleX/SMP, Tor, mixnets) against them; and present an A2A case study in which a metadata-protecting binding is expressible but surfaces the protocol's identity assumptions. We test these on a generative model anchored to a real A2A capture. From passive metadata alone, with no payloads, a classifier recovers a task's class well above chance, from only the workflow's opening; applied together, the properties drive that recovery sharply back toward chance. Beyond what an observer can recover, we measure the leverage of acting on the leak: from a workflow's opening and under a fixed budget, an adversary choosing which workflows to act on realizes in this model most of a clairvoyant attacker's advantage over a metadata-blind one, and the same properties suppress it.",
+      "authors": [
+        "Bijaya Dangol"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.MA",
+        "cs.NI"
+      ],
+      "published": "2026-06-05T11:07:55+00:00",
+      "link": "https://arxiv.org/pdf/2606.07150v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Communication graph metadata leaks workflow and action intent in autonomous agent systems",
+      "llm_evidence_cn": "通信图元数据泄露自主智能体系统的工作流和动作意图",
+      "llm_evidence": "通信图元数据泄露自主智能体系统的工作流和动作意图",
+      "canonical_evidence": "通信图元数据泄露自主智能体系统的工作流和动作意图",
+      "llm_tldr_en": "This paper identifies that communication graph metadata in agent interoperability protocols leaks workflow and action intent, posing security risks that go beyond privacy.",
+      "llm_tldr_cn": "本文指出在智能体互操作协议中，通信图元数据会泄露工作流和动作意图，构成超出隐私范畴的安全风险。作者分析了攻击者如何通过观察图结构推断待执行工作流和后续动作，并强调在智能体系统中此类元数据比传统隐私框架所揭示的更具危害性。该工作为自主智能体系统的安全风险分析提供了新视角。",
+      "llm_tldr": "本文指出在智能体互操作协议中，通信图元数据会泄露工作流和动作意图，构成超出隐私范畴的安全风险。作者分析了攻击者如何通过观察图结构推断待执行工作流和后续动作，并强调在智能体系统中此类元数据比传统隐私框架所揭示的更具危害性。该工作为自主智能体系统的安全风险分析提供了新视角。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.07158v1",
+      "source": "arxiv",
+      "title": "Synthetic APTs: the Collapse of TTP-Based Attribution",
+      "abstract": "Cyber Threat Intelligence CTI attribution relies on identifying the Tactics, Techniques, and Procedures TTPs that distinguish one threat actor from another. This approach presupposes that each adversary leaves a recognizable operational fingerprint. This work investigates whether AI driven adversary emulation challenges that presupposition. We deploy agents from our Cybersecurity SuperIntelligence CSI framework, configured as five Advanced Persistent Threat APT groups, APT28, APT29, APT41, APT44, and Lazarus Group, against AI driven Defender agents across two cyber ranges provided by CYBER RANGES, equipped with defensive software Wazuh, Velociraptor, Elasticsearch and active AI driven defenders: an enterprise network and a military infrastructure. Across 20 experiments using two defender models, a binary pattern emerges: all 10 Enterprise range experiments resulted in compromise 2 to 12 hosts per experiment, while all 10 Military range experiments were successfully defended or resulted in stalemates, regardless of APT profile or defender model. In 8 of 10 Enterprise experiments, attackers independently weaponized the defender's own Velociraptor endpoint management platform as a command and control channel, a convergent behavior not encoded in any threat intelligence profile. We argue that in the AI era, wherein agents can be deployed provided the right models are available and subject to the right scaffolding and agentic configuration, the entry barrier for operating like a nation state APT collapses: beyond nation states, individuals can now act like commonly identified threat actors, and with it, fundamentally undermine TTP based attribution.",
+      "authors": [
+        "Francesco Balassone",
+        "Víctor Mayoral-Vilches",
+        "María Sanz-Gómez",
+        "Paul Zabalegui-Landa",
+        "Stefan Rass",
+        "Davide Quarta",
+        "Daniel Sanchez-Prieto",
+        "Marina Oteiza-Álvarez",
+        "Almerindo Graziano",
+        "Lauren Min Kim",
+        "MinSeok Choi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-05T11:18:42+00:00",
+      "link": "https://arxiv.org/pdf/2606.07158v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Uses AI agents emulating APT groups to challenge TTP-based attribution",
+      "llm_evidence_cn": "使用AI代理模拟APT组织挑战基于TTP的归因",
+      "llm_evidence": "使用AI代理模拟APT组织挑战基于TTP的归因",
+      "canonical_evidence": "使用AI代理模拟APT组织挑战基于TTP的归因",
+      "llm_tldr_en": "Shows that AI-driven adversary emulation agents can mimic multiple APT groups, collapsing traditional TTP-based attribution methods.",
+      "llm_tldr_cn": "本文利用网络安全超级智能框架中的AI代理配置为五个APT组织（APT28等），对由AI驱动的防御代理进行攻击实验。在20次实验中，代理成功模拟了不同APT的战术、技术和程序，使得基于TTP的归因方法失效。结果表明，AI驱动的对手模拟对现有威胁情报归因体系构成挑战。",
+      "llm_tldr": "本文利用网络安全超级智能框架中的AI代理配置为五个APT组织（APT28等），对由AI驱动的防御代理进行攻击实验。在20次实验中，代理成功模拟了不同APT的战术、技术和程序，使得基于TTP的归因方法失效。结果表明，AI驱动的对手模拟对现有威胁情报归因体系构成挑战。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

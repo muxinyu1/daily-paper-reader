@@ -6,32 +6,35 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-07
-- 运行时间：2026-06-07 21:12:50 UTC
+- 最新运行日期：2026-06-08
+- 运行时间：2026-06-08 21:32:01 UTC
 - 运行状态：成功
-- 本次总论文数：4
-- 精读区：1
-- 速读区：3
+- 本次总论文数：5
+- 精读区：3
+- 速读区：2
 
 ### 今日简报（AI）
-今日精读1篇、速读3篇论文，重点关注LLM Agent安全监控与行为对齐。最值得关注《From Reward-Hack Activations to Agentic Risk States: Context-Calibrated Mechanistic Monitoring in LLM Agents》，提出通过上下文校准机制实时检测代理奖励作弊行为。建议优先阅读精读论文，并结合《RUBAS: Rubric-Based Reinforcement Learning for Agent Safety》理解基于评分规则的强化学习安全方法。
-- 详情：[/202606/07/README](/202606/07/README)
+今日推荐5篇论文，精读3篇、速读2篇。最值得关注的两篇top期刊论文：一篇揭示AI控制评估中对抗性攻击选择会显著削弱安全性（9.0分），另一篇提出面向LLM智能体的自适应跨步证据聚合轨迹推理方法TRACE（9.0分）。建议优先精读这两篇，深入了解智能体安全评估与推理能力的前沿进展。
+- 详情：[/202606/08/README](/202606/08/README)
 
 ### 精读区论文标签
-1. [From Reward-Hack Activations to Agentic Risk States: Context-Calibrated Mechanistic Monitoring in LLM Agents](/202606/07/2606.06223v1-from-reward-hack-activations-to-agentic-risk-states-context-calibrated-mechanistic-monitoring-in-llm-agents)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：对LLM智能体奖励黑客激活的机制监控以检测风险状态
+1. [Attack Selection in Agentic AI Control Evaluations Meaningfully Decreases Safety](/202606/08/2606.06529v1-attack-selection-in-agentic-ai-control-evaluations-meaningfully-decreases-safety)  
+   标签：评分：9.0/10、query:agent-vuln
+   evidence：自主智能体系统AI控制评估中的攻击选择
+2. [TRACE: Trajectory Reasoning through Adaptive Cross-Step Evidence Aggregation for LLM Agents](/202606/08/2606.07054v1-trace-trajectory-reasoning-through-adaptive-cross-step-evidence-aggregation-for-llm-agents)  
+   标签：评分：9.0/10、query:agent-vuln
+   evidence：检测LLM agent轨迹中的隐藏恶意目标
+3. [MalSkillBench: A Runtime-Verified Benchmark of Malicious Agent Skills](/202606/08/2606.07131v1-malskillbench-a-runtime-verified-benchmark-of-malicious-agent-skills)  
+   标签：评分：9.0/10、query:agent-vuln
+   evidence：检测编码代理中恶意技能的基准测试
 
 ### 速读区论文标签
-1. [RUBAS: Rubric-Based Reinforcement Learning for Agent Safety](/202606/07/2606.04051v1-rubas-rubric-based-reinforcement-learning-for-agent-safety)  
+1. [From Privacy to Workflow Integrity: Communication-Graph Metadata in Autonomous Agent Interoperability](/202606/08/2606.07150v1-from-privacy-to-workflow-integrity-communication-graph-metadata-in-autonomous-agent-interoperability)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：开发基于评分卡的强化学习方法提升agent安全性，应对工具使用风险
-2. [Towards Healthy Evolution: Exploring the Role and Mechanisms of Human-Agent Interaction in Self-Evolving Systems](/202606/07/2606.06114v1-towards-healthy-evolution-exploring-the-role-and-mechanisms-of-human-agent-interaction-in-self-evolving-systems)  
+   evidence：通信图元数据泄露自主智能体系统的工作流和动作意图
+2. [Synthetic APTs: the Collapse of TTP-Based Attribution](/202606/08/2606.07158v1-synthetic-apts-the-collapse-of-ttp-based-attribution)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：大语言模型智能体的安全漂移与人类监督
-3. [Data Flow Control: Data Safety Policies for AI Agents](/202606/07/2606.05679v1-data-flow-control-data-safety-policies-for-ai-agents)  
-   标签：评分：6.0/10、query:agent-vuln
-   evidence：提出AI agent数据安全策略框架
+   evidence：使用AI代理模拟APT组织挑战基于TTP的归因
 
 
 <div class="dpr-home-promo-card">
