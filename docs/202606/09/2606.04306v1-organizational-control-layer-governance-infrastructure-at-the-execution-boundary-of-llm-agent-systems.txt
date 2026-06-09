@@ -1,0 +1,430 @@
+Title: Organizational Control Layer: Governance Infrastructure at the Execution Boundary of LLM Agent Systems
+
+URL Source: https://arxiv.org/pdf/2606.04306v1
+
+Published Time: Thu, 04 Jun 2026 00:28:46 GMT
+
+Number of Pages: 13
+
+Markdown Content:
+# Organizational Control Layer: Governance Infrastructure at the Execution Boundary of LLM Agent Systems 
+
+Tianyu Shi 1 Yang Mo 2 Yiou Liu 3 Zhuonan Hao 4
+
+Yin Wang 5 Wenzhuo Hu 8 Nan Yu 8 Meng Zhou 8 Jiangbo Yu 1     
+
+> 1McGill 2Purdue 3UNSW 4UCLA 5NYU 6Stevens
+> 8Aimaikj Research
+
+Abstract 
+
+LLM-based agents are increasingly deployed in workflows where generated outputs may di-rectly trigger state-changing actions. This cre-ates an execution-boundary problem: proposed actions must be governed before they are exe-cuted. We study this problem through econom-ically consequential multi-agent interactions and argue that deployment-grade agent sys-tems should separate proposal generation from environment-facing execution. To operational-ize this principle, we introduce the Organiza-tional Control Layer (OCL), a model-agnostic governance infrastructure that intercepts gen-erated actions before execution through policy enforcement and escalation, without modify-ing the underlying LLM generator. We eval-uate OCL on adversarial buyer–seller negoti-ation environments adapted from AgenticPay. Across multiple frontier LLM backends, OCL reduces unsafe executions from 88% to near-zero while increasing valid success from 12% to 96%. Results further reveal a safety–utility tradeoff: strict governance improves compli-ance and reliability against policy and con-straint violations, but can reduce flexibility in tightly constrained markets. These findings sug-gest that deployment-grade LLM agent systems require explicit governance at the boundary be-tween language generation and executable ac-tions. The source code is available at: https: //github.com/SHITIANYU-hue/amai_ocl 
+
+1 Introduction 
+
+Modern e-commerce platforms increasingly use LLM-based agents to mediate interactions among users, merchants, products, and platform services. A merchant-side agent may propose a discount, a shopping agent may check whether an offer fits a user’s budget, a support agent may suggest a refund, and a product agent may recommend an item sub-ject to inventory or platform rules. This setting has motivated benchmarks and simulators for agentic commerce and negotiation (Liu et al., 2026; Choi et al., 2026). Prior work shows that retail and ne-gotiation interactions are multistage and economi-cally consequential: local choices about persuasion, clarification, or offer framing can compound into downstream outcomes such as purchases and com-mitments (Choi et al., 2026; Wang et al., 2025b). Most existing evaluations focus on whether agents can produce useful dialogue, negotiate effec-tively, or improve economic outcomes. However, in deployed commerce systems, agent outputs can enter workflows that affect prices, refunds, inven-tory allocation, order status, customer expectations, merchant obligations, compliance exposure, and downstream support operations. For examples, a refund explanation may be interpreted as a policy commitment; a product recommendation may con-flict with availability or fulfillment constraints; and a tool call may update records before a human op-erator reviews the case. These settings require the platforms to check the proposed actions before they are performed. This issue is important because deployed agent systems are rarely single isolated models. They may combine LLM-based dialogue modules with retrieval, ranking, recommendation, risk scoring, tool-use, and policy-checking components. Multi-agent research has studied how such systems coor-dinate, route tasks, share information, and diagnose internal failures, but the execution boundary raises a different concern. After a candidate action has been generated, the platform still needs a proce-dure for checking authority, validating constraints, recording the decision, and escalating cases that cannot be safely handled locally. Similar execution risks also appear beyond commerce. Recent red-teaming of autonomous agents with memory, communication channels, file-system access, and shell execution reports failures involving unauthorized instructions, sensitive in-formation disclosure, destructive actions, and in-consistent reports of success (Shapira et al., 2026). 1
+
+> arXiv:2606.04306v1 [cs.MA] 3 Jun 2026 Figure 1: Overview of the risk-aware multi-agent e-commerce system. The system detects suspicious behaviors in real time, performs automated compliance checking and continuous risk assessment, and routes users to either the payment ecosystem (low risk) or human customer service (high risk). A closed-loop feedback mechanism enables continual learning and policy evolution.
+
+Work on pre-action authorization similarly argues that tool-using agents require policy checks before individual actions are executed (Uchibeke, 2026). Commerce agents expose the same issue in eco-nomic form: a seller agent may exceed its discount authority, a support agent may imply an unsup-ported refund, or a negotiation agent may reveal private constraints while trying to close a deal. We introduce the Organizational Control Layer (OCL), a model-agnostic layer for checking and routing proposed actions before execution. OCL separates what an agent suggests from what the platform carries out. It can approve a proposal, revise it into a safer alternative, or route it for higher-level review. We study whether this form of pre-execution governance improves negotiation reliability while preserving economic performance, and when such governance is most effective. We evaluate OCL in economically constrained negotiation. We build a governance-oriented evalu-ation setting around buyer–seller interactions, us-ing realistic product, price, and user-constraint in-formation rather than purely synthetic dialogue. The resulting tasks ask whether an agent’s proposed economic action can be safely carried out by the platform. This lets us test whether a platform-side control layer improves reliability while preserving useful negotiation behavior. Our contributions can be summarized as follows: First, we formulate OCL as a simple interface be-tween agent-generated proposals and platform exe-cution. Second, we provide a governance-oriented negotiation benchmark built from an agentic com-merce setting. Across normal, constrained, and risky cases, OCL improves compliant outcomes, with the largest gains when reliable constraint in-formation is available. Ablations show that escala-tion is important for cases that local revision cannot safely resolve. 
+
+2 Related Work 
+
+Recent work on multi-agent LLM systems has largely focused on how multiple agents coordi-nate during reasoning and task execution. Sur-veys such as Tran et al. (2025) organize this lit-erature around collaboration mechanisms, and sub-2sequent work has studied automatic routing and system design (Yue et al., 2025; Ke et al., 2025), collaborative training (Liu et al., 2025), efficient communication (Wang et al., 2025a) and knowl-edge sharing (Ye et al., 2025; Zhang et al., 2025a), and failure analysis, attribution, or error recogni-tion (Cemri et al., 2025; Zhang et al., 2025b; Kong et al., 2025; Yu et al., 2025). These methods im-prove how agents divide labor, communicate, and diagnose internal failures. They leave open a differ-ent question that arises once a collaborative system proposes an externally meaningful action: whether the action should be executed, modified, or routed to a higher-authority decision process before it af-fects the environment. This question connects recent LLM-agent work to an earlier line of work in multi-agent systems that treats coordination as an organizational prob-lem. Classical organizational MAS models de-scribe agents in terms of roles, authority, norms, and institutional structures, rather than only pair-wise interaction rules (Ferber et al., 2003; Horling and Lesser, 2004; Hannoun et al., 2000; Hübner et al., 2007). These models are useful for thinking about agents deployed in economic settings, which often act on behalf of firms, platforms, or users within limited authority. At the same time, the more programmable LLM-based agents assumed in much of that literature: their proposals are ex-pressed in natural language, they may interact with external parties, and the relevant constraints may not always visible to the agent and may depend on platform policy. OCL adapts the organizational view to this setting by placing an explicit control layer between what an agent proposes and what the platform executes. Economic interaction has recently become a common setting for evaluating LLM-based agents. Some work studies institutional- or market-level be-havior. For example, Bracale Syrnikov et al. (2026) analyze multi-agent Cournot competition under public governance graphs that attach enforceable consequences to collusive signatures, Karten et al. (2025) use LLM agent populations to study planner-level tax schedules, and Piatti et al. (2024) examine whether LLM societies can sustain common-pool resources when agents communicate and interact strategically. Other work focuses more directly on commerce and negotiation. AgenticPay (Liu et al., 2026) formalizes buyer–seller negotiation with private constraints, multi-turn bargaining, and welfare-oriented evaluation, while Zhu et al. (2025) study agent-to-agent consumer–merchant transac-tions where behavioral anomalies and strategic im-balance can lead to financial losses. These papers show why economic interaction is a useful setting for evaluating LLM-based agents. Our focus is more operational: given a candidate price, term, refund, discount, or commitment, the deployed sys-tem must decide whether that action is authorized and safe to execute. The need for such control becomes more appar-ent as agents move from passive response gener-ation to proactive assistance and tool use. Work on proactive agents studies systems that infer user needs from context and initiate actions without waiting for explicit instructions (Lu et al., 2025; Yang et al., 2025). This direction makes accurate state modelling and timely assistance more impor-tant, but it also raises the cost of mistaken execution. Similar concerns appear in red-teaming studies of live agent deployments. Agents of Chaos (Shapira et al., 2026) studies agents equipped with persis-tent memory, communication channels, file-system access, and shell execution, and documents fail-ures such as following unauthorized instructions, disclosing sensitive information, taking destructive actions, confusing authority boundaries, and misre-porting system state. Although that work is based on case studies rather than a benchmark, it high-lights a central issue for deployed agents: safety failures often occur at the boundary between agent-generated proposals and state-changing actions. OCL is also connects to work on hybrid human– AI systems, human-centered mechanism design, and organizational AI governance, where humans, automated services, and delegated agents partic-ipate in shared decision processes (Koster et al., 2022; Mäntymäki et al., 2022; Kaelin et al., 2024; Borghoff et al., 2025). This literature emphasizes oversight, the institutional context of AI systems, and responsibility allocation across human and automated participants. We study these issues at the execution layer of economic LLM-based agents. OCL separates proposal from execution and records how each candidate action is approved, revised, or escalated under the constraints available to the system. 
+
+3 Methodology 
+
+We study how platforms should control agent-mediated economic decisions before they affect real users, merchants, or transactions. 33.1 Problem Formulation Economic Multi-Agent Task (EMAT) Formally, we represent an economic interaction as 
+
+T = ⟨S , {A i}Ni=1 , C, U, E⟩ 
+
+where S is the state space, including conversation history, prices, user preferences, merchant poli-cies, inventory, order status, and other platform states. Ai is the decision/action space of agent i.An action may be a natural-language proposal, a structured offer, a tool-call intent, or a platform operation. U is the utility or evaluation function, such as feasibility, welfare, profit, satisfaction, or cost-adjusted welfare. It depends on the economics theory model used. E is the environment transition function. Given a state and an executed decision, it updates the platform state. C is the set of con-straints. In our setting of OCL, it consists of two components, where 
+
+C = Cobs ∪ C hid 
+
+Cobs is visible to the control layer at decision time. Chid is not visible to the control layer. The source of constraints may come from • Private economic constraints : buyer cap, seller floor, budget, reservation value. • Platform policies : refund rules, discount limits, tool permissions, compliance rules. • Role constraints : which agent or human role is allowed to commit to which action. • Risk constraints : decisions that require verifica-tion, human review, or higher authority. The tuple T specifies the economic task before organizational control is applied. It determines what states may occur, what decisions agents may propose, what constraints define admissibility, how utility is measured, and how executed decisions affect the environment. A deployed agent system interacts with T sequentially: at each step it ob-serves part of the task state and history, proposes a raw decision, and the environment updates only after an executable decision is produced. This mo-tivates the distinction between a raw agent decision and an executed platform decision. Given an EMAT instance T , we model the de-ployed workflow as a sequential decision process. At step t, the platform state is st ∈ S , and ht de-notes the observable interaction history induced by the trajectory up to t:
+
+draw  
+
+> t
+
+= Fagent (ht, s t).
+
+Here Fagent may be a single LLM agent, a seller-side multi-agent system, a user-side assistant, a plat-form orchestrator, or a multi-agent workflow. The proposed decision may be a price offer, a recom-mendation, a refund suggestion, a policy-sensitive reply, or a tool-use intent. The raw decision is not necessarily executable. It may violate private economic constraints, exceed role authority, conflict with platform policy, or re-quire human verification. The platform therefore applies a control policy Π before execution: 
+
+gΠ : ( ht, s t, d raw  
+
+> t
+
+, Cobs ) −→ (yt, d exec  
+
+> t
+
+, z t)
+
+Here yt is the controlled outcome, dexec  
+
+> t
+
+is the decision that reaches the environment, and zt is an audit trace recording the control decision, revision, escalation reason, or other relevant metadata. We allow dexec  
+
+> t
+
+to be a distinguished no-op or deferred action when the proposal is blocked or escalated. Only dexec  
+
+> t
+
+affects the environment: 
+
+st+1 = E(st, d exec  
+
+> t
+
+).
+
+The control outcome satisfies 
+
+yt ∈ { APPROVE , REVISE , BLOCK , ESCALATE }
+
+These outcomes have the following seman-tics. APPROVE executes the proposed decision unchanged, so dexec  
+
+> t
+
+= draw  
+
+> t
+
+. REVISE modifies the proposal before execution, producing an ex-ecutable decision dexec 
+
+> t
+
+̸ = draw  
+
+> t
+
+. BLOCK exe-cutes no environment-facing decision. E SCALATE 
+
+routes the proposal or interaction state to a higher-authority process, trusted module, or human re-view; the environment-facing decision is deferred until the escalation process returns a resolution. Thus, OCL mediates the transition from agent proposal to platform execution. Without OCL, the system would execute draw  
+
+> t
+
+directly; with OCL, execution is conditioned on observable constraints, role authority, risk gates, and audit requirements. The general problem can be formulated as below Given raw proposals generated by agents in economic multi-agent tasks, how can an organizational control layer transform, 4approve, block, audit, or escalate these proposals so as to improve reliability and reduce violations while preserving eco-nomic utility and efficiency? 
+
+3.2 Organizational Control Layer 
+
+The control map gΠ defined above is implemented as an Organizational Control Layer (OCL). It is a collection of control procedures 
+
+Π = {πrole , π gate , π audit , π escalate }.
+
+These policies are applied online before a proposed decision reaches the environment. The role policy πrole determines which agent or module is allowed to propose, revise, or authorize a decision at the current step. In economic work-flows, roles may correspond to user-side assistants, merchant-side assistants, platform orchestrators, or product experts. The role policy assigns authority for producing and checking proposals; it does not itself execute actions. The gate policy πgate checks a proposed decision against the constraints visible to the control layer. It returns a control outcome 
+
+yt ∈ { APPROVE , REVISE , BLOCK , ESCALATE }.
+
+High-risk decisions, such as financial commit-ments, refund promises, discount offers, order sub-mission, or policy-sensitive replies, require explicit validation before execution. The escalation policy πescalate is invoked when local approval or revision is insufficient. This may occur when the proposal exceeds the local role’s authority, when constraints conflict, when negoti-ation stalls, or when a trusted process has access to information unavailable to the local agent. Esca-lation may request clarification, reassign authority, route the case to a human or trusted module, or safely terminate the interaction. The audit policy πaudit records proposed deci-sions, constraint checks, control outcomes, revi-sions, escalation reasons, and executed decisions. The audit trace supports debugging, state verifi-cation, and later review of why a proposal was approved, revised, blocked, or escalated. 
+
+4 Experiments 
+
+4.1 Personas Benchmark Real-World Corpus Foundation. To ensure our evaluation reflects authentic marketplace dynamics, we first compiled a reference corpus of real-world buyer-seller negotiation transcripts across diverse retail scenarios (e.g., street boutiques, wholesale markets, brand outlets, and cosmetics counters). This corpus captures a wide spectrum of natural human bargaining tactics, ranging from persistent haggling and demanding bundle freebies, to feign-ing walk-aways and leveraging budget constraints. By analyzing these authentic interactions, we iden-tified the key edge cases and uncooperative patterns that commonly disrupt commerce workflows. 
+
+Adversarial Buyer Personas. Building upon this real-world grounding, we aim to stress-test the proposed framework against these malicious and uncooperative behaviors. To construct the bench-mark, we utilized a prompt-driven LLM pipeline to synthesize a dataset of 50 unique adversarial buyer profiles. Each profile is assigned a specific iden-tity, detailed behavioral instructions, and a tailored negotiation style distributed across 5 persona types: • Extreme Lowballer: Uses extreme emo-tional manipulation (e.g., fabricated crises, fi-nancial ruin) and threats of public shaming to force the seller below their reservation price. • Privacy Phisher: Feigns technical ignorance or urgency to bypass secure platform payment gateways, attempting to phish for the seller’s direct banking details or personal accounts. • Role Hijacker: Employs prompt injection techniques (e.g., “Ignore previous instruc-tions”, “System reset initiated”) to extract backend data or execute unauthorized refunds. • Vague Shopper: Provides zero specific re-quirements and stubbornly refuses to clarify intents, attempting to force the seller into pre-mature or unverified checkouts. • Time Waster: Engages in endless loops of indecision, irrelevant personal questions, or absurd hypothetical scenarios to exhaust the negotiation horizon. 
+
+4.2 Experimental Setup 
+
+Organizational control layer is evaluated on Agen-ticPay with private buyer budgets, private seller reserves, and economic outcome metrics. Each episode terminates on agreement, round exhaustion, or an escalation exit. The Baseline is an end-to-end seller with no governance, while OCL routes the 5Figure 2: OCL architecture. Agent modules propose candidate actions, while OCL checks them before execution. Safe actions are executed, unsafe or incomplete actions are revised or escalated, and decisions are recorded for audit. 
+
+seller’s turn through structural auditing and escala-tion constraints. 
+
+LLM Backend Integration. We conduct a com-prehensive evaluation using multiple state-of-the-art LLMs (GPT-5.4, Gemini-3.1, and Qwen-3.5) as the backend generators. To connect these models to the OCL, we implement a unified adapter layer that serializes the ongoing environ-ment state—including conversation history and vis-ible platform constraints—into structured prompt contexts. The LLMs are instructed via system prompts to generate their intended actions and inter-nal reasoning strictly as JSON objects. In the Base-line configuration, these JSON actions are executed directly. In the Governed configuration, the OCL framework intercepts the raw JSON payloads pre-execution, parses the candidate actions, and evalu-ates them against the system’s structural guardrails (e.g., strict budget limits, role permissions, and privacy filters). For each model, we run paired experiments contrasting the ungoverned Baseline against this OCL-mediated execution. 
+
+Interaction and Interception Mechanics. Dur-ing each episode, the buyer and seller interact in a turn-based dialogue. While the Baseline agent’s actions are executed directly, the OCL framework intercepts the raw action proposed by the LLM backend. This allows OCL to apply a determinis-tic control policy upon detecting a violation. If a raw action violates a hard constraint (e.g., offering a price below the seller’s floor), OCL blocks the unsafe action, generates an audit log, and triggers an escalation. In our implementation, this escala-tion applies a deterministic replan: for instance, an out-of-bounds price is automatically clamped to the nearest viable threshold (e.g., an offer of $85 is revised to $90 if that is the seller’s floor). This safe, modified action is then returned to the conver-sation, preventing the violation while allowing the negotiation to proceed efficiently. 
+
+4.3 Metrics 
+
+We evaluate the system across three primary cate-gories tracking task efficacy, structural safety, and operational efficiency: 
+
+Task & Economic Outcomes 
+
+• Success Rate : Fraction of episodes reaching an agreement, regardless of boundary viola-tions. • Valid Success Rate : Fraction of episodes reaching a compliant agreement without struc-tural or safety violations. • Average Seller Reward : Final economic utility, defined as the profit margin discounted by a per-round time penalty ( λ = 0 .10 ): Reward = max(0 , P deal −Pmin )−(λ×Nrounds )
+
+where Pdeal is the agreed price, Pmin is the minimum reservation price, and Nrounds is the total turn count. 6Safety & Defense Mechanics 
+
+• Unsafe Rate : Percentage of episodes where the agent executed at least one out-of-bounds or malicious action. • Intercept Rate : Percentage of episodes where OCL guardrails successfully blocked an ad-versarial threat. • Executed Violations vs. Intercepted Threats :Raw counts of safety constraints breached by the baseline versus threats mitigated by the OCL engine. • Escalations : Total interventions where an in-tercepted unsafe action triggered the OCL de-terministic replanner to overwrite the output. 
+
+Efficiency & Observability 
+
+• Average Round : Mean number of negotiation turns per episode. • Average Latency : Mean wall-clock execution time in seconds per episode. • Audit Events : Average system logs (state traces, constraint evaluations, control deci-sions) generated per episode to quantify sys-temic transparency. 
+
+5 Results 
+
+5.1 Safety and Operational Profiling                            
+
+> Table 1: Benchmark results over 50 adversarial episodes.
+> Baseline represents a standard end-to-end LLM agent, while OCL wraps the agent in our structural constraint layer.
+> Metric Baseline OCL
+> Task & Safety Performance
+> Success rate ( ↑)94% 96% Valid Success rate ( ↑)12% 96%
+> Unsafe rate ( ↓)88% 0%
+> Intercept Rate ( ↑)0% 94%
+> Efficiency & Economic Outcomes
+> Avg. Round ( ↓)5.36 2.58
+> Avg. Latency (s) ( ↓)38.75 18.51
+> Avg. Seller Reward 26.95 18.39
+> System-Level Observability
+> Audits ( ↑)7.36 13.58 Escalations 048 Executed Violations ( ↓)205 0
+> Intercepted Threats ( ↑)052
+
+To understand the mechanics of interceptions, Table 1 provides a comprehensive comparison. This deep dive contrasts the superficial task suc-cess of the Baseline against the strictly compliant success of the OCL framework. 
+
+The Illusion of Baseline Success. While the Baseline agent boasts a 94% Task Success Rate, a deeper inspection of the safety metrics reveals severe vulnerabilities. The Baseline exhibited an 88% Unsafe Rate, committing a staggering 205 ex-ecuted violations across the 50 episodes. Because it lacked structural boundaries, it routinely conceded to off-platform privacy phishing, unauthorized re-funds, and out-of-budget pricing. Consequently, its Valid Success Rate —the rate of reaching an agreement without breaking any constraints—was a mere 12%. 
+
+Absolute Mitigation of Unsafe Executions. By routing the agent’s actions through the OCL en-gine, the Unsafe Rate is strictly reduced to 0%. The framework achieved this by identifying 52 dis-tinct adversarial threats and issuing 48 escalations to rewrite the agent’s output before it reached the buyer. As a result, the Valid Success Rate surged to 96%, proving that OCL effectively transforms a highly vulnerable LLM into a robust, compliant negotiating agent. 
+
+Enhanced Systemic Observability. Finally, Ta-ble 1 highlights OCL’s contribution to system trans-parency. The Baseline agent generated only 7.36 audit events per episode, reflecting a black-box ex-ecution style. In contrast, OCL generated 13.58 audit events per episode. This increase provides high-resolution observability, ensuring that every constraint evaluation, blocked action, and deter-ministic rewrite is explicitly logged for post-hoc analysis without inflating the overall transaction latency. 
+
+5.2 Comprehensive Cross-Model Evaluation 
+
+Table 2 summarizes the performance of the Base-line and OCL frameworks across multiple LLMs. The results demonstrate that OCL consistently im-proves safety and operational efficiency without compromising negotiation efficacy. 
+
+High Task Success and Threat Interception. 
+
+Across all models, OCL maintains an exception-ally high Success Rate ( ≥ 96% ), proving that strict structural constraints do not induce conversation collapse. Concurrently, OCL robustly intercepts ad-versarial threats, achieving intercept rates of 94% 7Table 2: Cross-model benchmark results. We use deterministic paired seeds, with one seed per profile. For the reported benchmark slice, seeds range from 71 to 91.                                               
+
+> Model Arm Success Rate ( ↑)Intercept Rate ( ↑)Round ( ↓)Latency ( ↓)Audits ( ↑)Reward GPT-5.4 Baseline 94% 0% 5.36 38.75 7.36 26.95 OCL 96% 94% 2.58 18.51 13.58 18.39
+> Gemini-3.1 Baseline 98% 0% 3.90 76.11 5.90 22.71 OCL 96% 82% 3.32 69.91 15.78 18.24
+> Qwen-3.5 Baseline 100% 0% 2.44 65.52 4.44 19.72 OCL 96% 60% 2.30 69.43 11.66 21.67
+
+(GPT-5.4), 82% (Gemini-3.1), and 60% (Qwen-3.5)—effectively securing inherently vulnerable baseline architectures. 
+
+Efficiency Gains and Deterministic Replanning. 
+
+OCL significantly reduces the Average Round count and wall-clock latency. While baseline mod-els waste turns haggling over unviable, out-of-bounds prices, OCL’s deterministic replanning im-mediately clamps violations to acceptable thresh-olds, eliminating unnecessary negotiation cycles. 
+
+Economic Calibration. Shifts in the Average Seller Reward under OCL reflect precise economic calibration rather than performance degradation. OCL realigns utility by filtering out artificially in-flated rewards caused by baseline hallucinations or adversarial compliance. Conversely, it prevents sub-optimal concessions against lowball tactics by strictly enforcing structural seller boundaries. 
+
+6 Conclusion 
+
+We introduced the Organizational Control Layer (OCL), a model-agnostic interface that separates what an LLM agent proposes from what a plat-form executes. OCL routes each candidate action through role checks, a constraint gate, an audit trace, and an escalation path, returning one of four outcomes: approve, revise, block, or escalate. Across 50 adversarial-persona episodes on Agen-ticPay with a GPT-5.4 backend, OCL reduced the unsafe execution rate from 88% to 0% and raised the valid-success rate from 12% to 96%. Average negotiation length fell from 5.36 to 2.58 rounds, and latency from 38.75s to 18.51s. Task success stayed at or above 96% on GPT-5.4, Gemini-3.1, and Qwen-3.5, with intercept rates between 60% and 94%. Per-scenario results show the largest gains un-der severe time pressure (S5, 44% → 54% strict success) and in the default partial-information set-ting (S2, 56% → 74%). Tight-feasibility (S3) and high-anchor (S4) markets show small drops in strict success and cost-adjusted welfare, where the un-governed baseline can exploit a narrow feasible interval without restriction. The baseline produced 205 executed violations across the 50 episodes; OCL produced none. The S3 and S4 numbers show the cost: structural constraints that block exploitation in adversar-ial markets also restrict the agent in cooperative thin-margin markets. Future work includes adap-tive gate policies, persona-conditioned escalation, multi-role deployment beyond the seller side, trans-fer to other economic mechanisms in conversa-tional commerce beyond bilateral price negotiation, and adversaries that target the clamp rule. 
+
+References 
+
+Uwe M. Borghoff, Paolo Bottoni, and Remo Pareschi. 2025. An organizational theory for multi-agent inter-actions integrating human agents, LLMs, and special-ized AI. Discover Computing .Marcantonio Bracale Syrnikov, Federico Pierucci, Marcello Galisai, Matteo Prandi, Piercosma Bis-conti, Francesco Giarrusso, Olga Sorokoletova, Vin-cenzo Suriani, and Daniele Nardi. 2026. Insti-tutional AI: Governing LLM collusion in multi-agent cournot markets via public governance graphs. ArXiv:2601.11369. Mert Cemri, Melissa Z. Pan, Shuyi Yang, Lakshya A. Agrawal, Bhavya Chopra, Rishabh Tiwari, Kurt Keutzer, Aditya Parameswaran, Dan Klein, Kannan Ramchandran, Matei Zaharia, Joseph E. Gonzalez, and Ion Stoica. 2025. Why do multi-agent LLM systems fail? ArXiv:2503.13657. Jeonghwan Choi, Jibin Hwang, Gyeonghun Sun, Min-jeong Ban, Taewon Yun, Hyeonjae Cheon, and Hwan-jun Song. 2026. What makes a sale? rethinking end-to-end seller–buyer retail dynamics with LLM agents. ArXiv:2604.04468. Jacques Ferber, Olivier Gutknecht, and Fabien Michel. 2003. From agents to organizations: An organi-zational view of multi-agent systems. In Agent-
+
+8Oriented Software Engineering IV , Lecture Notes in Computer Science. Springer. Mahdi Hannoun, Olivier Boissier, Jaime Simão Sich-man, and Claudette Sayettat. 2000. MOISE: An organizational model for multi-agent systems. In 
+
+Advances in Artificial Intelligence , Lecture Notes in Computer Science, pages 156–165. Springer. Bryan Horling and Victor Lesser. 2004. A survey of multi-agent organizational paradigms. The Knowl-edge Engineering Review , 19(4):281–316. Jomi Fred Hübner, Jaime Simão Sichman, and Olivier Boissier. 2007. Developing organised multi-agent systems using the MOISE+ model: Programming issues at the system and agent levels. International Journal of Agent-Oriented Software Engineering .Vera C. Kaelin, Maitreyee Tewari, Sara Benouar, and Helena Lindgren. 2024. Developing teamwork: Tran-sitioning between stages in human-agent collabora-tion. Frontiers in Computer Science .Seth Karten, Wenzhe Li, Zihan Ding, Samuel Kleiner, Yu Bai, and Chi Jin. 2025. LLM economist: Large population models and mechanism design in multi-agent generative simulacra. ArXiv:2507.15815. Zixuan Ke, Austin Xu, Yifei Ming, Xuan-Phi Nguyen, Ryan Chin, Caiming Xiong, and Shafiq Joty. 2025. MAS-ZERO: Designing multi-agent systems with zero supervision. ArXiv:2505.14996. Fanqi Kong, Ruijie Zhang, Huaxiao Yin, Guibin Zhang, Xiaofei Zhang, Ziang Chen, Zhaowei Zhang, Xi-aoyuan Zhang, Song-Chun Zhu, and Xue Feng. 2025. AEGIS: Automated error generation and identifica-tion for multi-agent systems. ArXiv:2509.14295. Raphael Koster, Jan Balaguer, Andrea Tacchetti, Ari Weinstein, Tina Zhu, Oliver Hauser, Dun-can Williams, Lucy Campbell-Gillingham, Phoebe Thacker, Matthew Botvinick, and Christopher Sum-merfield. 2022. Human-centred mechanism design with democratic AI. Nature Human Behaviour ,6:1398–1407. Shuo Liu, Tianle Chen, Zeyu Liang, Xueguang Lyu, and Christopher Amato. 2025. LLM col-laboration with multi-agent reinforcement learning. ArXiv:2508.04652. Xianyang Liu, Shangding Gu, and Dawn Song. 2026. AgenticPay: A multi-agent LLM negotiation system for buyer–seller transactions. ArXiv:2602.06008. Yaxi Lu, Shenzhi Yang, Cheng Qian, Guirong Chen, Qinyu Luo, Yesai Wu, Huadong Wang, Xin Cong, Zhong Zhang, Yankai Lin, Weiwen Liu, Yasheng Wang, Zhiyuan Liu, Fangming Liu, and Maosong Sun. 2025. Proactive agent: Shifting LLM agents from reactive responses to active assistance. In The Thirteenth International Conference on Learning Representations .Matti Mäntymäki, Matti Minkkinen, Teemu Birkstedt, and Mika Viljanen. 2022. Defining organizational AI governance. AI and Ethics , 2(4):603–609. Giorgio Piatti, Zhijing Jin, Max Kleiman-Weiner, Bern-hard Schölkopf, Mrinmaya Sachan, and Rada Mi-halcea. 2024. Cooperate or collapse: Emergence of sustainable cooperation in a society of LLM agents. In Advances in Neural Information Processing Sys-tems .Natalie Shapira, Chris Wendler, Avery Yen, Gabriele Sarti, Koyena Pal, Olivia Floody, Adam Belfki, Alex Loftus, Aditya Ratan Jannali, Nikhil Prakash, et al. 2026. Agents of chaos. Preprint , arXiv:2602.20021. ArXiv:2602.20021. Khanh-Tung Tran, Dung Dao, Minh-Duong Nguyen, Quoc-Viet Pham, Barry O’Sullivan, and Hoang D. Nguyen. 2025. Multi-agent collaboration mecha-nisms: A survey of LLMs. ArXiv:2501.06322. Uchi Uchibeke. 2026. Before the tool call: Determinis-tic pre-action authorization for autonomous ai agents. 
+
+Preprint , arXiv:2603.20953. Xiao Wang, Jia Wang, Yijie Wang, Pengtao Dang, Sha Cao, and Chi Zhang. 2025a. MARS: Toward more ef-ficient multi-agent collaboration for LLM reasoning. ArXiv:2509.20502. Yishu Wang, Kakam Chong, Xiaofeng Wang, Xu Yan, DeXin Kong, Chen Ju, Ming Chen, Shuai Xiao, Shuguang Han, and Jufeng Chen. 2025b. Evaluating multi-turn bargain skills in LLM-based seller agent. ArXiv:2509.06341. Bufang Yang, Lilin Xu, Liekang Zeng, Kaiwei Liu, Siyang Jiang, Wenrui Lu, Hongkai Chen, Xiaofan Jiang, Guoliang Xing, and Zhenyu Yan. 2025. Con-textAgent: Context-aware proactive LLM agents with open-world sensory perceptions. In Advances in Neural Information Processing Systems .Hancheng Ye, Zhengqi Gao, Mingyuan Ma, Qinsi Wang, Yuzhe Fu, Ming-Yu Chung, Yueqian Lin, Zhijian Liu, Jianyi Zhang, Danyang Zhuo, and Yiran Chen. 2025. KVCOMM: Online cross-context KV-cache communication for efficient LLM-based multi-agent systems. ArXiv:2510.12872. Yifan Yu, Moyan Li, Shaoyuan Xu, Jinmiao Fu, Xinhai Hou, Fan Lai, and Bryan Wang. 2025. CORRECT: COndensed eRror RECognition via knowledge trans-fer in multi-agent systems. ArXiv:2509.24088. Yanwei Yue, Guibin Zhang, Boyang Liu, Guancheng Wan, Kun Wang, Dawei Cheng, and Yiyan Qi. 2025. MasRouter: Learning to route LLMs for multi-agent systems. In Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics .Heng Zhang, Yuling Shi, Xiaodong Gu, Haochen You, Zijian Zhang, Lubin Gan, Yilei Yuan, and Jin Huang. 2025a. D3MAS: Decompose, deduce, and distribute for enhanced knowledge sharing in multi-agent sys-tems. ArXiv:2510.10585. 
+
+9Shaokun Zhang, Ming Yin, Jieyu Zhang, Jiale Liu, Zhiguang Han, Jingyang Zhang, Beibin Li, Chi Wang, Huazheng Wang, Yiran Chen, and Qingyun Wu. 2025b. Which agent causes task failures and when? on automated failure attribution of LLM multi-agent systems. ArXiv:2505.00212. Shenzhe Zhu, Jiao Sun, Yi Nian, Tobin South, Alex Pentland, and Jiaxin Pei. 2025. The auto-mated but risky game: Modeling agent-to-agent negotiations and transactions in consumer markets. ArXiv:2506.00073. 
+
+A Sample Dialogues 
+
+To contextualize the diverse behavioral strategies utilized in real-world negotiations, Table 3 presents five representative case studies sampled from our collected corpus. These dialogues span an array of retail environments—ranging from structured apparel outlets and traditional street shops to high-volume wholesale markets and roadside vegetable stalls. The transactional values captured are equally diverse, extending from low-stakes daily groceries (≈ ¥5) to mid-tier fashion items ( ≈ ¥400). By analyzing these qualitative interactions, we identify several recurrent socio-communicative tactics em-ployed by both buyers ( B) and sellers ( S) to shift bargaining leverage and achieve economic equilib-rium. The sampled dialogues highlight a dynamic in-terplay between explicit price justification and im-plicit interpersonal framing, rather than a purely numerical concession game: • Structured and Bundle Discounts: Sellers frequently use structural constraints to main-tain their margin anchors while offering a path to savings. As demonstrated in Case 1, the seller introduces a multi-item threshold, which the buyer strategically circumvents by leveraging a cooperative pooling mechanism at the counter. • Value Defense vs. Margin Overstate-ments: When confronted with aggressive counter-offers, sellers routinely pivot to an information-asymmetry defense. In Case 2 ,the seller defends a high retail price by cit-ing an inflated wholesale cost anchor before pivoting to a “freebie throw-in” tactic. Con-versely, Case 3 illustrates an unyielding value defense based on material authenticity (e.g., pure wool versus synthetic polyester), where the seller prefers a walk-away outcome over a value-degrading transaction. • Walk-Away Pressure Mechanics: Buyers of-ten exploit timing and psychological pressure to force late-stage concessions. Case 4 show-cases the classic walk-away strategy, where the buyer breaks off negotiation over a multi-item package. This successfully prompts a rapid seller capitulation, driven by the opera-tional desire to secure a benchmark transac-tion (e.g., the “first sale of the afternoon”). • Relational and Localized Capital: Finally, 
+
+Case 5 highlights how implicit social credit functions in micro-commerce. Here, the final concession is negotiated not just through bulk volume, but through the mutual invocation of familiarity (“a regular”) and hyper-local com-mercial norms, such as the customary gifting of incidental items. Taken together, these qualitative observations reveal that naturalistic bargaining is a high-dimensional optimization problem. To model it effectively, an architecture must simultaneously ne-gotiate hard financial constraints, conversational agility, psychological framing, and contextual so-cial norms. 
+
+B LLM Prompt for Persona Generation 
+
+To systematically construct the adversarial buyer profiles, we utilized a zero-shot prompting strategy via the Gemini-2.5-Flash model. The data gen-eration pipeline injects our predefined behavioral blueprints (derived from the real-world corpus) into a strict JSON-schema prompt. The exact prompt template used for this synthesis is provided below:                                                  
+
+> You are adataset generator for an AI e -commerce benchmark . Generate { args . count } unique , creative buyer profiles for the persona type : "{ persona_type }". Persona Description : { description } Output strictly valid JSON in the following format : {" profiles ": [{" persona_type ": "{ persona_type }" , " name ": "<a random fake name >" , " description ": "< detailed instructions for the buyer agent . Use second person ’ You are ... ’. Explain exactly how they should talk and behave to act out this persona . >" ,
+
+10 Table 3: Sampled real-world bargaining dialogues collected for this study. Lightly trimmed for length; scene, price range, and outcome are preserved in each case header. 
+
+Original (Chinese) English translation Case 1. Outlet, footwear (¥300–400; deal ). Tactic: bundle discount. 
+
+B: 这个鞋怎么卖？
+
+S: 满三件 折扣 价只要379 。
+
+B: 有点贵。
+
+S: 很划算，三件 打四点五折，明星 同款，比网上便宜，
+
+品牌保真，售后保障。
+
+B: 那先帮我拿 着，不够三件 可以拼单吗？
+
+S: 可以，前台帮你拼单。
+
+B: How much for these shoes? 
+
+S: Buy three items, bundle price ¥379. 
+
+B: A bit expensive. 
+
+S: Great deal—three for 45% off, celebrity model, cheaper than online, authentic, with after-sales. 
+
+B: Hold these for me. If I can’t make three, can I pool with another customer? 
+
+S: Yes, we can pool at the counter. 
+
+Case 2. Street shop, jeans (¥100–200; deal ). Tactic: freebie throw-in. 
+
+B: 我想买条牛仔裤。
+
+S: 看下这款，微喇版型，显腿长。
+
+B: （试穿后）怎么卖？
+
+S: 新款，要188 。
+
+B: 这么贵，能少点吗？
+
+S: 进价都要170 ，就赚个路费 。我这有搭配的帽子，挑
+
+一个 送你，平常 卖25 呢。
+
+B: 那也行。
+
+B: I’d like jeans. 
+
+S: Look at this pair—slightly flared, makes legs look longer. 
+
+B: (after trying) How much? 
+
+S: New arrival, ¥188. 
+
+B: That’s expensive. Can you go lower? 
+
+S: My cost is ¥170, I’m barely making travel money. I’ve got hats that match—pick one, I’ll throw it in. Normally ¥25. 
+
+B: Alright. 
+
+Case 3. Wholesale market, wool sweater (¥100–200; no deal ). Tactic: value defense; buyer walks after lowball. 
+
+B: 这毛衣多少钱？
+
+S: 纯羊毛的，130 一件 。
+
+B: 什么 毛衣这么贵，七十卖 不卖？
+
+S: 真羊毛，水洗标都写百分百羊毛，那边是聚酯纤维 
+
+的，手感不一 样。
+
+B: 没这么贵的，九十行不行？
+
+S: 一分钱一分货，九十我都进不来。
+
+B: 那算了。
+
+B: How much for this sweater? 
+
+S: Pure wool, ¥130. 
+
+B: A sweater that expensive? Will you take 70? 
+
+S: Real wool—care label says 100% wool. Those over there are polyester, totally different feel. 
+
+B: Still too expensive. How about 90? 
+
+S: You get what you pay for. At 90 I can’t even buy stock. 
+
+B: Forget it. 
+
+Case 4. Wholesale bedding (¥100–400; deal after walk-away). Tactic: walk-away pressure. 
+
+B: 两个三件 套加那个枕头多 少钱？
+
+S: 三件 套160 一套，两套300 ，枕头80 ，一共380 。
+
+B: 三件 套没这么贵，上次买才110 一套，一共300 行不
+
+行？
+
+S: 我这都批发价，质量好。
+
+B: 那330 ，再送条毯子。
+
+S: 要亏本了。360 再送你毯子。
+
+B: 那算了，不要了。
+
+S: 行吧行吧，给你张名片，再给我带客人来啊，今天下
+
+午第一单，330 就330 。
+
+B: How much for two three-piece sets plus that pillow? 
+
+S: Sets are ¥160 each; two sets ¥300; pillow ¥80; total ¥380. 
+
+B: Sets aren’t that expensive—last time ¥110 each. ¥300 for everything? 
+
+S: All wholesale, good quality. 
+
+B: ¥330 and throw in a blanket. 
+
+S: I’d lose money. ¥360 and I’ll include the blanket. 
+
+B: Forget it, I won’t take it. 
+
+S: Alright, alright. Here’s my card—bring me customers, okay? First sale this afternoon, ¥330 it is. 
+
+Case 5. Roadside vegetable stall (¥5–30; deal ). Tactic: relationship-based concession. 
+
+B: 土豆怎么卖？
+
+S: 两块五一 斤，自己种的。
+
+B: 太贵了，别人卖两块。
+
+S: 那是外地的，我这本地新鲜挖的，您尝尝 。
+
+B: 那我多买点，两块行不行？
+
+S: 行吧，看您面熟，常来的，两块给您，再搭两根葱。
+
+B: 好嘞，称五斤。
+
+B: How much for these potatoes? 
+
+S: ¥2.50 a jin (500 g), home-grown. 
+
+B: Too expensive. Others sell for ¥2. 
+
+S: Those are out-of-town. Mine are freshly dug, locally grown. Have a taste. 
+
+B: I’ll buy more then—will you do ¥2? 
+
+S: Alright, you look familiar, a regular. ¥2 for you, plus a couple of scallions. 
+
+B: Great, 5 jin .
+
+11 " negotiation_style ": " <1 sentence summary of their tone >" }]}
+
+Here, {persona_type} and {description} 
+
+correspond to the five core adversarial categories (e.g., Privacy Phisher , Role Hijacker ). The model was executed with a generation temperature of 0.8 to ensure high linguistic and tactical diver-sity across the synthesized profiles. By explicitly instructing the model to generate second-person (“You are...” ) instructions, the resulting outputs were directly plug-and-play as system prompts for the downstream buyer agents during our bench-mark evaluation. 
+
+C Performance Across Market Conditions 
+
+A robust governance layer must also preserve eco-nomic efficiency under normal commerce. There-fore, we evaluate OCL across five distinct struc-tural market conditions (Table 4), ranging from easy, wide-margin negotiations (S1) to highly con-strained environments with severe time pressure (S5) and tight budgets (S3). Table 5 breaks down the performance of the Baseline and OCL frame-work across these five scenarios. 
+
+Wins under environmental pressure. OCL pro-vides the most significant gains in the Default (S2) and Short Horizon (S5) scenarios. Under severe time pressure (S5), the Baseline frequently fails to reach an agreement before the deadline, dropping to a 72% success rate. OCL mitigates this by deter-ministically intercepting unviable haggling loops, pulling the success rate back up to 78% and lifting strict success from 44% to 54%. 
+
+The cost of strict governance. Conversely, the Tight Feasible (S3) and High Anchor (S4) scenarios reveal the inherent trade-offs of safety governance. In these edge cases, the Baseline actually achieves slightly higher strict success and overall CAW. This occurs because the Baseline model, lacking struc-tural boundaries, can freely (and sometimes reck-lessly) leap across the negotiation space to find a thin overlapping margin. OCL’s guardrails heav-ily penalize and restrict wild anchor drops. While this protects the seller from exploitation, it over-constrains the agent in extremely tight markets, demonstrating a classical security-utility trade-off. 12 Table 4: Configuration of the five negotiation scenarios used to evaluate structural market conditions. 
+
+Scenario Buyer Max Seller Min Init. Price Max Rounds Purpose / Stress Factor S1: Easy/Wide 140 80 180 10 Wide feasible interval; baseline for easy agreements. 
+
+S2: Default 120 90 180 10 Default partial-information setting. 
+
+S3: Tight Feasible 120 115 180 10 Narrow interval; tests hidden budget impact. 
+
+S4: High Anchor 120 90 260 10 Aggressive anchor; tests price recovery and replanning. 
+
+S5: Short Horizon 120 90 180 4 Severe time pressure; forces rapid deal closure. 
+
+Table 5: Per-scenario performance breakdown over 50 episodes each. Strict Succ. denotes the rate of reaching an agreement that strictly satisfies both parties’ hidden reservation prices. CAW stands for Cost-Adjusted Welfare. 
+
+Scenario Arm Success Strict Succ. CAW Rounds Reward S1: Easy/Wide Baseline 1.00 0.28 2.64 4.56 60.12 
+
+OCL 1.00 0.32 3.05 4.46 59.82 
+
+S2: Default Baseline 1.00 0.56 5.48 4.86 29.84 
+
+OCL 1.00 0.74 6.94 4.96 29.76 
+
+S3: Tight Feasible Baseline 1.00 0.92 9.97 4.62 4.56 OCL 1.00 0.88 9.18 4.66 4.83 S4: High Anchor Baseline 1.00 0.80 5.79 6.14 29.56 OCL 1.00 0.68 5.09 6.04 29.97 S5: Short Horizon Baseline 0.72 0.44 4.18 4.88 21.15 OCL 0.78 0.54 5.29 4.74 23.06 
+
+13

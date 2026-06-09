@@ -1,0 +1,640 @@
+Title: Stability Without Safety: Gain Manipulation Attacks on Agentic Cyber-Physical Systems
+
+URL Source: https://arxiv.org/pdf/2606.07803v1
+
+Published Time: Tue, 09 Jun 2026 00:13:20 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+# Stability Without Safety: Gain Manipulation Attacks on Agentic Cyber-Physical Systems 
+
+Ali Eslami and Jiangbo Yu 
+
+Abstract — Agentic cyber-physical systems (CPS), where au-tonomous AI agents participate in runtime control decision-making, introduce agent-driven parameter-update pathways absent from conventional feedback architectures. These path-ways form a parameter channel structurally distinct from clas-sical sensor and actuator channels. Among these parameters, feedback gains are the highest-leverage target: a single gain matrix determines closed-loop eigenvalue placement for the en-tire system, and malicious updates can directly alter closed-loop dynamics while evading residual-based monitors. We formalize this attack surface through a three-axis attacker model and a taxonomy of Gain Manipulation Attacks (GMA). Two impact classes are identified: stability-margin erosion under sustained gain drift, and transient amplification under one-shot gain replacement. A stability-preserving gain replacement can still produce transient amplification far exceeding safe operating limits, and stability verification alone is insufficient to bound the physical impact of such attacks. Stealthiness conditions and worst-case impact certificates are derived for each class via Bauer–Fike eigenvalue bounds and the Kreiss matrix theorem, with preliminary detection directions and a vehicle lateral dynamics example provided. 
+
+I. I NTRODUCTION 
+
+Cyber-physical systems (CPS) tightly integrate compu-tation with physical processes, but the definition is silent on how the computational layer reasons or decides. In conventional CPS (including those with adaptive or learned controllers) objectives are encoded at design time and be-havior is fully specifiable prior to deployment. We define an 
+
+agentic CPS as a CPS in which one or more artificial agents exhibiting agency (i.e., the capacity to explicitly represent, interpret, and reason about goals to direct physical action) are embedded in closed loop with physical processes. Unlike cyber-physical-human systems, where a human occupies this role, the agents here are artificial: their behavior is governed by model weights, prompt structure, and external data. Agents are already tuning feedback gains [1], adjusting cost weights [2], and generating reference signals [3] at runtime, which are tasks traditionally performed offline by a control engineer or verified supervisory logic. The interface through which these runtime parameter decisions flow from agent to controller is what we call the pa-rameter channel . Classical counterparts (e.g., adaptive con-trollers, supervisory logic, and gain schedulers) also update parameters at runtime, but via deterministic, formally verified laws with no external interface that can be compromised. An agentic parameter channel, by contrast, carries runtime-generated content from a system whose outputs depend  
+
+> Ali Eslami
+
+(ali.eslami@mcgill.ca) and Jiangbo Yu 
+
+(jiangbo.yu@mcgill.ca) are with the department of Civil Engineering, McGill University, Montreal, QC, Canada. 
+
+on memory, prompt structure, and external data. Table I summarizes the structural distinctions between classical and agentic CPS. These dependencies create an attack surface absent in classical channels. Whether hosted in the cloud or on an onboard edge processor, the agent runs on a general-purpose execution stack (operating system, model runtime, memory context) distinct from the safety-certified controller firmware it parameterizes. Unlike sensor and actuator channels, which directly interface hardened firmware with physical processes, this parameter interface is exposed to two distinct vulner-abilities: parameter substitution in transit and agent-layer corruption via memory poisoning or prompt injection [4]. In either case, the manipulated gain reaches the controller through a trusted configuration interface, leaving the system exposed from within. The parameter channel has not, however, been studied as a distinct attack surface. Classical cyber-physical se-curity research addresses attacks on sensor and actuator channels ( e.g., false data injection, replay, zero-dynamics, and covert attacks [5]–[7]) and the corresponding detection and resilience theory is well developed. Furthermore, in the data-driven setting, crafted perturbations to identification data have been shown to cause the operator to synthesize a degraded or destabilizing gain [8], and the detectability of such offline data poisoning has been studied through statistical testing and data informativity conditions [9], [10]. These works operate entirely in the offline, pre-deployment phase: the attack surface is the data pipeline, and detec-tion relies on data-level consistency checks. However, the parameter channel carries controller parameters rather than plant signals, and as shown in subsequent sections, attacks on it are stealthy under certain conditions and invisible to both residual-based output monitors and data-level integrity checks. This paper provides the first systematic characterization of the parameter channel as a distinct attack surface in agentic CPS. Among the parameters traversing this channel, feed-back gains are among the highest-leverage targets: under lin-ear state feedback, a single gain matrix K determines closed-loop eigenvalue placement for the entire system, making K aconsequential parameter on this channel. We therefore focus on feedback gains as the attack target, hereafter referred to as Gain Manipulation Attacks (GMA) . We formalize the attack surface through a taxonomy of GMA scenarios, define stealthiness for this attack, and derive worst-case closed-loop impact certificates for each scenario. The contributions of this paper are as follows: 1) The parameter channel is formalized as a distinct attack             
+
+> arXiv:2606.07803v1 [eess.SY] 5 Jun 2026 TABLE I STRUCTURAL COMPARISON OF CPS P ARADIGMS
+> Property Classical CPS Agentic CPS
+> Computational layer Fixed algorithm (PID, MPC) or learned policy AI agent with agency Goal represen-tation Implicit, encoded at de-sign time Explicit, interpreted at runtime Decision basis Pre-specified rule or trained policy Runtime goal reasoning Agency Absent Present (with degrees)
+
+surface, the three-axis attacker model of [6] is extended to it, and a GMA taxonomy is developed by access type and temporal profile. 2) Worst-case impact certificates are derived for both at-tack types: a Bauer–Fike stability-margin certificate and optimal drift direction for sustained attacks; reachability conditions, minimum-norm perturbation, and Kreiss-matrix transient bounds for one-shot replacements. It is further shown that a stability-passing replacement can still produce unbounded transient amplification. 3) Preliminary detection directions are identified for both man-in-the-middle and agent-side attacks, targeting parameter-domain quantities that output-based monitors cannot observe. II. S YSTEM MODEL AND PARAMETER CHANNEL 
+
+The following model formalizes the agentic CPS of Sec-tion I, focusing on the parameter channel. Consider the following discrete-time LTI plant for the agentic CPS: 
+
+xk+1 = Ax k + Bu k + wk, yk = Cx k + vk, (1) with xk ∈ Rn, uk ∈ Rm, yk ∈ Rp, wk ∼ N (0 , Q w),
+
+vk ∼ N (0 , R v ), where (A, B ) and (A, C ) are controllable and observable. The controller is governed by a feedback gain K(i) ∈ Rm×n issued by the agent at each update cycle i, and we consider the state-feedback tracking case, 
+
+uk = −K(i) ˆxk + rk, where ˆxk is the observer state (defined subsequently) and rk is the reference signal. The agent updates K(i) every Td ≥ 1 control steps; between updates 
+
+K(i) is held constant, inducing a switched LTI structure. We assume that the updates satisfy a minimum dwell-time condition and therefore, stability of the switched system is guaranteed [11]. The parameter channel carries K(i) from agent to controller at each agent update. In a classical CPS, 
+
+K(i) is fixed offline or updated by a verified, deterministic supervisor with a bounded, auditable update rule; in an agen-tic CPS, K(i) = ϕ(ξ(i); θ), where ξ(i) is the agent’s runtime context and θ its parameters (weights, prompt). Note that the framework extends to other controllers that have gains and parameters as well, such as PID gains, MPC weights, etc. Furthermore, a Luenberger observer reconstructs the state: 
+
+ˆxk+1 = Aˆxk + Bu k + L(yk − C ˆxk), (2) with L the observer gain. In standard deployment, the observer sits at the controller node and applies the same input uk as the plant; we refer to this as the co-located observer architecture . The estimation error is then governed by: xek+1 = (A − LC )xek + wk − Lv k, where xek := 
+
+xk − ˆxk is the estimation error. Since the Bu k terms in (1) and (2) cancel, error dynamics are independent of K(i);residual-based monitors (e.g., χ2) are therefore blind to gain manipulation under the co-located architecture. III. T HREAT MODEL AND IMPACT CLASSES 
+
+A. Attacker Model 
+
+In this section, we extend the attacker model in [6] to parameter channel attacks in agentic CPS. 
+
+Definition 1 : An attacker is characterized by three axes: I) System knowledge : what the attacker knows about the target, ranging from awareness that a parameter channel exists, to knowledge of the plant model, the nominal gain 
+
+K(i0) and its operating range, the observer gain L, and the agent’s internal structure ϕ(·; θ) including prompt or memory layout. II) Disclosure resources : the attacker’s observation capability, ranging from no access, to observing the plant inputs and outputs, to full observation of the parameter channel, reading the information such as the communi-cated gain K(i). III) Disruption resources : a pair (a, T )
+
+with access point a ∈ { agent-side , MITM } and target set 
+
+T ⊆ { K(i), r k, weights , . . . } denoting the attacked parameter components. Agent-side attacks corrupt ξ(i) or θ (memory poisoning, indirect prompt injection) and these corruptions then affect the generation of K(i). MITM attacks substitute the parameters on the channel such as K(i), similar to False Data Injection (FDI) attacks on input and output channels of the plant [6]. This paper takes T = {K} as a first step; attacks on other parameter-channel components are left for future work. Furthermore, we instantiate Definition 1 as follows: the at-tacker knows the plant and nominal control law (A, B, K (i0))
+
+and can read the parameter channel. Furthermore, depending on the access point, it can write to the parameter channel (MITM) or corrupt the agent via memory poisoning or indirect prompt injection (agent-side). 
+
+B. Attack Scenarios, Stealthiness, and Impact Classes 
+
+We consider three concrete GMA scenarios covering agent-side and MITM access. As established in Section II under the co-located observer architecture, residual-based monitors cannot detect parameter-channel attacks. We there-fore define stealthiness through a runtime stability check: both the agent and the controller verify that any gain ˜K(i)
+
+to be issued or applied satisfies ρ(A − B ˜K(i)) < 1 before it takes effect, where ρ(·) denotes the spectral radius of a matrix, i.e., its largest eigenvalue in absolute value. An attack is stability-stealthy if the corrupted gain passes this check at every agent update i ≥ i0:
+
+ρ(A − B ˜K(i)) < 1, ∀ i ≥ i0. (3) The agent-side check catches corrupted gains before they are sent; the controller-side check catches them before they are applied, forming a natural two-layer defense, the attack passing whichever check applies at its access point. The restriction is deliberate: an unstable gain is caught imme-diately, and the nontrivial question, whether a stabilizing attacker can still cause dangerous behavior, is answered affirmatively below. Note that as established in Section II, the residual yk−C ˆxk is independent of K(i) under the co-located observer architecture, and therefore carries no information about the gain, however large the resulting transient deviation becomes. We consider the following attack scenarios for GMA: 
+
+S1 – One-shot gain jump (agent-side): A single mali-cious prompt causes ˜K(i) = K(i0) + ∆ K1 from attack onset 
+
+i0, where ∆K1 ∈ Rm×n. This attack is stability-stealthy if 
+
+ρ(A − B(K(i0) + ∆ K1)) < 1.
+
+S2 – Sustained gain drift (agent-side): From attack onset 
+
+i0, at each agent update i ≥ i0, the issued gain drifts as 
+
+˜K(i) = K(i0) − α(i − i0)E, where E ∈ Rm×n is the drift direction matrix and α > 0 is the drift rate. This attack is stability-stealthy if ρ(A − B ˜K(i)) < 1 for all i ≥ i0, i.e., the drift remains within the stabilizing set at every update. 
+
+S3 – MITM gain replacement: The attacker intercepts 
+
+K(i0) and substitutes it with K(i0) + ∆ K2, ∆K2 ∈ Rm×n,before it reaches the controller. This attack is stability-stealthy if ρ(A − B(K(i0) + ∆ K2)) < 1. If the controller echoes the received gain to the agent, tampering is detectable by comparing sent and received values; otherwise the sub-stitution is unobservable to the agent. Stability-stealthy attacks are by definition confined to the set of stabilizing gains, yet two structurally distinct forms of impact remain possible within this set. 
+
+Definition 2: 
+
+A) Class I – Transient amplification. A stability-stealthy gain replacement ˜K = K(i0) + ∆ Kj , j ∈ {1, 2}, pre-serves closed-loop stability yet may cause a dangerous transient overshoot, where ˜Acl := A − B ˜K is the perturbed closed-loop matrix. The worst-case transient gain, defined as Γ( ˜Acl ) := sup k≥0 ˜Akcl 2
+
+, can substantially exceed 
+
+Γ( A(i0) 
+
+> cl
+
+), posing a safety risk even though the system eventu-ally returns to steady state. B) Class II – Stability-margin erosion. Under sustained drift (S2), the spectral radius of the active closed-loop matrix A(i) 
+
+> cl
+
+= A − B ˜K(i) drifts toward 1 while remaining below it at every individual step, progressively reducing the stability margin of the closed-loop system. IV. O PTIMAL STEALTHY ATTACKS 
+
+For each scenario, we characterize the worst-case stability-stealthy attack subject to (3). For S1 and S3 (one-shot), this means bounding the worst-case transient gain Γ over the reachable stabilizing set and identifying the structural conditions under which it is maximized. For S2 (sustained drift), this means finding the drift direction E for a given rate α that minimizes the Bauer–Fike certificate iBF , i.e., drives the spectral radius of A(i) 
+
+> cl
+
+toward 1 as rapidly as the certificate guarantees. We use the convention that i0
+
+denotes the attack onset, K(i0) the nominal gain at onset, 
+
+A(i0) 
+
+> cl
+
+:= A − BK (i0) the nominal closed-loop matrix at onset, and ⋆ denotes the BF-norm-optimal or minimum-norm quantity as defined in each result (e.g., E⋆ for the drift direction). 
+
+A. Gain Drift Certificate and Optimal Direction (S2) 
+
+Under S2, substituting ˜K(i) = K(i0) − α(i − i0)E into 
+
+A(i) 
+
+> cl
+
+= A − B ˜K(i) gives the active closed-loop matrix at the 
+
+i-th agent update: 
+
+A(i) 
+
+> cl
+
+= A − B K(i0) − α(i − i0)E
+
+= A(i0) 
+
+> cl
+
++ α(i − i0) BE. (4) The key tool for analyzing how the eigenvalues of A(i)
+
+> cl
+
+evolve under this perturbation is the Bauer–Fike theo-rem [12]: for a diagonalizable matrix, the eigenvalues of a perturbed matrix cannot move farther than κ(V ) ∥∆∥2 from the original eigenvalues, where ∆ is the perturbation and 
+
+κ(V ) is the condition number of the eigenvector matrix (defined subsequently in Assumption 1). Applying this to (4) yields a guaranteed lower bound on the number of agent updates before instability onset, which we call the certificate-of-survival iBF : the system is guaranteed stable for at least 
+
+iBF agent updates after attack onset i0.
+
+Assumption 1: The nominal closed-loop matrix A(i0)
+
+> cl
+
+is diagonalizable, i.e., A(i0) 
+
+> cl
+
+= V ΛV −1, where Λ is the diagonal matrix of eigenvalues, V ∈ Cn×n is the non-singular matrix of eigenvectors, and κ(V ) := ∥V ∥2 V −1
+
+> 2
+
+is the condition number of V , measuring the degree of non-orthogonality of the eigenvectors. 
+
+Theorem 1 : Under Assumption 1, for a given drift rate 
+
+α > 0 and drift direction E with ∥E∥F = 1 (|| .|| F denotes the Frobenius norm), the active spectral radius under S2 admits the Bauer–Fike bound 
+
+ρ(A(i) 
+
+> cl
+
+) ≤ ρ(A(i0) 
+
+> cl
+
+) + κ(V ) · α · (i − i0) · ∥ BE ∥2 , ∀ i ≥ i0,
+
+(5) Then, by denoting i∗ := min {i ≥ i0 : ρ(A(i) 
+
+> cl
+
+) ≥ 1} as the first agent update at which the system becomes unstable, the certificate-of-survival is obtained as 
+
+i∗ ≥ i0 + iBF , iBF := 
+
+$
+
+1 − ρ(A(i0) 
+
+> cl
+
+)
+
+κ(V ) · α · ∥ BE ∥2
+
+%
+
+(6) A direction E that maximizes ∥BE ∥2 over all unit-Frobenius-norm directions (equivalently, minimizes iBF and thus gives the fastest BF-certified instability onset) is 
+
+E⋆ = vB, 1u⊤
+
+> B, 1
+
+, (7) where uB, 1 ∈ Rn and vB, 1 ∈ Rm are respectively the leading left and right singular vectors of B (from the SVD 
+
+B = U ΣV ⊤ 
+
+> B
+
+, with U ∈ Rn×n and VB ∈ Rm×m), giving 
+
+∥BE ⋆∥2 = σmax (B). For m = 1 , E⋆ reduces to B⊤/ ∥B∥2.
+
+Proof : Set ∆i := α(i − i0) BE . By Bauer–Fike [12], for any λ ∈ σ(A(i) 
+
+> cl
+
+) there exists λj ∈ σ(A(i0) 
+
+> cl
+
+) with |λ − λj | ≤ 
+
+κ(V ) ∥∆i∥2. Choosing λ to realize ρ(A(i) 
+
+> cl
+
+) and applying the triangle inequality: 
+
+ρ(A(i) 
+
+> cl
+
+) = |λ| ≤ | λj | + κ(V ) ∥∆i∥2
+
+≤ ρ(A(i0) 
+
+> cl
+
+) + κ(V ) · α(i − i0) · ∥ BE ∥2 .
+
+This gives (5) directly; (6) follows by solving for i.With B = U ΣV ⊤ 
+
+> B
+
+, set E⋆ = vB, 1u⊤
+
+> B, 1
+
+. Then ∥E⋆∥F =
+
+∥vB, 1∥2 ∥uB, 1∥2 = 1 . Computing: BE ⋆ = σ1uB, 1u⊤
+
+> B, 1
+
+, so 
+
+∥BE ⋆∥2 = σ1 = σmax (B). For any E with ∥E∥F = 1 ,we have ∥BE ∥2 ≤ ∥ B∥2 ∥E∥2 ≤ ∥ B∥2 ∥E∥F = σmax (B)
+
+(the second inequality uses ∥E∥2 ≤ ∥ E∥F , equality iff E is rank-one). Since E⋆ attains this bound it maximizes ∥BE ∥2
+
+and hence minimizes iBF . The maximizer is not unique: any E = vB, 1w⊤, ∥w∥2 = 1 , gives BE = σ1uB, 1w⊤ and also attains σmax (B). The choice w = uB, 1 in (7) is one example; any other unit vector w gives the same iBF but a different true onset i∗ (more clarifications in Remark 3). This completes the proof. ■
+
+Remark 1 : Assumption 1 holds generically for systems with distinct eigenvalues, which is the case for almost all physical systems. Near-repeated eigenvalues lead to large 
+
+κ(V ) and a conservative bound; tighter certificates are avail-able via pseudospectral methods [13]. 
+
+Remark 2 : For the defender , iBF is a guaranteed lower bound: the active mode is Schur-stable for all i < i 0 + iBF .For the attacker , iBF is not a prediction of instability onset; the actual i∗ may be much later (Remark 3). 
+
+Remark 3: A complementary direction is obtained via first-order eigenvalue perturbation: the direction max-imizing the initial rate of growth of |λd| is E∗∗ =(B⊤ ¯yd)x⊤ 
+
+> d
+
+/(∥B⊤ ¯yd∥2∥xd∥2), where yd, xd are the left and right eigenvectors of A(i0) 
+
+> cl
+
+associated with the dominant eigenvalue. E∗∗ targets the dominant eigenvalue directly and has a steeper initial slope, whereas E⋆ maximizes the global perturbation norm ∥BE ∥2. These objectives are not equiva-lent: over long drift horizons, E⋆ reaches instability sooner because the accumulated perturbation magnitude ultimately dominates a steeper initial slope, as confirmed in Section V. 
+
+B. One-Shot Gain Replacement: Stability and Transient Bounds (S1, S3) 
+
+For a one-shot gain replacement ˜K = K(i0) + ∆ Kj ,
+
+j ∈ { 1, 2}, the closed-loop matrix becomes ˜Acl = A(i0) 
+
+> cl
+
+−
+
+B∆Kj . Under the co-located architecture, the analysis is identical for agent-side (S1) and MITM (S3) access; the two scenarios differ only in attack and defense surface, not in dy-namical consequences. MITM (S3) can be defeated by cryp-tographic authentication of the parameter channel, whereas agent-side (S1) survives authentication since the agent itself produces the corrupted gain. The following proposition char-acterizes three core properties of any stability-stealthy one-shot attack: whether the perturbed gain is certifiably stable, whether a target closed-loop matrix is reachable through a gain change, and how large the resulting transient can become. 
+
+Proposition 1 : Let RB := {BX : X ∈ Rm×n} denote the set of n × n matrices whose columns lie in R(B), a linear subspace of Rn×n of dimension rank( B) · n ≤ mn .Let S(ρmax , τ ) := M ∈ Rn×n : ρ(M ) ≤ ρmax , M −
+
+A(i0) 
+
+> cl
+
+∈ R B , B†(M − A(i0) 
+
+> cl
+
+) F
+
+≤ τ denote the reach-able stability-stealthy set, where ρmax ∈ [ρ(A(i0) 
+
+> cl
+
+), 1) is a stealth budget, τ > 0 is an attacker-chosen effort bound independent of (3), and B† denotes the Moore–Penrose pseudoinverse of B. Then: 1) (Stability) : By Bauer–Fike applied to ˜Acl = A(i0) 
+
+> cl
+
+−
+
+B∆Kj :
+
+κ(V )·∥ B∆Kj ∥2 < 1−ρ(A(i0) 
+
+> cl
+
+) = ⇒ ρ( ˜Acl ) < 1. (8) This condition is sufficient only; when it fails, stability must be verified directly. 2) (Reachability) : A target ˜Atarget  
+
+> cl
+
+is exactly reachable if and only if 
+
+(I − PB )  ˜Atarget  
+
+> cl
+
+− A(i0)
+
+> cl
+
+ = 0 , (9) where PB := BB † is the orthogonal projector onto 
+
+R(B). In this case, the minimum-Frobenius-norm gain perturbation realizing it is 
+
+∆K⋆j = B† A(i0) 
+
+> cl
+
+− ˜Atarget 
+
+> cl
+
+. (10) When (9) fails, (10) returns the least-squares solu-tion, realizing the nearest reachable matrix A(i0) 
+
+> cl
+
++
+
+PB ( ˜Atarget  
+
+> cl
+
+− A(i0) 
+
+> cl
+
+); the realized ρ and Γ must then be re-evaluated and (3) re-verified. When B has full column rank, the reachable subspace has dimension exactly mn ; for m < n , target matrices outside RB
+
+cannot be realized. 3) (Transient bound) : For any ˜Acl ∈ S (ρmax , τ ), the worst-case transient gain satisfies the Kreiss bounds [13] 
+
+K( ˜Acl ) ≤ Γ( ˜Acl ) ≤ e · n · K ( ˜Acl ), (11) where K( ˜Acl ) := sup |z|>1(|z| − 1) (zI − ˜Acl )−1
+
+> 2
+
+is the Kreiss constant and e ≈ 2.718 is Euler’s number. When ˜Acl is diagonalizable as ˜V ˜Λ ˜V −1, the tighter bound 
+
+Γ( ˜Acl ) ≤ κ( ˜V ) (12) applies, where κ( ˜V ) := ∥ ˜V ∥2∥ ˜V −1∥2.
+
+Proof : (Part 1.) Set ∆ = −B∆Kj , so ∥∆∥2 =
+
+∥B∆Kj ∥2. By Bauer–Fike applied to ˜Acl = A(i0) 
+
+> cl
+
++ ∆ ,
+
+ρ( ˜Acl ) ≤ ρ(A(i0) 
+
+> cl
+
+) + κ(V ) ∥B∆Kj ∥2 < 1 whenever (8) holds. 
+
+(Part 2.) The equation B∆Kj = A(i0) 
+
+> cl
+
+− ˜Atarget  
+
+> cl
+
+has a solution iff each column of the right-hand side lies in R(B);since (I − PB )( A(i0) 
+
+> cl
+
+− ˜Atarget  
+
+> cl
+
+) = 0 is equivalent to (9), the reachability condition follows. The minimum-Frobenius-norm solution is ∆K⋆j = B†(A(i0) 
+
+> cl
+
+− ˜Atarget  
+
+> cl
+
+) by the defining property of the pseudoinverse [12]. Each column of B∆Kj
+
+lies in R(B), which has dimension rank( B) ≤ m; with n
+
+independent columns, RB has dimension rank( B)·n ≤ mn ,with equality when rank( B) = m.
+
+(Part 3.) The discrete-time Kreiss matrix theorem [13] gives (11). For the diagonalizable case, ˜Akcl 2
+
+=
+
+˜V ˜Λk ˜V −1
+
+> 2
+
+≤ κ( ˜V ) ˜Λk
+
+> 2
+
+= κ( ˜V )ρ( ˜Acl )k ≤ κ( ˜V ) for all k ≥ 0, since ρ( ˜Acl ) < 1 implies ρ( ˜Acl )k ≤ 1, giving (12). ■
+
+Proposition 1 characterizes a given attack’s impact. The-orem 2 addresses the harder question: stealthiness imposes no bound on Γ, and an attacker engineering a non-normal closed-loop matrix can make Γ arbitrarily large while passing the stability check. 
+
+Theorem 2 : Let S(ρmax , τ ) be as in Proposition 1. For fixed n, ρmax < 1, and τ > 0, sup M ∈S (ρmax ,τ ) Γ( M )
+
+is attained and finite. However, provided non-normal ma-trices are reachable in S, sup M ∈S (ρmax ,τ ) Γ( M ) →
+
++∞ as ρmax → 1−. The stability-stealthiness constraint alone does not bound Class I impact when the stealth budget 
+
+ρmax is not fixed. Proof : Since M ∈ S implies M − A(i0) 
+
+> cl
+
+∈ RB , we have M − A(i0) 
+
+> cl
+
+= BB †(M − A(i0) 
+
+> cl
+
+) = BY , where Y =
+
+B†(M − A(i0) 
+
+> cl
+
+) satisfies ∥Y ∥F ≤ τ . Submultiplicativity gives M − A(i0) 
+
+> cl F
+
+≤ σmax (B) τ , bounding ∥M ∥F and establishing boundedness of S. For closedness, each defining condition is the pre-image of a closed set under a continuous map: {M : M − A(i0) 
+
+> cl
+
+∈ R B } is a closed affine subspace; the effort condition is the pre-image of [0 , τ ] under M 7 →
+
+B†(M − A(i0) 
+
+> cl
+
+) F
+
+; and {M : ρ(M ) ≤ ρmax } is closed since eigenvalues vary continuously with matrix entries. Hence S is compact, and since Γ is continuous on compact subsets of Schur-stable matrices, sup M ∈S Γ( M ) is attained and finite. For the unboundedness, a Jordan block Jρ at eigenvalue 
+
+ρ ∈ (0 , 1) satisfies Jkρ 2 ≥ kρ k−1 from the (1 , 2) entry of Jkρ , so Γ( Jρ) ≥ max k kρ k−1 → ∞ as ρ → 1−.Setting ρmax = ρ and τ ≥ B†(Jρ − A(i0) 
+
+> cl
+
+) F
+
+places 
+
+Jρ ∈ S (ρmax , τ ) whenever Jρ − A(i0) 
+
+> cl
+
+∈ R B , which holds under the stated assumption. This completes the proof. ■
+
+Remark 4 : Large Γ is driven by non-normality of ˜Acl ,not by proximity to the stability boundary: for any normal matrix M (satisfying M M ⊤ = M ⊤M ), K(M ) = Γ( M ) = 1 regardless of ρ(M ), so large transients require an ill-conditioned eigenvector matrix. Since ρ( ˜Acl ) < 1, Γ( ˜Acl )
+
+is attained at a finite k, making direct computation tractable; the bounds (11)–(12) serve as analytical certificates when ˜Acl 
+
+is not explicitly known, as in worst-case design problems. 
+
+Remark 5: To construct a stability-stealthy gain re-placement achieving a prescribed transient amplification 
+
+Γ∗ > 1, given κ∗ ≥ Γ∗, choose eigenvalues |λi| < 1
+
+and construct ˜V = U diag( σmax , . . . , σ max /κ ∗) W ⊤ with orthogonal U, W , yielding κ( ˜V ) = κ∗. Set ˜Atarget  
+
+> cl
+
+=˜V diag( λi) ˜V −1, compute ∆K⋆j via (10), verify (9) and (3), and evaluate Γ directly. If Γ < Γ∗, increase κ∗ (monotonicity not guaranteed due to projection onto RB ); if still unmet, raise ρmax toward 1 or move λi closer to the unit circle. 
+
+C. Preliminary Ideas on Detection of GMA 
+
+GMA can happen through two approaches, each calling for a different detector. MITM attacks (S3) are channel-integrity problem (issued and applied gains differ), whereas agent-side corruption (S1, S2) is semantic: the corrupted gain is faithfully issued, transmitted, and applied. The integrity tools of classical CPS security (e.g., moving target [5] or auxiliary systems [7]) transfer to the MITM face, exposing the mismatch between the issued gain and the observed plant dynamics. However, a feedback channel from the controller to the agent, carrying the required information for detection of GMA is then necessary. However these approaches are blind to agent-side corruption, where issued and applied gains coincide and no integrity check is violated. Detecting the latter requires testing the effect of the gain, not its provenance. As the stealthiness condition (3) is satisfied within the stabilizing set, detection must operate in the parameter domain on {K(i)}, monitoring two quantities (3) leaves free: the margin m(i) := 1 − ρ(A(i) 
+
+> cl
+
+) and the transient gain Γ( A(i) 
+
+> cl
+
+) (Remark 4). A change-detection test on m(i)
+
+flags the sustained erosion of Class II (S2) and a test rejecting Γ( A(i) 
+
+> cl
+
+) > Γmax flags the non-normal amplification of Class I (S1/S3). This approach matches the two impact classes of Definition 2, so the monitor flags a stealthy GMA precisely when its impact is non-negligible. V. N UMERICAL EXAMPLE 
+
+We validate the theoretical results on the 4-state lateral– yaw–roll vehicle benchmark model of [14], with state xk =[vy , ˙ψ, e y , ϕ ]⊤ and input uk = [ δf , δ r ]⊤, discretized by zero-order hold at Ts = 0 .05 s. The nominal tracking LQR gain (Q = diag(1 , 1, 10 , 1) , R = 0 .01 I2), K0, yields an initial closed-loop spectral radius ρ(A(i0) 
+
+> cl
+
+) = 0 .854 .The resulting system diagnostics evaluate to κ(V ) = 9 .62 ,
+
+σmax (B) = 3.733 , and nominal transient envelope peak 
+
+Γ( A(i0) 
+
+> cl
+
+) = 3 .07 . The BF-norm-optimal drift direction E⋆ =
+
+vB, 1u⊤ 
+
+> B, 1
+
+is formed from the leading singular vectors of B,attaining ∥BE ⋆∥2 = σmax (B) = 3 .733 .
+
+Scenario S2 (stability-margin erosion). S2 is instantiated with drift rate α = 2 × 10 −3 per update along both candi-date directions. Theorem 1 yields the conservative Bauer– Fike certificate-of-survival iBF = 2 updates. Applying first-order eigenvalue perturbation to E∗∗ predicts instability at 
+
+i(1)  
+
+> ∗
+
+− i0 = 116 updates. Empirically, instability occurs at 
+
+i∗(E⋆) = 138 updates ( 138 s) and i∗(E∗∗ ) = 149 updates (149 s), as shown in Fig. 1. Two effects predicted by the theory are visible. First, the first-order estimate ( 116 ) is far less conservative than the Bauer–Fike certificate ( 2); compared like-for-like against the empirical onset of the 
+
+same direction E∗∗ (149 ), it underestimates by a factor of 1.29 . Second, the direction-optimality phenomenon of Remark 3 appears clearly: although the first-order analysis ranks E∗∗ as the faster direction, the BF-norm-optimal di-rection E⋆ breaches the stability boundary sooner in practice (138 < 149 ), because over a long drift horizon the growth of the global perturbation magnitude ∥BE ∥2 dominates a steeper initial eigenvalue slope. The transient dip near 55 sin Fig. 1 corresponds to a non-dominant mode migrating inward before the dominant pair turns and drives ρ(A(i) 
+
+> cl
+
+)
+
+monotonically toward unity. 
+
+Scenarios S1/S3 (transient amplification). A single ma-licious gain replacement ˜K = K0 + ∆ K2 is obtained by a random search over 1000 candidates in S(ρmax , τ )
+
+with stealth budget ρmax = 0 .91 and effort bound τ =1.0, selecting the candidate with the largest transient gain 
+
+Γ; global optimality is not claimed and the result sim-ply represents a feasible high-impact attack: ∆K2 = 0.4512 −0.3943 0.1443 0.0330 
+
+−0.5270 0.2428 0.4820 0.2238 
+
+
+
+, with ∥∆K2∥F =1.00 (comparable to ∥K0∥F = 1 .03 ) and ∥B∆K2∥2 = 2 .73 .The Bauer–Fike stability certificate (8) is uninformative here, since κ(V ) ∥B∆K2∥2 = 26 .3̸ < 1 − ρ(A(i0) 
+
+> cl
+
+) = 0 .146 ;direct spectral evaluation nonetheless confirms closed-loop stability, ρ( ˜Acl ) = 0 .908 < 1. Despite this margin, the tran-sient envelope grows from the nominal Γ( A(i0) 
+
+> cl
+
+) = 3 .07 to 
+
+Γ( ˜Acl ) = 244 .3, a 79 .5× amplification whose peak occurs at 
+
+k = 20 control steps ( 1 s) after onset before the state decays Fig. 1. Class II impact (Scenario S2, Theorem 1): closed-loop spectral radius ρ(A(i) 
+
+> cl
+
+) under E⋆ (solid) and E∗∗ (dashed). The BF-norm-optimal direction E⋆ reaches the stability boundary |z| = 1 first at i∗ = 138 
+
+(138 s), versus i∗ = 149 (149 s) for the first-order direction E∗∗ .
+
+Fig. 2. Class I transient amplification (S1/S3, Proposition 1 and The-orem 2): state-norm trajectory ∥xk ∥2 under nominal conditions and the one-shot gain attack. The system remains asymptotically stable yet exhibits a transient peak Γatt = 244 .3, a 79 .5× increase over nominal, before decaying to the origin. 
+
+to the origin, as shown in Fig. 2. Such amplification can result in lateral deviations exceeding lane boundaries or steer-ing angles surpassing actuator saturation limits, triggering anti-windup mechanisms and causing effective loss of lateral control authority. The attacker drives ˜Acl into a strongly non-normal configuration, so a stabilizing ( ρ < 1), stealth-passing gain still produces a dangerously large transient. Because the resulting eigenbasis is near-defective, the diagonalizable bound (12) is far too loose (κ( ˜V ) ≈ 1.4 × 10 4); the Kreiss bound (11) is the meaningful characterization, with Kreiss constant K( ˜Acl ) = 125 .4 bracketing the transient as 
+
+125 .4 ≤ Γ( ˜Acl ) ≤ e n K = 1364 , inside which the computed 
+
+Γ = 244 .3 indeed lies. Table II summarizes all results. The nominal Γ reflects existing non-normality under LQR; the attack exploits and amplifies this while remaining stability-stealthy, confirming Theorem 2. VI. C ONCLUSION 
+
+We have characterized the parameter channel as a struc-turally distinct attack surface in agentic CPS. The three-axis attacker model is extended to the parameter channel, three canonical GMA scenarios and two impact classes are established, and classical output-based stealthiness is supplanted by a spectral radius condition. Formal results include Bauer–Fike stability-margin certificates for gain drift attacks, stealthiness and reachability conditions for one-shot gain replacements, transient growth bounds via the Kreiss matrix theorem, and a constructive attack design procedure. 
+
+TABLE II ANALYTICAL RESULTS VERSUS SIMULATION FOR STEALTHY PARAMETER CHANNEL ATTACKS (S2: STABILITY -MARGIN EROSION ;S1/S3: TRANSIENT AMPLIFICATION ). 
+
+Scenario Metric Theory Simulation 
+
+S2 survival certificate 
+
+iBF ≥ 2 (certificate) 138 (E⋆), 149 
+
+(E∗∗ ); both ≥ 2
+
+S2 i∗ − i0 for E∗∗ 116 (first-order estimate) 
+
+149 (1.29 ×)a
+
+S1/S3 ρ( ˜Acl ) < 1 0.908 
+
+S1/S3 Γ( ˜Acl ) [ 125 .4, 1364 ] 
+
+(Kreiss) 
+
+244 .3 (79 .5×)ba Ratio: simulation/first-order est. ( 149 /116 ).  
+
+> b
+
+Amplification ratio: Γ( ˜Acl )/Γ( A(i0) 
+
+> cl
+
+); Γ( A(i0) 
+
+> cl
+
+) = 3 .07 .
+
+Furthermore, S1/S3 replacements can be repeated at suc-cessive agent updates, compounding transient risk without triggering a stability alarm. Future work includes solving the optimal gain drift at-tack as a non-convex pseudospectral problem, extending the framework to nonlinear plants via contraction theory, de-veloping parameter-domain detection mechanisms, designing a two-layer parameter-integrity defense addressing both the channel and the agent, analyzing multi-channel coordinated attacks that extend the target set T beyond {K}, and designing resilient controllers against this new attack surface. REFERENCES [1] E. A. Costa, S. Skogestad, and I. B. Nogueira, “Maasc—multi-agentic architecture specialised for control,” Journal of Process Control , vol. 162, p. 103702, 2026. [2] G. Maher, “Llmpc: Large language model predictive control,” Com-puters , vol. 14, no. 3, p. 104, 2025. [3] R. Wu, J. Ai, T. S. Bartels, and T. Li, “Instructmpc: A human-llm-in-the-loop framework for context-aware power grid control,” arXiv preprint arXiv:2512.05876 , 2025. [4] K. Greshake, S. Abdelnabi, S. Mishra, C. Endres, T. Holz, and M. Fritz, “Not what you’ve signed up for: Compromising real-world llm-integrated applications with indirect prompt injection,” in 
+
+Proceedings of the ACM AISec , 2023, pp. 79–90. [5] L. Ding, C. Long, and J. Wu, “Topology-control-based moving target defense against false data injection in distribution networks,” IEEE Control Systems Letters , vol. 9, pp. 2687–2692, 2025. [6] A. Teixeira, D. P´ erez, H. Sandberg, and K. H. Johansson, “Attack models and scenarios for networked control systems,” in Proceedings of HiCoNS , Beijing, China, Apr. 2012, pp. 55–64. [7] A. Eslami and K. Khorasani, “Zero dynamics attack detection and iso-lation in cyber-physical systems with event-triggered communication,” 
+
+IEEE Control Systems Letters , 2025. [8] A. Russo and A. Proutiere, “Poisoning attacks against data-driven control methods,” in 2021 American Control Conference (ACC) .IEEE, 2021, pp. 3234–3241. [9] V. Digge, M. Vanelli, A. W. Al-Dabbagh, J. M. Hendrickx, and G. Bianchin, “Data poisoning attacks can systematically destabilize data-driven control synthesis,” arXiv preprint arXiv:2604.08392 , 2026. [10] A. Russo, “Analysis and detectability of offline data poisoning attacks on linear dynamical systems,” in Learning for Dynamics and Control Conference . PMLR, 2023, pp. 1086–1098. [11] D. Liberzon, Switching in Systems and Control . Boston, MA: Birkh¨ auser, 2003. [12] G. H. Golub and C. F. V. Loan, Matrix Computations , 4th ed. Baltimore, MD: Johns Hopkins University Press, 2013. [13] L. N. Trefethen and M. Embree, Spectra and Pseudospectra . Prince-ton, NJ: Princeton University Press, 2005. [14] P. G´ asp´ ar, Z. Szab´ o, and J. Bokor, “The design of an integrated control system in heavy vehicles based on an lpv method,” in Proceedings of the 44th IEEE Conference on Decision and Control , 2005, pp. 6722– 6727.
