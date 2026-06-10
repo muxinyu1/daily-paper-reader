@@ -6,71 +6,62 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-09
-- 运行时间：2026-06-09 22:13:05 UTC
+- 最新运行日期：2026-06-10
+- 运行时间：2026-06-10 21:53:04 UTC
 - 运行状态：成功
-- 本次总论文数：17
-- 精读区：6
-- 速读区：11
+- 本次总论文数：14
+- 精读区：9
+- 速读区：5
 
 ### 今日简报（AI）
-今日共处理17篇论文，精读6篇，重点聚焦LLM驱动代理系统的安全 vulnerabilities 与攻击防御。最值得关注精读中满分论文《Data Agents Under Attack》揭示分析系统脆弱性，以及9分论文《Defenses & Enablers For Skill Injection Attacks》提出终端代理防御策略。建议优先阅读这两篇精读论文，掌握LLM代理安全的核心威胁与防护技术。
-- 详情：[/202606/09/README](/202606/09/README)
+今日日报聚焦LLM安全与AI安全代理，从14篇论文中精选9篇精读，重点关注攻击防御与恶意技能评估。最值得精读的是满分论文《Toward Secure LLM Agents》系统梳理威胁面与防御框架，以及9分论文《MalSkillBench》提供运行时验证的恶意技能基准。建议普通读者优先了解LLM智能体的安全风险，并关注《An AI Security Agent》等结合威胁检测与自动响应的应用实践。
+- 详情：[/202606/10/README](/202606/10/README)
 
 ### 精读区论文标签
-1. [Data Agents Under Attack: Vulnerabilities in LLM-Driven Analytical Systems](/202606/09/2606.08661v1-data-agents-under-attack-vulnerabilities-in-llm-driven-analytical-systems)  
+1. [Toward Secure LLM Agents: Threat Surfaces, Attacks, Defenses, and Evaluation](/202606/10/2606.10749v1-toward-secure-llm-agents-threat-surfaces-attacks-defenses-and-evaluation)  
    标签：评分：10.0/10、query:agent-vuln
-   evidence：对数据代理进行系统性安全研究，识别出八种特定漏洞
-2. [Defenses & Enablers For Skill Injection Attacks on Terminal Based Agents](/202606/09/2606.01567v2-defenses--enablers-for-skill-injection-attacks-on-terminal-based-agents)  
+   evidence：LLM智能体安全综合性综述，涵盖威胁面、攻击、防御与评估
+2. [MalSkillBench: A Runtime-Verified Benchmark of Malicious Agent Skills](/202606/10/2606.07131v2-malskillbench-a-runtime-verified-benchmark-of-malicious-agent-skills)  
    标签：评分：9.0/10、query:agent-vuln
-   evidence：研究针对LLM代理技能注入攻击的防御
-3. [Silent Failure in LLM Agent Systems: The Entropy Principle and the Inevitable Disorder of Autonomous Agents](/202606/09/2606.08162v1-silent-failure-in-llm-agent-systems-the-entropy-principle-and-the-inevitable-disorder-of-autonomous-agents)  
+   evidence：恶意代理技能基准用于漏洞检测
+3. [GitInject: Real-World Prompt Injection Attacks in AI-Powered CI/CD Pipelines](/202606/10/2606.09935v1-gitinject-real-world-prompt-injection-attacks-in-ai-powered-cicd-pipelines)  
    标签：评分：9.0/10、query:agent-vuln
-   evidence：研究LLM Agent系统的无声失败，视其为内在结构性脆弱性
-4. [VESTA: A Fully Automated Scenario Generation and Safety Evaluation Framework for LLM Agents](/202606/09/2606.08531v1-vesta-a-fully-automated-scenario-generation-and-safety-evaluation-framework-for-llm-agents)  
+   evidence：AI驱动的CI/CD代理中的提示注入攻击
+4. [Game-Theoretic Multi-Agent Control for Robust Contextual Reasoning in LLMs](/202606/10/2606.10322v1-game-theoretic-multi-agent-control-for-robust-contextual-reasoning-in-llms)  
    标签：评分：9.0/10、query:agent-vuln
-   evidence：LLM代理的自动化安全评估框架，生成风险场景
-5. [SecureClaw: Clawing Back Control of LLM Agents](/202606/09/2606.09549v1-secureclaw-clawing-back-control-of-llm-agents)  
+   evidence：面向LLM多智能体系统中提示注入的博弈论防御
+5. [Semantic Multi-Agent Intrusion Detection for IoT:Zero-Day and Adversarial Threats with Risk-Aware Reasoning](/202606/10/2606.10323v1-semantic-multi-agent-intrusion-detection-for-iotzero-day-and-adversarial-threats-with-risk-aware-reasoning)  
    标签：评分：9.0/10、query:agent-vuln
-   evidence：提出SecureClaw架构缓解LLM Agent的安全失败，防范未授权操作和明文泄露
-6. [Organizational Control Layer: Governance Infrastructure at the Execution Boundary of LLM Agent Systems](/202606/09/2606.04306v1-organizational-control-layer-governance-infrastructure-at-the-execution-boundary-of-llm-agent-systems)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：LLM代理执行边界的治理基础设施
+   evidence：AI智能体自动发现漏洞
+6. [AgentCanary: A Security Evaluation Framework for Autonomous AI Agents in Real Executable Environments](/202606/10/2606.10484v1-agentcanary-a-security-evaluation-framework-for-autonomous-ai-agents-in-real-executable-environments)  
+   标签：评分：9.0/10、query:agent-vuln
+   evidence：自主AI代理的全面安全评估框架
+7. [Assessing Automated Prompt Injection Attacks in Agentic Environments](/202606/10/2606.10525v1-assessing-automated-prompt-injection-attacks-in-agentic-environments)  
+   标签：评分：9.0/10、query:agent-vuln
+   evidence：面向LLM代理的自动化提示注入攻击研究
+8. [MemVenom: Triggered Poisoning of Multimodal Memories in Web Agents](/202606/10/2606.10742v1-memvenom-triggered-poisoning-of-multimodal-memories-in-web-agents)  
+   标签：评分：9.0/10、query:agent-vuln
+   evidence：研究Web代理记忆投毒漏洞
+9. [When Discovery Outpaces Remediation: Modeling AI-Accelerated Vulnerability Discovery in Interconnected Systems](/202606/10/2606.11022v1-when-discovery-outpaces-remediation-modeling-ai-accelerated-vulnerability-discovery-in-interconnected-systems)  
+   标签：评分：9.0/10、query:agent-vuln
+   evidence：对AI加速漏洞发现过程的建模
 
 ### 速读区论文标签
-1. [Stability Without Safety: Gain Manipulation Attacks on Agentic Cyber-Physical Systems](/202606/09/2606.07803v1-stability-without-safety-gain-manipulation-attacks-on-agentic-cyber-physical-systems)  
+1. [An AI Security Agent for University ACMIS: Multi-Vector Threat Detection and Automated Response](/202606/10/2606.08270v1-an-ai-security-agent-for-university-acmis-multi-vector-threat-detection-and-automated-response)  
    标签：评分：8.0/10、query:agent-vuln
-   evidence：通过增益操纵揭示自主代理信息物理系统安全漏洞
-2. [Beyond Pass/Fail: Using Process Mining to Understand How LLMs Resist (and Fail) Red Team Attacks](/202606/09/2606.07833v1-beyond-passfail-using-process-mining-to-understand-how-llms-resist-and-fail-red-team-attacks)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：将流程挖掘应用于大语言模型红队测试，揭示结构性防御轮廓
-3. [The Cold-Start Safety Gap in LLM Agents](/202606/09/2606.07867v1-the-cold-start-safety-gap-in-llm-agents)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：发现LLM代理会话初期的安全脆弱性
-4. [Hallucination Cascade: Analyzing Error Propagation in Multi-Agent LLM Systems](/202606/09/2606.07937v1-hallucination-cascade-analyzing-error-propagation-in-multi-agent-llm-systems)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：分析多智能体大语言模型系统中作为安全风险的幻觉传播
-5. [SGTO-MAS: Secure Gorilla Troops Optimization for Multi-Agent LLM Systems](/202606/09/2606.07940v1-sgto-mas-secure-gorilla-troops-optimization-for-multi-agent-llm-systems)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：面向多智能体LLM系统的安全感知协调
-6. [VATS: Exploiting Implicit Authority in Error-Path Injection via Systematic Mutation](/202606/09/2606.07992v1-vats-exploiting-implicit-authority-in-error-path-injection-via-systematic-mutation)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：利用工具调用隐式权威的错误路径注入
-7. [Learning of Robot Safety Policies via Adversarial Synthetic Scenarios](/202606/09/2606.05952v1-learning-of-robot-safety-policies-via-adversarial-synthetic-scenarios)  
+   evidence：面向大学系统的多向量威胁检测与自动响应的AI安全智能体
+2. [Closing the Sim-to-Real Gap: An Evaluation Framework for Autonomous Cyber Defense Configuration of Commercial EDR](/202606/10/2606.08168v1-closing-the-sim-to-real-gap-an-evaluation-framework-for-autonomous-cyber-defense-configuration-of-commercial-edr)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：使用对抗性博弈的Agent方法学习机器人安全策略，属于基于Agent的安全分析
-8. [Beyond Goodhart's Law: A Dynamic Benchmark for Evaluating Compliance in Multi-Agent Systems](/202606/09/2606.07805v1-beyond-goodharts-law-a-dynamic-benchmark-for-evaluating-compliance-in-multi-agent-systems)  
+   evidence：自主网络防御智能体评估框架
+3. [Understanding and mitigating the risks of OpenClaw for non-technical users: A practical guide with Skill](/202606/10/2606.11007v1-understanding-and-mitigating-the-risks-of-openclaw-for-non-technical-users-a-practical-guide-with-skill)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：评估多代理系统合规性与安全性的动态基准
-9. [Hardening Agent Benchmarks with Adversarial Hacker-Fixer Loops](/202606/09/2606.08960v1-hardening-agent-benchmarks-with-adversarial-hacker-fixer-loops)  
-   标签：评分：7.0/10、query:agent-vuln
-   evidence：AI代理自动发现基准中的漏洞
-10. [Towards Healthy Evolution: Exploring the Role and Mechanisms of Human-Agent Interaction in Self-Evolving Systems](/202606/09/2606.06114v2-towards-healthy-evolution-exploring-the-role-and-mechanisms-of-human-agent-interaction-in-self-evolving-systems)  
+   evidence：面向非技术用户的OpenClaw代理框架安全风险指南
+4. [Semantic Quorum Assurance: Collective Certification for Non-Deterministic AI Infrastructure](/202606/10/2606.08021v1-semantic-quorum-assurance-collective-certification-for-non-deterministic-ai-infrastructure)  
    标签：评分：6.0/10、query:agent-vuln
-   evidence：关注自进化代理的安全漂移和能力退化
-11. [Autonomous Incident Resolution at Hyperscale: An Agentic AI Architecture for Network Operations](/202606/09/2606.09122v1-autonomous-incident-resolution-at-hyperscale-an-agentic-ai-architecture-for-network-operations)  
+   evidence：LLM智能体云操作的语义可靠性问题
+5. [SkillResolve-Bench: Measuring and Resolving Same-Capability Ambiguity in Agent Skill Retrieval](/202606/10/2606.10388v1-skillresolve-bench-measuring-and-resolving-same-capability-ambiguity-in-agent-skill-retrieval)  
    标签：评分：6.0/10、query:agent-vuln
-   evidence：用于网络运维自主事件解决的Agent AI架构，与安全分析相关
+   evidence：代理技能检索中同能力歧义带来的风险
 
 
 <div class="dpr-home-promo-card">
