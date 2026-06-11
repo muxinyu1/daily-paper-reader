@@ -1,0 +1,245 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-11T22:14:16.552129+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2606.11671v1",
+      "source": "arxiv",
+      "title": "Runtime Skill Audit: Targeted Runtime Probing for Agent Skill Security",
+      "abstract": "Agent skills let LLM agents reuse instructions, resources, tools, and workflows, but they also create a new place for malicious behavior to hide. A skill may look benign in its documentation or code while becoming harmful only when it is invoked with particular user requests, local assets, persistent state, or multi-step tool interactions. This makes purely static vetting brittle. We present Runtime Skill Audit (RSA), a dynamic analysis method that audits skills by asking what the skill-mediated agent actually does under targeted runtime conditions. Instead of testing every skill with the same generic tasks, RSA profiles risk-relevant interfaces, prepares the execution context needed to exercise them, and assigns security labels from the resulting trace evidence. We instantiate RSA on OpenClaw and evaluate it on 100 skills against representative static baselines. RSA achieves 90.0\\% accuracy with an 88.0\\% true positive rate and an 8.0\\% false positive rate, improving accuracy by 13.0 percentage points over the best static baseline. Under self-evolving attacks, static detectors collapse after one or two rounds, while RSA continues to detect 19--20 out of 20 malicious skills across rounds.",
+      "authors": [
+        "Tu Lan",
+        "Chaowei Xiao"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-10T05:29:34+00:00",
+      "link": "https://arxiv.org/pdf/2606.11671v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "dynamic analysis method for agent skill security",
+      "llm_evidence_cn": "针对agent技能安全的动态分析方法",
+      "llm_evidence": "针对agent技能安全的动态分析方法",
+      "canonical_evidence": "针对agent技能安全的动态分析方法",
+      "llm_tldr_en": "Proposes Runtime Skill Audit (RSA), a dynamic analysis method that audits LLM agent skills under targeted runtime conditions to detect hidden malicious behaviors.",
+      "llm_tldr_cn": "本文提出运行时技能审计（RSA）方法，通过构建特定执行上下文，动态分析LLM agent技能在目标运行时的实际行为，以检测仅在某些条件下触发的恶意功能。RSA克服了静态审查的局限性，为agent技能安全提供了有效的动态检测手段。",
+      "llm_tldr": "本文提出运行时技能审计（RSA）方法，通过构建特定执行上下文，动态分析LLM agent技能在目标运行时的实际行为，以检测仅在某些条件下触发的恶意功能。RSA克服了静态审查的局限性，为agent技能安全提供了有效的动态检测手段。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.11672v1",
+      "source": "arxiv",
+      "title": "Can Open-Source LLM Agents Replace Static Application Security Testing Tools? An Empirical Assessment",
+      "abstract": "This paper explores the value of agentic AI tools for cybersecurity purposes. We evaluate the efficacy of a general-purpose GenAI Large Language Model- (GenAI-) based agent when powered by three different Ollama-hosted general-purpose open source models. We assess each agent's performance using precision, recall, false positive count, and a calculated composite score based upon the interplay of the captured metrics, against the baseline performance of an existing, vetted Static Application Security Testing (SAST) tool, Bandit. Our findings refute the notion that a modern open-source GenAI LLM-based agent is currently suitable for the specialized task of SAST scanning under realistic conditions.",
+      "authors": [
+        "Derek Yohn",
+        "Luke Flancher",
+        "Mirajul Islam",
+        "Khaled Slhoub"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-10T05:31:24+00:00",
+      "link": "https://arxiv.org/pdf/2606.11672v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "AI agents for automatic software vulnerability finding, SAST tool comparison",
+      "llm_evidence_cn": "AI智能体自动发现软件漏洞，与SAST工具比较",
+      "llm_evidence": "AI智能体自动发现软件漏洞，与SAST工具比较",
+      "canonical_evidence": "AI智能体自动发现软件漏洞，与SAST工具比较",
+      "llm_tldr_en": "Empirical assessment showing that open-source LLM agents fail to replace SAST tools for vulnerability detection under realistic conditions.",
+      "llm_tldr_cn": "本文实证评估了开源大语言模型驱动的通用智能体在替代静态应用安全测试（SAST）工具方面的能力。使用三种开源模型与已有工具Bandit对比，指标包括精确率、召回率等。结果明确表明，在当前条件下，此类智能体尚不适合替代专用SAST工具进行漏洞扫描。",
+      "llm_tldr": "本文实证评估了开源大语言模型驱动的通用智能体在替代静态应用安全测试（SAST）工具方面的能力。使用三种开源模型与已有工具Bandit对比，指标包括精确率、召回率等。结果明确表明，在当前条件下，此类智能体尚不适合替代专用SAST工具进行漏洞扫描。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.11998v1",
+      "source": "arxiv",
+      "title": "Bootstrapped Monitoring: Leveraging Transparent Reasoning to Oversee Stronger AI Agents",
+      "abstract": "Trusted monitoring is a cornerstone of AI control. However, as frontier models grow more capable, the increasing capabilities gap between trusted and untrusted models may render trusted models unreliable monitors. We introduce \\emph{bootstrapped monitoring}, a protocol that addresses this by inserting a stronger, intermediate untrusted model with transparent chain-of-thought reasoning into the oversight chain. The untrusted monitor ($U_m$) evaluates the agent's actions, while a weaker trusted model ($T$) oversees $U_m$'s reasoning to detect collusion. We evaluate bootstrapped monitoring on multi-turn software engineering tasks (BashArena) across multiple agents and monitors. Bootstrapped monitoring substantially improves catch rates over trusted-only monitoring, even when the untrusted monitor actively colludes with the agent, provided we have access to its raw chain-of-thought. Our results suggest that bootstrapped monitoring can extend the useful lifetime of trusted models in control as AI capabilities advance.",
+      "authors": [
+        "Frank Xiao",
+        "Mary Phuong"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-10T12:24:29+00:00",
+      "link": "https://arxiv.org/pdf/2606.11998v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "bootstrapped monitoring protocol for overseeing stronger AI agents",
+      "llm_evidence_cn": "用于监督更强AI agent的引导式监控协议",
+      "llm_evidence": "用于监督更强AI agent的引导式监控协议",
+      "canonical_evidence": "用于监督更强AI agent的引导式监控协议",
+      "llm_tldr_en": "Introduces bootstrapped monitoring that uses a stronger untrusted monitor with transparent reasoning overseen by a weaker trusted model, improving catch rates on multi-turn software engineering tasks.",
+      "llm_tldr_cn": "本文提出引导式监控协议，在监督链中插入一个更强的、具有透明推理能力的不可信监控模型，由较弱的可信模型监督其推理以检测合谋。在BashArena多轮软件工程任务上评估，引导式监控显著提高了捕获率，为解决AI agent控制中的能力差距提供了新思路。",
+      "llm_tldr": "本文提出引导式监控协议，在监督链中插入一个更强的、具有透明推理能力的不可信监控模型，由较弱的可信模型监督其推理以检测合谋。在BashArena多轮软件工程任务上评估，引导式监控显著提高了捕获率，为解决AI agent控制中的能力差距提供了新思路。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.06914v1",
+      "source": "arxiv",
+      "title": "DPAgent-in-the-Middle: Agentic Defense and Repair Against AI-Groomed Deceptive Patterns",
+      "abstract": "Privacy deceptive patterns in web interfaces systematically manipulate users into disclosing personal data, yet existing defenses are fragmented, static, and increasingly vulnerable to manipulation by large language models. Moreover, data voids, areas of information scarcity within the web ecosystem, create fertile ground for adversaries to inject misleading content that can be scraped and learned by AI systems, thereby amplifying both deceptive design and model misbehavior. In this paper, we formalize a new threat model, AI grooming, where attackers exploit data voids to seed benign-looking but malicious samples that corrupt model reasoning and normalize deceptive practices. To address this threat in privacy deceptive patterns, we present DPAgent, an agentic and reasoning-aware framework that orchestrates four specialized agents to mitigate the AI Grooming threat via a proactive defense that combines latent space purification with defensive prompting and operates directly in live web environments to proactively explore, detect, and repair privacy deceptive user interfaces before they reach end users. Extensive evaluations show that DPAgent detects 90.98% of groomed samples, achieves state-of-the-art privacy deceptive pattern detection with a micro F1 of 0.816, explores over 80% of pattern types while visiting only about 10% of the pages required by baselines, and successfully repairs 77% of detected deceptive interfaces. A large-scale study of 485 websites in the wild reveals that up to 98% contain at least one privacy deceptive pattern, over 90% of which can be mitigated by DPAgent. User studies further confirm that DPAgent effectively reduces privacy risks while preserving browsing experience. Our results demonstrate the promise of agent-in-the-middle defenses for securing the web UI supply chain against deceptive design and emerging AI threats rooted in data void exploitation.",
+      "authors": [
+        "Zewei Shi",
+        "Ruoxi Sun",
+        "Haoyang Li",
+        "Seong Oun Hwang",
+        "Feng Liu",
+        "Minhui Xue",
+        "Xingliang Yuan"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-05T05:26:42+00:00",
+      "link": "https://arxiv.org/pdf/2606.06914v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Agent-based security analysis of deceptive patterns and AI grooming defense",
+      "llm_evidence_cn": "基于智能体的欺骗模式安全分析与AI诱导防御",
+      "llm_evidence": "基于智能体的欺骗模式安全分析与AI诱导防御",
+      "canonical_evidence": "基于智能体的欺骗模式安全分析与AI诱导防御",
+      "llm_tldr_en": "This paper formalizes AI grooming as a new threat model where attackers exploit data voids, and proposes DPAgent-in-the-Middle, an agentic defense framework that detects and repairs privacy deceptive patterns in web interfaces.",
+      "llm_tldr_cn": "现有防御对隐私欺骗模式效果有限，且会被LLM利用。本文形式化AI诱导威胁模型，攻击者利用数据空洞注入恶意样本。提出DPAgent-in-the-Middle框架，通过智能体中间人方式动态检测和修复网页中的欺骗模式，实验证明该框架能有效识别并阻止AI诱导攻击，提升用户隐私保护。",
+      "llm_tldr": "现有防御对隐私欺骗模式效果有限，且会被LLM利用。本文形式化AI诱导威胁模型，攻击者利用数据空洞注入恶意样本。提出DPAgent-in-the-Middle框架，通过智能体中间人方式动态检测和修复网页中的欺骗模式，实验证明该框架能有效识别并阻止AI诱导攻击，提升用户隐私保护。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.11632v1",
+      "source": "arxiv",
+      "title": "Sovereign Assurance Boundary: Certificate-Bound Admission for Agentic Infrastructure",
+      "abstract": "Agentic infrastructure introduces a critical control-plane authorization problem: non-deterministic reasoning systems can propose high-stakes mutations to production resources, yet existing security mechanisms -- such as identity and access management (IAM), policy engines, consensus protocols, and audit logs -- either enforce static, context-unaware permissions or merely record actions post-execution. This paper introduces the Sovereign Assurance Boundary (SAB), a certificate-bound runtime admission layer for autonomous execution authority. SAB intercepts agent proposals at an assurance airlock, compiles them into typed execution contracts $C$, and binds these contracts to cryptographic evidence digests $H(E)$ and policy versions. The contracts are then routed through consequence-aware certification paths. Upon successful admission, the system emits a signed Sovereign Assurance Certificate ($Ω$) that is strictly scoped to a specific execution identity, revocation epoch, and validity window. Finally, a sovereign execution broker verifies $Ω$ and performs fresh pre-execution revocation and drift checks before invoking infrastructure APIs. We detail the airlock-broker architecture, formalize its admission and revocation invariants, and report preliminary feasibility measurements from a Go prototype evaluated over 2,500 admission attempts. Ultimately, this broker-enforced model prevents autonomous reasoning from directly mutating state, transforming delegated execution authority into a cryptographically verifiable, evidence-bound, revocable, and replayable runtime artifact.",
+      "authors": [
+        "Jun He",
+        "Deying Yu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.DC",
+        "cs.MA"
+      ],
+      "published": "2026-06-10T03:49:57+00:00",
+      "link": "https://arxiv.org/pdf/2606.11632v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "certificate-bound runtime admission for agent security",
+      "llm_evidence_cn": "基于证书的运行时准入机制保障代理安全",
+      "llm_evidence": "基于证书的运行时准入机制保障代理安全",
+      "canonical_evidence": "基于证书的运行时准入机制保障代理安全",
+      "llm_tldr_en": "Sovereign Assurance Boundary introduces a certificate-bound runtime admission layer for agentic infrastructure, intercepting proposals and binding them to cryptographic evidence.",
+      "llm_tldr_cn": "代理基础设施面临控制平面授权问题，现有机制静态或事后审计。本文提出主权保证边界（SAB），一种证书绑定的运行时准入层。SAB在保证气闸处拦截代理提议，编译为类型化执行合约，并绑定密码学证据。该工作为代理执行安全提供了新的架构思路。",
+      "llm_tldr": "代理基础设施面临控制平面授权问题，现有机制静态或事后审计。本文提出主权保证边界（SAB），一种证书绑定的运行时准入层。SAB在保证气闸处拦截代理提议，编译为类型化执行合约，并绑定密码学证据。该工作为代理执行安全提供了新的架构思路。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.12320v1",
+      "source": "arxiv",
+      "title": "A Five-Plane Reference Architecture for Runtime Governance of Production AI Agents",
+      "abstract": "Enterprise security was built to govern data boundaries: the protected surface was data at rest and in transit, and the controls -- access control, data-loss prevention, perimeter inspection -- governed crossings of that boundary. Production AI agents dissolve this assumption. An agent reads context, calls tools, invokes connectors, and modifies systems of record on an enterprise's behalf, so risk moves inside the workflow, into sequences of individually-permitted actions that may transform a business process no one authorized. Existing policy engines do not extend to this regime: they evaluate request-time decisions against atomic principals, where agentic systems require stateful evaluation against composite principals whose authority attenuates through delegation chains.   We present a reference architecture for the runtime governance of production agents, built from four composable primitives: a five-plane decomposition (a reasoning plane that adjudicates intent, and four enforcement planes -- network, identity, endpoint, data -- that realize the decision), stop-anywhere mediation, composite principals with capability attenuation, and audit as a structured evidence substrate. We define a taxonomy of six interruption primitives that generalize allow and deny, state and argue for four correctness invariants, and demonstrate the foreclosure of seven production-agent threats across five concrete workflows. A reference implementation of the policy-engine core supplies measured evidence: attenuation correctness and evidence reconstructability hold on every trial, adjudication runs in single-digit microseconds, and the audit substrate's tamper-evidence behaves exactly as designed. We are explicit about scope: the architecture governs delegated action, not model behavior, and a full-system evaluation against a live agent benchmark is the invited next step.",
+      "authors": [
+        "Krti Tallam"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CC",
+        "cs.CR",
+        "cs.SE"
+      ],
+      "published": "2026-06-10T16:54:47+00:00",
+      "link": "https://arxiv.org/pdf/2606.12320v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "runtime governance architecture for production AI agent security",
+      "llm_evidence_cn": "面向生产环境AI智能体的运行时治理架构",
+      "llm_evidence": "面向生产环境AI智能体的运行时治理架构",
+      "canonical_evidence": "面向生产环境AI智能体的运行时治理架构",
+      "llm_tldr_en": "Proposes a five-plane reference architecture for runtime governance of production AI agents, addressing security risks from workflows and composite principals not covered by traditional policy engines.",
+      "llm_tldr_cn": "企业安全传统上围绕数据边界设计，但AI智能体打破了这一假设，风险内化到工作流中。本文提出五平面参考架构，用于生产AI智能体的运行时治理，处理组合主体和序列化操作带来的新型安全风险。该架构弥补了现有策略引擎仅评估原子主体决策的不足，为智能体安全治理提供了系统性框架。",
+      "llm_tldr": "企业安全传统上围绕数据边界设计，但AI智能体打破了这一假设，风险内化到工作流中。本文提出五平面参考架构，用于生产AI智能体的运行时治理，处理组合主体和序列化操作带来的新型安全风险。该架构弥补了现有策略引擎仅评估原子主体决策的不足，为智能体安全治理提供了系统性框架。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
