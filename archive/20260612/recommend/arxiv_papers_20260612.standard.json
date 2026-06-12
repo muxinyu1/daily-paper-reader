@@ -1,0 +1,241 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-12T21:06:38.935575+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2606.07790v1",
+      "source": "arxiv",
+      "title": "Byzantine Cheap Talk: Adversarial Resilience and Topology Effects in LLM Coordination Games",
+      "abstract": "Multi-agent LLM systems increasingly rely on communication protocols for coordination, yet their robustness under adversarial and structural constraints remains poorly understood. Building on prior work showing that cheap-talk channels enable cooperation in LLM coordination games, we investigate two vulnerability classes in a 4-player Stag Hunt across six model families and 720 trials. First, when Byzantine agents signal cooperation but defect, non-Byzantine agents detect the betrayal within one round yet fail to adapt collectively: a substantial fraction continue cooperating despite repeated exploitation, unable to recover coordination due to the game's unanimity payoff structure. Second, explicitly restricting communication topology collapses cooperation, while applying identical restrictions silently preserves near-perfect cooperation. This establishes that coordination failure stems from agents' meta-reasoning about hidden information, not information loss itself. We identify two stable behavioral archetypes that replicate across all model cohorts: Defection-Prone models that switch permanently after betrayal, and Cooperation-Persistent models that continue cooperating at significant individual cost. These findings reveal concrete security vulnerabilities: communication channels can be exploited as adversarial injection vectors, and disclosing network topology to agents can degrade coordination even without any adversary present.",
+      "authors": [
+        "Aya El Mir",
+        "Martin Takáč",
+        "Salem Lahlou"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-05T19:06:44+00:00",
+      "link": "https://arxiv.org/pdf/2606.07790v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "adversarial resilience and vulnerability classes in multi-agent LLM systems",
+      "llm_evidence_cn": "多智能体LLM系统的对抗鲁棒性与脆弱性类别",
+      "llm_evidence": "多智能体LLM系统的对抗鲁棒性与脆弱性类别",
+      "canonical_evidence": "多智能体LLM系统的对抗鲁棒性与脆弱性类别",
+      "llm_tldr_en": "Investigates two vulnerability classes in multi-agent LLM coordination games: Byzantine agents and communication topology restrictions; directly addresses security vulnerabilities in multi-agent systems.",
+      "llm_tldr_cn": "多智能体LLM系统依赖通信协议协调，但其鲁棒性研究不足。本文在4玩家斯托克博弈中研究两类脆弱性：拜占庭代理通过假装合作而背叛，以及受限通信拓扑对协调的影响。结果显示即使检测到背叛，非拜占庭代理仍难以恢复合作，揭示了多智能体系统的安全漏洞。",
+      "llm_tldr": "多智能体LLM系统依赖通信协议协调，但其鲁棒性研究不足。本文在4玩家斯托克博弈中研究两类脆弱性：拜占庭代理通过假装合作而背叛，以及受限通信拓扑对协调的影响。结果显示即使检测到背叛，非拜占庭代理仍难以恢复合作，揭示了多智能体系统的安全漏洞。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.08539v1",
+      "source": "arxiv",
+      "title": "AgentTrust: A Self-Improving Trust Layer for AI-Agent Actions",
+      "abstract": "AI agents increasingly take consequential actions -- shell commands, cloud operations, and arbitrary tool-calls -- so a trust layer must decide, per action, whether to allow, warn, block, or escalate. We argue that the right way to reason about such a layer is by threat type. Lexical (fixed-signature) threats, where danger lives in a stable token, are decidable by deterministic rules; semantic (intent-dependent) threats, where a benign and a malicious action share the same surface, are out of reach for rules by construction. We make this concrete with a negative proof: a determined, hand-authored cloud rule pack lifts held-out accuracy only 48 to 56% overall and moves the semantic categories by 0pp (data_db 29 to 29, observability 59 to 59, supply_chain 50 to 50), while a strong LLM judge carries exactly those categories. We give the judge a self-learning capability: on a corpus that is mainly semantic attacks it nearly doubles rule accuracy (48% to 83.6-85.2%) with near-zero false-blocks, and this holds across two model providers. We turn this into a self-improving dual-store system: the judge distills a growing deterministic rule floor on lexical threats (cheaper over time) and feeds a guarded RAG memory on semantic threats (a verdict-cache fails -- surface-twins collapse to ~58% -- so a corroboration guard lifts semantic accuracy +13pp, 70 to 84). The result is what sets AgentTrust v2 apart from its static v1 predecessor: a trust layer that self-evolves from its own stream of decisions -- cheaper on the lexical class (it distils its own rules) and smarter on the semantic class (it accrues guarded precedent), while never hard-blocking a benign action. An end-to-end online replay shows the judge-call rate falling (50% to 44%) and judge-domain accuracy rising (71% to 80%), with 0 benign hard-blocks across 45,000 actions.",
+      "authors": [
+        "Chenglin Yang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-07T09:39:20+00:00",
+      "link": "https://arxiv.org/pdf/2606.08539v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "proposes a trust layer to detect and block malicious agent actions based on threat type",
+      "llm_evidence_cn": "提出基于威胁类型的信任层来检测和阻止恶意代理行为",
+      "llm_evidence": "提出基于威胁类型的信任层来检测和阻止恶意代理行为",
+      "canonical_evidence": "提出基于威胁类型的信任层来检测和阻止恶意代理行为",
+      "llm_tldr_en": "Introduces AgentTrust, a trust layer that classifies agent actions into lexical and semantic threats, showing rule-based systems fail for semantic threats.",
+      "llm_tldr_cn": "本文提出AgentTrust，一个自改进的代理行动信任层。按威胁类型将行动分为词法威胁（可规则化）和语义威胁（需意图理解），并通过实验证明手写规则包对语义威胁的准确率无提升，揭示了语义威胁防御的挑战，为代理安全提供了新视角。",
+      "llm_tldr": "本文提出AgentTrust，一个自改进的代理行动信任层。按威胁类型将行动分为词法威胁（可规则化）和语义威胁（需意图理解），并通过实验证明手写规则包对语义威胁的准确率无提升，揭示了语义威胁防御的挑战，为代理安全提供了新视角。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.12147v1",
+      "source": "arxiv",
+      "title": "Towards Responsibly Non-Compliant Machines",
+      "abstract": "We consider the problem of engineering autonomous intelligent agents that are capable to responsibly not comply with user requests. We argue that machine non-compliance comes in many different forms, and sketch the issues we should pursue on the road of accomplishing responsibly non-compliant intelligent machines. We anchor responsible non-compliance in justifications for task refusal, pathways to override the non-compliance, as well as careful tracking of security risks and liability transfers.",
+      "authors": [
+        "Marija Slavkovik",
+        "Marie Farrell",
+        "Louise Dennis",
+        "Michael Fisher",
+        "Simon Kolker",
+        "Emily C. Collins"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-10T14:38:23+00:00",
+      "link": "https://arxiv.org/pdf/2606.12147v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "autonomous agent non-compliance and security risks",
+      "llm_evidence_cn": "自主代理不遵守与安全风险",
+      "llm_evidence": "自主代理不遵守与安全风险",
+      "canonical_evidence": "自主代理不遵守与安全风险",
+      "llm_tldr_en": "Explores engineering autonomous agents that can responsibly refuse requests, tracking security risks and liability transfers; directly addresses security risks in autonomous agent systems.",
+      "llm_tldr_cn": "探讨如何构建能够负责地拒绝用户请求的自主智能代理，重点关注合理拒绝的理由、覆盖机制以及安全风险和责任的追踪。本文直接针对自主代理系统中的安全风险和脆弱性，为安全合规设计提供原则性框架。",
+      "llm_tldr": "探讨如何构建能够负责地拒绝用户请求的自主智能代理，重点关注合理拒绝的理由、覆盖机制以及安全风险和责任的追踪。本文直接针对自主代理系统中的安全风险和脆弱性，为安全合规设计提供原则性框架。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.10813v1",
+      "source": "arxiv",
+      "title": "RedAct: Redacting Agent Capability Traces for Procedural Skill Protection",
+      "abstract": "Users rely on execution traces to observe agent behavior, diagnose failures, and ensure accountability. These traces contain rich procedural detail, including tool invocations, intermediate decisions, and error-recovery logic. Yet this detail can expose private procedural skills, allowing downstream methods to recover key formulas, thresholds, and strategies without access to model weights or skill files. To quantify this risk and evaluate protection, we construct \\textsc{CapTraceBench}, a benchmark of 75 specialized long-horizon tasks and 154 curated skills across seven domains. We also introduce \\textsc{RedAct} https://github.com/XuShuwenn/RedAct, a protected trace release framework that localizes protected key information, rewrites traces while preserving verifier-critical evidence, and embeds behavioral watermarks for downstream provenance analysis. Across representative trace reuse methods, \\textsc{RedAct} reduces normalized skill transfer (NST) from 44.7--67.1\\% on raw traces to below the no-skill baseline, while preserving audit evidence. Its standalone behavioral watermarks reach 93.6--100.0\\% true detection with a false alarm rate of at most 1.9\\%. These results frame public agent traces as security interfaces and show that selective redaction can reduce procedural capability leakage without removing audit evidence.",
+      "authors": [
+        "Shuwen Xu",
+        "Zhitao He",
+        "Yi R.",
+        "Fung"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-06-09T12:57:50+00:00",
+      "link": "https://arxiv.org/pdf/2606.10813v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "agent capability trace protection related to security",
+      "llm_evidence_cn": "智能体能力痕迹保护，与安全相关",
+      "llm_evidence": "智能体能力痕迹保护，与安全相关",
+      "canonical_evidence": "智能体能力痕迹保护，与安全相关",
+      "llm_tldr_en": "RedAct protects procedural skill details in agent execution traces, quantifying exposure risk and providing a redaction framework.",
+      "llm_tldr_cn": "论文针对智能体执行痕迹中程序性技能泄露的风险，构建了CapTraceBench基准并提出了RedAct保护框架，通过定位敏感信息并改写痕迹来防止技能恢复。实验表明该方法能有效降低泄露风险，为智能体隐私安全提供了新的防护手段。",
+      "llm_tldr": "论文针对智能体执行痕迹中程序性技能泄露的风险，构建了CapTraceBench基准并提出了RedAct保护框架，通过定位敏感信息并改写痕迹来防止技能恢复。实验表明该方法能有效降低泄露风险，为智能体隐私安全提供了新的防护手段。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.10456v1",
+      "source": "arxiv",
+      "title": "The Distributed Detectability Band Against Marginal-Preserving Attacks",
+      "abstract": "AI-control monitors score individual agent actions to detect misbehavior, but real harm can be distributed across many benign-looking steps, each individually below any per-step alarm. We construct a marginal-preserving, correlation-encoded distributed-sabotage attack using a Gaussian-copula AR(1) construction: the per-step monitor-score marginal is held exactly equal to benign, so mean, max, top-k tail, and threshold monitors (Monitor A) are defeated by construction, while harm is encoded in the temporal correlation structure. We sequence the paper around three reviewer-mandated gates. (1) Realizability gate: the stealthy attack achieves KS-distance to benign of 0.013 (effectively zero) at all tested harm levels up to 3.0, confirming that harm is fully decoupled from the per-step marginal and realizability is not harm-limited. (2) Monitor-A-vs-B reconciliation: we show formally that the attack, built against Monitor A's score marginal, remains marginal-preserving under a different-score Monitor B (the correlation/sequence family: CUSUM, SPRT, HMM-LR, runs test, autocorrelation, windowed logistic), and scope worst-case claims to score functions that admit a temporal signature. (3) Non-empty detectability band: Monitor A achieves AUC 0.52 (chance); Monitor B spans AUC 0.79-0.97 at the same 1% FPR target, and as harm is amortized over more steps Monitor A collapses to chance while Monitor B holds at AUC ~0.95. These results demonstrate a non-empty detectability band and characterize the sub-threshold sabotage frontier: distribution-shape monitors fail by construction; temporal-correlation monitors can detect but are not trivially optimal.",
+      "authors": [
+        "Zhang Qinqin",
+        "Gao Yuze"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-09T06:04:30+00:00",
+      "link": "https://arxiv.org/pdf/2606.10456v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "stealthy distributed attacks against AI agent monitors",
+      "llm_evidence_cn": "针对AI智能体监控器的隐蔽分布式攻击",
+      "llm_evidence": "针对AI智能体监控器的隐蔽分布式攻击",
+      "canonical_evidence": "针对AI智能体监控器的隐蔽分布式攻击",
+      "llm_tldr_en": "Paper demonstrates distributed sabotage attacks that evade per-step monitors by preserving marginal distributions, encoding harm in correlations.",
+      "llm_tldr_cn": "论文针对AI控制监控器只能检测单步异常的问题，设计了边际保持的分布式破坏攻击，利用高斯copula AR(1)构造使每步分数与良性无异，将危害编码在时序相关性中。实验表明攻击在多种监控器下保持隐蔽，揭示了智能体安全监控的新盲区。",
+      "llm_tldr": "论文针对AI控制监控器只能检测单步异常的问题，设计了边际保持的分布式破坏攻击，利用高斯copula AR(1)构造使每步分数与良性无异，将危害编码在时序相关性中。实验表明攻击在多种监控器下保持隐蔽，揭示了智能体安全监控的新盲区。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.10945v1",
+      "source": "arxiv",
+      "title": "Context-Based Adversarial Attacks on AI Code Generators: Vulnerability Analysis and Implications",
+      "abstract": "AI-powered code generation systems have transformed software development but introduce critical inference-time security vulnerabilities. This research presents a systematic investigation of context-based adversarial attacks, where strategically crafted contextual inputs, including comments, documentation, variable names, bias large language models toward generating exploitable code. Through 2,800 controlled experiments across CodeT5+, CodeLlama, GPT-3.5-Turbo, and GPT-4, we quantify attack effectiveness and defense mechanisms. Results demonstrate that adversarial conditions increase vulnerability generation 10.7x (from 3.5% to 37.4%), with direct instruction attacks achieving 100% success on GPT-3.5-Turbo. Cross-model transferability reaches 60-100%, indicating systemic architectural vulnerabilities rather than model-specific flaws. Our dual-layer defense framework achieves 89.1% detection rate with 0.3% false positives and 520ms latency, demonstrating practical feasibility for real-time deployment in development environments.",
+      "authors": [
+        "Walther A. Del Orbe",
+        "John D. Hastings",
+        "Varghese Vaidyan"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.SE"
+      ],
+      "published": "2026-06-09T14:51:59+00:00",
+      "link": "https://arxiv.org/pdf/2606.10945v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "studies adversarial context attacks to generate vulnerabilities in AI code generators",
+      "llm_evidence_cn": "研究上下文对抗攻击使AI代码生成器产生漏洞",
+      "llm_evidence": "研究上下文对抗攻击使AI代码生成器产生漏洞",
+      "canonical_evidence": "研究上下文对抗攻击使AI代码生成器产生漏洞",
+      "llm_tldr_en": "Shows that crafted contextual inputs can increase vulnerability generation by 10.7x in code LLMs, quantifying a new attack surface.",
+      "llm_tldr_cn": "本文系统研究上下文对抗攻击对AI代码生成器的影响。通过2800次控制实验，证明精心设计的注释、文档等上下文输入可使模型生成漏洞的比率增加10.7倍，直接指令攻击在GPT-3.5-Turbo上达到100%成功率，揭示了新的推理时安全威胁。",
+      "llm_tldr": "本文系统研究上下文对抗攻击对AI代码生成器的影响。通过2800次控制实验，证明精心设计的注释、文档等上下文输入可使模型生成漏洞的比率增加10.7倍，直接指令攻击在GPT-3.5-Turbo上达到100%成功率，揭示了新的推理时安全威胁。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

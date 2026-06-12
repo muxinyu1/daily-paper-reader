@@ -6,40 +6,38 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-11
-- 运行时间：2026-06-11 22:19:35 UTC
+- 最新运行日期：2026-06-12
+- 运行时间：2026-06-12 21:10:32 UTC
 - 运行状态：成功
 - 本次总论文数：6
 - 精读区：3
 - 速读区：3
 
 ### 今日简报（AI）
-1) 今日精读两篇高分论文，聚焦AI Agent运行时安全审计与开源Agent替代静态安全测试的能力评估。
-2) 最值得关注《Runtime Skill Audit》提出的运行时技能探测方法，以及《Can Open-Source LLM Agents Replace SAST?》的实证对比结果。
-3) 普通读者可优先精读两篇9分论文，并留意速读列表中Agent中间人防御与认证边界方案。
-- 详情：[/202606/11/README](/202606/11/README)
+今日聚焦LLM协调博弈的拜占庭韧性及AI代理自改进信任机制。最值得精读《Byzantine Cheap Talk》与《AgentTrust》，前者揭示拓扑结构对拜占庭鲁棒性的影响，后者提供代理行为信任层方案。建议优先深入理解这两篇核心结论，速读关注《RedAct》的技能保护与对抗代码生成的上下文攻击。
+- 详情：[/202606/12/README](/202606/12/README)
 
 ### 精读区论文标签
-1. [Runtime Skill Audit: Targeted Runtime Probing for Agent Skill Security](/202606/11/2606.11671v1-runtime-skill-audit-targeted-runtime-probing-for-agent-skill-security)  
+1. [Byzantine Cheap Talk: Adversarial Resilience and Topology Effects in LLM Coordination Games](/202606/12/2606.07790v1-byzantine-cheap-talk-adversarial-resilience-and-topology-effects-in-llm-coordination-games)  
    标签：评分：9.0/10、query:agent-vuln
-   evidence：针对agent技能安全的动态分析方法
-2. [Can Open-Source LLM Agents Replace Static Application Security Testing Tools? An Empirical Assessment](/202606/11/2606.11672v1-can-open-source-llm-agents-replace-static-application-security-testing-tools-an-empirical-assessment)  
-   标签：评分：9.0/10、query:agent-vuln
-   evidence：AI智能体自动发现软件漏洞，与SAST工具比较
-3. [Bootstrapped Monitoring: Leveraging Transparent Reasoning to Oversee Stronger AI Agents](/202606/11/2606.11998v1-bootstrapped-monitoring-leveraging-transparent-reasoning-to-oversee-stronger-ai-agents)  
+   evidence：多智能体LLM系统的对抗鲁棒性与脆弱性类别
+2. [AgentTrust: A Self-Improving Trust Layer for AI-Agent Actions](/202606/12/2606.08539v1-agenttrust-a-self-improving-trust-layer-for-ai-agent-actions)  
    标签：评分：8.0/10、query:agent-vuln
-   evidence：用于监督更强AI agent的引导式监控协议
+   evidence：提出基于威胁类型的信任层来检测和阻止恶意代理行为
+3. [Towards Responsibly Non-Compliant Machines](/202606/12/2606.12147v1-towards-responsibly-non-compliant-machines)  
+   标签：评分：8.0/10、query:agent-vuln
+   evidence：自主代理不遵守与安全风险
 
 ### 速读区论文标签
-1. [DPAgent-in-the-Middle: Agentic Defense and Repair Against AI-Groomed Deceptive Patterns](/202606/11/2606.06914v1-dpagent-in-the-middle-agentic-defense-and-repair-against-ai-groomed-deceptive-patterns)  
+1. [RedAct: Redacting Agent Capability Traces for Procedural Skill Protection](/202606/12/2606.10813v1-redact-redacting-agent-capability-traces-for-procedural-skill-protection)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：基于智能体的欺骗模式安全分析与AI诱导防御
-2. [Sovereign Assurance Boundary: Certificate-Bound Admission for Agentic Infrastructure](/202606/11/2606.11632v1-sovereign-assurance-boundary-certificate-bound-admission-for-agentic-infrastructure)  
+   evidence：智能体能力痕迹保护，与安全相关
+2. [Context-Based Adversarial Attacks on AI Code Generators: Vulnerability Analysis and Implications](/202606/12/2606.10945v1-context-based-adversarial-attacks-on-ai-code-generators-vulnerability-analysis-and-implications)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：基于证书的运行时准入机制保障代理安全
-3. [A Five-Plane Reference Architecture for Runtime Governance of Production AI Agents](/202606/11/2606.12320v1-a-five-plane-reference-architecture-for-runtime-governance-of-production-ai-agents)  
-   标签：评分：7.0/10、query:agent-vuln
-   evidence：面向生产环境AI智能体的运行时治理架构
+   evidence：研究上下文对抗攻击使AI代码生成器产生漏洞
+3. [The Distributed Detectability Band Against Marginal-Preserving Attacks](/202606/12/2606.10456v1-the-distributed-detectability-band-against-marginal-preserving-attacks)  
+   标签：评分：6.0/10、query:agent-vuln
+   evidence：针对AI智能体监控器的隐蔽分布式攻击
 
 
 <div class="dpr-home-promo-card">
