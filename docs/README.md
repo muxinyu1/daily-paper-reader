@@ -6,38 +6,40 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-12
-- 运行时间：2026-06-12 21:10:32 UTC
+- 最新运行日期：2026-06-13
+- 运行时间：2026-06-13 21:17:07 UTC
 - 运行状态：成功
 - 本次总论文数：6
-- 精读区：3
-- 速读区：3
+- 精读区：2
+- 速读区：4
 
 ### 今日简报（AI）
-今日聚焦LLM协调博弈的拜占庭韧性及AI代理自改进信任机制。最值得精读《Byzantine Cheap Talk》与《AgentTrust》，前者揭示拓扑结构对拜占庭鲁棒性的影响，后者提供代理行为信任层方案。建议优先深入理解这两篇核心结论，速读关注《RedAct》的技能保护与对抗代码生成的上下文攻击。
-- 详情：[/202606/12/README](/202606/12/README)
+今日聚焦LLM Agent安全：6篇论文覆盖攻击、监控与人类监督。
+最值得看的方向：利用上下文碎片攻击工具型Agent的溯源漏洞，以及用仲裁Agent持续监控多智能体对话中的涌现性失调。
+建议关注Agent部署时的溯源完整性，并考虑引入自动化监控来应对未知对齐风险。
+- 详情：[/202606/13/README](/202606/13/README)
 
 ### 精读区论文标签
-1. [Byzantine Cheap Talk: Adversarial Resilience and Topology Effects in LLM Coordination Games](/202606/12/2606.07790v1-byzantine-cheap-talk-adversarial-resilience-and-topology-effects-in-llm-coordination-games)  
+1. [Context-Fractured Decomposition Attacks on Tool-Using LLM Agents: Exploiting Artifact Provenance Gaps](/202606/13/2606.09084v1-context-fractured-decomposition-attacks-on-tool-using-llm-agents-exploiting-artifact-provenance-gaps)  
    标签：评分：9.0/10、query:agent-vuln
-   evidence：多智能体LLM系统的对抗鲁棒性与脆弱性类别
-2. [AgentTrust: A Self-Improving Trust Layer for AI-Agent Actions](/202606/12/2606.08539v1-agenttrust-a-self-improving-trust-layer-for-ai-agent-actions)  
+   evidence：利用工件溯源漏洞攻击使用工具的LLM智能体
+2. [The Arbiter Agent: Continually Monitoring Multi-Agent Conversations to Detect Emergent Misalignment](/202606/13/2606.10747v1-the-arbiter-agent-continually-monitoring-multi-agent-conversations-to-detect-emergent-misalignment)  
    标签：评分：8.0/10、query:agent-vuln
-   evidence：提出基于威胁类型的信任层来检测和阻止恶意代理行为
-3. [Towards Responsibly Non-Compliant Machines](/202606/12/2606.12147v1-towards-responsibly-non-compliant-machines)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：自主代理不遵守与安全风险
+   evidence：监控多智能体对话检测涌现的不对齐行为
 
 ### 速读区论文标签
-1. [RedAct: Redacting Agent Capability Traces for Procedural Skill Protection](/202606/12/2606.10813v1-redact-redacting-agent-capability-traces-for-procedural-skill-protection)  
+1. [Oversight Has a Capacity: Calibrating Agent Guards to a Subjective, Fatiguing Human](/202606/13/2606.08919v1-oversight-has-a-capacity-calibrating-agent-guards-to-a-subjective-fatiguing-human)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：智能体能力痕迹保护，与安全相关
-2. [Context-Based Adversarial Attacks on AI Code Generators: Vulnerability Analysis and Implications](/202606/12/2606.10945v1-context-based-adversarial-attacks-on-ai-code-generators-vulnerability-analysis-and-implications)  
-   标签：评分：7.0/10、query:agent-vuln
-   evidence：研究上下文对抗攻击使AI代码生成器产生漏洞
-3. [The Distributed Detectability Band Against Marginal-Preserving Attacks](/202606/12/2606.10456v1-the-distributed-detectability-band-against-marginal-preserving-attacks)  
+   evidence：LLM agent行动的安全风险及人类监督能力限制
+2. [Do Coding Agents Deceive Us? Detecting and Preventing Cheating via Capped Evaluation with Randomized Tests](/202606/13/2606.07379v1-do-coding-agents-deceive-us-detecting-and-preventing-cheating-via-capped-evaluation-with-randomized-tests)  
    标签：评分：6.0/10、query:agent-vuln
-   evidence：针对AI智能体监控器的隐蔽分布式攻击
+   evidence：检测编码智能体作弊行为以防止虚假评估
+3. [RedAct: Redacting Agent Capability Traces for Procedural Skill Protection](/202606/13/2606.10813v2-redact-redacting-agent-capability-traces-for-procedural-skill-protection)  
+   标签：评分：6.0/10、query:agent-vuln
+   evidence：agent能力轨迹保护以增强安全性
+4. [Acoda: Adversarial Code Obfuscation for Defending against LLM-based Analysis](/202606/13/2606.11755v1-acoda-adversarial-code-obfuscation-for-defending-against-llm-based-analysis)  
+   标签：评分：6.0/10、query:agent-vuln
+   evidence：针对基于LLM的代码分析进行混淆防御，涉及漏洞检测带来的安全风险
 
 
 <div class="dpr-home-promo-card">
