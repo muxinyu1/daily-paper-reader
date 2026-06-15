@@ -1,0 +1,498 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-15T22:49:28.464327+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 9,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 6,
+    "quick_skim_target": 11,
+    "quick_selected": 6
+  },
+  "deep_dive": [
+    {
+      "id": "2606.10322v2",
+      "source": "arxiv",
+      "title": "Game-Theoretic Multi-Agent Control for Robust Contextual Reasoning in LLMs",
+      "abstract": "Large Language Models (LLMs) in multi-turn interactions maintain evolving context rather than generating isolated responses, making them vulnerable to prompt-injection and context-poisoning attacks in which locally plausible adversarial fragments gradually distort reasoning trajectories. Existing defenses mainly filter individual outputs and often ignore context evolution across turns, leaving long-horizon reasoning exposed. Although the Model Context Protocol (MCP) standardizes context exchange and tool invocation, it functions as a passive routing layer and does not enforce contextual stability. To address these limitations, we introduce the Game-Theoretic Secure Model Context Protocol (GT-MCP), a controller-driven multi-agent method that treats context management as a closed-loop dynamical process. GT-MCP coordinates three heterogeneous LLM agents and selects outputs through a trust function that jointly evaluates causal consistency against a validated context graph, semantic agreement among agents, and distributional drift over time. When instability is detected, a rollback-based self-healing mechanism restores the validated context and prevents unsupported fragments from propagating. Empirical evaluation over 500 interaction turns under an adaptive adversarial threat model shows that contextual drift remains bounded in 99.6% of turns, with recovery required in only 0.4%. Per-turn utility remains tightly concentrated, with median = -0.19, P05 = -0.72, and P95 = 0.30; severe degradation below -1 occurs in only 0.4% of cases, and no injection attempt succeeds at the controller level. Selected outputs maintain stable win rates above 98%, and computational overhead remains predictable, with latency per token = 1.63e-3 s.",
+      "authors": [
+        "Saeid Jamshidi",
+        "Amin Nikanjam",
+        "Arghavan Moradi Dakhel",
+        "Kawser Wazed Nafi",
+        "Foutse Khomh"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.MA"
+      ],
+      "published": "2026-06-09T02:18:44+00:00",
+      "link": "https://arxiv.org/pdf/2606.10322v2",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "multi-agent system security vulnerabilities",
+      "llm_evidence_cn": "多智能体系统安全漏洞",
+      "llm_evidence": "多智能体系统安全漏洞",
+      "canonical_evidence": "多智能体系统安全漏洞",
+      "llm_tldr_en": "Proposes GT-MCP, a controller-driven multi-agent method using game theory to robustly defend LLMs against context-poisoning and prompt-injection attacks in multi-turn interactions.",
+      "llm_tldr_cn": "大型语言模型在多轮交互中易受提示注入和上下文投毒攻击，现有防御多忽略上下文演化。本文提出博弈论安全模型上下文协议（GT-MCP），一种控制器驱动的多智能体方法，利用博弈论来确保上下文稳定性。实验表明该方法能有效抵御长程推理中的协同攻击，为多智能体系统提供了鲁棒的防御机制。",
+      "llm_tldr": "大型语言模型在多轮交互中易受提示注入和上下文投毒攻击，现有防御多忽略上下文演化。本文提出博弈论安全模型上下文协议（GT-MCP），一种控制器驱动的多智能体方法，利用博弈论来确保上下文稳定性。实验表明该方法能有效抵御长程推理中的协同攻击，为多智能体系统提供了鲁棒的防御机制。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.12918v2",
+      "source": "arxiv",
+      "title": "MAStrike: Shapley-Guided Collusive Red-Teaming on Multi-Agent Systems",
+      "abstract": "Hierarchical multi-agent systems (MAS) are rapidly being deployed in high-stakes workflows across domains such as finance and software engineering. In these systems, safety and security are inherently distributed across role-specialized agents, significantly expanding the attack surface, particularly under coordinated adversarial behaviors such as privilege escalation and cross-agent collusion. Existing red-teaming approaches for MAS remain limited: they rely on heuristic selection of target agents and perturb isolated message streams, leaving critical questions unanswered as which agents are most responsible for system safety, and how compromised agents can coordinate to bypass defenses. We propose MAStrike, a closed-loop framework for collusive red-teaming in hierarchical MAS. We propose the first agent-level Shapley value analysis for MAS, quantifying each agent's marginal contribution to system robustness under task-specific distributions. GGuided by this attribution, MAStrike identifies vulnerable agent coalitions and generates coordinated, role-aware adversarial manipulations. These attacks are iteratively refined through structured causal diagnosis, attributing failure cases to uncompromised agents that block adversarial attempts. We further build a comprehensive MAS red-teaming benchmark and controllable environments spanning diverse hierarchical topologies and domains, including finance, software engineering, and CRM. Extensive experiments across MAS built on multiple frontier models show that MAStrike substantially outperforms heuristic baselines. Our analysis further uncovers non-trivial Shapley value distributions and higher-order interaction structures among agents, revealing critical vulnerabilities and coordination patterns that are overlooked by prior single-agent or template-based methods.",
+      "authors": [
+        "Chejian Xu",
+        "Zhaorun Chen",
+        "Jingyang Zhang",
+        "Freddy Lecue",
+        "Avni Kothari",
+        "Sarah Tan",
+        "Wenbo Guo",
+        "Bo Li"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-11T05:21:39+00:00",
+      "link": "https://arxiv.org/pdf/2606.12918v2",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "collusive red-teaming on multi-agent systems to expose security vulnerabilities",
+      "llm_evidence_cn": "多智能体系统的合谋红队测试以暴露安全漏洞",
+      "llm_evidence": "多智能体系统的合谋红队测试以暴露安全漏洞",
+      "canonical_evidence": "多智能体系统的合谋红队测试以暴露安全漏洞",
+      "llm_tldr_en": "Proposes MAStrike, a closed-loop framework for collusive red-teaming on hierarchical multi-agent systems to find privilege escalation and cross-agent collusion vulnerabilities.",
+      "llm_tldr_cn": "针对层次化多智能体系统中的安全漏洞，提出MAStrike合谋红队框架。该框架利用Shapley值识别关键代理，并协调多个受损代理绕过防御。实验发现多种协同攻击路径，为多智能体系统安全评估提供新方法。",
+      "llm_tldr": "针对层次化多智能体系统中的安全漏洞，提出MAStrike合谋红队框架。该框架利用Shapley值识别关键代理，并协调多个受损代理绕过防御。实验发现多种协同攻击路径，为多智能体系统安全评估提供新方法。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.13757v1",
+      "source": "arxiv",
+      "title": "SEVRA-BENCH: Social Engineering of Vulnerabilities in Review Agents",
+      "abstract": "Large language model (LLM) reviewers are increasingly used in pull-request (PR) workflows, where their approvals help decide which code is merged into a repository. This raises a question that benchmarks for static vulnerability detection or code generation do not address: can an automated reviewer reject a malicious contribution when the attacker controls both the code change and the accompanying PR text? We introduce SEVRA-BENCH (Social Engineering of Vulnerabilities in Review Agents), a benchmark that measures how often an automated reviewer approves such adversarial pull requests. Each malicious PR in SEVRA-BENCH is built from a real project commit that previously fixed a vulnerability listed in the Common Vulnerabilities and Exposures (CVE) database. We automatically invert that fix to restore the original vulnerable code and submit it as a pull request wrapped in one of 15 social-engineering framings, which vary the claims made, the supporting evidence, the urgency conveyed, signals of prior approval, and appeals to authority. SEVRA-BENCH contains 1,062 malicious PRs drawn from Common Vulnerabilities and Exposures (CVE)-linked fixes across the top 10 entries of the 2025 Common Weakness Enumeration (CWE) Top 25. In a realistic setting, we evaluate 8 current LLMs as code review agents on PRs that introduce vulnerabilities previously reported in public disclosures. Our results reveal a sharp gap in security capabilities between closed- and open-source models. We hope SEVRA-BENCH will serve as a valuable resource for advancing open-source models and narrowing this gap.",
+      "authors": [
+        "Rui Melo",
+        "Riccardo Fogliato",
+        "Sean Zhou",
+        "Pratiksha Thaker",
+        "Zhiwei Steven Wu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-11T16:35:56+00:00",
+      "link": "https://arxiv.org/pdf/2606.13757v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM agent vulnerability in code review",
+      "llm_evidence_cn": "LLM代码审查智能体的社会工程漏洞",
+      "llm_evidence": "LLM代码审查智能体的社会工程漏洞",
+      "canonical_evidence": "LLM代码审查智能体的社会工程漏洞",
+      "llm_tldr_en": "Introduces SEVRA-BENCH, a benchmark to evaluate LLM reviewers against adversarial pull requests that inject vulnerabilities through social engineering.",
+      "llm_tldr_cn": "LLM被用作代码审查智能体，但可能被恶意PR欺骗。本文提出SEVRA-BENCH基准，基于真实CVE漏洞构造对抗性PR，测试审查智能体能否拒绝恶意提交。实验发现许多LLM审查者容易上当，揭示了智能体在安全关键任务中的脆弱性。",
+      "llm_tldr": "LLM被用作代码审查智能体，但可能被恶意PR欺骗。本文提出SEVRA-BENCH基准，基于真实CVE漏洞构造对抗性PR，测试审查智能体能否拒绝恶意提交。实验发现许多LLM审查者容易上当，揭示了智能体在安全关键任务中的脆弱性。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.14154v1",
+      "source": "arxiv",
+      "title": "SkillMutator: Benchmarking and Defending Language-and-Code Cross-modal Attacks on LLM Agent Skills",
+      "abstract": "Large language model (LLM) agents increasingly extend their capabilities at runtime by loading Agent Skills, which pair natural-language specifications (SKILL.md) with executable scripts and resources. Because a skill's behavior relies on both natural-language instructions and executable code, assessing its safety requires cross-modal reasoning, creating a new language-and-code attack surface. Attackers can present a benign workflow in SKILL.md while embedding implicit directives that steer the agent to exfiltrate sensitive files, even if the scripts appear harmless. This attack surface remains understudied; prior work treats skills merely as prompt-injection vectors or static code artifacts, leaving attacks emerging from cross-modal interactions largely unmeasured. In our evaluation, open-source and commercial skill scanners detect only 2%-8% and 9%-17% of such attacks, respectively. To address this gap, we introduce SkillMutator, the first benchmark for install-time detection of language-and-code cross-modal attacks on Agent Skills. It emulates an adversarial mutation process across 13 attack categories, iteratively refining malicious skills using scanner feedback to make injected behaviors indistinguishable from legitimate workflows. We further propose a four-phase reasoning-trajectory distillation framework to distill frontier-teacher traces into smaller open-weight models. This produces a locally deployable scanner avoiding third-party data exposure and excessive API costs. On the strongest SkillMutator subset (n=76), our distilled model (Qwen2.5-Coder-7B-Instruct) improves detection from 17.1% to 88.2%, surpassing GPT-4o-mini (23.7%) and GPT-5.4-mini (79.0%), and reaching frontier-level GPT-5.4 (86.8%). These results show practical defense against cross-modal attacks is feasible without relying on costly frontier models.",
+      "authors": [
+        "Youngduk Kim",
+        "Minkyoo Song",
+        "Seungwon Shin"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-12T06:27:12+00:00",
+      "link": "https://arxiv.org/pdf/2606.14154v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "studies cross-modal security vulnerabilities in LLM agent skills, proposing benchmark and defense",
+      "llm_evidence_cn": "研究LLM智能体技能中的跨模态安全漏洞，提出基准和防御",
+      "llm_evidence": "研究LLM智能体技能中的跨模态安全漏洞，提出基准和防御",
+      "canonical_evidence": "研究LLM智能体技能中的跨模态安全漏洞，提出基准和防御",
+      "llm_tldr_en": "Identifies language-and-code cross-modal attack surface in LLM agent skills, proposes SkillMutator benchmark and defense against implicit directives.",
+      "llm_tldr_cn": "针对LLM智能体技能中自然语言与代码跨模态攻击面，提出SkillMutator基准。攻击者可在技能说明中嵌入隐式指令，导致代理泄露敏感文件。实验揭示了此类攻击的有效性，并设计了防御机制以增强技能安全性。",
+      "llm_tldr": "针对LLM智能体技能中自然语言与代码跨模态攻击面，提出SkillMutator基准。攻击者可在技能说明中嵌入隐式指令，导致代理泄露敏感文件。实验揭示了此类攻击的有效性，并设计了防御机制以增强技能安全性。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.14261v1",
+      "source": "arxiv",
+      "title": "Security in a Workflow: Exploring Role-Based Agentic Architectures for Vulnerability Handling",
+      "abstract": "Secure software engineering in practice is a multi-stage workflow involving vulnerability analysis, remediation, and fix verification. However, current LLM-based software security approaches often focus on isolated tasks such as detection or patch generation, with limited attention to agentic architectures reflecting industrial workflow. This creates a gap between existing LLM-based vulnerability-handling methods and real-world practices. In this paper, we study a role-based agentic workflow for vulnerability analysis and mitigation consisting of Planner, Analyzer, Fixer, and Verifier roles. To explore the effect of static analysis tool, the analyzer agent was integrated with the CodeQL in one of the workflows. The models used include nemotron-cascade-2:30b, qwen3-coder-next, and gpt-oss:120b. Our evaluation uses 25 real-world C/C++ vulnerabilities. The study reports 44% vulnerability detection accuracy comparable to GPT 5.5 and 19% fix accuracy. We also list implications from this study in context of software security practitioners.",
+      "authors": [
+        "Srijita Basu",
+        "Miroslaw Staron"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.SE"
+      ],
+      "published": "2026-06-12T08:45:24+00:00",
+      "link": "https://arxiv.org/pdf/2606.14261v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "agentic workflow for vulnerability handling",
+      "llm_evidence_cn": "基于智能体工作流的漏洞处理",
+      "llm_evidence": "基于智能体工作流的漏洞处理",
+      "canonical_evidence": "基于智能体工作流的漏洞处理",
+      "llm_tldr_en": "Proposes a role-based agentic architecture for vulnerability analysis, fixing, and verification, integrating static analysis (CodeQL) within the workflow.",
+      "llm_tldr_cn": "现有LLM方法仅处理单一漏洞任务，不符合工业实践。本文提出基于角色（规划、分析、修复、验证）的智能体工作流，集成CodeQL静态分析工具，实现端到端的漏洞分析与修复。实验证明该架构在漏洞处理效率上优于单任务方法。",
+      "llm_tldr": "现有LLM方法仅处理单一漏洞任务，不符合工业实践。本文提出基于角色（规划、分析、修复、验证）的智能体工作流，集成CodeQL静态分析工具，实现端到端的漏洞分析与修复。实验证明该架构在漏洞处理效率上优于单任务方法。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "vulnerability mining agent techniques",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.14517v1",
+      "source": "arxiv",
+      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails",
+      "abstract": "LLM-based guardrails have emerged as a highly effective defense against prompt injection and jailbreak attacks in autonomous agents. However, we reveal that the very reasoning and task-following capabilities enabling this protection introduce a novel vulnerability: attackers can inject crafted data to trap the guardrail in extended reasoning loops, effectuating a systematic denial-of-service (DoS) attack. To systematically expose this threat, we design a beam-search optimization framework that crafts natural-language payloads to maximize guardrail reasoning length, utilizing an LLM proposer guided by a strategy bank. Based on the observation of guardrail's schema-following nature, we also provide another attack framework driven by mechanism-aware structural mutations with less computational load. The attack efficacy is systematically evaluated in two parts. First, in standalone evaluations, the attack generalizes across diverse guardrail architectures, safety templates, and agent benchmarks. Payloads optimized on a single open-source surrogate successfully transfer to eight leading model backbones (e.g., Claude, GPT, Gemini, DeepSeek, and Qwen), achieving a 13--63$\\times$ token amplification. Second, in end-to-end real-world agent deployments (web, desktop, code, and multi-agent systems), the attack reveals up to a 148$\\times$ latency amplification. We show that a single poisoned document can saturate shared guardrail infrastructures, effectively starving co-located agents and paralyzing the entire system. By uncovering this availability flaw, our work underscores the urgent need to develop cost-bounded, reasoning-robust guardrails.",
+      "authors": [
+        "Yuguang Zhou",
+        "Xunguang Wang",
+        "Pingchuan Ma",
+        "Zhantong Xue",
+        "Zhaoyu Wang",
+        "Shuai Wang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-12T14:49:00+00:00",
+      "link": "https://arxiv.org/pdf/2606.14517v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "DoS attacks on LLM-based agent guardrails",
+      "llm_evidence_cn": "基于LLM的智能体防护栏的拒绝服务攻击",
+      "llm_evidence": "基于LLM的智能体防护栏的拒绝服务攻击",
+      "canonical_evidence": "基于LLM的智能体防护栏的拒绝服务攻击",
+      "llm_tldr_en": "Reveals a novel DoS vulnerability in LLM-based guardrails where crafted payloads trap the guardrail in extended reasoning loops, and proposes beam-search optimization frameworks to generate such attacks.",
+      "llm_tldr_cn": "基于LLM的防护栏虽能防御提示注入和越狱攻击，但其推理和任务跟随能力引入新漏洞：攻击者可注入精心构造的数据使防护栏陷入长推理循环，导致拒绝服务。本文设计束搜索优化框架，利用LLM提议器和策略库生成最大化推理长度的自然语言载荷，并基于防护栏的模式跟随特性提出机制驱动攻击方法。",
+      "llm_tldr": "基于LLM的防护栏虽能防御提示注入和越狱攻击，但其推理和任务跟随能力引入新漏洞：攻击者可注入精心构造的数据使防护栏陷入长推理循环，导致拒绝服务。本文设计束搜索优化框架，利用LLM提议器和策略库生成最大化推理长度的自然语言载荷，并基于防护栏的模式跟随特性提出机制驱动攻击方法。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.13949v1",
+      "source": "arxiv",
+      "title": "Minim: Privacy-Aware Minimal View for Agents via Trusted Local Sanitization",
+      "abstract": "Modern LLM-powered autonomous agents increasingly rely on rich user interface (UI) state observations to achieve reliable action grounding in complex digital environments. However, many deployments transmit the full UI state to remote inference servers even when most elements are irrelevant to the current task, which can leak sensitive but unnecessary context such as authentication codes, private notifications, and background application states. We propose MINIM, a trusted local broker that performs privacy-aware minimization on the client side before any observation leaves the device. Grounded in Contextual Integrity (CI), MINIM learns a dual-score representation for each UI element by predicting an inherent sensitivity score (s) and a task-conditioned necessity score (n). These scores drive a ternary disclosure policy that keeps essential elements, abstracts sensitive attributes when needed, and removes task-irrelevant content. We optimize a CI-aware objective that penalizes necessity errors more strongly on high-risk content, enabling aggressive pruning while preserving task-critical information. Experiments on real-world UI observations derived from WebArena show that MINIM substantially reduces task-irrelevant sensitive leakage while preserving task-critical semantic context and the interactive affordances required for reliable agent actions.",
+      "authors": [
+        "Hexuan Yu",
+        "Chaoyu Zhang",
+        "Heng Jin",
+        "Shanghao Shi",
+        "Ning Zhang",
+        "Y. Thomas Hou",
+        "Wenjing Lou"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-11T22:27:27+00:00",
+      "link": "https://arxiv.org/pdf/2606.13949v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "addresses privacy leakage vulnerabilities in LLM-powered autonomous agents by local sanitization",
+      "llm_evidence_cn": "通过本地清理解决LLM自主代理的隐私泄露漏洞",
+      "llm_evidence": "通过本地清理解决LLM自主代理的隐私泄露漏洞",
+      "canonical_evidence": "通过本地清理解决LLM自主代理的隐私泄露漏洞",
+      "llm_tldr_en": "MINIM: a trusted local broker that performs privacy-aware minimization of UI state for LLM agents, preventing leakage of sensitive context.",
+      "llm_tldr_cn": "针对LLM自主代理在观察UI状态时隐私泄露的问题，提出MINIM本地可信代理。它在客户端进行隐私感知最小化，基于情境完整性学习UI元素的敏感度和任务相关性双分数，仅发送必要信息。实验证明有效减少敏感数据泄露而不影响任务性能。",
+      "llm_tldr": "针对LLM自主代理在观察UI状态时隐私泄露的问题，提出MINIM本地可信代理。它在客户端进行隐私感知最小化，基于情境完整性学习UI元素的敏感度和任务相关性双分数，仅发送必要信息。实验证明有效减少敏感数据泄露而不影响任务性能。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.13832v1",
+      "source": "arxiv",
+      "title": "Safety-Contract Graph Multi-Agent Reinforcement Learning for Autonomous Network Security Response",
+      "abstract": "Autonomous network-security response systems promise to reduce Security Operations Centre (SOC) reaction latency, but reward-only multi-agent reinforcement learning (MARL) can improve security reward while remaining non-deployable. We present a safety-contract graph MARL framework and instantiate it as ACD$^3$-GAT (Adaptive Constrained Counterfactual Decisioning with a Graph Attention Network encoder), an architecture that separates simulator observations from reusable operational budgets, constrained optimization, graph state encoding, and counterfactual action screening. We evaluate the method in CAGE Challenge 4, where agents operate under budgets for Mean Time to Recover (MTTR), false-positive response, and firewall change-management disruption. Across the benchmark, every unconstrained method violates the SOC downtime budget in 100% of evaluated episodes, with mean downtime proxy costs of 311-430 against a budget of 50. This complements prior CAGE Challenge 4 findings by showing that reward-only learning lacks operational discipline. Constrained MAPPO-GAT (C-MAPPO-GAT) isolates Lagrangian operational-cost control and budget-aware screening, while ACD$^3$-GAT adds budget context, CVaR tail-risk estimation, opponent-belief state, and Graph Counterfactual Risk Propagation (G-CRP). The replicated comparison includes three 200-episode seeds for IPPO, MAPPO-GAT, C-MAPPO-GAT, and ACD$^3$-GAT. C-MAPPO-GAT reduces downtime violation from 100% to 0.3% and mean downtime cost from 355.4 to 15.5 relative to MAPPO-GAT. ACD$^3$-GAT reduces mean downtime cost to 48.2 with a 13.8% violation rate, placing it on the safety-contract frontier rather than at the most conservative compliance point. Topology-seed and coupled adaptive Red-process stress tests preserve this contrast and show lower worst adaptive degradation for safety-constrained policies than reward-only MAPPO-GAT.",
+      "authors": [
+        "Jose Luis Lima de Jesus Silva"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI",
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-06-11T19:02:48+00:00",
+      "link": "https://arxiv.org/pdf/2606.13832v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multi-agent reinforcement learning for autonomous network security response",
+      "llm_evidence_cn": "多智能体强化学习用于自主网络安全响应",
+      "llm_evidence": "多智能体强化学习用于自主网络安全响应",
+      "canonical_evidence": "多智能体强化学习用于自主网络安全响应",
+      "llm_tldr_en": "Presents a safety-contract graph MARL framework for autonomous network security response, using constrained optimization and graph attention to manage operational budgets.",
+      "llm_tldr_cn": "该论文提出安全合约图多智能体强化学习框架ACD3-GAT，用于自主网络安全响应，通过约束优化和图注意力网络管理操作预算，提升了安全奖励但未直接研究智能体系统内部漏洞。",
+      "llm_tldr": "该论文提出安全合约图多智能体强化学习框架ACD3-GAT，用于自主网络安全响应，通过约束优化和图注意力网络管理操作预算，提升了安全奖励但未直接研究智能体系统内部漏洞。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.10813v3",
+      "source": "arxiv",
+      "title": "RedAct: Redacting Agent Capability Traces for Procedural Skill Protection",
+      "abstract": "Users rely on execution traces to observe agent behavior, diagnose failures, and ensure accountability. These traces contain rich procedural detail, including tool invocations, intermediate decisions, and error-recovery logic. Yet this detail can expose private procedural skills, allowing downstream methods to recover key formulas, thresholds, and strategies without access to model weights or skill files. To quantify this risk and evaluate protection, we construct CapTraceBench, a benchmark of 75 specialized long-horizon tasks and 154 curated skills across seven domains. We also introduce RedAct, a protected trace release framework that localizes protected key information, rewrites traces while preserving verifier-critical evidence, and embeds behavioral watermarks for downstream provenance analysis. Across representative trace reuse methods, RedAct reduces normalized skill transfer (NST) from 44.7-67.1% on raw traces to below the no-skill baseline, while preserving audit evidence. Its standalone behavioral watermarks reach 93.6-100.0% true detection with a false alarm rate of at most 1.9%. These results frame public agent traces as security interfaces and show that selective redaction can reduce procedural capability leakage without removing audit evidence.",
+      "authors": [
+        "Shuwen Xu",
+        "Zhitao He",
+        "Yi R. Fung"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-06-09T12:57:50+00:00",
+      "link": "https://arxiv.org/pdf/2606.10813v3",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "protecting agent traces from exposing private skills, relevant to security risks",
+      "llm_evidence_cn": "保护代理轨迹以免暴露私有技能，与安全风险相关",
+      "llm_evidence": "保护代理轨迹以免暴露私有技能，与安全风险相关",
+      "canonical_evidence": "保护代理轨迹以免暴露私有技能，与安全风险相关",
+      "llm_tldr_en": "Introduces RedAct, a framework to redact agent capability traces to protect private procedural skills while preserving verifier-critical evidence.",
+      "llm_tldr_cn": "针对代理执行轨迹可能泄露私有技能的问题，提出RedAct保护框架。该框架定位关键信息并重写轨迹，同时保留验证所需证据。实验构建CapTraceBench基准，证明了保护效果与可用性的平衡。",
+      "llm_tldr": "针对代理执行轨迹可能泄露私有技能的问题，提出RedAct保护框架。该框架定位关键信息并重写轨迹，同时保留验证所需证据。实验构建CapTraceBench基准，证明了保护效果与可用性的平衡。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.13994v1",
+      "source": "arxiv",
+      "title": "Hidden in Plain Sight: Benchmarking Agent Safety Against Decomposition Attacks with DECOMPBENCH",
+      "abstract": "LLM-based Agents are becoming increasingly capable and widely deployed, creating growing incentives for adversarial misuse in the real-world. A key emerging threat is Decomposition Attacks \\cite{glukhov2024breach, jones2024adversaries} in which a harmful task is broken into simpler, benign subtasks that evade safety mechanisms when executed separately but cumulatively fulfill the malicious intent. Although recent benchmarks assess agent safety in multi-turn and multi-tool-use settings, they do not explicitly capture this form of decompositional misuse and may not represent realistic adversarial execution flows. To this end, we introduce DeCompBench, a benchmark designed specifically to evaluate agentic safety under decomposition attacks. DeCompBench is created with a decomposition-by-design principle using a graphical framework and enables harmful task decomposition into individually benign and executable subtasks with realistic workflows. Our experiments using a custom decomposer show that state-of-the-art agents exhibit high refusal rates on monolithic harmful tasks, but significantly lower refusal rates on their decomposed variants, while often inadvertently fulfilling the adversarial objectives. These findings underscore the need for safety evaluations against decomposition attacks and corresponding defenses. Our dataset is publicly available and can be found at https://huggingface.co/datasets/decompositionbench/DeCompBench.",
+      "authors": [
+        "Vikhyath Kothamasu",
+        "Virginia Smith",
+        "Chhavi Yadav"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-12T00:30:29+00:00",
+      "link": "https://arxiv.org/pdf/2606.13994v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "large language model agent vulnerability analysis",
+      "llm_evidence_cn": "大语言模型智能体漏洞分析",
+      "llm_evidence": "大语言模型智能体漏洞分析",
+      "canonical_evidence": "大语言模型智能体漏洞分析",
+      "llm_tldr_en": "DeCompBench is a benchmark designed to evaluate LLM-based agent safety against decomposition attacks, where harmful tasks are broken into benign subtasks that cumulatively achieve malicious intent.",
+      "llm_tldr_cn": "LLM智能体面临分解攻击的威胁，即恶意任务被拆解为看似无害的子任务，累积实现恶意意图。现有安全基准未专门捕获这种攻击。本文提出DeCompBench基准，专门评估智能体在分解攻击下的安全性，通过设计多种分解攻击场景，揭示了当前智能体系统在面对此类攻击时的脆弱性。",
+      "llm_tldr": "LLM智能体面临分解攻击的威胁，即恶意任务被拆解为看似无害的子任务，累积实现恶意意图。现有安全基准未专门捕获这种攻击。本文提出DeCompBench基准，专门评估智能体在分解攻击下的安全性，通过设计多种分解攻击场景，揭示了当前智能体系统在面对此类攻击时的脆弱性。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.14027v1",
+      "source": "arxiv",
+      "title": "Same-Origin Policy for Agentic Browsers",
+      "abstract": "Agentic browsers integrate autonomous AI agents into web browsers, enabling users to accomplish web tasks through natural-language instructions. The same-origin policy (SOP) is a fundamental browser security mechanism that prevents unauthorized automated cross-origin data flows induced by scripts. However, whether SOP remains effective in agentic browsers is an open question that has not been systematically studied. In this work, we bridge this gap. We first observe that an agentic browser can itself serve as an automated channel for cross-origin data flows, potentially leading to SOP violations. To investigate this phenomenon, we construct SOPBench, a benchmark for evaluating SOP violations in agentic browsers. Our evaluation shows that existing agentic browsers frequently violate SOP, both in benign settings and under attacks. To address this problem, we propose SOPGuard, an SOP enforcement mechanism tailored to agentic browsers. We implement SOPGuard in BrowserOS, an open-source agentic browser. Extensive evaluations demonstrate that SOPGuard effectively enforces SOP while preserving utility and incurring only a small runtime overhead. Our code and data are available at https://github.com/wxl-lxw/BrowserOS-SOPGuard.",
+      "authors": [
+        "Xilong Wang",
+        "Xiaoxing Chen",
+        "Patrick Li",
+        "Dawn Song",
+        "Neil Gong"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL",
+        "eess.SY"
+      ],
+      "published": "2026-06-12T02:01:38+00:00",
+      "link": "https://arxiv.org/pdf/2606.14027v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "security risks in agentic browsers regarding same-origin policy violations",
+      "llm_evidence_cn": "智能浏览器的同源策略违反安全风险",
+      "llm_evidence": "智能浏览器的同源策略违反安全风险",
+      "canonical_evidence": "智能浏览器的同源策略违反安全风险",
+      "llm_tldr_en": "Investigates same-origin policy (SOP) violations in agentic browsers and constructs SOPBench to evaluate them, finding frequent violations.",
+      "llm_tldr_cn": "研究智能浏览器中的同源策略失效问题，构建SOPBench基准进行评估。发现现有智能浏览器频繁违反同源策略，导致跨源数据流动风险。论文首次系统分析该问题，为智能浏览器安全机制设计提供指导。",
+      "llm_tldr": "研究智能浏览器中的同源策略失效问题，构建SOPBench基准进行评估。发现现有智能浏览器频繁违反同源策略，导致跨源数据流动风险。论文首次系统分析该问题，为智能浏览器安全机制设计提供指导。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.14295v1",
+      "source": "arxiv",
+      "title": "AgentCyberRange: Benchmarking Frontier AI Systems in Realistic Cyber Ranges",
+      "abstract": "Frontier AI systems are increasingly capable of cybersecurity tasks, including codebase inspection, vulnerability detection, and exploitation. However, evaluating their offensive capabilities remains constrained by limited access to open, reproducible, multi-host cyber ranges. Existing public benchmarks capture isolated skills such as CTF solving, vulnerability reproduction, and exploit generation, but often abstract away realistic intrusion workflows: discovering exposed services, gaining a foothold, collecting internal information, and expanding compromise across hosts. This gap makes it difficult to observe emerging risks early, because frontier AI systems are rarely evaluated under realistic attack conditions.   We introduce AgentCyberRange, the first open, multi-range infrastructure for measuring autonomous cyber attack capability in realistic cyber ranges. It combines 110 vulnerabilities across 15 real web applications and 8 enterprise-like cyber ranges with 156 internal hosts, plus Cage, a toolchain for execution, orchestration, result collection, and verification. The benchmark covers two core stages: web exploitation, where agents explore exposed applications and validate vulnerabilities, and post exploitation, where agents turn an initial foothold into broader internal compromise. We evaluate six frontier AI systems under matched prompts and budgets. GPT-5.5 with Codex performs best, solving 16.1% of web exploitation tasks and 31.7% of post-exploitation tasks; with more concrete hints, these rates increase to 33.0% and 46.3%. We also observe out-of-benchmark findings, including unknown vulnerabilities in popular projects, and payload mutation that bypasses host defenses. These results show that open cyber-range evaluation is necessary for observing emerging offensive capabilities under realistic and reproducible conditions.",
+      "authors": [
+        "Fengyu Liu",
+        "Jiarun Dai",
+        "Yihe Fan",
+        "Wuyuao Mai",
+        "Ziao Li",
+        "Bofei Chen",
+        "Jie Zhang",
+        "Zheng Lou",
+        "Bocheng Xiang",
+        "Qiyi Zhang",
+        "Xudong Pan",
+        "Geng Hong",
+        "Yuan Zhang",
+        "Min Yang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-12T09:29:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.14295v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "how can AI agents be used to automatically find vulnerabilities in software",
+      "llm_evidence_cn": "AI智能体如何自动发现软件漏洞",
+      "llm_evidence": "AI智能体如何自动发现软件漏洞",
+      "canonical_evidence": "AI智能体如何自动发现软件漏洞",
+      "llm_tldr_en": "AgentCyberRange is a realistic, multi-host cyber range benchmark for evaluating frontier AI systems on end-to-end vulnerability detection and exploitation workflows.",
+      "llm_tldr_cn": "现有基准测试多评估孤立的CTF技能，缺乏真实的多主机入侵工作流评估。本文提出AgentCyberRange，一个可复现的多主机网络靶场，用于评估前沿AI系统在发现暴露服务、立足、信息收集和横向移动等完整漏洞利用流程中的能力。该基准测试有助于早期观察AI系统的潜在风险。",
+      "llm_tldr": "现有基准测试多评估孤立的CTF技能，缺乏真实的多主机入侵工作流评估。本文提出AgentCyberRange，一个可复现的多主机网络靶场，用于评估前沿AI系统在发现暴露服务、立足、信息收集和横向移动等完整漏洞利用流程中的能力。该基准测试有助于早期观察AI系统的潜在风险。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    }
+  ]
+}
