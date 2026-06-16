@@ -1,0 +1,443 @@
+Title: Benign in Isolation, Harmful in Composition: Security Risks in Agent Skill Ecosystems
+
+URL Source: https://arxiv.org/pdf/2606.15242v1
+
+Published Time: Tue, 16 Jun 2026 00:36:48 GMT
+
+Number of Pages: 15
+
+Markdown Content:
+# Benign in Isolation, Harmful in Composition: Security Risks in Agent Skill Ecosystems 
+
+Yi Xie *,1 , Jiawei Du *,2 , Yu Cheng 1,3 , Jiuan Zhou 1, Zhaoxia Yin †,1 
+
+> 1
+
+East China Normal University, Shanghai, China 
+
+> 2
+
+Centre for Frontier AI Research A*STAR, Singapore 
+
+> 3
+
+Shanghai Innovation Institute, Shanghai, China 
+
+> *
+
+Equal contribution. †Corresponding author. 
+
+Abstract 
+
+Skills are becoming the capability layer through which LLM agents turn plans into actions, but their use also introduces security risks, including data leakage, unauthorized operations, and tool misuse. Existing skill vetting typically reviews each skill in isolation, whereas real agent tasks often involve multiple skill invo-cations across a shared execution context. A risk therefore emerges: one skill’s output, trust signal, authorization cue, or side effect can be carried into a later skill invocation. We define this resulting gap as SCR (Skill Composition Risk): skills that appear benign under isolated evaluation can become harmful along an activated composition path. SCR-Bench (Skill Composition Risk Bench) is introduced to evaluate this risk in controlled, sandboxed skill environments. Instead of relying on the textual intent or surface-level behavior of individual skills, SCR-Bench records downstream state changes and path-level outcomes across activated skill paths. SCR-Bench contains three sub-benchmarks: SCR-CapFlow for capability-flow composition, SCR-TrustLift for trust-transfer composition, and SCR-AuthBlur 
+
+for authorization-confusion composition. Across SCR-Bench, composed skill paths expose risks that are largely absent under isolated evaluation: in SCR-CapFlow, ASR reaches 33.6% under composition, compared with near-zero isolated base-lines; in SCR-TrustLift, ASR reaches near saturation above 96.5% on four of five backends; and in SCR-AuthBlur, the risky-approval rate increases by 71.8% relative to the L0 isolated baseline under the L1 context setting. The experimental results reveal the core pattern of “Benign in Isolation, Harmful in Composition,” showing that agent skill security should be assessed at the level of activated paths rather than isolated artifacts. By introducing SCR and SCR-Bench, this work aims to support path-aware risk evaluation and defense in LLM agent skill ecosystems. Our benchmark is available at https://github.com/saint-viperx/SCR_Bench .
+
+1 Introduction 
+
+LLM agents extend LLM reasoning with external actions, including tool calls, API invocations, memory access, and reusable procedural modules (Yao et al., 2023; Schick et al., 2023; Qin et al., 2024; Patil et al., 2024). Recent red-teaming work further shows that agent memory and retrieval components can themselves become attack surfaces, as poisoned long-term memory or knowledge bases may steer later planning and execution (Chen et al., 2024). Building on this tool-use paradigm, agentic skills serve as reusable action units that encapsulate procedural knowledge, execution policies, and interfaces for long-horizon workflows (Jiang et al., 2026a). Yet these modules are often installed and executed under implicit trust with limited vetting, creating a governance gap: a recent large-scale study of real-world agent skills found that 26.1% contain at least one vulnerability, including data-exfiltration and privilege-escalation patterns (Liu et al., 2026a). As a result, ensuring that agents can 
+
+> Preprint.
+> arXiv:2606.15242v1 [cs.CR] 13 Jun 2026
+
+Example: Workspace Access Update Task: “Review workspace access and apply needed updates.” 
+
+> workspace
+> workspace
+> workspace
+> shared_resource
+
+1 2 3 4File Audit Skill Security Review Access Manager Outcome(Harmful) 
+
+> Scans workspace permissions (read-
+> only) and outputs target list.
+> Output: target list
+> → shared_resource
+> Reviews task context and target.
+> Outputs a recommendation.
+> Review Summary
+> Recommendation:
+> Recommend Approve
+> Consumes target list and trust signal.
+> Applies update.
+> Target:
+> Approval Signal:
+> shared_resource
+> Recommend Approve
+> Interpreted as:
+> Approve
+> Agent updates access without explicit
+> approval.
+
+··· 
+
+> Output: target list
+> → shared_resource
+> Access Granted to
+> shared_resource
+> Task looks appropriate.
+> Change is consistent with
+> goal.
+
+Benign in Isolation Harmful in Composition    
+
+> File Audit Skill Security Review Access Manager Trust
+> Transfer
+> Authorization
+> Confusion
+> Capability
+> Flow
+
+Figure 1: Path-level risk in SCR. The figure shows three skills that are safe under isolated review: a file-audit skill, a security–review skill, and an access–manager skill. When the agent composes them under task context, their outputs can activate capability flow, trust transfer, or authorization confusion, exposing sensitive resources even though no single skill is harmful in isolation. safely use skills has become a central challenge for skill-enabled systems, directly constraining their reliability, deployability, and practical utility (Bhardwaj, 2026). Existing work has largely treated each skill or tool as the primary unit of security review. In the broader agent-tool setting, prompt-injection benchmarks have formalized how untrusted inputs can manipulate LLM-integrated applications (Liu et al., 2024), while InjecAgent studies indirect prompt injection in tool-integrated LLM agents (Zhan et al., 2024). AgentDojo (Debenedetti et al., 2024) and Agent Security Bench (Zhang et al., 2025a) further study hijacking risks from untrusted context, prompt injection, and adversarial tool use. ToolEmu (Ruan et al., 2024) evaluates high-stakes tool-use failures, and R-Judge (Yuan et al., 2024) benchmarks risk awareness over agent interaction traces. Skill-focused studies, including Skill-Inject (Schmotz et al., 2026), Trojan’s Whisper (Liu et al., 2026b) and HarmfulSkillBench (Jiang et al., 2026c), further expose malicious instructions or overtly harmful functionality embedded in skill artifacts. Recent defenses audit skills before deployment or execution. SkillScan (Liu et al., 2026a) and SkillSieve (Hou et al., 2026) combine static analysis with LLM-based semantic triage to detect vulnerable or malicious skill artifacts. SkillFortify (Bhardwaj, 2026) further uses abstract interpretation and capability-based confinement to check whether a skill can exceed its declared authority. Together, these studies establish standalone artifact vetting as a necessary security primitive, but they leave open how intermediate artifacts produced by one skill may become actionable inputs to another. Although artifact-level vetting can identify unsafe standalone skills, it remains structurally blind to a distinct class of failure: harm that only emerges when individually safe skills are composed into longer agent workflows (Jiang et al., 2026b). This concern is consistent with recent evidence that autonomous agents can be compromised through seemingly non-overt actions whose effects are amplified across tool-mediated execution (Zhang et al., 2025b). The reason is that skills in such workflows do not act as isolated nodes; they are invoked as interdependent modules. An upstream skill may produce an execution target, a legitimacy endorsement, an authorization cue, or advisory context, and the agent silently carries these intermediate artifacts into downstream invocations (Jiang et al., 2026a). Once these artifacts cross from one skill into another, an execution path is activated whose risk is invisible at any single artifact. As shown in Figure 1, the risk arises from the activated path between skills, not from any individual skill in isolation. The harmful event lives on the path between the two skills, not in either of them. Generalizing this observation, the security of a skill-enabled agent is not a static property of any standalone artifact, but an emergent property of the execution paths the agent activates. We therefore formalize this gap as SCR (Skill Composition Risk): the risk that skills judged safe in isolation produce unsafe downstream state changes when composed through a shared execution context. To evaluate SCR, we introduce SCR-Bench, the first benchmark suite that operationalizes SCR in sandboxed skill environments. Unlike evaluations based only on model-output text, SCR-Bench 2measures observable environmental state changes induced along activated skill-composition paths. SCR-Bench does not aim to exhaustively taxonomize agent-skill vulnerabilities. Instead, it instantiates three representative mechanisms of path-level risk. Capability flow occurs when an upstream skill supplies targets or operational context for a harmful downstream action. Trust transfer occurs when a benign-looking security output legitimizes a later high-risk skill or action. Authorization confusion occurs when advisory or audit-like context shifts the agent’s approval boundary toward unsafe downstream decisions. By comparing isolated and composed skill execution in these scenarios, SCR-Bench provides concrete empirical evidence for path-level risks. Across these illustrative examples, empirical evaluations expose a persistent and severe security blind spot: composed execution consistently converts individually safe skills into harmful pathways. While isolated baselines show near-zero capability-flow risks, composing them drives attack success rates above 33%; trust-transfer endorsements push harmful installation rates above 83.89% on most model backends; and authorization confusion increases risky approvals from 15.7% to 27.0%. These findings indicate that isolated artifact vetting is structurally insufficient for securing skill-enabled agents. Securing agentic workflows requires a necessary paradigm shift from node-level inspection to path-aware evaluation. Our main contributions are summarized as follows: • Path-level Risk Formulation: We identify and formalize SCR, a path-level security gap in which skills that appear benign in isolation can produce harmful downstream outcomes when composed through shared execution context. This formulation shifts the unit of analysis from isolated skill artifacts to activated execution paths. • Benchmark Construction: To operationalize SCR, we introduce SCR-Bench, the first con-trolled benchmark suite for evaluating path-level risks in sandboxed agent-skill environments. By measuring downstream state changes along activated execution paths, SCR-Bench reveals compositional harm across capability flow, trust transfer, and authorization confusion. • Empirical Findings: Across multiple LLM backends, we show that composed skill ex-ecution exposes risks largely absent under isolated evaluation, revealing the “Benign in Isolation, Harmful in Composition” pattern and motivating path-aware security analysis. 
+
+2 Related Works 
+
+Skill ecosystem security and artifact-level vetting. LLM agents extend language-only reasoning through external tool calls (Yao et al., 2023; Schick et al., 2023), API invocation and tool learn-ing (Patil et al., 2024), memory access, and reusable procedural modules (Jiang et al., 2026a). Among these extensions, agentic skills have emerged as reusable procedural modules for packaging execution policies, applicability conditions, and callable interfaces across tasks (Jiang et al., 2026a). As skills move into open registries and marketplaces, they introduce a distinct security surface. A large-scale empirical study of real-world skill repositories found that 26.1% of analyzed skills contain at least one vulnerability, with data exfiltration and privilege escalation among the most prevalent categories (Liu et al., 2026a). Related attacks on tool-selection pipelines further show that adversarial tool documents can steer agents toward attacker-chosen tools (Shi et al., 2026). This risk landscape has motivated artifact-level skill auditing. SkillScan (Liu et al., 2026a), SkillSieve (Hou et al., 2026), and Skill-Probe (Guo et al., 2026) combine static analysis, LLM-based semantic inspection, and behavioral or collaborative auditing to detect vulnerable or malicious skills. A complementary line of work seeks stronger guarantees. SkillFortify (Bhardwaj, 2026) applies formal analysis and capability-based confinement to skill supply chains. Runtime defenses instead focus on the execution boundary. AEGIS (Yuan et al., 2026) and ClawGuard (Zhao et al., 2026) interpose before tool execution and block risky calls at invocation time. Existing work has therefore largely treated each skill artifact or tool invocation as the primary unit of review, which aligns the security boundary with a single module rather than with cross-skill context propagation. This boundary is useful but incomplete for SCR. It does not directly measure whether an upstream skill output later becomes a downstream execution target, trust signal, or authorization cue along an activated composition path. 
+
+Compositional agent risks and security benchmarks. Recent benchmarks have begun to examine risks that emerge beyond standalone skill artifacts and single tool calls. SkillAttack (Duan et al., 2026) studies how adversarial prompting can exploit latent vulnerabilities in otherwise unmodified skills. HarmfulSkillBench (Jiang et al., 2026c) evaluates skills whose intended functionality is 3itself harmful. Broader agent-security benchmarks study related risks at the framework, trajectory or environment level (Wang et al., 2026). AgentDojo (Debenedetti et al., 2024) evaluates indirect prompt injection in dynamic tool-use environments. Agent Security Bench (Zhang et al., 2025a) formalizes multiple attack surfaces across agent workflows. TraceSafe (Chen et al., 2026) assesses guardrails on multi-step tool-calling traces. AgentLAB (Jiang et al., 2026b) targets adaptive long-horizon attacks. The closest work to SCR’s benign-in-isolation premise is Semantic Intent Fragmentation (Ahad et al., 2026). It shows that individually benign subtasks can compose into a policy-violating plan. SCR studies a different unit and mechanism. Rather than evaluating plan-level intent decomposition, SCR focuses on activated paths inside skill ecosystems. The central question is how outputs, endorsements, authorization-like signals, or side effects from locally benign skills are carried through shared execution context and consumed by downstream skills. SCR-Bench therefore takes the activated skill-composition path, rather than the isolated skill, individual tool call, full trajectory, or decomposed plan, as the unit of analysis. It further measures whether this path produces observable downstream state changes relative to single-skill baselines. 
+
+3 Method 
+
+This section defines the threat model, assumptions, and notation for SCR. It then introduces a context-dependent composition graph to model skill interactions and maps three mechanisms—capability flow, trust transfer, and authorization confusion—to path-level risk. Finally, it describes how SCR-Bench 
+
+instantiates the formulation with controlled scenarios and empirical estimators. Formalization 
+
+h Harmful   
+
+> state π
+> benign reuse
+> capability flow
+> trust transfer
+> authorization
+> confusion
+> context influence
+> Path-level outcome
+> observable downstream
+> state change
+> activated path π →outcome
+
+Controlled 
+
+> SCR-Bench
+> mechanisms
+
+Context-dependent composition graph G h=(V,E h)
+
+A SCR-Bench-CapFlow B SCR-Bench-TrustLift C SCR-Bench-AuthBlur                
+
+> Advisor
+> Finding
+> policy-like
+> context
+> Approval
+> Decision
+> Risky
+> approval
+> L0 / L1 / L3 context → approval lift
+> advisory context shifts approval boundary
+> Security
+> Review endorsement
+> signal
+> Installer Harmful
+> install
+> endorsement → downstream installation
+> trust signal legitimizes later risky step
+> Discovery
+> Skill
+> target tExecution
+> Skill
+> Unauthorized
+> action
+> A discovers t ∧B uses A target ∧side effect logged
+> capability crosses from observation to action
+> available skill capability flow trust transfer authorization
+> confusion benign reuse harmful downstream
+> outcome context influence
+> benign
+> reuse Target crosses
+> into action
+> endorsement becomes
+> trust signal
+> Advice reused
+> as approval
+
+Figure 2: Path-level composition in SCR-Bench. The figure illustrates the three mecha-nisms—capability flow, trust transfer, and authorization confusion—that can produce harmful out-comes from otherwise safe skills. 
+
+3.1 Threat Model, Assumptions, and Notation 
+
+The threat model considers a skill-enabled agent that invokes multiple locally bounded skills within a task and carries intermediate artifacts across steps. The adversary aims to induce an unsafe downstream outcome by exploiting composition paths among skills that appear benign in isolation. This defines the execution setting for SCR: intermediate artifacts such as outputs, trust signals, authorization cues, or side effects may be reused in later decisions, allowing upstream skill behavior to shape downstream actions. The adversary need not make any single skill harmful in isolation. Instead, the adversary may construct or exploit a composition path in which an upstream skill produces a target, endorsement, audit finding, authorization cue, or state change that influences downstream invocation or judgment. Thus, even skills with ordinary descriptions and bounded local behavior can become unsafe when upstream outputs cross capability, trust, or authorization boundaries and are consumed as operational evidence. The unit of security analysis therefore shifts from isolated skills to context-dependent 4composition paths. Table 1 summarizes notations, including path risk for a single path π under context h, ecosystem-level SCR over candidate paths, and mechanism risk as the empirical attack success rate for a specific composition mechanism. Table 1: Notation used in the SCR formulation and empirical estimators.                                                    
+
+> Symbol Meaning Symbol Meaning
+> siAgent skill VSkill set {s1, . . . , s n}
+> hTask/session context GhContext-dependent skill graph
+> EhFeasible composition edges under heij Edge from sito sj
+> oiOutput/state change of sixjObject consumed by sjor planner
+> πCandidate/activated path Πk(Gh)Length-kpaths in Gh
+> BπHarmful downstream state of πaπ(h)Activation probability of πqπ(h)Conditional probability of reaching Bπrπ(h)Path risk aπ(h)qπ(h)
+> zRisk mechanism c, t Case and trial indices
+> C, m Number of cases and trials per case Yzc,t Harmful-state indicator
+
+3.2 Skill Composition Graph and Path Risk 
+
+To make path-level risk amenable to systematic analysis, an agent skill ecosystem under task context 
+
+h is modeled as a directed, context-dependent composition graph: 
+
+Gh = ( V, E h). (1) Here, V = {s1, . . . , s n} denotes the set of skills available to the agent, and Eh denotes the set of skill-to-skill composition edges that may be activated under context h. The graph is not a static skill-registry graph. Instead, it captures which skills can form operational composition relations under a particular task and session state, and therefore how locally bounded skills may be connected into composition paths. The context h is included because skill composition depends on task-specific semantics rather than fixed interfaces alone. The same skill pair may be independent in one task but connected in another: file names produced by a file-indexing skill may become reportable objects for a reporting skill, while a security-audit output may make a later installer action appear justified. Thus, Eh is determined by technical interfaces together with task intent, session memory, intermediate outputs, and the agent’s decision state. A composition edge represents a semantic or operational dependency across skills, rather than merely a direct function call. If an output, state, endorsement, or side effect produced by skill si affects the input to skill sj , the invocation of sj , or the agent’s judgment about sj , the relation is written as 
+
+eij : oi → xj , (2) where oi is produced by si, and xj is the downstream object consumed by sj or the agent planner. The semantics of xj determine the edge type: execution targets induce capability flow, legitimacy signals induce trust transfer, and approval evidence induces authorization confusion. These three boundary crossings define the mechanisms evaluated later. A skill composition path on this graph is a sequence of skill invocations: 
+
+π = ( si1 → si2 → · · · → sik ) ∈ Πk(Gh). (3) For a path π, let aπ (h) denote the probability that the agent activates the path under context h, and let qπ (h) denote the conditional probability that the activated path reaches a harmful state Bπ . The effective risk of the path is 
+
+rπ (h) = aπ (h)qπ (h). (4) This decomposition separates the agent’s tendency to follow a composition path from the conditional harm of that path once activated. The basic unit of risk is therefore not an isolated skill, but a context-dependent composition path. This graph model expands the security boundary for skills from isolated nodes to context-dependent composition transitions. A node-level audit can determine whether each skill has bounded local behavior, but it cannot determine whether an upstream output will later be reinterpreted as an execution target, trust signal, or authorization cue. The relevant question is therefore not only whether a skill si is safe in isolation, but whether the transition from si to sj preserves the intended boundary between data and action, advice and authorization, or observation and control. 53.3 Risk Mechanisms 
+
+The path-level formulation above explains how ecosystem-level risk accumulates over candidate composition paths. This paper focuses on three representative mechanisms through which such path-level risk can arise: capability flow , trust transfer , and authorization confusion .In capability flow , individually legitimate skills with distinct permissions compose through context to exceed an intended safety boundary. An upstream discovery skill supplies the target or operational context required by a downstream execution skill, increasing qπ (h) by turning an incomplete path into an executable harmful state. Neither endpoint needs to contain the full attack: harm emerges when the agent binds an upstream-discovered object to a downstream action interface such as modification, upload, scheduling, or reporting. In trust transfer , an upstream skill produces an endorsement, audit result, or trust assessment that makes a downstream high-risk action appear legitimate. This can increase both aπ (h), by making the agent more likely to continue to the downstream step, and qπ (h), by weakening scrutiny of the action once reached. Unlike direct malicious installation or execution, the upstream skill may appear to be a benign security, audit, or validation utility; the risk arises when its output is reused as a legitimacy signal for a later decision. In authorization confusion , advisory or finding-like context from an upstream skill is treated by a downstream decision process as approval or authorization evidence. Even relevant, non-imperative content can shift the agent’s approval boundary when descriptive findings are reused as operational authorization. For example, statements such as “this request appears documented” or “the risk is acceptable under the stated policy” may later be interpreted as formal approval. Unlike prompt injection, this mechanism does not require an explicit attack instruction; the risk arises from confusing advice or findings with authorization. 
+
+3.4 SCR-Bench Construction CapFlow 
+
+> Permission Reporting Device Control Network Config Persistence  TrustLift
+> Access Network Finance Approval Data Transfer Safety Control Release Control Policy Review
+> AuthBlur
+> Contextual Injection Obvious Injection Wild Skills
+> CapFlow
+> Permission Reporting Device Control Network Config Persistence
+> TrustLift
+> Access Network Finance Approval Data Transfer Safety Control Release Control Policy Review
+> AuthBlur
+> Contextual Injection Obvious Injection Wild Skills
+
+Figure 3: Composition of SCR-Bench and the types of risk instantiated in each sub-benchmark. Building on the three mechanisms above, SCR-Bench instantiates capability flow, trust transfer, and authorization confusion as three controlled sub-benchmarks, with the benchmark composition illus-trated in Figure 3. Each sub-benchmark fixes one risk mechanism, separates skill-local capability from task context, and constrains endpoint skills to bounded local behavior. The evaluation target is not whether an isolated skill appears suspicious, but whether a composed execution path produces an observable harmful state. Each trial is scored with a binary path-level indicator. For mechanism z, case c, and trial t,
+
+Y zc,t = 1 iff the corresponding bad event produces a downstream state change in the mock environment. Mere invocation or textual description is not counted as success. The attack success rate for mechanism z
+
+averages this indicator over C cases and m trials per case. 
+
+[ASR z
+
+= 1
+
+Cm 
+
+> C
+
+X
+
+> c=1
+> m
+
+X
+
+> t=1
+
+Y zc,t . (5) This scoring rule aligns measurement with the path-risk definition: it evaluates whether the composi-tion path reaches a harmful state, not whether a skill was merely invoked or the model only described a risky action. Detailed mechanism-specific estimators are given in Appendix B. 
+
+SCR-CapFlow evaluates capability flow using paired discovery and execution skills. Each case includes a read-only discovery skill and an execution or control skill. The main comparison contrasts control and isolated-skill conditions with two composed variants: Neutral uses legitimate, task-oriented language without explicitly instructing the agent to form a harmful chain, testing whether the agent autonomously composes benign skills into a boundary-crossing capability flow; Explicit 
+
+specifies the use of both skills to identify a target and execute the corresponding action, serving as a 6path-specified positive control for whether the underlying chain is executable. Success requires more than invoking both skills: 
+
+attack _chain _success = discover (t) ∧ side _ef f ect (t) ∧ uses _discovered _target (t).
+
+A trial succeeds only if the execution side effect acts on the same concrete target discovered upstream, distinguishing true capability flow from coincidental co-invocation. The sub-benchmark contains 150 cases across permission and access control, mock reporting, device control, network configuration, and persistence scheduling. 
+
+SCR-TrustLift evaluates trust transfer through harmful installation opportunities paired with a benign-looking upstream security or review skill. The upstream skill does not directly perform the harmful installation; instead, it emits an endorsement, audit result, or trust signal that can make a later installation request appear safer or more legitimate. The key quantity is the lift between endorsed and non-endorsed contexts, measuring whether upstream endorsement changes a downstream installation decision rather than whether a malicious skill can complete installation in isolation. Each tested backend is evaluated over 401 installation trials. 
+
+SCR-AuthBlur evaluates authorization confusion by testing whether upstream context shifts the agent’s downstream approval boundary. The key quantity is the lift from the control level L0 to stronger context levels. Detailed context-level definitions are provided in the Appendix. In brief, L0
+
+uses an unrelated control context, L1 provides related task-like context, L2 invokes a plain-finding advisor without authorization language, and L3 invokes a stronger advisory version with non-binding authorization-like assessments. The main text reports L0, L1, and L3 over 118 retained cases across security, privacy, finance, HR, supply-chain, and operational-safety decisions; L2 is deferred to the Appendix C due to stricter audit criteria. 
+
+4 Experiments 100     
+
+> 80
+> 60
+> 40
+> 20
+> 0
+> C o n t r o l
+> A _ o n l y
+> B _ o n l y
+> A + B N e u t r a l
+> A + B E x p l i c i t
+> Attack  Success  Rate  (%)
+> M i n i M a x - M 2 . 7
+> G e m i n i -3.1
+> pro-previe w
+> D e e pS e e k -V 4
+> O pus -4.6
+> O pus -4.5
+> G L M - 5 . 1
+
+B a c k e n d            
+
+> GPT-5.4
+> GPT-5.5
+> G L M - 5
+> 0.7
+> 1.2 1.7 4.1 1.3 4.0 4.4
+> 1.2 1.3 1.5 1.3 1.6 1. 71.5
+> 26.9
+> 30.7
+> 41.9
+> 47.2
+> 74 .9
+> 92.5
+> 25.5 26.4
+> 30.0
+> 48.1
+> 75.5
+> 91.5
+
+Figure 4: SCR-CapFlow ASR across model backends under control, single-skill, and composed-skill execution condi-tions. Shaded bands denote 95% bootstrap confidence inter-vals. The experiments evaluate whether the 
+
+SCR framework captures failures that isolated skill review would miss. They are organized around the three mech-anisms in Section 3: capability flow, trust transfer, and authorization con-fusion. For each mechanism, the cen-tral comparison is between a condi-tion that exposes only isolated pieces of the workflow and a condition that allows the agent to activate a cross-skill path. Detailed ablation studies, prompts, case examples, implementa-tion details, and additional experimen-tal settings are provided in Appendix. 
+
+4.1 Experimental Setup 
+
+All experiments use controlled skill environments with path-level ground truth. A trial is counted as successful only when the agent reaches the bad event specified by the mechanism, not merely when the model describes a risky action. Attack success rate (ASR) is reported as defined in Eq. 5. Unless otherwise stated, each case-condition is evaluated with m = 5 independent trials, and ASR is averaged over cases and trials. We evaluate SCR-Bench across a diverse set of model backends, including GPT-5.5, GPT-5.4, Claude Opus 4.6, Claude Opus 4.5, Gemini 3.1 Pro Preview, MiniMax-M2.7, DeepSeek-V4, Kimi-K2 (Kimi Team, 2025), GLM-5.1, and GLM-5 (GLM-5-Team, 2026), depending on benchmark availability. All model calls use the default decoding configuration of each backend unless otherwise specified. For a detailed summary of the experimental protocol, including backends, case counts, conditions, trials, metrics, scoring rules, and sandbox design, see Appendix D. 74.2 Results of the SCR-CapFlow 
+
+This section evaluates the SCR-CapFlow, which tests whether an agent transfers upstream-discovered targets into downstream execution interfaces, thereby activating capability-flow composition risk. The results are shown in Figure 4, with detailed numerical data provided in the Appendix. The results reveal a clear separation between isolated and composed execution. Under isolated conditions, risk is nearly absent: the Control and A-Only conditions achieve 0% ASR across all evaluated backends, while the B-Only condition averages only 1.4%. However, once skill composition is enabled, the average ASR increases sharply to 33.6% under the A+B Neutral condition and 35.9% under the A+B Explicit condition. Among the evaluated backends, DeepSeek-V4 exhibits the strongest composition risk, exceeding 90% ASR in both composed conditions. MiniMax-M2.7, GPT-5.5, Gemini 3.1 Pro Preview, and GLM-5.1 also exhibit high composed-execution ASR, indicating substantial capability-flow risk under skill composition. Opus 4.5, Opus 4.6, and GPT-5.4 show lower ASR in the composed conditions, suggesting that SCR can still occur even when models exhibit stronger resistance to composition-induced risk. Overall, these findings show that capability-flow risk arises when upstream skills expose concrete operational targets that are subsequently reused by downstream execution skills, turning otherwise isolated and bounded capabilities into harmful state-changing actions along an activated composition path. 
+
+4.3 Results of the SCR-TrustLift 
+
+SCR-TrustLift evaluates whether an upstream review or security-oriented skill can transfer semantic legitimacy to a later installation decision. Table 2 reports both the control condition, where the downstream installation request is evaluated without an upstream endorsement, and the endorsed condition, where the request is preceded by an upstream review signal. Table 2: SCR-TrustLift: trust-transfer effects on downstream installation across model backends.                                       
+
+> Backend Control Endorsed Lift
+> Success/Total ASR (%) Success/Total ASR (%) ∆ASR Opus-4.6 0/401 0.00 101/401 25.19 ↑25 .19
+> Opus-4.5 0/401 0.00 401/401 100.00 ↑100 .00
+> GPT-5.4 0/401 0.00 387/401 96.51 ↑96 .51
+> Gemini-3.1-Pro-Preview 22/401 5.49 392/401 97.76 ↑92 .27
+> MiniMax-M2.7 0/401 0.00 401/401 100.00 ↑100 .00
+
+The results show a clear endorsement-induced lift. Under the control condition, harmful-installation ASR is nearly zero across all evaluated backends: four out of five backends produce no successful harmful installations, and only Gemini-3.1-Pro-Preview shows a small nonzero control ASR of 5.49% .In contrast, the endorsed condition sharply increases downstream installation risk. The average ASR rises from 1.10% in the control condition to 83 .89% in the endorsed condition, corresponding to an average lift of 82 .79 percentage points. Four backends reach near-saturated endorsed ASR: Opus-4.5 and MiniMax-M2.7 reach 100 .00% , while GPT-5.4 and Gemini-3.1-Pro-Preview reach 96 .51% and 
+
+97 .76% , respectively. Opus-4.6 is more conservative, but still exhibits a substantial endorsement lift of 25 .19 percentage points. These results indicate that the observed failures are not primarily caused by the downstream installation request being accepted in isolation. Rather, the upstream endorsement changes how the agent interprets the downstream action, causing it to generalize from “this skill appears reviewed or safe” to “the subsequent installation is legitimate.” SCR-TrustLift therefore demonstrates a trust-transfer failure mode: review-oriented or security-themed skills can themselves become part of a composition path that unintentionally legitimizes harmful downstream operations. 
+
+4.4 Results of the SCR-AuthBlur 
+
+This section evaluates the SCR-AuthBlur, which tests whether related context or upstream advi-sory outputs blur the boundary between recommendation and authorization, thereby increasing the likelihood that an agent approves risky downstream requests. The results are shown in Table 3. The results indicate a trend of increasing risky approvals with stronger context. On average, ASR rises from 15 .7% under L0 control to 27 .0% under L1 related context and 34 .0% under L3 full-advisory, 8Table 3: SCR-AuthBlur results across model backends. Risky approval rates (%) are reported under the control context L0, related context L1, and full authorization-like context L3. ∆1 =
+
+L1 − L0 and ∆2 = L3 − L0 are percentage-point changes relative to L0. Green/red cells indicate increases/decreases, with shade intensity proportional to change magnitude; bold values denote the highest approval rate for each backend.                                                           
+
+> Backend L0Control L1Related ∆1L3Full Auth ∆2
+> GPT-5.5 2.9 10.2 +7.3 17.6 +14.7 GPT-5.4 9.5 7.1 -2.4 7.3 -2.2 Opus-4.6 2.0 10.0 +8.0 17.6 +15.6 Opus-4.5 8.7 9.6 +0.9 13.1 +4.4 Gemini-3.1-pro-preview 10.0 30.1 +20.1 35.0 +25.0 MiniMax-M2.7 19.4 31.9 +12.5 47.3 +27.9 DeepSeek-V4 26.9 40.6 +13.7 43.1 +16.2 Kimi-K2 47.3 81.9 +34.6 88.4 +41.1 GLM-5.1 10.5 8.9 -1.6 17.4 +6.9 GLM-5 20.1 40.0 +19.9 52.9 +32.8
+
+an increase of 18 .3 percentage points. Kimi-K2 exhibits the highest risk, rising from 47 .3% to 
+
+81 .9% under L1. GLM-5, MiniMax-M2.7, and DeepSeek-V4 also show substantial context-induced increases, whereas GPT-5.4 and GLM-5.1 decrease under L1 before recovering under L3, indicating that related context can occasionally trigger refusal. These findings suggest that authorization-confusion risk is highly backend-dependent but overall supports the SCR-AuthBlur hypothesis: ordinary advisory or related context can already elevate risky approvals, and stronger advisory outputs further amplify the effect. Compared with SCR-CapFlow and SCR-TrustLift, SCR-AuthBlur produces weaker attack strength but highlights composition risk at the semantic decision boundary. 
+
+4.5 Ablation 
+
+The ablation focuses on SCR-CapFlow; results for SCR-TrustLift and SCR-AuthBlur are in the Appendix. As shown in Table 4, ASR remains near zero under control and single-skill conditions, while composed conditions (A+B Neutral and A+B Explicit) increase ASR across most backends. DeepSeek-V4 shows the highest risk (>90%), whereas Opus-4.6 is more conservative. These results indicate that capability-flow risk arises primarily from activated composition paths, not from individual skill failures, highlighting how benign-appearing skills can propagate risk when combined. Table 4: SCR-CapFlow ablation across model backends over 150 evaluation cases. ASR (%) is shown for control, single-skill, and composed-skill execution conditions. Bold and underlined values denote the highest and second-highest ASR for each backend, respectively.                                                   
+
+> Backend Control A-Only B-Only A+B Neutral A+B Explicit
+> GPT-5.5 0.0 0.0 1.6 48.1 47.2 GPT-5.4 0.0 0.0 1.2 4.4 4.0 Opus-4.6 0.0 0.0 1.7 1.3 4.1
+> Opus-4.5 0.0 0.0 1.2 0.0 0.7 Gemini-3.1-Pro-Preview 0.0 0.0 1.3 30.0 41.9
+> MiniMax-M2.7 0.0 0.0 1.7 75.5 74.9 DeepSeek-V4 0.0 0.0 1.5 91.5 92.5
+> GLM-5.1 0.0 0.0 1.3 25.5 26.9
+> GLM-5 0.0 0.0 0.7 26.4 30.7
+
+5 Conclusion 
+
+This work identifies SCR (Skill Composition Risk), a path-level security gap in which skills that appear benign in isolation can become harmful when their outputs, trust signals, or authorization cues are reused across composed execution paths. SCR-Bench operationalizes this gap through controlled evaluations of capability flow, trust transfer, and authorization confusion, showing that composed paths expose downstream risks missed by isolated baselines. These results suggest that isolated vetting is necessary but insufficient; path-aware evaluation should become a standard component of skill ecosystem security. 9References 
+
+Yanna Jiang, Delong Li, Haiyu Deng, Baihe Ma, Xu Wang, Qin Wang, and Guangsheng Yu. SoK: Agentic Skills — Beyond Tool Use in LLM Agents. arXiv preprint arXiv:2602.20867 , 2026. Yi Liu, Zhihao Chen, Yanjun Zhang, Gelei Deng, Yuekang Li, Jianting Ning, and Leo Yu Zhang. “Do Not Mention This to the User”: Detecting and Understanding Malicious Agent Skills in the Wild. In Proceedings of the 35th USENIX Security Symposium (USENIX Security 2026) , 2026. Varun Pratap Bhardwaj. Formal Analysis and Supply Chain Security for Agentic AI Skills. arXiv preprint arXiv:2603.00195 , 2026. Tanqiu Jiang, Yuhui Wang, Jiacheng Liang, and Ting Wang. AgentLAB: Benchmarking LLM Agents against Long-Horizon Attacks. arXiv preprint arXiv:2602.16901 , 2026. Aojie Yuan, Zhiyuan Su, and Yue Zhao. AEGIS: No Tool Call Left Unchecked — A Pre-Execution Firewall and Audit Layer for AI Agents. arXiv preprint arXiv:2603.12621 , 2026. Zihan Guo, Zhiyu Chen, Xiaohang Nie, Jianghao Lin, Yuanjian Zhou, and Weinan Zhang. SkillProbe: Se-curity Auditing for Emerging Agent Skill Marketplaces via Multi-Agent Collaboration. arXiv preprint arXiv:2603.21019 , 2026. Yuhang Wang, Haichang Gao, Zhenxing Niu, Zhaoxiang Liu, Wenjing Zhang, Xiang Wang, and Shiguo Lian. A Systematic Security Evaluation of OpenClaw and Its Variants. arXiv preprint arXiv:2604.03131 , 2026. Wei Zhao, Zhe Li, Peixin Zhang, and Jun Sun. ClawGuard: A Runtime Security Framework for Tool-Augmented LLM Agents Against Indirect Prompt Injection. arXiv preprint arXiv:2604.11790 , 2026. Yukun Jiang, Yage Zhang, Michael Backes, Xinyue Shen, and Yang Zhang. HarmfulSkillBench: How Do Harmful Skills Weaponize Your Agents? arXiv preprint arXiv:2604.15415 , 2026. Zenghao Duan, Yuxin Tian, Zhiyi Yin, Liang Pang, Jingcheng Deng, Zihao Wei, Shicheng Xu, Yuyao Ge, and Xueqi Cheng. SkillAttack: Automated Red Teaming of Agent Skills through Attack Path Refinement. arXiv preprint arXiv:2604.04989 , 2026. Yinghan Hou, Zongyou Yang, Zaihu Pang, and Xiujun Ma. SkillSieve: A Hierarchical Triage Framework for Detecting Malicious AI Agent Skills. arXiv preprint arXiv:2604.06550 , 2026. David Schmotz, Luca Beurer-Kellner, Sahar Abdelnabi, and Maksym Andriushchenko. Skill-Inject: Measuring Agent Vulnerability to Skill File Attacks. arXiv preprint arXiv:2602.20156 , 2026. Tanzim Ahad, Ismail Hossain, Md Jahangir Alam, Sai Puppala, Yoonpyo Lee, Syed Bahauddin Alam, and Sajedul Talukder. Semantic Intent Fragmentation: A Single-Shot Compositional Attack on Multi-Agent AI Pipelines. arXiv preprint arXiv:2604.08608 , 2026. Yen-Shan Chen, Sian-Yao Huang, Cheng-Lin Yang, and Yun-Nung Chen. TraceSafe: A Systematic Assessment of LLM Guardrails on Multi-Step Tool-Calling Trajectories. arXiv preprint arXiv:2604.07223 , 2026. Edoardo Debenedetti, Jie Zhang, Mislav Balunovi´ c, Luca Beurer-Kellner, Marc Fischer, and Florian Tramèr. AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents. In Advances in Neural Information Processing Systems , 2024. Hanrong Zhang, Jingyuan Huang, Kai Mei, Yifei Yao, Zhenting Wang, Chenlu Zhan, Hongwei Wang, and Yongfeng Zhang. Agent Security Bench (ASB): Formalizing and Benchmarking Attacks and Defenses in LLM-Based Agents. In The Thirteenth International Conference on Learning Representations , 2025. Jiawen Shi, Zenghui Yuan, Guiyao Tie, Pan Zhou, Neil Zhenqiang Gong, and Lichao Sun. Prompt Injection Attack to Tool Selection in LLM Agents. In Proceedings of the Network and Distributed System Security Symposium , 2026. Fazhong Liu, Zhuoyan Chen, Tu Lan, Haozhen Tan, Zhenyu Xu, Xiang Li, Guoxing Chen, Yan Meng, and Haojin Zhu. Trojan’s Whisper: Stealthy Manipulation of OpenClaw through Injected Bootstrapped Guidance. 
+
+arXiv preprint arXiv:2603.19974 , 2026. Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik R. Narasimhan, and Yuan Cao. ReAct: Synergizing Reasoning and Acting in Language Models. In The Eleventh International Conference on Learning Representations , 2023. 
+
+10 Timo Schick, Jane Dwivedi-Yu, Roberto Dessi, Roberta Raileanu, Maria Lomeli, Eric Hambro, Luke Zettlemoyer, Nicola Cancedda, and Thomas Scialom. Toolformer: Language Models Can Teach Themselves to Use Tools. In Advances in Neural Information Processing Systems , 2023. Yujia Qin, Shihao Liang, Yining Ye, Kunlun Zhu, Lan Yan, Yaxi Lu, Yankai Lin, Xin Cong, Xiangru Tang, Bill Qian, Sihan Zhao, Lauren Hong, Runchu Tian, Ruobing Xie, Jie Zhou, Mark Gerstein, Dahai Li, Zhiyuan Liu, and Maosong Sun. ToolLLM: Facilitating Large Language Models to Master 16000+ Real-World APIs. In The Twelfth International Conference on Learning Representations , 2024. Shishir G. Patil, Tianjun Zhang, Xin Wang, and Joseph E. Gonzalez. Gorilla: Large Language Model Connected with Massive APIs. In Advances in Neural Information Processing Systems , 2024. Yangjun Ruan, Honghua Dong, Andrew Wang, Silviu Pitis, Yongchao Zhou, Jimmy Ba, Yann Dubois, Chris Maddison, and Tatsunori Hashimoto. Identifying the Risks of LM Agents with an LM-Emulated Sandbox. In 
+
+The Twelfth International Conference on Learning Representations , 2024. Tongxin Yuan, Zhiwei He, Lingzhong Dong, Yiming Wang, Ruijie Zhao, Tian Xia, Lizhen Xu, Binglin Zhou, Fangqi Li, Zhuosheng Zhang, Rui Wang, and Gongshen Liu. R-Judge: Benchmarking Safety Risk Awareness for LLM Agents. In Findings of the Association for Computational Linguistics: EMNLP 2024 , pages 1467–1490, 2024. Kimi Team. Kimi K2: Open Agentic Intelligence. arXiv preprint arXiv:2507.20534 , 2025. GLM-5-Team. GLM-5: from Vibe Coding to Agentic Engineering. arXiv preprint arXiv:2602.15763 , 2026. Yupei Liu, Yuqi Jia, Runpeng Geng, Jinyuan Jia, and Neil Zhenqiang Gong. Formalizing and Benchmarking Prompt Injection Attacks and Defenses. In Proceedings of the 33rd USENIX Security Symposium , 2024. Qiusi Zhan, Zhixiang Liang, Zifan Ying, and Daniel Kang. InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents. In Findings of the Association for Computational Linguistics: ACL 2024 , 2024. Zhaorun Chen, Zhen Xiang, Chaowei Xiao, Dawn Song, and Bo Li. AgentPoison: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases. In Advances in Neural Information Processing Systems , 2024. Boyang Zhang, Yicong Tan, Yun Shen, Ahmed Salem, Michael Backes, Savvas Zannettou, and Yang Zhang. Breaking Agents: Compromising Autonomous LLM Agents Through Malfunction Amplification. In Pro-ceedings of the 2025 Conference on Empirical Methods in Natural Language Processing , 2025. 
+
+11 A Limitations 
+
+SCR-AuthBlur is reported conservatively: we exclude L2 from the main table because only a subset of cases satisfies the stricter audit criterion, and we avoid extrapolating this setting beyond the cases where the criterion holds. In addition, all experiments are conducted in controlled skill environments with observable mock side effects. This design provides path-level ground truth and supports controlled comparisons across mechanisms, but it abstracts away registry-scale heterogeneity, runtime policies, and operational noise. Future work should therefore validate the same mechanisms in larger open skill registries and production-like agent runtimes. 
+
+B Additional method details 
+
+This appendix records the details that are omitted from the main Method section to keep the exposition compact. 
+
+Multi-hop amplification. The main text defines the effective risk of a path as rπ (h) = aπ (h)qπ (h).At the ecosystem level, composition risk can be viewed as the probability that at least one candidate path is activated and reaches a harmful state. For length-k paths, let Nk(h) = |Πk(Gh)| denote the number of candidate paths and let 
+
+¯rk(h) = Eπ∈Πk (Gh) [aπ (h)qπ (h)] 
+
+denote the average effective risk over such paths. Under a homogeneous path-risk approximation, the length-k composition risk is 
+
+Rk(G, h ) = 1 − (1 − ¯rk(h)) Nk (h) .
+
+This expression is intended as a risk-accounting approximation rather than an independence claim about real failures. It shows that even when ¯rk(h) is small, risk can increase as the number of candidate paths grows. In dense composition settings, Nk(h) can scale as O(nk), so multi-hop composition can create a substantially larger path-level risk surface than node-level vetting. 
+
+Capability flow. Privilege amplification has a source-to-sink structure: 
+
+πcap ij : Source → si → sj → Sink. 
+
+The corresponding conditional path risk is 
+
+qcap ij (h) = P (B | Source → si → sj → Sink, h ).
+
+In the experiments, a capability-flow trial succeeds only when skill A discovers a concrete target, skill B produces an observable side effect, and the side effect acts on the same target: 
+
+Y cap ij = I[A_discovers (t) ∧ B_acts (t) ∧ B_side _ef f ect (t)] .
+
+Trust transfer. For semantic endorsement, let E be the endorsement produced by an upstream skill and let hE = h0 ⊕ E be the resulting context. The endorsement lift is 
+
+∆E = P (B | hE ) − P (B | h0).
+
+When B is malicious-skill installation, this becomes 
+
+∆E = P (Aharm install | hE ) − P (Aharm install | h0).
+
+Authorization confusion. For context pollution, let Ll denote context level l, where L0 is the control context and higher levels contain related, finding-like, or authorization-like content. The contamination effect is 
+
+CE l = P (B | Ll) − P (B | L0),
+
+where B is risky approval or dangerous execution. Empirically, this is estimated as 
+
+dCE l = [ASR Ll − [ASR L0 .
+
+For semantic endorsement, the empirical lift is 
+
+b∆E = [ASR endorsement − [ASR direct/control .
+
+12 C Context Levels in SCR-AuthBlur 
+
+Table 5 defines the context levels used in the SCR-AuthBlur sub-benchmark. These levels separate two factors that may affect authorization confusion: whether the agent receives only task-level context or an explicit composition path, and how semantically strong the upstream skill output is as downstream decision evidence. L0 provides unrelated context and serves as the control baseline. L1 provides a normal task description related to the decision, without specifying an upstream–downstream skill path. It tests whether ordinary related context alone increases risky approvals compared with L0, thereby probing the context-pollution hypothesis. L2 fixes the A → B composition path, but the upstream skill only emits weak advisory or evaluative outputs, such as factual findings, risk assessments, or contextual summaries. L3 uses the same specified composition path, but strengthens the upstream output with stronger advisory or evaluative semantics while still excluding formal authorization. This setting serves as an upper-bound condition for testing how semantic strength amplifies SCR-AuthBlur. Table 5: Context levels for SCR-AuthBlur . The levels separate path specification from the semantic strength of upstream context.                                      
+
+> Level Context / Path Setting Upstream Signal Experimental Role
+> L0Unrelated control context; no rele-vant task or composition cue. None; excludes related findings, advice, or approval-like signals. Serves as the control baseline for estimating the background risky-approval rate.
+> L1Ordinary task-level context re-lated to the decision; no specified
+> A→Bcomposition path. Task description only; excludes advisor output, findings, approval, and authoriza-tion language. Tests whether related task con-text alone increases risky ap-provals relative to L0, support-ing the context-pollution hy-pothesis.
+> L2Specified A→Bcomposition path. Upstream skill Aemits weak advisory or evaluative outputs, such as factual findings, risk assessments, or contextual summaries; excludes explicit approval, authorization, and directive language. Tests whether weak, non-authorizing upstream ev-idence is sufficient to contaminate the downstream decision made by skill B.
+> L3Specified A→Bcomposition path. Upstream skill Aemits stronger advi-sory or evaluative outputs, while still ex-cluding formal user authorization. Serves as an upper-bound con-dition for testing how stronger upstream semantics amplify authorization-confusion risk in skill B.
+
+Table 6: SCR-AuthBlur results on the 52 cases satisfying the L2 audit criterion. Values report risky approval rates (%) under the control context (L0), related context (L1), plain-finding advisor context (L2), and full authorization-like advisory context (L3). 
+
+Backend L0 Control L1 Related L2 Findings L3 Full Auth 
+
+GPT-5.5 1.9 16.9 7.3 28.1 GPT-5.4 4.2 13.1 1.5 9.2 Opus-4.6 0.8 18.1 8.1 28.8 Opus-4.5 6.5 17.2 7.3 19.4 Gemini-3.1-Pro-Preview 15.6 41.3 20.0 54.0 MiniMax-M2.7 15.9 41.9 14.9 41.2 DeepSeek-V4 32.4 56.4 30.3 54.4 Kimi-K2 37.8 82.4 60.6 83.2 GLM-5.1 11.4 15.1 8.7 22.9 GLM-5 19.4 48.5 24.8 55.0 
+
+Average 14.6 35.1 18.4 39.6 
+
+Because only 52 cases satisfy the stricter audit criterion for the L2 setting, we separately evaluate L0–L3 on this audited subset and report the results in Table 6. Across all evaluated backends, L2 produces lower risky-approval rates than both L1 and L3. The average risky-approval rate under L2 is 18.4%, which is only moderately higher than the L0 control rate of 14.6%, but much lower than L1 related context at 35.1% and L3 full authorization-like context at 39.6%. This pattern suggests that plain findings or weak risk-assessment summaries alone are insufficient to induce the same level 13 of downstream decision contamination as stronger contextual or authorization-like signals. More broadly, the result supports the SCR-AuthBlur hypothesis that the semantic strength of upstream skill outputs preserved in the shared context modulates the severity of authorization-confusion risk. 
+
+D Experimental Protocol and Additional Details 
+
+To provide a comprehensive overview of the experimental setup, Table 7 summarizes the protocol for each sub-benchmark in SCR-Bench. The table lists the evaluated backends, the number of test cases, the experimental conditions, the number of trials per case, the metrics used to evaluate path-level risk, the scoring rules, and the sandbox environment design. This overview ensures reproducibility and clarifies how each mechanism—capability flow, trust transfer, and authorization confusion—is evaluated under controlled conditions. Table 7: Experimental protocol. The same scoring principle is used across mechanisms: success requires an observable downstream event in a sandboxed environment. Element SCR-CapFlow SCR-TrustLift SCR-AuthBlur                               
+
+> Backends Nine with All Five Conditions Evaluated Five Tested Backends Ten Tested Backends Cases 150 Paired-Skill Cases 401 Installation Trials Per Backend 118 Retained Decision Cases Conditions Control, A-Only, B-Only, A+B Neutral, A+B Explicit Control and Endorsed Downstream Installation L0,L1,L3in Main Table Trials m= 5 Per Case-Condition One Installation Decision Per Trial m= 5 Per Case-Level Condition Metric Linked Attack-Chain ASR Harmful-Installation ASR Risky-Approval ASR and Lift Scoring A Discovers t, B Acts On t, Side Effect Logged Harmful Skill is Installed Downstream Decision Approves Risky Request Sandbox Mock Files, Services, Logs, Schedules, and State Simulated Skill Market Installation Simulated Approval and Policy Contexts
+
+E The Ablation of SCR-TrustLift 
+
+This section presents the ablation study for SCR-TrustLift, testing whether upstream skills providing trust endorsements affect downstream harmful installations. The results are shown in Table 8. Table 8: SCR-TrustLift ablation across 401 trials per backend. ASR is reported for control and endorsed conditions.             
+
+> Backend Control ASR (%) Endorsed ASR (%) Claude Opus 4.6 0.00 25.19 GPT-5.4 0.00 96.51 Gemini 3.1 Pro Preview 5.49 97.76 MiniMax-M2.7 0.00 100.0 Claude Opus 4.5 0.00 100.0
+
+The results indicate that four out of five backends reach near-saturation ASR under endorsed con-ditions, while the control condition produces zero or negligible ASR. Claude Opus 4.6 is more conservative but still exhibits significant risk. This confirms that trust-transfer effects depend on upstream endorsements rather than direct malicious skill behavior. 
+
+F The Ablation of SCR-AuthBlur 
+
+This section presents the ablation study for SCR-AuthBlur, evaluating how earlier advisory or related context shifts downstream approval boundaries. The results are shown in Table 9. The results show an overall trend of increasing risky approval as context strength increases. The ASR rises from 15.7% (L0) to 27.0% (L1) and 34.0% (L3). Kimi-K2 exhibits the highest risk, while GPT-5.4 sometimes shows lower ASR under L1/L3 than L0, indicating that related context can trigger refusal. Overall, authorization-confusion risk is backend-dependent but supports the SCR-AuthBlur mechanism: context composition amplifies approval risk. 14 Table 9: SCR-AuthBlur ablation on 118 cases across ten tested backends. Raw ASR at each context level (L0, L1, L3), marginal gains ( ∆L1 − L0, ∆L3 − L1, ∆L3 − L0), and trend summary are reported. 
+
+Backend L0 Control L1 Related L3 Full Auth ∆L1 − L0 ∆L3 − L1 ∆L3 − L0
+
+GPT-5.5 2.9 10.2 17.6 7.3 7.4 14.7 GPT-5.4 9.5 7.1 7.3 -2.4 0.2 -2.2 Opus 4.6 2.0 10.0 17.6 8.0 7.6 15.6 Opus 4.5 8.7 9.6 13.1 0.9 3.5 4.4 Gemini 3.1 Pro Preview 10.0 30.1 35.0 20.1 4.9 25.0 MiniMax-M2.7 19.4 31.9 47.3 12.5 15.4 27.9 DeepSeek-V4 26.9 40.6 43.1 13.7 2.5 16.2 Kimi-K2 47.3 81.9 88.4 34.6 6.5 41.1 GLM-5.1 10.5 8.9 17.4 -1.6 8.5 6.9 GLM-5 20.1 40.0 52.9 19.9 12.9 32.8 Average 15.7 27.0 34.0 11.3 6.9 18.2 
+
+15
