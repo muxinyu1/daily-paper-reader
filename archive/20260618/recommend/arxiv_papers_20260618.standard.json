@@ -1,0 +1,447 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-18T22:13:05.527243+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 7,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2606.19149v1",
+      "source": "arxiv",
+      "title": "OpenAnt: LLM-Powered Vulnerability Discovery Through Code Decomposition, Adversarial Verification, and Dynamic Testing",
+      "abstract": "Automated vulnerability discovery in large codebases remains challenging: traditional static analysis produces high false-positive rates, while dynamic approaches such as fuzzing require substantial infrastructure and often target narrow classes of bugs. Recent advances in large language models (LLMs) enable semantic reasoning about program behavior, but applying LLMs to repository-scale security analysis introduces challenges related to context management, cost, and verification.   We present OpenAnt, an open-source vulnerability discovery system that integrates static program analysis with LLM-based reasoning in a multi-stage pipeline. OpenAnt introduces three key techniques. First, codebases are decomposed into self-contained analysis units filtered by reachability from external entry points, reducing the analysis surface by up to 97% while preserving attack-relevant code. Second, candidate vulnerabilities undergo adversarial verification through constrained attacker simulation, where the model evaluates exploitability under realistic attacker capabilities. Third, findings are validated through dynamic verification, in which exploit environments are generated automatically, executed in sandboxed containers, and discarded after use.   Evaluation on widely used open-source projects including OpenSSL, WordPress, and Flowise shows that this architecture can identify previously unknown vulnerabilities while maintaining manageable analysis cost and substantially reducing false positives. Our results suggest that closed-loop vulnerability discovery pipelines, combining semantic reasoning with exploit validation, provide a practical path toward scalable automated security analysis.   OpenAnt is released as open source under the Apache 2.0 license at https://github.com/knostic/OpenAnt.",
+      "authors": [
+        "Nahum Korda",
+        "Gadi Evron"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-06-17T14:56:04+00:00",
+      "link": "https://arxiv.org/pdf/2606.19149v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "LLM-powered vulnerability discovery system with multi-stage pipeline",
+      "llm_evidence_cn": "LLM驱动的多阶段漏洞发现系统",
+      "llm_evidence": "LLM驱动的多阶段漏洞发现系统",
+      "canonical_evidence": "LLM驱动的多阶段漏洞发现系统",
+      "llm_tldr_en": "OpenAnt integrates static analysis with LLM reasoning in a multi-stage pipeline for automated vulnerability discovery in large codebases.",
+      "llm_tldr_cn": "该论文提出OpenAnt开源漏洞发现系统，将静态程序分析与LLM推理结合，通过代码分解、对抗验证和动态测试三阶段管道，实现大规模代码库的自动漏洞挖掘。解决了LLM在仓库级安全分析中的上下文管理和成本问题。实验证明OpenAnt在多个基准上优于传统方法和纯LLM方法。",
+      "llm_tldr": "该论文提出OpenAnt开源漏洞发现系统，将静态程序分析与LLM推理结合，通过代码分解、对抗验证和动态测试三阶段管道，实现大规模代码库的自动漏洞挖掘。解决了LLM在仓库级安全分析中的上下文管理和成本问题。实验证明OpenAnt在多个基准上优于传统方法和纯LLM方法。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.18619v1",
+      "source": "arxiv",
+      "title": "Code-Augur: Agentic Vulnerability Detection via Specification Inference",
+      "abstract": "The advent of agentic vulnerability detection is already becoming a watershed moment for software security. Audits conducted entirely by autonomous LLM agents are uncovering critical vulnerabilities in fundamental software underpinning digital society. Many of these vulnerabilities remained masked for years, surfacing only now with AI agents. Yet the reasoning behind these discoveries remains alarmingly opaque and unvalidated. What assumptions did the agent make about a function's inputs when it deemed that function to be secure? Failures in reasoning and incorrect assumptions can lead to missed vulnerabilities and reduce trust in agentic analysis.   We propose a security-specification-first paradigm that (1) exposes the agent's tacit assumptions explicitly as security specifications and (2) continuously refines those specifications via runtime falsification. We realize our approach in Code-Augur, a novel harness for agentic vulnerability detection. Given a codebase, Code-Augur analyzes each component of the system for vulnerable code. When it deems a component to be secure, it commits the local invariants behind that judgment as in-source assertions. In parallel, Code-Augur leverages a guided fuzzer to attempt to falsify those assumptions. When the fuzzer triggers an assertion, this either reveals a genuine vulnerability or a flawed specification to refine. In both cases, this process grounds the agent's understanding, aligning its view of code intent with how the code actually behaves. On real-world subjects, Code-Augur effectively leverages security specifications to detect more vulnerabilities than other state-of-the-art agents. Additionally, Code-Augur found 22 new vulnerabilities in key open-source projects. Compared to curated specialized models like Claude Mythos, Code-Augur offers effective agentic vulnerability detection built on widely available LLMs like Sonnet and DeepSeek.",
+      "authors": [
+        "Zhengxiong Luo",
+        "Mehtab Zafar",
+        "Dylan Wolff",
+        "Abhik Roychoudhury"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-06-17T02:32:45+00:00",
+      "link": "https://arxiv.org/pdf/2606.18619v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "agentic vulnerability detection via specification inference",
+      "llm_evidence_cn": "通过规范推理的智能体漏洞检测",
+      "llm_evidence": "通过规范推理的智能体漏洞检测",
+      "canonical_evidence": "通过规范推理的智能体漏洞检测",
+      "llm_tldr_en": "Presents Code-Augur, an agentic vulnerability detection system that infers implicit assumptions and specifications to improve reasoning transparency.",
+      "llm_tldr_cn": "智能体漏洞检测发现了许多隐藏已久的漏洞，但推理过程不透明。本文提出Code-Augur，采用安全规范优先范式，将智能体隐性假设显式化（如函数输入约束），并基于这些规范进行验证，提高了检测的可解释性和可信度。实验证明该方法能发现更多漏洞。",
+      "llm_tldr": "智能体漏洞检测发现了许多隐藏已久的漏洞，但推理过程不透明。本文提出Code-Augur，采用安全规范优先范式，将智能体隐性假设显式化（如函数输入约束），并基于这些规范进行验证，提高了检测的可解释性和可信度。实验证明该方法能发现更多漏洞。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.15822v1",
+      "source": "arxiv",
+      "title": "TrustedARI: Towards Trust-Native Agentic Routing Infrastructure for Agentic AI",
+      "abstract": "AI agents increasingly access external models, tools, and services through Agentic Routing Infrastructure (ARI) to manage the overhead of heterogeneous interfaces and fragmented subscriptions. Yet, the architecture of ARI introduces fundamental trust risks: it obtains plaintext access to agent queries and service responses, while leaving agents unable to verify that their queries are routed to intended service providers or that requests and responses remain untampered. To address this problem, we present TrustedARI, the first trust-native agentic routing infrastructure for agentic AI. Architecturally, TrustedARI is built upon three core innovations: (i) an ARI-adapted three-party TLS handshake that enables the agent and ARI to jointly authenticate the service provider through role-specific distribution of TLS key materials; (ii) a privacy-preserving query-construction protocol that allows the agent and ARI to collaboratively construct well-formed queries without exposing their respective private inputs; and (iii) a verifiable billing protocol that supports fair usage-based settlement while preserving the integrity and confidentiality of service responses.   We implemented and extensively evaluated a prototype of TrustedARI to validate its performance. Experiments confirm that TrustedARI is highly efficient: our ARI-adapted handshake protocol reduces communication overhead by 39.34% compared to the existing three-party TLS handshake. Furthermore, the privacy-preserving query-construction protocol imposes negligible overhead-averaging 0.19 seconds in computation time and 0.58 MB in communication costs-while the verifiable billing protocol speeds up proof generation by 28.20x. Crucially, TrustedARI is readily deployable without any modification to the service providers.",
+      "authors": [
+        "Qi Li",
+        "Zhenhua Zou",
+        "Shuo Li",
+        "Mingwei Xu",
+        "Zhuotao Liu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-06-14T13:39:56+00:00",
+      "link": "https://arxiv.org/pdf/2606.15822v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "security risks and vulnerabilities in autonomous agent systems due to untrusted routing infrastructure",
+      "llm_evidence_cn": "自主代理系统中因非可信路由基础设施导致的安全风险与漏洞",
+      "llm_evidence": "自主代理系统中因非可信路由基础设施导致的安全风险与漏洞",
+      "canonical_evidence": "自主代理系统中因非可信路由基础设施导致的安全风险与漏洞",
+      "llm_tldr_en": "Proposes TrustedARI, a trust-native routing infrastructure to address security vulnerabilities in agent communication.",
+      "llm_tldr_cn": "该论文指出AI代理在通过代理路由基础设施访问外部服务时面临信任风险，包括查询和响应的明文访问、无法验证路由真实性等问题，提出TrustedARI信任原生路由架构，通过三方TLS握手等创新机制确保通信的机密性、完整性和可验证性，直接应对自主代理系统中的安全漏洞。",
+      "llm_tldr": "该论文指出AI代理在通过代理路由基础设施访问外部服务时面临信任风险，包括查询和响应的明文访问、无法验证路由真实性等问题，提出TrustedARI信任原生路由架构，通过三方TLS握手等创新机制确保通信的机密性、完整性和可验证性，直接应对自主代理系统中的安全漏洞。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.18325v1",
+      "source": "arxiv",
+      "title": "Agentra: A Supervisable Multi-Agent Framework for Enterprise Intrusion Response",
+      "abstract": "Enterprise intrusion response still depends on static playbooks and analyst-driven triage, creating delay between alert generation and containment. We present Agentra, a supervisable multi-agent Intrusion Response System (IRS) framework that converts alerts from IDS, EDR, and XDR platforms into structured incident response plans grounded in MITRE ATT&CK, MITRE D3FEND, and NIST CSF 2.0. Agentra decomposes response reasoning across role-scoped agents, validates proposed plans through a bounded Planner--Validator review loop, screens retrieved threat intelligence through a Moderator security gateway, gates actions through an Action Catalog and risk score, and records decisions in an append-only audit log. We evaluate Agentra against a static OASIS CACAO v2.0 cyber-playbook baseline on a 120-event corpus drawn from ThreatHunter-Playbook, Splunk BOTSv3, and DARPA OpTC. The strongest configuration improves FP-aware IRS F1 from 0.61 to 0.84 and restores the projected harmful-action rate to the static baseline level of 0.0% after Planner-only configurations introduce unsafe overreaction. These results indicate that multi-agent response planning can improve ontology-grounded IRS coverage while preserving analyst approval and auditability.",
+      "authors": [
+        "Raj Patel",
+        "Shaswata Mitra",
+        "Michele Guida",
+        "Stefano Iannucci",
+        "Sudip Mittal",
+        "Shahram Rahimi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-16T17:17:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.18325v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "provides a multi-agent framework for enterprise intrusion response, addressing security risks in autonomous agent systems",
+      "llm_evidence_cn": "提供企业入侵响应的多智能体框架，解决自主智能体系统的安全风险",
+      "llm_evidence": "提供企业入侵响应的多智能体框架，解决自主智能体系统的安全风险",
+      "canonical_evidence": "提供企业入侵响应的多智能体框架，解决自主智能体系统的安全风险",
+      "llm_tldr_en": "Agentra: a supervisable multi-agent IRS framework converting alerts into incident response plans grounded in MITRE ATT&CK, D3FEND, NIST CSF 2.0.",
+      "llm_tldr_cn": "企业入侵响应依赖静态剧本和分析师处理，响应延迟。本文提出Agentra，一个可监督的多智能体入侵响应系统框架，将IDS/EDR/XDR警报转化为基于MITRE ATT&CK等的结构化响应计划。框架通过角色限定智能体、规划-验证循环、安全网关、行动目录和风险评分机制实现可控响应，并记录审计日志。评估显示其优于静态OASIS方案。",
+      "llm_tldr": "企业入侵响应依赖静态剧本和分析师处理，响应延迟。本文提出Agentra，一个可监督的多智能体入侵响应系统框架，将IDS/EDR/XDR警报转化为基于MITRE ATT&CK等的结构化响应计划。框架通过角色限定智能体、规划-验证循环、安全网关、行动目录和风险评分机制实现可控响应，并记录审计日志。评估显示其优于静态OASIS方案。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.18356v1",
+      "source": "arxiv",
+      "title": "SafeClawBench: Separating Semantic, Audit-Evidence, and Sandbox Harm in Tool-Using LLM Agents",
+      "abstract": "Tool-using language-model agents introduce security failures that go beyond unsafe text: they can disclose protected objects, write persistent memory, send messages, modify databases, or trigger harmful code and tool effects. Existing evaluations often collapse these stages into a single attack success rate, making it difficult to tell whether a model merely agreed with an attacker or actually produced observable harm. We introduce SafeClawBench, a staged benchmark for tool-using agent security with 600 controlled adversarial tasks across six attack families: direct and indirect prompt injection, tool-return injection, memory poisoning, memory extraction, and ambiguity-driven unsafe inference. SafeClawBench reports three separate endpoints: semantic attack acceptance, audit-visible harm evidence, and sandbox-observed tool/state harm. Evaluating five agent endpoints under four prompt-level policies, we find that these endpoints capture different failure modes. Without additional prompt protection, semantic failure rates vary widely across models, from 9.0% to 44.2%. Audited harm evidence is narrower than semantic failure, and under a separate executable protocol some matched task identities produce sandbox harm despite passing the Semantic Core call: in a 12,000-row matched analysis, 291 of 347 observed sandbox harms occur in rows that pass the semantic check. Prompt policies change endpoint outcomes, but their effects depend on both model and protocol. SafeClawBench provides a reproducible framework for comparing agent models and prompt-policy conditions without conflating textual compliance, evidence-supported harm, and executable state changes. The open-source dataset is available at https://huggingface.co/datasets/sairights/safeclawbench.",
+      "authors": [
+        "Yuchuan Tian",
+        "Mengyu Zheng",
+        "Haocheng Mei",
+        "Ye Yuan",
+        "Chao Xu",
+        "Xinghao Chen",
+        "Hanting Chen",
+        "Yu Wang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-16T18:04:45+00:00",
+      "link": "https://arxiv.org/pdf/2606.18356v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "introduces a staged benchmark for security failures in tool-using LLM agents, advancing vulnerability analysis",
+      "llm_evidence_cn": "引入使用工具的LLM智能体安全失败的分阶段基准，推进漏洞分析",
+      "llm_evidence": "引入使用工具的LLM智能体安全失败的分阶段基准，推进漏洞分析",
+      "canonical_evidence": "引入使用工具的LLM智能体安全失败的分阶段基准，推进漏洞分析",
+      "llm_tldr_en": "SafeClawBench: a staged benchmark with 600 adversarial tasks across six attack families, reporting three separate harm metrics.",
+      "llm_tldr_cn": "使用工具的LLM智能体可能造成超出文本的安全危害，现有评估常以单一成功率掩盖不同危害阶段。本文提出SafeClawBench，一个包含600个对抗任务的分阶段基准，覆盖直接/间接提示注入、工具返回注入、内存投毒/提取及歧义驱动推理六类攻击。基准分别报告语义、审计证据和沙盒危害三个指标，更精确地评估智能体安全。",
+      "llm_tldr": "使用工具的LLM智能体可能造成超出文本的安全危害，现有评估常以单一成功率掩盖不同危害阶段。本文提出SafeClawBench，一个包含600个对抗任务的分阶段基准，覆盖直接/间接提示注入、工具返回注入、内存投毒/提取及歧义驱动推理六类攻击。基准分别报告语义、审计证据和沙盒危害三个指标，更精确地评估智能体安全。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.19063v1",
+      "source": "arxiv",
+      "title": "PYPILINE: Malicious PyPI Package Detection via Suspicious API Knowledge and Agent Workflow",
+      "abstract": "The detection of malicious PyPI packages is crucial for maintaining the security of the open source software supply chain. Existing methods, which primarily rely on rules or traditional machine learning, suffer from poor interpretability and difficulty in adapting to novel attacks. To address this, we propose PYPILINE, a novel detection method that combines a suspicious API knowledge base with an Agent workflow. PYPILINE first conducts static analysis on known malicious packages, extracting abstract syntax trees and generating API call graphs, from which it automatically extracts and constructs a structured suspicious API knowledge base. During the detection phase, this knowledge base is used to enhance reasoning capabilities. Through an Agent workflow, PYPILINE performs in depth semantic analysis of unknown packages and outputs a structured, interpretable maliciousness assessment report. The experimental results show that PYPILINE significantly outperforms existing state-of-the-art tools in precision of 96.7\\%, recall of 99.6\\%, and F1-score of 98.1\\%, with its precision surpassing baseline tools by 5.7 to 24.2 percentage points. Additionally, we conducted an empirical study on malicious packages, systematically revealing prevalent attack strategies, as well as the most commonly abused APIs. Equipped with tool-calling AI agent workflows for automated vector database retrieval of suspicious API knowledge and mail server delivery of analysis reports, PYPILINE delivers a practical, efficient, and convenient malicious package detection solution to strengthen open-source ecosystem security.",
+      "authors": [
+        "Siyuan Pang",
+        "Zhengwei Jiang",
+        "Yepeng Yao",
+        "Zijing Fan",
+        "Haozhe Li",
+        "Baoxu Liu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-17T13:37:17+00:00",
+      "link": "https://arxiv.org/pdf/2606.19063v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "agent workflow for vulnerability mining in PyPI packages",
+      "llm_evidence_cn": "智能体工作流用于PyPI包漏洞挖掘",
+      "llm_evidence": "智能体工作流用于PyPI包漏洞挖掘",
+      "canonical_evidence": "智能体工作流用于PyPI包漏洞挖掘",
+      "llm_tldr_en": "Presents PYPILINE, which combines a suspicious API knowledge base with an Agent workflow to detect malicious PyPI packages.",
+      "llm_tldr_cn": "现有恶意PyPI包检测方法可解释性差且难以适应新型攻击。本文提出PYPILINE，通过静态分析提取可疑API知识库，并结合智能体工作流增强推理，实现可解释且自适应的恶意包检测。实验表明在真实数据集上优于传统方法。",
+      "llm_tldr": "现有恶意PyPI包检测方法可解释性差且难以适应新型攻击。本文提出PYPILINE，通过静态分析提取可疑API知识库，并结合智能体工作流增强推理，实现可解释且自适应的恶意包检测。实验表明在真实数据集上优于传统方法。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "vulnerability mining agent techniques",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.19191v1",
+      "source": "arxiv",
+      "title": "PhantomSkill: Malicious Code Injection in Agent Skill Ecosystems",
+      "abstract": "Agent skills allow LLM-based coding agents to acquire domain-specific capabilities from third-party packages, but they also introduce a new supply-chain attack surface. We present PhantomSkill, an attack framework that hides malicious behavior in a skill's auxiliary resources rather than in its textual description. Its core technique, VulMask, rewrites overt malicious scripts into vulnerability-shaped implementations whose malicious behavior is activated only under attacker-controlled trigger conditions. This design shifts the visible signal from explicit malicious intent to ordinary-looking insecure code. Across representative host skills, attack goals, coding agents, generation models, and automated reviewers, VulMask preserves benign utility while reducing warning and malware-level detection compared with overt malicious scripts. Our results show that skill ecosystems require resource-level vetting, execution-time containment, and security policies that treat exploitable vulnerabilities in agent skills as potential malicious payloads.",
+      "authors": [
+        "Yu-Ting Lin",
+        "Chia-Mu Yu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-17T15:33:41+00:00",
+      "link": "https://arxiv.org/pdf/2606.19191v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Malicious code injection in agent skill ecosystems via vulnerability-shaped code",
+      "llm_evidence_cn": "通过漏洞形状代码在agent技能生态中注入恶意代码",
+      "llm_evidence": "通过漏洞形状代码在agent技能生态中注入恶意代码",
+      "canonical_evidence": "通过漏洞形状代码在agent技能生态中注入恶意代码",
+      "llm_tldr_en": "Presents PhantomSkill, an attack hiding malicious behavior in agent skill auxiliary resources using vulnerability-shaped code that activates under triggers.",
+      "llm_tldr_cn": "该论文提出PhantomSkill攻击框架，针对agent技能生态系统，通过VulMask技术将恶意代码伪装成普通漏洞形状的代码，仅在触发条件下激活恶意行为。该攻击能绕过现有基于文本的检测。实验表明对多种agent和检测器有效，揭示了技能供应链的严重安全风险。",
+      "llm_tldr": "该论文提出PhantomSkill攻击框架，针对agent技能生态系统，通过VulMask技术将恶意代码伪装成普通漏洞形状的代码，仅在触发条件下激活恶意行为。该攻击能绕过现有基于文本的检测。实验表明对多种agent和检测器有效，揭示了技能供应链的严重安全风险。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.16710v1",
+      "source": "arxiv",
+      "title": "Misinformation Propagation in Benign Multi-Agent Systems",
+      "abstract": "Multi-agent systems, in which multiple large language model agents solve problems through turn-based interaction, are increasingly deployed in high-stakes settings such as medical diagnosis, legal analysis, and forensic decision-making. Their reliability can be at risk when single agents reason from incorrect or misleading context, e.g., from tool calls, since errors may propagate through agent interactions. This work studies this risk by injecting intent-based misinformation into benign single-agent and multi-agent systems across reasoning, knowledge, and alignment tasks. We find that misinformation can degrade single-agent performance and persists across multi-agent debate, with agents often retaining answers introduced by misinformed peers. Nevertheless, multi-agent debate reduces the resulting performance degradation compared to single-agent prompting, especially when most agents are not exposed to misinformation. Robustness depends on group composition and decision protocol. Consensus can be more stable than voting under peer pressure, while majorities can often steer misinformed agents back toward correct answers. Our results show that misinformation robustness in multi-agent systems depends on the underlying model and also on how agents exchange information and aggregate decisions.",
+      "authors": [
+        "Jonas Becker",
+        "Jan Philip Wahle",
+        "Terry Ruas",
+        "Bela Gipp"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.CL"
+      ],
+      "published": "2026-06-15T13:40:01+00:00",
+      "link": "https://arxiv.org/pdf/2606.16710v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Study of misinformation propagation as a security risk in multi-agent systems",
+      "llm_evidence_cn": "研究多智能体系统中错误信息传播的安全风险",
+      "llm_evidence": "研究多智能体系统中错误信息传播的安全风险",
+      "canonical_evidence": "研究多智能体系统中错误信息传播的安全风险",
+      "llm_tldr_en": "Investigates how misinformation propagates in multi-agent systems, degrading reliability and posing security risks in high-stakes settings.",
+      "llm_tldr_cn": "针对多智能体系统在高风险场景下的可靠性问题，本文通过注入意图性错误信息，研究其传播对单智能体和多智能体系统的影响，发现错误信息会持续存在并影响智能体决策，威胁系统安全。",
+      "llm_tldr": "针对多智能体系统在高风险场景下的可靠性问题，本文通过注入意图性错误信息，研究其传播对单智能体和多智能体系统的影响，发现错误信息会持续存在并影响智能体决策，威胁系统安全。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.18467v1",
+      "source": "arxiv",
+      "title": "ToolChain-CRC: Conformal Risk Control for Agentic AI Under Retrieval and Tool-Use Drift",
+      "abstract": "Modern AI agents retrieve documents, call tools, check intermediate information, and then produce a final answer or action. This creates a risk-control problem that is not visible from the final answer alone. A final response may look acceptable even when the retrieval was weak, a tool output was wrong, or an earlier step was unsupported. We propose ToolChain-CRC, a conformal risk-control method for retrieval-augmented and tool-using agents under drift. The method treats each agent run as a full trajectory of actions, observations, and final output. It builds step-level risk scores, combines them into a trajectory risk score, calibrates an accept-or-intervene rule, and adds an anytime alarm that can stop risky runs before the final answer. We prove trajectory-level risk control under exchangeable calibration runs, give a drift-aware extension with auditable constants, and prove an anytime escalation rule through a supermartingale construction. Experiments cover synthetic tool-chain drift, RAG/tool-use stress tests, public SQuAD-derived retrieval tasks, an API-free agentic QA case study, ablations, target-risk sensitivity checks, 20-seed robustness checks, a drift-margin audit, and a live RAG/tool-use agent benchmark. Across these settings, final-answer-only calibration can miss retrieval and tool failures, while trajectory-level calibration keeps accepted-trajectory risk below the target.",
+      "authors": [
+        "Jeffery Opoku",
+        "David Banahene"
+      ],
+      "primary_category": "stat.ML",
+      "categories": [
+        "stat.ML",
+        "cs.LG"
+      ],
+      "published": "2026-06-16T20:27:37+00:00",
+      "link": "https://arxiv.org/pdf/2606.18467v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "proposes conformal risk control method for agentic AI, enabling agent-based security analysis by monitoring trajectories",
+      "llm_evidence_cn": "提出针对智能体AI的置信风险控制方法，支持基于智能体的安全分析",
+      "llm_evidence": "提出针对智能体AI的置信风险控制方法，支持基于智能体的安全分析",
+      "canonical_evidence": "提出针对智能体AI的置信风险控制方法，支持基于智能体的安全分析",
+      "llm_tldr_en": "Proposes ToolChain-CRC, a conformal risk-control method for retrieval-augmented and tool-using agents under drift, using step-level risk scores and anytime alarms.",
+      "llm_tldr_cn": "现代AI智能体在检索文档、调用工具时产生隐蔽风险。本文提出ToolChain-CRC，一种保形风险控制方法，将每次智能体运行视为完整轨迹，构建步骤级风险评分并组合，校准接受或干预规则，并添加随时报警机制。该方法有助于在智能体执行过程中及早发现并阻止危险行为，提升安全分析能力。",
+      "llm_tldr": "现代AI智能体在检索文档、调用工具时产生隐蔽风险。本文提出ToolChain-CRC，一种保形风险控制方法，将每次智能体运行视为完整轨迹，构建步骤级风险评分并组合，校准接受或干预规则，并添加随时报警机制。该方法有助于在智能体执行过程中及早发现并阻止危险行为，提升安全分析能力。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.17203v1",
+      "source": "arxiv",
+      "title": "Trust-Aware Multi-Agent Traceability: Confidence-Calibrated Knowledge Graphs for Consistent Software Artifact Management",
+      "abstract": "Multi-agent AI systems are increasingly used to automate software engineering tasks including requirements analysis, architecture design, test generation, and traceability linking. When these agents operate as a sequential pipeline over shared software artifacts, errors and low-confidence decisions made by upstream agents propagate to downstream stages, producing orphaned requirements, contradictory links, and compliance gaps that pose significant risks in safety-critical domains. We propose a trust-aware coordination framework where a shared knowledge graph serves as both centralized semantic memory and a coordination surface through which agents assess and build upon each other's contributions using calibrated confidence scores. Our approach introduces a two-stage traceability link prediction pipeline combining embedding-based retrieval with LLM-based multi-criteria analysis, a traceability seeding mechanism that enables comparison between derivation-time and validation-time confidence, and a consistency protocol governing pipeline interactions through confidence threshold gating, confidence divergence detection, and conflict resolution. We evaluate on an automotive software engineering case study measuring link prediction calibration, protocol effectiveness, threshold sensitivity, and the impact of traceability seeding. Ablation studies confirm that confidence calibration is essential for effective pipeline coordination.",
+      "authors": [
+        "Mohamed Essam",
+        "Kareem Wael",
+        "Azza Hassan",
+        "Ahmed Haitham",
+        "Mahmoud Soliman",
+        "Samer Saber",
+        "Ibrahim Habib"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.AI"
+      ],
+      "published": "2026-06-15T18:41:50+00:00",
+      "link": "https://arxiv.org/pdf/2606.17203v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multi-agent system security vulnerabilities via trust-aware coordination",
+      "llm_evidence_cn": "多智能体系统安全漏洞的信任感知协调",
+      "llm_evidence": "多智能体系统安全漏洞的信任感知协调",
+      "canonical_evidence": "多智能体系统安全漏洞的信任感知协调",
+      "llm_tldr_en": "Proposes a trust-aware framework using knowledge graphs to mitigate error propagation in multi-agent software engineering, relevant to security of multi-agent systems.",
+      "llm_tldr_cn": "该论文针对多智能体系统在软件工程中错误传播导致的安全合规问题，提出一种信任感知的协调框架，利用共享知识图谱作为语义记忆和协调界面，使智能体能够评估彼此贡献的可信度，从而减少错误传递带来的漏洞风险，虽然不直接挖掘漏洞，但为多智能体系统安全提供了重要方法。",
+      "llm_tldr": "该论文针对多智能体系统在软件工程中错误传播导致的安全合规问题，提出一种信任感知的协调框架，利用共享知识图谱作为语义记忆和协调界面，使智能体能够评估彼此贡献的可信度，从而减少错误传递带来的漏洞风险，虽然不直接挖掘漏洞，但为多智能体系统安全提供了重要方法。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.18996v1",
+      "source": "arxiv",
+      "title": "TRAP: Benchmark for Task-completion and Resistance to Active Privacy-extraction",
+      "abstract": "Agents are increasingly deployed in document-intensive workflows where sensitive private information is not an edge case but a routine input, e.g., an agent booking a flight needs passport numbers. In such settings, the agent must use private information to complete tasks accurately while never exposing it in its responses, because it cannot verify who is actually at the keyboard. These two obligations are in fundamental tension. A model capable enough to use private information for task completion can, by the same capability, be induced to reveal it. To evaluate the trade-off of task accuracy and privacy leakage, we introduce Task-completion and Resistance to Active Privacy-extraction (TRAP). Each scenario includes a document containing private information, a task query that requires the agent to invoke the correct tool using private fields, and an attack query that attempts to elicit the same information in natural language. Evaluating 22 models spanning frontier proprietary and open-source models at multiple scales, we find that all model families exhibit non-trivial leakage, and that instruction-following ability correlates with leakage rate. Existing prompt-based defenses reduce leakage but at significant cost to task accuracy. Prompt optimization fails to escape this trade-off. We demonstrate that this failure is not incidental. For any softmax-based model, no soft-constraint defense, e.g., prompt-based defenses, can jointly achieve high task success with zero leakage probability. Motivated by this impossibility result, we propose structural private field isolation, which replaces private fields with hash keys before they reach the model. This approach largely prevents leakage while keeping task accuracy.",
+      "authors": [
+        "Moon Ye-Bin",
+        "Nam Hyeon-Woo",
+        "Baek Seong-Eun",
+        "Yejin Yeo",
+        "Tae-Hyun Oh"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-17T12:17:02+00:00",
+      "link": "https://arxiv.org/pdf/2606.18996v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "TRAP benchmark evaluating privacy-extraction risks in autonomous agent systems",
+      "llm_evidence_cn": "TRAP基准测试评估自主智能体系统的隐私提取风险",
+      "llm_evidence": "TRAP基准测试评估自主智能体系统的隐私提取风险",
+      "canonical_evidence": "TRAP基准测试评估自主智能体系统的隐私提取风险",
+      "llm_tldr_en": "TRAP benchmark evaluates the trade-off between task accuracy and privacy leakage in agentic systems, revealing vulnerabilities to active privacy extraction.",
+      "llm_tldr_cn": "针对智能体在文档密集型工作流中既需使用隐私信息又需防止泄露的矛盾，TRAP基准测试通过设计包含隐私文档的任务场景，评估智能体在任务完成与抵抗主动隐私提取之间的权衡，揭示了现有智能体在隐私保护方面存在的安全漏洞。",
+      "llm_tldr": "针对智能体在文档密集型工作流中既需使用隐私信息又需防止泄露的矛盾，TRAP基准测试通过设计包含隐私文档的任务场景，评估智能体在任务完成与抵抗主动隐私提取之间的权衡，揭示了现有智能体在隐私保护方面存在的安全漏洞。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
