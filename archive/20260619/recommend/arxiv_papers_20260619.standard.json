@@ -1,0 +1,487 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-19T20:28:47.815045+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 7,
+    "quick_skim_target": 11,
+    "quick_selected": 7
+  },
+  "deep_dive": [
+    {
+      "id": "2606.20023v1",
+      "source": "arxiv",
+      "title": "When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents",
+      "abstract": "As LLM agents increasingly select tools autonomously, their choices among tools with different privileges become safety-relevant. However, prior tool-selection studies focus on safety-agnostic metadata preferences, leaving privilege-sensitive choices underexplored. To address this gap, we study over-privileged tool selection, in which an agent selects or escalates to a higher-privilege tool despite a sufficient lower-privilege alternative. We introduce ToolPrivBench to evaluate whether agents choose higher-privilege tools despite sufficient lower-privilege alternatives, measuring both initial selection and escalation after transient tool failures. Across eight domains and five recurring risk patterns, we find that over-privileged tool selection is common among mainstream LLM agents and is further amplified by transient failures. We further find that general safety alignment does not reliably transfer to least-privilege tool choice, while prompt-level controls provide only limited mitigation under transient failures. We therefore introduce a privilege-aware post-training defense that teaches agents to prefer sufficient lower-privilege tools and escalate only when necessary. Our mitigation experiments show that this defense substantially reduces unnecessary high-privilege tool use while preserving general capabilities.",
+      "authors": [
+        "Kaiyue Yang",
+        "Yuyan Bu",
+        "Jingwei Yi",
+        "Yuchi Wang",
+        "Biyu Zhou",
+        "Juntao Dai",
+        "Songlin Hu",
+        "Yaodong Yang"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-06-18T09:54:48+00:00",
+      "link": "https://arxiv.org/pdf/2606.20023v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "over-privileged tool selection vulnerability in LLM agents",
+      "llm_evidence_cn": "LLM代理中的过度权限工具选择漏洞",
+      "llm_evidence": "LLM代理中的过度权限工具选择漏洞",
+      "canonical_evidence": "LLM代理中的过度权限工具选择漏洞",
+      "llm_tldr_en": "Investigates over-privileged tool selection in LLM agents, introduces ToolPrivBench, finds agents frequently escalate to higher-privilege tools despite sufficient lower-privilege alternatives.",
+      "llm_tldr_cn": "本文研究LLM代理中的过度权限工具选择问题，即代理在有足够低权限工具的情况下仍选择或升级到高权限工具。构建了ToolPrivBench基准，涵盖八个领域和五种风险模式。实验发现LLM代理普遍存在过度权限行为，且会在工具临时故障后进一步升级权限。该工作揭示了LLM代理工具选择中的安全风险，为安全对齐提供了新视角。",
+      "llm_tldr": "本文研究LLM代理中的过度权限工具选择问题，即代理在有足够低权限工具的情况下仍选择或升级到高权限工具。构建了ToolPrivBench基准，涵盖八个领域和五种风险模式。实验发现LLM代理普遍存在过度权限行为，且会在工具临时故障后进一步升级权限。该工作揭示了LLM代理工具选择中的安全风险，为安全对齐提供了新视角。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.20408v1",
+      "source": "arxiv",
+      "title": "LLM agent safety, multi-turn red-teaming, jailbreak benchmarks, adversarial robustness, safety-critical systems",
+      "abstract": "Large language model (LLM) agents are increasingly proposed as supervisory components for safety-critical systems, yet their robustness under sustained, adaptive adversarial pressure remains poorly characterized. We present NRT-Bench, a benchmark for multi-turn red-teaming of LLM agents acting as operators of a safety-critical system, instantiated in a simulated nuclear power plant control room. A five-role operator team, each backed by a configurable LLM, runs a plant governed by six critical safety functions (CSFs), while adversaries inject messages over four channels in bounded multi-turn sessions with per-turn feedback. Harm is an objective signal rather than LLM-judged text: a run terminates the moment any CSF is lost, attributed to the causing message. Evaluating four frontier operator models under a fixed-attack paired-replay protocol, we find that adaptive multi-turn attacks reliably push the operator team past a safety limit: across the four models, between 8.7% and 12.1% of attack sessions end with the plant losing a critical safety function. Although the four models look almost equally robust by this aggregate rate, their failures barely overlap: of $149$ sessions, none defeat all four models while a third defeat at least one, so vulnerabilities are nearly disjoint across models rather than nested. The effect of added defences is strongly model-dependent: the same guardrail stack or safety-advisor agent that lowers attack success for one model can raise it for another. We release the simulation venue, attack dataset, and replay tooling for reproducible safety evaluation of LLM agents.",
+      "authors": [
+        "Hanwool Lee",
+        "Dasol Choi",
+        "Bokyeong Kim",
+        "Seung Geun Kim",
+        "Haon Park"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-18T15:57:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.20408v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "multi-turn red-teaming benchmark for LLM agent safety in safety-critical systems",
+      "llm_evidence_cn": "针对安全关键系统中LLM代理安全性的多轮红队基准",
+      "llm_evidence": "针对安全关键系统中LLM代理安全性的多轮红队基准",
+      "canonical_evidence": "针对安全关键系统中LLM代理安全性的多轮红队基准",
+      "llm_tldr_en": "Presents NRT-Bench, a multi-turn red-teaming benchmark for LLM agents in a simulated nuclear plant, measuring safety under sustained adversarial attacks.",
+      "llm_tldr_cn": "本文针对LLM代理在安全关键系统中的鲁棒性提出了NRT-Bench基准。在模拟核电站控制室中，五角色操作团队由可配置LLM驱动，敌手通过四个通道注入消息进行多轮攻击。以客观安全信号（而非LLM评判）终止运行。实验评估了不同LLM在持续对抗压力下的表现，发现安全风险随攻击轮次增加而显著上升。该基准为衡量LLM代理在高风险环境下的安全性提供了标准化测试。",
+      "llm_tldr": "本文针对LLM代理在安全关键系统中的鲁棒性提出了NRT-Bench基准。在模拟核电站控制室中，五角色操作团队由可配置LLM驱动，敌手通过四个通道注入消息进行多轮攻击。以客观安全信号（而非LLM评判）终止运行。实验评估了不同LLM在持续对抗压力下的表现，发现安全风险随攻击轮次增加而显著上升。该基准为衡量LLM代理在高风险环境下的安全性提供了标准化测试。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.18325v2",
+      "source": "arxiv",
+      "title": "Agentra: A Supervisable Multi-Agent Framework for Enterprise Intrusion Response",
+      "abstract": "Enterprise intrusion response still depends on static playbooks and analyst-driven triage, creating delay between alert generation and containment. We present Agentra, a supervisable multi-agent Intrusion Response System (IRS) framework that converts alerts from IDS, EDR, and XDR platforms into structured incident response plans grounded in MITRE ATT&CK, MITRE D3FEND, and NIST CSF 2.0. Agentra decomposes response reasoning across role-scoped agents, validates proposed plans through a bounded Planner--Validator review loop, screens retrieved threat intelligence through a Moderator security gateway, gates actions through an Action Catalog and risk score, and records decisions in an append-only audit log. We evaluate Agentra against a static OASIS CACAO v2.0 cyber-playbook baseline on a 120-event corpus drawn from ThreatHunter-Playbook, Splunk BOTSv3, and DARPA OpTC. The strongest configuration improves FP-aware IRS F1 from 0.61 to 0.84 and restores the projected harmful-action rate to the static baseline level of 0.0% after Planner-only configurations introduce unsafe overreaction. These results indicate that multi-agent response planning can improve ontology-grounded IRS coverage while preserving analyst approval and auditability.",
+      "authors": [
+        "Raj Patel",
+        "Shaswata Mitra",
+        "Michele Guida",
+        "Stefano Iannucci",
+        "Sudip Mittal",
+        "Shahram Rahimi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-16T17:17:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.18325v2",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multi-agent intrusion response system for security",
+      "llm_evidence_cn": "基于多代理的企业入侵响应框架",
+      "llm_evidence": "基于多代理的企业入侵响应框架",
+      "canonical_evidence": "基于多代理的企业入侵响应框架",
+      "llm_tldr_en": "Agentra is a supervisable multi-agent framework that converts security alerts into structured incident response plans, using role-scoped agents, validation loops, and audit logs for enterprise intrusion response.",
+      "llm_tldr_cn": "针对企业入侵响应依赖静态剧本和人工分析导致延迟的问题，提出Agentra框架，基于多代理系统将IDS/EDR/XDR告警转化为结构化的应急响应计划，通过角色分派、规划-验证循环和安全网关等机制，实现可监督的自动化响应。评估表明其有效性与可审计性，提升了响应速度与可靠性。",
+      "llm_tldr": "针对企业入侵响应依赖静态剧本和人工分析导致延迟的问题，提出Agentra框架，基于多代理系统将IDS/EDR/XDR告警转化为结构化的应急响应计划，通过角色分派、规划-验证循环和安全网关等机制，实现可监督的自动化响应。评估表明其有效性与可审计性，提升了响应速度与可靠性。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.19390v1",
+      "source": "arxiv",
+      "title": "Execution-bound advisory automation for agentic AI: a reproducible AIBOM-driven CSAF-VEX framework",
+      "abstract": "A protocol driven framework is presented that binds SBOM and AIBOM artefacts to deterministic environment capture and structured runtime telemetry. Exploitability is computed from declared artefacts, observed activation conditions, and enforced execution policies. CSAF VEX advisories are generated from combined static and runtime evidence, cryptographically signed, and validated through deterministic replay. Evaluation uses approximately 10000 component entries across synthetic Agentic AI workloads 50 to 5000 components, incorporating OSV, GitHub Advisory, KEV, and EPSS datasets.",
+      "authors": [
+        "Petar Radanliev",
+        "Omar Santos",
+        "Carsten Maple",
+        "Kay Atefi"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.AI"
+      ],
+      "published": "2026-06-16T11:42:42+00:00",
+      "link": "https://arxiv.org/pdf/2606.19390v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "automated vulnerability disclosure generation for agentic AI using AIBOM",
+      "llm_evidence_cn": "基于AIBOM的agentic AI自动化漏洞披露生成",
+      "llm_evidence": "基于AIBOM的agentic AI自动化漏洞披露生成",
+      "canonical_evidence": "基于AIBOM的agentic AI自动化漏洞披露生成",
+      "llm_tldr_en": "Presents a reproducible framework that binds AIBOM artefacts to runtime telemetry, computes exploitability, and generates CSAF VEX advisories for agentic AI.",
+      "llm_tldr_cn": "Agentic AI系统的漏洞管理缺乏结构化且可再现的流程。本文提出一个协议驱动框架，将SBOM和AIBOM工件与运行时遥测绑定，根据声明工件、激活条件和执行策略计算可利用性，自动生成CSAF VEX安全公告。在包含上万组件的合成工作负载上验证了框架的可扩展性和准确性，为agentic AI提供了自动化的漏洞挖掘与验证手段。",
+      "llm_tldr": "Agentic AI系统的漏洞管理缺乏结构化且可再现的流程。本文提出一个协议驱动框架，将SBOM和AIBOM工件与运行时遥测绑定，根据声明工件、激活条件和执行策略计算可利用性，自动生成CSAF VEX安全公告。在包含上万组件的合成工作负载上验证了框架的可扩展性和准确性，为agentic AI提供了自动化的漏洞挖掘与验证手段。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "vulnerability mining agent techniques",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.20470v1",
+      "source": "arxiv",
+      "title": "Analyzing Defensive Misdirection Against Model-Guided Automated Attacks on Agentic AI Systems",
+      "abstract": "Agentic AI systems increasingly rely on language-model components to interpret instructions, process external data, invoke tools, and coordinate with other agents. These capabilities make prompt-injection and jailbreak attacks more consequential, especially as attackers adopt model-guided automation to scale probing, prompt refinement, and response evaluation. This work analyzes the resulting attack-defense setting through a probabilistic model of a target system, its defense mechanism, and the attacker's automated judge. Our analysis shows that conventional detect-and-block defenses can allow attacker success rate (ASR) to approach one as the query budget grows, since predictable refusals provide useful feedback to automated search. We then examine detect-and-misdirect, where detected malicious interactions receive controlled, non-operational responses designed to induce false-positive errors in the attacker's judge. This strategy reduces the positive predictive value of attacker-selected candidates and yields a bounded asymptotic ASR. We evaluate a proof-of-concept realization of this strategy through Contextual Misdirection via Progressive Engagement (CMPE), a lightweight conversational misdirection method designed to replace predictable refusal text with safe but strategically misleading responses in automated jailbreak settings. On jailbreak benchmarks, CMPE reduces estimated ASR upper bounds by up to two orders of magnitude and nearly eliminates verified attack success in end-to-end PAIR and GPTFuzz attack runs.",
+      "authors": [
+        "Reza Soosahabi",
+        "Vivek Namsani"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-18T16:50:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.20470v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "analyzes attack-defense setting for model-guided automated attacks on agentic AI systems",
+      "llm_evidence_cn": "分析针对智能体AI系统的模型引导自动攻击的攻防设置",
+      "llm_evidence": "分析针对智能体AI系统的模型引导自动攻击的攻防设置",
+      "canonical_evidence": "分析针对智能体AI系统的模型引导自动攻击的攻防设置",
+      "llm_tldr_en": "This work models automated attacks on agentic AI and shows detect-and-block defenses can fail, allowing attacker success rate to approach one.",
+      "llm_tldr_cn": "智能体AI系统易受提示注入和越狱攻击，尤其是攻击者采用模型引导自动化时。本文通过概率模型分析目标系统、防御和攻击者自动评判器之间的交互，发现传统检测-阻止防御在查询预算足够时允许攻击成功率趋近于1，因为可预测的拒绝为自动化搜索提供反馈。需要误导等更复杂的防御策略。",
+      "llm_tldr": "智能体AI系统易受提示注入和越狱攻击，尤其是攻击者采用模型引导自动化时。本文通过概率模型分析目标系统、防御和攻击者自动评判器之间的交互，发现传统检测-阻止防御在查询预算足够时允许攻击成功率趋近于1，因为可预测的拒绝为自动化搜索提供反馈。需要误导等更复杂的防御策略。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.19242v1",
+      "source": "arxiv",
+      "title": "Runtime Compliance Verification for AI Agents",
+      "abstract": "AI agents now handle personal data through tool use, function calls, and multi turn dialogue, which can create obligations under the General Data Protection Regulation (GDPR). Current testing practices mainly rely on offline red teaming or static prompt review, but they do not guarantee at runtime that agent behavior follows regulatory rules. We propose C-Trace (Compliance Trace based Runtime Agent Conformance Enforcement), a verification framework that: (i) expresses a subset of GDPR requirements, including consent, purpose limitation, data minimization, and the right to erasure, as formal policy predicates over agent execution traces; (ii) uses a runtime monitor that intercepts every tool invocation and model output and rejects non-compliant actions; and (iii) tests the agent with attack dialogues, including DSPy generated prompts and verbatim prompts from red teaming corpora, that try to induce violations. We evaluate the framework on four case studies reframed to GDPR. Under 10 percent per-category extractor noise, including drop-out and over-typing, the monitor keeps the attack success rate at less than or equal to 12 percent, below the baselines we compare against, and false positives at less than or equal to 16 percent, and reaches 0 percent ASR under perfect extraction.",
+      "authors": [
+        "Nafiseh Kahani",
+        "Masoud Barati",
+        "Diana Addae"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE"
+      ],
+      "published": "2026-06-17T16:22:34+00:00",
+      "link": "https://arxiv.org/pdf/2606.19242v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "agent-based security analysis via runtime compliance verification",
+      "llm_evidence_cn": "通过运行时合规性验证进行基于智能体的安全分析",
+      "llm_evidence": "通过运行时合规性验证进行基于智能体的安全分析",
+      "canonical_evidence": "通过运行时合规性验证进行基于智能体的安全分析",
+      "llm_tldr_en": "Proposes C-Trace, a runtime verification framework ensuring AI agents comply with GDPR rules, intercepting non-compliant actions.",
+      "llm_tldr_cn": "针对AI智能体在处理个人数据时可能违反GDPR规定的问题，本文提出C-Trace运行时合规验证框架。该框架将GDPR要求形式化为策略谓词，通过运行时监控器拦截每个工具调用和模型输出，拒绝不合规行为。实验表明C-Trace能有效检测并阻止违规操作，为智能体监管合规提供了可靠的解决方案。",
+      "llm_tldr": "针对AI智能体在处理个人数据时可能违反GDPR规定的问题，本文提出C-Trace运行时合规验证框架。该框架将GDPR要求形式化为策略谓词，通过运行时监控器拦截每个工具调用和模型输出，拒绝不合规行为。实验表明C-Trace能有效检测并阻止违规操作，为智能体监管合规提供了可靠的解决方案。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.13621v1",
+      "source": "arxiv",
+      "title": "Beyond Runtime Enforcement: Shield Synthesis as Defensibility Analysis for Adversarial Networks",
+      "abstract": "Shielded reinforcement learning is typically presented as a runtime safety mechanism that compiles temporal-logic specifications into automata restricting an agent's actions. We argue this is the wrong product. The same automata-theoretic machinery -- specification compilation, product game construction, attractor computation, and winning-region extraction -- is better read as a design-time analytical instrument whose outputs are structural insights about a system rather than runtime constraints on a deployed agent.   We instantiate this through a constrained two-player safety game for network defense. The two specifications are enforced asymmetrically: the defender specification defines the unsafe region of the game, whereas the attacker specification restricts the adversary's legal actions during attractor computation. Solving the game yields a defensibility verdict -- a formal certificate that a topology-specification pair is or is not defensible -- with the associated winning region and shield.   Beyond the binary verdict, we derive topology-level metrics from the attractor structure and combine them with post-convergence behavior from shield-constrained adversarial multi-agent reinforcement learning. Together these form a defensibility fingerprint capturing both a network's formal safety properties and its operational behavior under adaptive play.   A what-if analysis shows that formal defensibility and operational effectiveness capture distinct aspects of security: small architectural changes can produce large shifts in operational outcomes while leaving formal safety margins nearly unchanged. Shield synthesis is thus most valuable not as a deployment mechanism for safe agents, but as a framework for answering architectural questions about whether, where, and how a system can be defended. The defensibility verdict is the output, not the safe policy.",
+      "authors": [
+        "Achraf Hsain",
+        "Sultan Almuhammadi"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR",
+        "cs.GT",
+        "cs.LG",
+        "cs.MA"
+      ],
+      "published": "2026-06-11T17:35:40+00:00",
+      "link": "https://arxiv.org/pdf/2606.13621v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "shield synthesis design-time analysis for network defense agents",
+      "llm_evidence_cn": "面向网络防御代理的盾牌合成设计时分析",
+      "llm_evidence": "面向网络防御代理的盾牌合成设计时分析",
+      "canonical_evidence": "面向网络防御代理的盾牌合成设计时分析",
+      "llm_tldr_en": "This paper reinterprets shield synthesis as a design-time analytical tool for defensibility, using a two-player safety game for network defense agents.",
+      "llm_tldr_cn": "现有盾牌强化学习将盾牌合成视为运行时安全机制。本文重新诠释为设计时分析工具，通过约束两人安全博弈提取系统结构洞察，并应用于网络防御场景。该方法提供了超越运行时约束的深层安全见解。",
+      "llm_tldr": "现有盾牌强化学习将盾牌合成视为运行时安全机制。本文重新诠释为设计时分析工具，通过约束两人安全博弈提取系统结构洞察，并应用于网络防御场景。该方法提供了超越运行时约束的深层安全见解。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.19380v1",
+      "source": "arxiv",
+      "title": "AgentArmor: A Framework, Evaluation, \\& Mitigation of Coding Agent Failures",
+      "abstract": "Software engineering and deployment are increasingly being delegated to AI coding agents. The scale of their adoption is surfacing rare, but highly destructive, failure modes. In this paper, we study these failure modes as stemming from three distinct mechanisms: underspecification, where default model behavior is unsafe; capability errors, where the safe action is available but the model does not adhere to it due to bias or capability limitations; and agent harness errors, where the model fails to execute the safe action through the harness. We evaluate these across 8 different evaluations, each inspired by real-life deployment failures, totaling 20 coding environments and 59 synthetic transcript templates. Based on this evaluation, we propose AgentArmor, an agent harness modification, to mitigate these errors. By adding an extended system prompt, a separate command classifier, a ``3 strikes'' policy, deterministic guardrails, and tools for the agent to edit its own context, we show that AgentArmor is safer across a statistically significant number of samples. Thus, we suggest concrete mitigations for current coding agents and a design philosophy for future agent harness features.",
+      "authors": [
+        "Kenneth Ge",
+        "Andre Assis"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.LG"
+      ],
+      "published": "2026-06-13T18:29:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.19380v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "framework for evaluating and mitigating coding agent failures including security-relevant underspecification",
+      "llm_evidence_cn": "编码智能体失败模式框架，包括与安全相关的未明确规范",
+      "llm_evidence": "编码智能体失败模式框架，包括与安全相关的未明确规范",
+      "canonical_evidence": "编码智能体失败模式框架，包括与安全相关的未明确规范",
+      "llm_tldr_en": "AgentArmor identifies three failure mechanisms in coding agents: underspecification, capability errors, and harness errors, and proposes mitigations.",
+      "llm_tldr_cn": "AI编码智能体部署带来罕见但破坏性的失败模式。本文从三个机制分类：未明确规范（默认行为不安全）、能力错误（模型未执行安全行为）和框架错误（框架未执行安全行为）。在8种评估、20个编码环境和59个合成模板中评估，并提出了针对每种机制的缓解建议。",
+      "llm_tldr": "AI编码智能体部署带来罕见但破坏性的失败模式。本文从三个机制分类：未明确规范（默认行为不安全）、能力错误（模型未执行安全行为）和框架错误（框架未执行安全行为）。在8种评估、20个编码环境和59个合成模板中评估，并提出了针对每种机制的缓解建议。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.18996v2",
+      "source": "arxiv",
+      "title": "TRAP: Benchmark for Task-completion and Resistance to Active Privacy-extraction",
+      "abstract": "Agents are increasingly deployed in document-intensive workflows where sensitive private information is not an edge case but a routine input, e.g., an agent booking a flight needs passport numbers. In such settings, the agent must use private information to complete tasks accurately while never exposing it in its responses, because it cannot verify who is actually at the keyboard. These two obligations are in fundamental tension. A model capable enough to use private information for task completion can, by the same capability, be induced to reveal it. To evaluate the trade-off of task accuracy and privacy leakage, we introduce Task-completion and Resistance to Active Privacy-extraction (TRAP). Each scenario includes a document containing private information, a task query that requires the agent to invoke the correct tool using private fields, and an attack query that attempts to elicit the same information in natural language. Evaluating 22 models spanning frontier proprietary and open-source models at multiple scales, we find that all model families exhibit non-trivial leakage, and that instruction-following ability correlates with leakage rate. Existing prompt-based defenses reduce leakage but at significant cost to task accuracy. Prompt optimization fails to escape this trade-off. We demonstrate that this failure is not incidental. For any softmax-based model, no soft-constraint defense, e.g., prompt-based defenses, can jointly achieve high task success with zero leakage probability. Motivated by this impossibility result, we propose structural private field isolation, which replaces private fields with hash keys before they reach the model. This approach largely prevents leakage while keeping task accuracy.",
+      "authors": [
+        "Moon Ye-Bin",
+        "Nam Hyeon-Woo",
+        "Baek Seong-Eun",
+        "Yejin Yeo",
+        "Tae-Hyun Oh"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-17T12:17:02+00:00",
+      "link": "https://arxiv.org/pdf/2606.18996v2",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "benchmark for agent privacy-extraction resistance",
+      "llm_evidence_cn": "评估代理隐私提取抵抗力的基准",
+      "llm_evidence": "评估代理隐私提取抵抗力的基准",
+      "canonical_evidence": "评估代理隐私提取抵抗力的基准",
+      "llm_tldr_en": "TRAP is a benchmark that evaluates the trade-off between task accuracy and privacy leakage in agents, using document-intensive scenarios where private information must be used but not exposed.",
+      "llm_tldr_cn": "代理在文档密集型工作流中常处理敏感隐私信息，但必须在完成任务的同时防止泄露，两者存在根本矛盾。提出TRAP基准，通过包含隐私文档的场景评估代理在任务精度和隐私抵抗之间的权衡。实验揭示了当前代理在隐私保护方面的不足。",
+      "llm_tldr": "代理在文档密集型工作流中常处理敏感隐私信息，但必须在完成任务的同时防止泄露，两者存在根本矛盾。提出TRAP基准，通过包含隐私文档的场景评估代理在任务精度和隐私抵抗之间的权衡。实验揭示了当前代理在隐私保护方面的不足。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.19632v1",
+      "source": "arxiv",
+      "title": "Formal Verification of Learned Multi-Agent Communication Policies via Decision Tree Distillation",
+      "abstract": "Multi-agent reinforcement learning (MARL) enables agents to develop coordination strategies through emergent communication, but neural policies lack the formal safety guarantees required for safety-critical robotic deployment in drone swarms and autonomous vehicle fleets. We present the first end-to-end framework for safety verification of learned multi-agent communication policies through policy abstraction: neural policies are distilled into interpretable decision trees, then formally verified, with empirical validation confirming that verified safety properties transfer to original networks. Our four-stage pipeline consists of domain-specific feature extraction from agent observations, decision tree distillation achieving 97.9% +/- 1.2% fidelity to neural policies, automated translation to PRISM probabilistic model checker specifications with complete feature-to-state-variable correspondence, and compositional verification of Probabilistic Computation Tree Logic (PCTL) properties via pairwise decomposition with union-bound aggregation and empirical neighbor modeling. Evaluating Vector-Quantized Variational Information Bottleneck (VQ-VIB) policies for multi-drone coordination with 5-7 agents, we verify 18 temporal logic properties across safety, liveness, and cooperation, achieving 88.9% property satisfaction with all five safety thresholds satisfied (0.3% collision probability vs. 1% threshold). Monte Carlo validation of original neural policies confirms that verified safety properties transfer with <=0.6 percentage-point deviation (95% CI). Discrete VQ-VIB messages provide +11.6 to +13.6 percentage-point fidelity advantages over continuous methods, enabling 3-4x faster verification. Our framework provides empirically validated safety verification for distilled policy abstractions, serving as a practical bridge between deep MARL and formal safety workflows for multi-robot deployment.",
+      "authors": [
+        "Ahmad Farooq",
+        "Kamran Iqbal"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI",
+        "cs.LG",
+        "cs.LO",
+        "cs.MA"
+      ],
+      "published": "2026-06-17T22:22:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.19632v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "formal verification of multi-agent communication policies for safety",
+      "llm_evidence_cn": "多智能体通信策略的形式化验证保障安全",
+      "llm_evidence": "多智能体通信策略的形式化验证保障安全",
+      "canonical_evidence": "多智能体通信策略的形式化验证保障安全",
+      "llm_tldr_en": "First end-to-end framework for safety verification of learned multi-agent communication policies via decision tree distillation, ensuring formal guarantees.",
+      "llm_tldr_cn": "多智能体强化学习中的通信策略缺乏形式化安全保证，这阻碍了其在无人机集群和自动驾驶等安全关键场景的部署。本文提出首个端到端安全验证框架：将神经策略蒸馏为可解释决策树，然后进行形式化验证。实验证实验证过的安全属性可迁移至原始神经网络。该框架为多智能体系统提供了可证明的安全保障。",
+      "llm_tldr": "多智能体强化学习中的通信策略缺乏形式化安全保证，这阻碍了其在无人机集群和自动驾驶等安全关键场景的部署。本文提出首个端到端安全验证框架：将神经策略蒸馏为可解释决策树，然后进行形式化验证。实验证实验证过的安全属性可迁移至原始神经网络。该框架为多智能体系统提供了可证明的安全保障。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.19464v1",
+      "source": "arxiv",
+      "title": "Deontic Policies for Runtime Governance of Agentic AI Systems",
+      "abstract": "Autonomous agentic AI systems driven by Large Language Models (LLMs) introduce a new class of security, privacy, and compliance challenges: an agent that can invoke tools, manipulate data, install software, and coordinate with peer agents across organizational boundaries must be constrained not just by authentication and access control, but by the full structure of enterprise governance. This includes specifying what agents are permitted and prohibited from doing, what they areobliged to do after certain actions (e.g., notify the CISO), under what conditions a standing obligation may be waived, and which rules take precedence when policies conflict. This governance problem exceeds what current policy engines provide. Systems such as XACML, Rego, and Cedar address only the permit/prohibit subset of this governance structure. They do not provide obligation lifecycle management, meta-policy conflict resolution, dispensations that waive obligations in specific circumstances, and ontological reasoning over domain class hierarchies commonly found in applications such as healthcare, cybersecurity, or data privacy. We propose AgenticRei, which realizes key governance requirements such as obligations, dispensations, policy conflict resolutions, and reasoning over policies, as well as the basic permit/prohibit constraints. We use a deontic policy language built on the Rei framework, expressed as OWL (Web Ontology Language) and evaluated at runtime by a high-performance logic engine entirely outside the LLM. The same pipeline governs both tool invocations by the agent and agent-to-agent messages. We show through examples that deontic policies capture governance constraints around security and privacy that mostly cannot be expressed in current production engines. Our approach composes naturally with industry-standard frameworks like A2AS.",
+      "authors": [
+        "Anupam Joshi",
+        "Tim Finin",
+        "Karuna Pande Joshi",
+        "Lalana Kagal"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-06-17T18:02:07+00:00",
+      "link": "https://arxiv.org/pdf/2606.19464v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "runtime governance policies for agentic AI security",
+      "llm_evidence_cn": "Agentic AI系统运行时安全治理策略",
+      "llm_evidence": "Agentic AI系统运行时安全治理策略",
+      "canonical_evidence": "Agentic AI系统运行时安全治理策略",
+      "llm_tldr_en": "Proposes deontic policies to govern LLM agent actions, addressing security, privacy, and compliance constraints beyond authentication.",
+      "llm_tldr_cn": "现有agent治理仅靠认证和访问控制，无法应对复杂的企业安全与合规要求。本文提出道义策略框架，形式化定义agent的允许、禁止、义务和冲突解决规则，实现运行时治理。该框架可集成到现有策略引擎，为agent安全提供全面约束。",
+      "llm_tldr": "现有agent治理仅靠认证和访问控制，无法应对复杂的企业安全与合规要求。本文提出道义策略框架，形式化定义agent的允许、禁止、义务和冲突解决规则，实现运行时治理。该框架可集成到现有策略引擎，为agent安全提供全面约束。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.20510v1",
+      "source": "arxiv",
+      "title": "Efficient and Sound Probabilistic Verification for AI Agents",
+      "abstract": "Securing AI agents that operate in complex digital environments has become a critical need, and runtime monitoring approaches that formulate and enforce policies expressed in a formal language like Datalog offer a promising solution. However, existing approaches are restricted to deterministic policies. In many practical applications of AI agents, there is a need to enforce security policies in the face of ambiguity, leading to probabilistic predicates or state transitions (for example, a declassifier or Personally Identifiable Information (PII) detector that has some failure probability on each invocation). Furthermore, in many such applications, one cannot easily make the independence assumptions necessary to invoke prior work on probabilistic inference in Datalog. We address this by introducing a sound and efficient framework for such verification based on distributionally robust optimization, computing sound upper bounds on the probability of policy violation regardless of possible correlations between predicates. On standard benchmarks for terminal and tool calling agents, we demonstrate that our approach outperforms prior art and improves the security-utility trade-off while ensuring rigorous bounds on the probability of policy violation.",
+      "authors": [
+        "Alaia Solko-Breslin",
+        "Pramod Kaushik Mudrakarta",
+        "Mihai Christodorescu",
+        "Somesh Jha",
+        "Krishnamurthy Dj Dvijotham"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-18T17:27:59+00:00",
+      "link": "https://arxiv.org/pdf/2606.20510v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "probabilistic verification for AI agents to enforce security policies under ambiguity",
+      "llm_evidence_cn": "面向AI智能体的概率验证，在歧义下执行安全策略",
+      "llm_evidence": "面向AI智能体的概率验证，在歧义下执行安全策略",
+      "canonical_evidence": "面向AI智能体的概率验证，在歧义下执行安全策略",
+      "llm_tldr_en": "Proposes efficient and sound probabilistic verification for AI agents using Datalog-based runtime monitoring with probabilistic predicates.",
+      "llm_tldr_cn": "AI智能体在复杂数字环境中的安全运行需要运行时监控以强制执行策略。现有方法限于确定性策略，但实际中存在概率谓词（如PII检测器有失败概率）且难以满足独立性假设。本文扩展Datalog形式化策略到概率领域，提出一种无需独立性假设的高效且可靠的概率推断方法，实现了对概率谓词和状态转移的支持。该验证方法在保持可靠性的同时扩展了安全策略的表达能力。",
+      "llm_tldr": "AI智能体在复杂数字环境中的安全运行需要运行时监控以强制执行策略。现有方法限于确定性策略，但实际中存在概率谓词（如PII检测器有失败概率）且难以满足独立性假设。本文扩展Datalog形式化策略到概率领域，提出一种无需独立性假设的高效且可靠的概率推断方法，实现了对概率谓词和状态转移的支持。该验证方法在保持可靠性的同时扩展了安全策略的表达能力。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
