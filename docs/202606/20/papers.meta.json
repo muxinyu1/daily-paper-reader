@@ -1,0 +1,54 @@
+{
+  "label": "2026-06-20",
+  "date": "2026-06-20",
+  "generated_at": "2026-06-20T21:28:28",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202606/20/2606.19149v2-openant-llm-powered-vulnerability-discovery-through-code-decomposition-adversarial-verification-and-dynamic-testing",
+      "section": "deep",
+      "title_en": "OpenAnt: LLM-Powered Vulnerability Discovery Through Code Decomposition, Adversarial Verification, and Dynamic Testing",
+      "authors": "Nahum Korda, Gadi Evron",
+      "date": "2026-06-17",
+      "pdf": "https://arxiv.org/pdf/2606.19149v2",
+      "score": "9.0",
+      "evidence": "采用代码分解和对抗验证的LLM驱动漏洞发现系统",
+      "tldr": "自动化漏洞发现面临高误报和基础设施需求等挑战。OpenAnt结合静态分析与LLM推理，通过代码分解将分析面减少97%，再经对抗验证评估可利用性，最后动态生成并执行Exploit环境。在OpenSSL等项目中成功发现未知漏洞，显著降低误报。该方法为可扩展的自动化安全分析提供了实用路径。",
+      "tags": "query:agent-vuln",
+      "abstract_en": "Automated vulnerability discovery in large codebases remains challenging: traditional static analysis produces high false-positive rates, while dynamic approaches such as fuzzing require substantial infrastructure and often target narrow classes of bugs. Recent advances in large language models (LLMs) enable semantic reasoning about program behavior, but applying LLMs to repository-scale security analysis introduces challenges related to context management, cost, and verification.   We present OpenAnt, an open-source vulnerability discovery system that integrates static program analysis with LLM-based reasoning in a multi-stage pipeline. OpenAnt introduces three key techniques. First, codebases are decomposed into self-contained analysis units filtered by reachability from external entry points, reducing the analysis surface by up to 97% while preserving attack-relevant code. Second, candidate vulnerabilities undergo adversarial verification through constrained attacker simulation, where the model evaluates exploitability under realistic attacker capabilities. Third, findings are validated through dynamic verification, in which exploit environments are generated automatically, executed in sandboxed containers, and discarded after use.   Evaluation on widely used open-source projects including OpenSSL, WordPress, and Flowise shows that this architecture can identify previously unknown vulnerabilities while maintaining manageable analysis cost and substantially reducing false positives. Our results suggest that closed-loop vulnerability discovery pipelines, combining semantic reasoning with exploit validation, provide a practical path toward scalable automated security analysis.   OpenAnt is released as open source under the Apache 2.0 license at https://github.com/knostic/OpenAnt.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/20/2606.15385v1-reward-hacking-in-language-model-agents-revisiting-ai-safety-gridworlds",
+      "section": "deep",
+      "title_en": "Reward Hacking in Language Model Agents: Revisiting AI Safety Gridworlds",
+      "authors": "Ömer Veysel Çağatan, Xuandong Zhao",
+      "date": "2026-06-13",
+      "pdf": "https://arxiv.org/pdf/2606.15385v1",
+      "score": "8.0",
+      "evidence": "语言模型智能体中的奖励黑客",
+      "tldr": "奖励黑客是AI安全的核心挑战，但先前实例多在无法受控的前沿系统中发现。本研究将AI Safety Gridworlds改编为文本评估套件，测试语言模型代理在强化学习任务中的表现。结果显示，模型零样本出现奖励黑客行为，通过利用代理目标获得高观测奖励而隐藏奖励很低；强化学习直接优化奖励反而加剧这一差距，且无法通过探索提示或熵正则化缓解。这表明奖励黑客在语言代理中自然涌现并抵抗标准缓解措施，需要新的安全方法。",
+      "tags": "query:agent-vuln",
+      "abstract_en": "Reward hacking, where AI systems exploit misspecified objectives to achieve high reward without satisfying intended goals, remains a central challenge in AI safety. Yet most known instances have been discovered post hoc in frontier systems where controlled study is impractical. We adapt the AI Safety Gridworlds framework into a text-based evaluation suite that reformulates classic reinforcement learning safety tasks for language-based agents. Across frontier and mid-scale models, we find that specification gaming emerges zero-shot: models systematically achieve high observed reward while underperforming on hidden safety objectives, and even apparently safe behaviors can reflect misunderstanding rather than principled safety. Reinforcement learning does not correct these failures: direct reward optimization widens the gap between observed and hidden reward, as the model's initial competence causes it to lock into locally rewarding strategies before discovering safer alternatives. This pattern persists across model scales (1.5B--14B) and is not resolved by finer credit assignment, exploration prompts, or entropy regularization. Our results show that reward hacking arises naturally when optimizing proxy objectives with capable language model agents and resists standard mitigations, suggesting that proxy-reward failures in agentic settings may require approaches beyond standard exploration and credit-assignment fixes. To facilitate reproducibility, the code for this work is available at \\href{https://github.com/asparius/verl-agent-safety}{our public repository}.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/20/2606.20520v1-sovereign-execution-brokers-enforcing-certificate-bound-authority-in-agentic-control-planes",
+      "section": "deep",
+      "title_en": "Sovereign Execution Brokers: Enforcing Certificate-Bound Authority in Agentic Control Planes",
+      "authors": "Jun He, Deying Yu",
+      "date": "2026-06-18",
+      "pdf": "https://arxiv.org/pdf/2606.20520v1",
+      "score": "8.0",
+      "evidence": "在智能体控制平面中执行证书绑定权威以防止未授权操作",
+      "tldr": "自主智能体频繁接入云、部署和数据控制工作流，但生产变更权限不应置于非确定性推理过程中，现有访问控制无法在变更时刻强制执行证书绑定的授权。为此，本文提出Sovereign Execution Broker (SEB)，作为证书绑定的运行时强制执行边界，通过分离提议、准入和执行流程，将认证权限转化为短时、可吊销、可审计的运行时能力。SEB验证证书与执行合约的匹配性，检查有效期、策略时期、吊销状态和实时状态漂移，然后铸造作用域身份调用基础设施API。在AWS和Kubernetes集群上的评估显示，SEB的延迟开销可控，能有效实现吊销传播、漂移检测和安全故障隔离，确保生产变更API只接受代理身份调用。",
+      "tags": "query:agent-vuln",
+      "abstract_en": "Autonomous agents are increasingly connected to cloud, deployment, and data-control workflows, but production mutation authority should not reside inside non-deterministic reasoning processes. Existing access-control mechanisms authorize identities, while assurance layers certify proposed actions; neither alone provides a mandatory enforcement point for certified authority at the moment of mutation. This paper introduces the Sovereign Execution Broker (SEB), a runtime enforcement boundary for certificate-bound agentic infrastructure. SEB consumes certificates issued by the Sovereign Assurance Boundary (SAB), verifies that the requested mutation matches the certified execution contract, checks validity windows, policy epochs, revocation epochs, and live-state drift, mints scoped execution identity, invokes infrastructure APIs, and records signed decision and outcome records. By separating proposal, admission, and execution, SEB turns certified authority into a short-lived, revocable, auditable runtime capability, provided that production mutation APIs reject non-broker identities. We present the SEB execution model, certificate and replay-verification predicates, scoped identity semantics, bypass-prevention deployment patterns, failure behavior, and a concrete prototype implementation. We evaluate the prototype on AWS and Kubernetes clusters, measuring latency overheads, revocation propagation, drift detection, and security under fault injection.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
