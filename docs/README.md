@@ -6,30 +6,40 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-20
-- 运行时间：2026-06-20 21:28:22 UTC
+- 最新运行日期：2026-06-21
+- 运行时间：2026-06-21 20:51:27 UTC
 - 运行状态：成功
-- 本次总论文数：3
-- 精读区：3
-- 速读区：0
+- 本次总论文数：6
+- 精读区：2
+- 速读区：4
 
 ### 今日简报（AI）
-今日精读两篇论文，聚焦LLM驱动的漏洞发现与AI安全中的奖励黑客问题。推荐关注《OpenAnt》的代码分解与对抗验证方法，以及《Reward Hacking》对智能体安全风险的警示。建议普通读者优先阅读这两篇论文，了解LLM应用的最新安全挑战与应对思路。
-- 详情：[/202606/20/README](/202606/20/README)
+今日精选6篇AI研究，精读聚焦智能体共识与二进制逆向，均获8分高评。  
+最值得关注智能体弹性共识机制和AI辅助二进制逆向分析，两者均达优秀水平。  
+建议优先精读这两篇高评分论文，对构建鲁棒AI系统和提升逆向效率有直接参考价值。
+- 详情：[/202606/21/README](/202606/21/README)
 
 ### 精读区论文标签
-1. [OpenAnt: LLM-Powered Vulnerability Discovery Through Code Decomposition, Adversarial Verification, and Dynamic Testing](/202606/20/2606.19149v2-openant-llm-powered-vulnerability-discovery-through-code-decomposition-adversarial-verification-and-dynamic-testing)  
-   标签：评分：9.0/10、query:agent-vuln
-   evidence：采用代码分解和对抗验证的LLM驱动漏洞发现系统
-2. [Reward Hacking in Language Model Agents: Revisiting AI Safety Gridworlds](/202606/20/2606.15385v1-reward-hacking-in-language-model-agents-revisiting-ai-safety-gridworlds)  
+1. [Resilient Consensus in Agentic AI](/202606/21/2606.15024v1-resilient-consensus-in-agentic-ai)  
    标签：评分：8.0/10、query:agent-vuln
-   evidence：语言模型智能体中的奖励黑客
-3. [Sovereign Execution Brokers: Enforcing Certificate-Bound Authority in Agentic Control Planes](/202606/20/2606.20520v1-sovereign-execution-brokers-enforcing-certificate-bound-authority-in-agentic-control-planes)  
+   evidence：多代理LLM系统中存在对抗行为的弹性共识
+2. [SoK: AI-Augmented Binary Reversing](/202606/21/2606.17398v1-sok-ai-augmented-binary-reversing)  
    标签：评分：8.0/10、query:agent-vuln
-   evidence：在智能体控制平面中执行证书绑定权威以防止未授权操作
+   evidence：涵盖使用LLM智能体进行漏洞发现的AI增强二进制逆向综述
 
 ### 速读区论文标签
-- 本次无速读推荐。
+1. [Gaming-Resistant Insurance Contracts for Autonomous AI Agents: Strategy-Proof Toll Mechanism Design](/202606/21/2606.16326v1-gaming-resistant-insurance-contracts-for-autonomous-ai-agents-strategy-proof-toll-mechanism-design)  
+   标签：评分：7.0/10、query:agent-vuln
+   evidence：自主AI代理保险合约的攻击空间分析
+2. [AI Sandboxes: A Threat Model, Taxonomy, and Measurement Framework](/202606/21/2606.18532v1-ai-sandboxes-a-threat-model-taxonomy-and-measurement-framework)  
+   标签：评分：7.0/10、query:agent-vuln
+   evidence：包含自主系统安全的AI沙箱威胁模型与分类法
+3. [Human-on-the-Loop Orchestration for AI-Assisted Legal Discovery](/202606/21/2606.19812v1-human-on-the-loop-orchestration-for-ai-assisted-legal-discovery)  
+   标签：评分：7.0/10、query:agent-vuln
+   evidence：LLM代理的故障分类与验证架构
+4. [EARS: Explanatory Abstention for Reliable Sub-Agent Modeling in Large-scale Multi-Agent Systems](/202606/21/2606.18668v1-ears-explanatory-abstention-for-reliable-sub-agent-modeling-in-large-scale-multi-agent-systems)  
+   标签：评分：6.0/10、query:agent-vuln
+   evidence：提高子智能体可靠性以避免幻觉风险
 
 
 <div class="dpr-home-promo-card">

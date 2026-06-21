@@ -1,0 +1,251 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-21T20:46:47.159848+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2606.15024v1",
+      "source": "arxiv",
+      "title": "Resilient Consensus in Agentic AI",
+      "abstract": "Large language model (LLM) agents are increasingly deployed in multi-agent systems where they must coordinate and agree on shared decisions. We ask whether classical resilient consensus theory, developed for deterministic agents, transfers to LLM agents that may behave adversarially. Framing LLM agreement as a Byzantine consensus game, we run controlled experiments on complete and general communication graphs. We find that prompted LLM agents fail to reach agreement that is achievable in principle: consensus can fail even in settings where classical theory guarantees that a convergent algorithm exists, and this failure persists across temperatures and horizons. At the same time, wrapping the agents with classical resilient consensus filters improves agreement. The benefit of filtering depends on how much robustness the underlying topology already provides. Our results suggest that classical resilient consensus theory is a useful lens for the safety of agentic AI.",
+      "authors": [
+        "Sribalaji C. Anand",
+        "George J. Pappas"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI",
+        "eess.SY"
+      ],
+      "published": "2026-06-12T23:41:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.15024v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "resilient consensus in multi-agent LLM systems with adversarial behavior",
+      "llm_evidence_cn": "多代理LLM系统中存在对抗行为的弹性共识",
+      "llm_evidence": "多代理LLM系统中存在对抗行为的弹性共识",
+      "canonical_evidence": "多代理LLM系统中存在对抗行为的弹性共识",
+      "llm_tldr_en": "Tests classical resilient consensus theory on LLM agents, finding failures and showing filtering improves agreement, relevant to multi-agent security.",
+      "llm_tldr_cn": "该论文研究LLM代理在多代理系统中达成共识的安全性，发现经典弹性共识理论在LLM代理上失效。通过实验表明，使用拜占庭共识滤波器可改善一致性，为解决多代理系统的安全漏洞提供了理论基础。",
+      "llm_tldr": "该论文研究LLM代理在多代理系统中达成共识的安全性，发现经典弹性共识理论在LLM代理上失效。通过实验表明，使用拜占庭共识滤波器可改善一致性，为解决多代理系统的安全漏洞提供了理论基础。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.17398v1",
+      "source": "arxiv",
+      "title": "SoK: AI-Augmented Binary Reversing",
+      "abstract": "Binary reversing is fundamental to software understanding, vulnerability discovery, malware investigation, and firmware auditing. However, it remains inherently challenging due to the irreversible loss of semantic information during compilation. Recent advances in machine learning, large language models (LLMs), and agentic AI systems have accelerated the adoption of AI-augmented binary reversing. Yet, the resulting body of work has become increasingly fragmented across reversing domains, artifact representations, learning approaches, and evaluation practices. This paper presents the first comprehensive systematization of knowledge on AI-augmented binary reversing. We analyze 144 research papers published since 2015, and organize them into 22 binary reversing domains according to the inference tasks. We further introduce a unified taxonomy spanning conventional and AI-augmented reversing pipelines. Our taxonomy connects traditional analysis techniques, binary-derived artifacts, representation strategies, learning paradigms, and downstream inference tasks, while clarifying the emerging roles of LLMs and agentic AI systems. By establishing a common vocabulary and structured framework, we provide a holistic view of the field's evolution over the past decade. Our study reveals common structures underlying seemingly disparate approaches, highlights persistent technical challenges and evaluation gaps, and identifies promising opportunities for future research. Collectively, these insights clarify the current state of the field and provide a foundation for the next generation of reliable and scalable AI-augmented binary reversing systems.",
+      "authors": [
+        "Yujeong Kwon",
+        "Yiyue Zhang",
+        "Shakhzod Yuldoshkhujaev",
+        "Kexin Pei",
+        "Dokyung Song",
+        "Hyungjoon Koo"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-06-16T01:14:49+00:00",
+      "link": "https://arxiv.org/pdf/2606.17398v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Survey of AI-augmented binary reversing including vulnerability discovery with LLM agents",
+      "llm_evidence_cn": "涵盖使用LLM智能体进行漏洞发现的AI增强二进制逆向综述",
+      "llm_evidence": "涵盖使用LLM智能体进行漏洞发现的AI增强二进制逆向综述",
+      "canonical_evidence": "涵盖使用LLM智能体进行漏洞发现的AI增强二进制逆向综述",
+      "llm_tldr_en": "Systematizes 144 papers on AI-augmented binary reversing, covering vulnerability discovery with LLMs and agentic AI across 22 domains.",
+      "llm_tldr_cn": "本文首次系统整理了AI增强二进制逆向的知识，分析144篇论文，覆盖22个二进制逆向领域。涉及利用大语言模型和智能体AI进行软件理解、漏洞发现、恶意软件分析等。为如何用AI智能体自动发现漏洞提供了全面的技术地图和评估实践总结。",
+      "llm_tldr": "本文首次系统整理了AI增强二进制逆向的知识，分析144篇论文，覆盖22个二进制逆向领域。涉及利用大语言模型和智能体AI进行软件理解、漏洞发现、恶意软件分析等。为如何用AI智能体自动发现漏洞提供了全面的技术地图和评估实践总结。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.16326v1",
+      "source": "arxiv",
+      "title": "Gaming-Resistant Insurance Contracts for Autonomous AI Agents: Strategy-Proof Toll Mechanism Design",
+      "abstract": "Paper A defines a time-consistent actuarial runtime that prices each side-effect-bearing action against a contractually fixed safe default and gates execution against a reserve budget. It treats the operator as passive. This paper makes the operator strategic. We characterise a five-attack space for autonomous AI-agent insurance contracts and prove when the actuarial runtime is gaming-resistant. Two attack surfaces -- post-toll safe-default selection and within-boundary action splitting -- are closed by Paper A's minimal-authority and no-splitting clauses. The remaining three require new contract clauses. First, common-control aggregation prevents cross-boundary re-routing from reducing toll below the boundary potential applied to total exposure. Second, interface failures such as invalid JSON are contract-relevant events, not safety wins: treating them as zero-toll safe defaults can reward unreliable models, while escalation fees reverse the incentive. We validate this interface-compliance theorem on committed cross-model traces from the companion empirical paper. Third, a model-identity menu with a componentwise-minimum penalty schedule makes truthful reporting of the deployed model weakly dominant. We then compose these clauses with Paper A's runtime guarantees to obtain joint incentive compatibility over the five-attack space. Finally, a two-parameter premium family discharges operator individual rationality and weak budget balance at the truthful equilibrium. The result is an incentive-compatibility layer for actuarial control of autonomous-agent side effects.",
+      "authors": [
+        "Hao-Hsuan Chen"
+      ],
+      "primary_category": "cs.GT",
+      "categories": [
+        "cs.GT",
+        "cs.AI",
+        "q-fin.RM"
+      ],
+      "published": "2026-06-15T07:31:21+00:00",
+      "link": "https://arxiv.org/pdf/2606.16326v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "attack space analysis for autonomous AI agent insurance contracts",
+      "llm_evidence_cn": "自主AI代理保险合约的攻击空间分析",
+      "llm_evidence": "自主AI代理保险合约的攻击空间分析",
+      "canonical_evidence": "自主AI代理保险合约的攻击空间分析",
+      "llm_tldr_en": "Characterizes five attack surfaces for autonomous AI-agent insurance contracts and proposes gaming-resistant mechanisms.",
+      "llm_tldr_cn": "自主AI代理在进行有风险操作时需要保险合约来约束，但合约本身可能被操纵。本文刻画了五类针对代理保险合约的攻击面，并证明了在特定条款下合约具有抗博弈性。工作为代理系统的安全合约设计提供了理论基础，有助于防范代理系统中的经济型安全风险。",
+      "llm_tldr": "自主AI代理在进行有风险操作时需要保险合约来约束，但合约本身可能被操纵。本文刻画了五类针对代理保险合约的攻击面，并证明了在特定条款下合约具有抗博弈性。工作为代理系统的安全合约设计提供了理论基础，有助于防范代理系统中的经济型安全风险。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.18668v1",
+      "source": "arxiv",
+      "title": "EARS: Explanatory Abstention for Reliable Sub-Agent Modeling in Large-scale Multi-Agent Systems",
+      "abstract": "In large-scale enterprise settings, centralized multi-agent systems (MAS) are increasingly adopted, in which a coordinator delegates user requests to lightweight, domain-specialized sub-agents. While this architecture improves modularity, scalability, and cost efficiency, its reliability depends not only on accurate routing but also on sub-agents' ability to calibrate their responses to capability constraints. In particular, sub-agents built on smaller fine-tuned models often struggle with such calibration, leading them to over-answer ambiguous, underspecified, misrouted, or unsupported requests and produce hallucinated outputs instead of actionable feedback. To address this challenge, we present EARS (Explanatory Abstention for Reliable Sub-Agent Modeling), a production-oriented framework that reframes sub-agent abstention as an inter-agent communication protocol: a sub-agent does not merely abstain, but exposes an actionable failure state to the coordinator. EARS curates human-agent interaction data using an ensemble of calibrated LLM-as-a-Judge models, producing structured abstention labels and rationales under a taxonomy of sub-agent failure modes. These data are used to fine-tune sub-agents to detect failure conditions and return rationales for coordinator-level clarification, rerouting, or fallback. We evaluate EARS in a large-scale production e-commerce assistant supporting enterprise business intelligence workflows. EARS improves the overall response pass rate from 68.5% to 78.9%, demonstrating that sub-agent-side explanatory abstention improves MAS reliability.",
+      "authors": [
+        "Shuang Xie",
+        "Yunan Lu",
+        "Han Li",
+        "Lingyun Wang"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.CL"
+      ],
+      "published": "2026-06-17T04:07:41+00:00",
+      "link": "https://arxiv.org/pdf/2606.18668v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "improves sub-agent reliability to avoid hallucination risks",
+      "llm_evidence_cn": "提高子智能体可靠性以避免幻觉风险",
+      "llm_evidence": "提高子智能体可靠性以避免幻觉风险",
+      "canonical_evidence": "提高子智能体可靠性以避免幻觉风险",
+      "llm_tldr_en": "Proposes EARS to enable sub-agents to abstain from answering when uncertain, improving reliability and reducing harmful outputs in multi-agent systems.",
+      "llm_tldr_cn": "该论文提出EARS方法，使大规模多智能体系统中的子智能体能够在不确定时主动弃权回答，从而避免因过度回答导致的幻觉输出，提高了系统的可靠性。该方法针对企业级多智能体架构中的校准问题，有效减少了误路由和模糊请求带来的风险。",
+      "llm_tldr": "该论文提出EARS方法，使大规模多智能体系统中的子智能体能够在不确定时主动弃权回答，从而避免因过度回答导致的幻觉输出，提高了系统的可靠性。该方法针对企业级多智能体架构中的校准问题，有效减少了误路由和模糊请求带来的风险。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.18532v1",
+      "source": "arxiv",
+      "title": "AI Sandboxes: A Threat Model, Taxonomy, and Measurement Framework",
+      "abstract": "AI systems are increasingly evaluated in bounded environments that combine isolation, simulation, instrumentation, supervision, and evidence capture. For physical AI, AIoT, and cyber-physical systems, this shift is not a matter of terminology: the system under test may sense, decide, actuate, communicate, and fail through physical processes, networked devices, and human operators. This article develops an assurance-oriented account of AI sandboxes as controlled environments for testing, evaluation, verification, and validation across digital AI, embodied autonomy, and cyber-physical deployments. We formalize the sandbox boundary and a weakest-link rule for composing per-dimension evidence into a bounded deployment claim; separate major sandbox archetypes; define a cyber-physical threat model that includes attacks on the assurance apparatus itself; and introduce a measurement framework spanning fidelity, controllability, observability, containment, reproducibility, and governance artifacts, instantiated on three worked case studies of real sandboxes. The resulting threat model, taxonomy, and measurement framework clarify what a sandbox can validly test, which risks it can contain, and what forms of evidence it can support for safety, security, and regulatory assurance.",
+      "authors": [
+        "Inderjeet Singh",
+        "Haitham Mahmoud",
+        "Andrés Murillo"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.RO",
+        "cs.SE"
+      ],
+      "published": "2026-06-16T22:57:24+00:00",
+      "link": "https://arxiv.org/pdf/2606.18532v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Threat model and taxonomy for AI sandboxes including autonomous systems security",
+      "llm_evidence_cn": "包含自主系统安全的AI沙箱威胁模型与分类法",
+      "llm_evidence": "包含自主系统安全的AI沙箱威胁模型与分类法",
+      "canonical_evidence": "包含自主系统安全的AI沙箱威胁模型与分类法",
+      "llm_tldr_en": "Develops an assurance-oriented account of AI sandboxes with threat model, taxonomy, and measurement framework for digital and cyber-physical AI.",
+      "llm_tldr_cn": "本文针对AI系统在隔离环境中评估的需求，提出了AI沙箱的保证导向描述，形式化边界和最弱链规则，区分主要沙箱原型。涵盖数字AI、具身自主和网络物理部署的安全评估，为自主智能体系统的安全测试和漏洞发现提供理论基础。",
+      "llm_tldr": "本文针对AI系统在隔离环境中评估的需求，提出了AI沙箱的保证导向描述，形式化边界和最弱链规则，区分主要沙箱原型。涵盖数字AI、具身自主和网络物理部署的安全评估，为自主智能体系统的安全测试和漏洞发现提供理论基础。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.19812v1",
+      "source": "arxiv",
+      "title": "Human-on-the-Loop Orchestration for AI-Assisted Legal Discovery",
+      "abstract": "Autonomous Large Language Model (LLM) agents are increasingly deployed in electronic discovery (e-discovery), where compounding errors across multi-step reasoning chains can constitute legal malpractice. Unlike single-turn retrieval, agentic workflows operating over privileged document corpora exhibit a class of failure we term \"trajectory collapse\": an early misclassification silently propagates, rendering an entire privilege review invalid. This paper makes three contributions. First, we propose a structured taxonomy of agentic failures in legal information retrieval, organized by functional stage. Second, we introduce a four-layer verification architecture -- spanning planning, reasoning, execution, and uncertainty quantification -- designed to intercept these failures before they compound. Third, we present a preliminary simulation study on a synthetic e-discovery corpus that demonstrates how mandatory Human-on-the-Loop (HOTL) escalation thresholds reduce privilege-waiver risk relative to fully autonomous baselines. Our results suggest that calibrated uncertainty thresholds can reduce privilege-waiver risk by up to 61% versus fully autonomous deployment, while routing fewer than one quarter of documents to attorney review.",
+      "authors": [
+        "Anushree Sinha",
+        "Srivaths Ranganathan",
+        "Abhishek Dharmaratnakar",
+        "Debanshu Das"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-18T05:37:52+00:00",
+      "link": "https://arxiv.org/pdf/2606.19812v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "agentic failure taxonomy and verification for LLM agents",
+      "llm_evidence_cn": "LLM代理的故障分类与验证架构",
+      "llm_evidence": "LLM代理的故障分类与验证架构",
+      "canonical_evidence": "LLM代理的故障分类与验证架构",
+      "llm_tldr_en": "Proposes a taxonomy of agentic failures and a four-layer verification architecture to intercept trajectory collapse in LLM-based legal discovery agents.",
+      "llm_tldr_cn": "该论文针对LLM代理在法律发现中的复合错误问题，提出了一种结构化的代理故障分类法和四层验证架构（规划、推理、执行、不确定性量化），以拦截轨迹崩溃。实验表明该方法能有效降低错误传播，提升代理可靠性。",
+      "llm_tldr": "该论文针对LLM代理在法律发现中的复合错误问题，提出了一种结构化的代理故障分类法和四层验证架构（规划、推理、执行、不确定性量化），以拦截轨迹崩溃。实验表明该方法能有效降低错误传播，提升代理可靠性。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
