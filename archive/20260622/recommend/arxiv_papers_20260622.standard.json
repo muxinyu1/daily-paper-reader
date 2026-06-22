@@ -1,0 +1,174 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-22T22:40:34.287664+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.15809v1",
+      "source": "arxiv",
+      "title": "AttackonCTF: Defending Hardware Security Competition Benchmarks in the Age of LLMs",
+      "abstract": "Hardware security competitions such as HackTheSilicon serve as benchmarking platforms for evaluating vulnerability detection methods and for training humans and AI. However, our study reveals that LLMs threaten their validity. Instead of genuine security reasoning, detectors exploit a diff-style syntactic comparison, achieving an 83% detection rate, undermining fair evaluation. To mitigate this, we propose the first LLM-oriented, semantics-preserving obfuscation framework for these benchmarks. Unlike IP-protection approaches, it applies human-readable transformations and controlled diff-noise while preserving functionality. On HackTheSilicon, the framework reduces LLM-based detection accuracy by 50% with only 10% obfuscation and by 78.6% under complete obfuscation, restoring benchmark reliability.",
+      "authors": [
+        "Mohamadreza Rostami",
+        "Nikhilesh Singh",
+        "Stephen Muttathil",
+        "Lichao Wu",
+        "Chen Chen",
+        "Huimin Li",
+        "Jeyavijayan Rajendran",
+        "Ahmad-Reza Sadeghi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-14T13:22:27+00:00",
+      "link": "https://arxiv.org/pdf/2606.15809v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM-based vulnerability detection in hardware security benchmarks",
+      "llm_evidence_cn": "基于LLM的硬件安全基准漏洞检测",
+      "llm_evidence": "基于LLM的硬件安全基准漏洞检测",
+      "canonical_evidence": "基于LLM的硬件安全基准漏洞检测",
+      "llm_tldr_en": "AttackonCTF reveals that LLMs can exploit syntactic shortcuts to detect hardware vulnerabilities, and proposes a semantics-preserving obfuscation framework to defend benchmark validity.",
+      "llm_tldr_cn": "AttackonCTF发现LLM可通过句法捷径以83%准确率检测硬件安全竞赛中的漏洞，而非基于真实安全推理。为此提出首个面向LLM的语义保持混淆框架，通过人类可读变换和受控差异噪声将检测准确率降低78.6%，保障基准公平性。",
+      "llm_tldr": "AttackonCTF发现LLM可通过句法捷径以83%准确率检测硬件安全竞赛中的漏洞，而非基于真实安全推理。为此提出首个面向LLM的语义保持混淆框架，通过人类可读变换和受控差异噪声将检测准确率降低78.6%，保障基准公平性。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.16000v2",
+      "source": "arxiv",
+      "title": "GRACE-DS: a Guarded Reward-guided Agent Correction Environment in Data Science",
+      "abstract": "We introduce GRACE-DS, a Guarded Reward-guided Agent Correction Environment in Data Science for pre-deployment evaluation of LLM-powered AutoML agents. GRACE-DS is a set of evaluation metrics in an isolated environment that can be applied to tabular ML tasks specific to a particular organization. It exposes agents to realistic workflow stages, from planning and data inspection through feature engineering, model development, validation, and code repair to final submission, while hidden executable validators measure not only final predictive performance but also leakage avoidance, reproducibility, protocol validity, correction behavior, and reward alignment. The strongest structured regime, flexible iterative interaction (our approach), achieves higher end-to-end normalized hidden-test quality than single-shot generation, unstructured interaction, and restart-based baselines, while also improving protocol-valid completion. Validated across more than 7,000 episodes, these results establish GRACE-DS as a robust platform for assessing the capacity of LLM-based AutoML agents to execute machine learning workflows under production-like conditions and in accordance with organization-specific requirements.",
+      "authors": [
+        "Aleksandr Tsymbalov",
+        "Danis Zaripov",
+        "Artem Epifanov",
+        "Anastasiya Palienko"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.LG"
+      ],
+      "published": "2026-06-14T19:58:06+00:00",
+      "link": "https://arxiv.org/pdf/2606.16000v2",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM-powered AutoML agent evaluation with safety guardrails",
+      "llm_evidence_cn": "带有安全护栏的LLM驱动AutoML智能体评估",
+      "llm_evidence": "带有安全护栏的LLM驱动AutoML智能体评估",
+      "canonical_evidence": "带有安全护栏的LLM驱动AutoML智能体评估",
+      "llm_tldr_en": "GRACE-DS is an evaluation environment for LLM-powered AutoML agents that measures security-related metrics like leakage avoidance and protocol validity using hidden executable validators.",
+      "llm_tldr_cn": "GRACE-DS为LLM驱动的AutoML智能体提供部署前评估环境，通过隐藏的可执行验证器测量泄露避免、可复现性、协议有效性等安全相关指标。其灵活迭代交互机制在真实数据科学工作流中评估智能体行为，有助于保障智能体系统的安全性。",
+      "llm_tldr": "GRACE-DS为LLM驱动的AutoML智能体提供部署前评估环境，通过隐藏的可执行验证器测量泄露避免、可复现性、协议有效性等安全相关指标。其灵活迭代交互机制在真实数据科学工作流中评估智能体行为，有助于保障智能体系统的安全性。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.18530v1",
+      "source": "arxiv",
+      "title": "Evaluating Prompting-Based Defenses Against Domain-Camouflaged Injection Attacks",
+      "abstract": "Domain-camouflaged injection attacks embed malicious instructions in retrieved content using domain-appropriate vocabulary, evading standard detectors that rely on syntactic injection markers. When detection fails, practitioners need to know which defense architectures reduce attack success. We evaluate five prompting-based defenses (spotlighting, paraphrasing, prompt sandwiching, and two combinations) against domain-camouflaged injection across three model families (Claude Haiku, Llama 3.1 8B, Gemini 2.0 Flash) and three deployment domains (financial, legal, general) using 3,510 trials. Paraphrasing retrieved content before agent processing is the most consistently effective defense in this benchmark, reducing camouflage attack success rate by 55-84\\% depending on model, and achieves lower attack success rates than our Llama Guard 4 configuration on every model tested. Defense effectiveness is strongly model-dependent: spotlighting halves attack success on Claude Haiku but provides no benefit on Llama 3.1 8B. Financial domain deployments face the highest residual risk at 26-33\\% baseline attack success rate, with no prompting-based defense fully eliminating the threat on weaker models. These results provide the first systematic evaluation of prompting-based defenses specifically against camouflage-class injection attacks and establish benchmark-based recommendations for practitioners. All tasks use synthetically constructed professional documents; whether these benchmark rankings generalize to real enterprise documents remains an open question.",
+      "authors": [
+        "Aaditya Pai"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL",
+        "cs.LG"
+      ],
+      "published": "2026-06-16T22:51:02+00:00",
+      "link": "https://arxiv.org/pdf/2606.18530v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "evaluates defenses against injection attacks in agent processing",
+      "llm_evidence_cn": "评估智能体处理中针对注入攻击的防御方法",
+      "llm_evidence": "评估智能体处理中针对注入攻击的防御方法",
+      "canonical_evidence": "评估智能体处理中针对注入攻击的防御方法",
+      "llm_tldr_en": "Evaluates five prompting-based defenses against domain-camouflaged injection attacks in agent processing, finding paraphrasing the most effective at reducing attack success across models and domains.",
+      "llm_tldr_cn": "该论文针对领域伪装注入攻击(在检索内容中嵌入恶意指令),评估了五种基于提示的防御方法(如焦点提示、释义、提示夹层等)。在多个模型和领域中,释义检索内容后再由智能体处理是最一致有效的防御手段。该工作为智能体系统抵御注入攻击提供了实用指南。",
+      "llm_tldr": "该论文针对领域伪装注入攻击(在检索内容中嵌入恶意指令),评估了五种基于提示的防御方法(如焦点提示、释义、提示夹层等)。在多个模型和领域中,释义检索内容后再由智能体处理是最一致有效的防御手段。该工作为智能体系统抵御注入攻击提供了实用指南。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.16465v1",
+      "source": "arxiv",
+      "title": "When Agent Automation Becomes Profitable: Quantifying and Insuring Autonomous AI Risk through Trace-Economic Underwriting",
+      "abstract": "AI agents can now take irreversible actions in operational systems, but agent-caused losses are still not clearly assigned, priced, or transferred. Providers often disclaim consequential damages, users are left with uncompensated losses, and default human review limits the efficiency gains of automation. We ask when autonomous AI deployment can become economically acceptable despite failure risk. Our answer is to quantify risk at the customer-task-trace episode level and transfer it through insurance. Automation is acceptable when its expected benefit exceeds the premium, control cost, and remaining risk. This requires a defined role with bounded permissions and comparable traces. We introduce trace-economic underwriting, which maps tool-use traces to customer exposure and claimable loss, then uses this representation for pricing, control, and risk transfer. It uses deterministic economic labels rather than an LLM judge. In our trace-to-loss testbed, trace-economic pricing reduces pricing MAE from $17.7K to $569 and removes regressive cross-subsidy. A 300-trace expert audit accepts 295 labels unchanged. On 1,000 real SWE-smith traces, trace-conditioned controls reduce CVaR95 by 72%. Theorem~1 gives a finite-sample scope condition. We release code, labels, and audit sheets.",
+      "authors": [
+        "Binyan Xu",
+        "Xilin Dai",
+        "Fan Yang",
+        "Kehuan Zhang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CE"
+      ],
+      "published": "2026-06-15T09:33:02+00:00",
+      "link": "https://arxiv.org/pdf/2606.16465v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "quantifies risk of autonomous AI agent actions",
+      "llm_evidence_cn": "量化自主AI智能体行动的风险",
+      "llm_evidence": "量化自主AI智能体行动的风险",
+      "canonical_evidence": "量化自主AI智能体行动的风险",
+      "llm_tldr_en": "This paper proposes a trace-economic underwriting framework to quantify and insure risks from autonomous AI agents, enabling economically acceptable deployment despite failure risk.",
+      "llm_tldr_cn": "本文针对自主AI智能体在操作系统中采取不可逆行动所导致的风险缺乏明确归属和定价的问题，提出了一种基于追踪经济承保的风险量化与转移框架。通过将风险在客户-任务-追踪事件级别量化，并结合保险机制，使得在预期收益大于保费和控制成本时自动化的部署在经济上可接受。该工作为智能体风险管理提供了经济可行的新思路。",
+      "llm_tldr": "本文针对自主AI智能体在操作系统中采取不可逆行动所导致的风险缺乏明确归属和定价的问题，提出了一种基于追踪经济承保的风险量化与转移框架。通过将风险在客户-任务-追踪事件级别量化，并结合保险机制，使得在预期收益大于保费和控制成本时自动化的部署在经济上可接受。该工作为智能体风险管理提供了经济可行的新思路。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

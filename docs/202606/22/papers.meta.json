@@ -1,0 +1,69 @@
+{
+  "label": "2026-06-22",
+  "date": "2026-06-22",
+  "generated_at": "2026-06-22T22:43:08",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202606/22/2606.15809v1-attackonctf-defending-hardware-security-competition-benchmarks-in-the-age-of-llms",
+      "section": "quick",
+      "title_en": "AttackonCTF: Defending Hardware Security Competition Benchmarks in the Age of LLMs",
+      "authors": "Mohamadreza Rostami, Nikhilesh Singh, Stephen Muttathil, Lichao Wu, Chen Chen, Huimin Li, Jeyavijayan Rajendran, Ahmad-Reza Sadeghi",
+      "date": "2026-06-14",
+      "pdf": "https://arxiv.org/pdf/2606.15809v1",
+      "score": "7.0",
+      "evidence": "基于LLM的硬件安全基准漏洞检测",
+      "tldr": "硬件安全竞赛基准如HackTheSilicon被用于评估漏洞检测方法，但研究发现LLM利用diff风格的语法比较漏洞，无需真实安全推理即可达到83%的检测率，破坏了公平评估。为此，本文提出首个面向LLM的语义保留混淆框架，通过应用人类可读变换和可控diff噪声来防御，同时保持功能不变。实验表明，该框架在10%混淆下将LLM检测准确率降低50%，完全混淆下降低78.6%，有效恢复了基准的可靠性。",
+      "tags": "query:agent-vuln",
+      "abstract_en": "Hardware security competitions such as HackTheSilicon serve as benchmarking platforms for evaluating vulnerability detection methods and for training humans and AI. However, our study reveals that LLMs threaten their validity. Instead of genuine security reasoning, detectors exploit a diff-style syntactic comparison, achieving an 83% detection rate, undermining fair evaluation. To mitigate this, we propose the first LLM-oriented, semantics-preserving obfuscation framework for these benchmarks. Unlike IP-protection approaches, it applies human-readable transformations and controlled diff-noise while preserving functionality. On HackTheSilicon, the framework reduces LLM-based detection accuracy by 50% with only 10% obfuscation and by 78.6% under complete obfuscation, restoring benchmark reliability.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/22/2606.18530v1-evaluating-prompting-based-defenses-against-domain-camouflaged-injection-attacks",
+      "section": "quick",
+      "title_en": "Evaluating Prompting-Based Defenses Against Domain-Camouflaged Injection Attacks",
+      "authors": "Aaditya Pai",
+      "date": "2026-06-16",
+      "pdf": "https://arxiv.org/pdf/2606.18530v1",
+      "score": "7.0",
+      "evidence": "评估智能体处理中针对注入攻击的防御方法",
+      "tldr": "领域伪装注入攻击在检索内容中使用专业词汇嵌入恶意指令，规避依赖句法标记的检测器。本文评估五种基于提示的防御方法，在三个模型和三个领域上进行3510次试验。关键结果：对检索内容进行释义是最一致有效的防御，将攻击成功率降低55-84%。该研究首次系统评估针对伪装类注入的提示防御，为从业者提供基准建议。",
+      "tags": "query:agent-vuln",
+      "abstract_en": "Domain-camouflaged injection attacks embed malicious instructions in retrieved content using domain-appropriate vocabulary, evading standard detectors that rely on syntactic injection markers. When detection fails, practitioners need to know which defense architectures reduce attack success. We evaluate five prompting-based defenses (spotlighting, paraphrasing, prompt sandwiching, and two combinations) against domain-camouflaged injection across three model families (Claude Haiku, Llama 3.1 8B, Gemini 2.0 Flash) and three deployment domains (financial, legal, general) using 3,510 trials. Paraphrasing retrieved content before agent processing is the most consistently effective defense in this benchmark, reducing camouflage attack success rate by 55-84\\% depending on model, and achieves lower attack success rates than our Llama Guard 4 configuration on every model tested. Defense effectiveness is strongly model-dependent: spotlighting halves attack success on Claude Haiku but provides no benefit on Llama 3.1 8B. Financial domain deployments face the highest residual risk at 26-33\\% baseline attack success rate, with no prompting-based defense fully eliminating the threat on weaker models. These results provide the first systematic evaluation of prompting-based defenses specifically against camouflage-class injection attacks and establish benchmark-based recommendations for practitioners. All tasks use synthetically constructed professional documents; whether these benchmark rankings generalize to real enterprise documents remains an open question.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/22/2606.16000v2-grace-ds-a-guarded-reward-guided-agent-correction-environment-in-data-science",
+      "section": "quick",
+      "title_en": "GRACE-DS: a Guarded Reward-guided Agent Correction Environment in Data Science",
+      "authors": "Aleksandr Tsymbalov, Danis Zaripov, Artem Epifanov, Anastasiya Palienko",
+      "date": "2026-06-14",
+      "pdf": "https://arxiv.org/pdf/2606.16000v2",
+      "score": "6.0",
+      "evidence": "带有安全护栏的LLM驱动AutoML智能体评估",
+      "tldr": "LLM驱动的AutoML代理在实际部署前缺乏针对组织特定任务的全面评估。为此，我们提出GRACE-DS，一个包含多阶段工作流和隐藏验证器的隔离评估环境，可评估预测性能、泄漏避免等指标。实验表明，灵活迭代交互策略在端到端隐藏测试质量上显著优于单次生成和重启基线。GRACE-DS为评估LLM AutoML代理的生产级能力提供了鲁棒平台。",
+      "tags": "query:agent-vuln",
+      "abstract_en": "We introduce GRACE-DS, a Guarded Reward-guided Agent Correction Environment in Data Science for pre-deployment evaluation of LLM-powered AutoML agents. GRACE-DS is a set of evaluation metrics in an isolated environment that can be applied to tabular ML tasks specific to a particular organization. It exposes agents to realistic workflow stages, from planning and data inspection through feature engineering, model development, validation, and code repair to final submission, while hidden executable validators measure not only final predictive performance but also leakage avoidance, reproducibility, protocol validity, correction behavior, and reward alignment. The strongest structured regime, flexible iterative interaction (our approach), achieves higher end-to-end normalized hidden-test quality than single-shot generation, unstructured interaction, and restart-based baselines, while also improving protocol-valid completion. Validated across more than 7,000 episodes, these results establish GRACE-DS as a robust platform for assessing the capacity of LLM-based AutoML agents to execute machine learning workflows under production-like conditions and in accordance with organization-specific requirements.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/22/2606.16465v1-when-agent-automation-becomes-profitable-quantifying-and-insuring-autonomous-ai-risk-through-trace-economic-underwriting",
+      "section": "quick",
+      "title_en": "When Agent Automation Becomes Profitable: Quantifying and Insuring Autonomous AI Risk through Trace-Economic Underwriting",
+      "authors": "Binyan Xu, Xilin Dai, Fan Yang, Kehuan Zhang",
+      "date": "2026-06-15",
+      "pdf": "https://arxiv.org/pdf/2606.16465v1",
+      "score": "6.0",
+      "evidence": "量化自主AI智能体行动的风险",
+      "tldr": "AI代理在操作系统中执行不可逆行动，但损失责任不清、风险无法转移。本文提出轨迹经济核保方法，在客户-任务-轨迹级别量化风险并通过保险转移风险。实验表明定价MAE从17.7K降至569，CVaR95降低72%，专家审计接受295/300标签。该方法为自主AI部署提供了经济可接受条件与有限样本范围定理。",
+      "tags": "query:agent-vuln",
+      "abstract_en": "AI agents can now take irreversible actions in operational systems, but agent-caused losses are still not clearly assigned, priced, or transferred. Providers often disclaim consequential damages, users are left with uncompensated losses, and default human review limits the efficiency gains of automation. We ask when autonomous AI deployment can become economically acceptable despite failure risk. Our answer is to quantify risk at the customer-task-trace episode level and transfer it through insurance. Automation is acceptable when its expected benefit exceeds the premium, control cost, and remaining risk. This requires a defined role with bounded permissions and comparable traces. We introduce trace-economic underwriting, which maps tool-use traces to customer exposure and claimable loss, then uses this representation for pricing, control, and risk transfer. It uses deterministic economic labels rather than an LLM judge. In our trace-to-loss testbed, trace-economic pricing reduces pricing MAE from $17.7K to $569 and removes regressive cross-subsidy. A 300-trace expert audit accepts 295 labels unchanged. On 1,000 real SWE-smith traces, trace-conditioned controls reduce CVaR95 by 72%. Theorem~1 gives a finite-sample scope condition. We release code, labels, and audit sheets.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
