@@ -1,12 +1,93 @@
 {
-  "generated_at": "2026-06-22T22:40:34.288368+00:00",
-  "updated_date": "20260622",
+  "generated_at": "2026-06-23T21:09:23.051226+00:00",
+  "updated_date": "20260623",
   "carryover_days": 9,
   "tag_states": {
     "agent-vuln": {
-      "updated_date": "20260622",
+      "updated_date": "20260623",
       "carryover_days": 9,
-      "items": []
+      "items": [
+        {
+          "id": "2606.23138v1",
+          "source": "arxiv",
+          "title": "Rising From the Ashes: How Agentic AI is Unblocking Challenges in Cybersecurity",
+          "abstract": "Security remains a high-cost challenge, with many problems historically deemed inefficient to address or effectively unsolvable. A significant number of these problems stem from labor-intensive tasks that create bottlenecks in defensive approaches. Agentic AI has the potential to alleviate these bottlenecks by directly ingesting and reasoning over natural language or code, thereby expanding the scope of feasible defenses. In this paper, we map open security problems to emergent agentic AI capabilities. To illustrate this potential, we examine 16 case studies, including supply chain analysis, highlighting how agentic AI may benefit defenders.",
+          "authors": [
+            "Gabriela F. Ciocarlie",
+            "Kathrin Grosse",
+            "Somesh Jha",
+            "Daryna Oliynyk",
+            "Andrew Paverd",
+            "Christian Wressnegger"
+          ],
+          "primary_category": "cs.CR",
+          "categories": [
+            "cs.CR"
+          ],
+          "published": "2026-06-22T10:31:53+00:00",
+          "link": "https://arxiv.org/pdf/2606.23138v1",
+          "tags": [
+            "keyword:agent-vuln",
+            "query:agent-vuln"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "maps agentic AI capabilities to cybersecurity problems including vulnerability discovery",
+          "llm_evidence_cn": "将智能体AI能力映射到网络安全问题，包括漏洞发现",
+          "llm_evidence": "将智能体AI能力映射到网络安全问题，包括漏洞发现",
+          "canonical_evidence": "将智能体AI能力映射到网络安全问题，包括漏洞发现",
+          "llm_tldr_en": "Maps open security problems to emergent agentic AI capabilities through 16 case studies, including supply chain analysis, showing how agents can automate vulnerability discovery.",
+          "llm_tldr_cn": "本文系统性地将代理式AI的能力映射到网络安全开放问题，通过16个案例研究（包括供应链分析）说明智能体如何帮助防御者自动化漏洞发现等任务。结果表明，智能体AI能够缓解安全领域的人力和效率瓶颈。",
+          "llm_tldr": "本文系统性地将代理式AI的能力映射到网络安全开放问题，通过16个案例研究（包括供应链分析）说明智能体如何帮助防御者自动化漏洞发现等任务。结果表明，智能体AI能够缓解安全领域的人力和效率瓶颈。",
+          "llm_tags": [
+            "query:agent-vuln"
+          ],
+          "matched_query_tag": "query:agent-vuln",
+          "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
+          "matched_requirement_id": "req-7",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.23138v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2606.23277v1",
+          "source": "arxiv",
+          "title": "GIF: Locally Sound Geometric Information Flow Control for LLMs",
+          "abstract": "Large language models increasingly mediate interactions between sensitive data, untrusted inputs, and privileged actions in agentic systems, creating security and privacy risks. These range from prompt injections that manipulate downstream tool use to leakage of confidential information through model outputs. Recent Information Flow Control (IFC)-based defenses show promise but lack a principled semantic foundation for reasoning about information flow through the model itself. Since any input token may influence any output token in an autoregressive LLM, existing approaches suffer from severe taint explosion.   We present Geometric Information Flow (GIF), a semantic framework for tracking information flow from input tokens to outputs. GIF uses the LLM Jacobian and local output geometry to upper-bound the Shannon mutual information between perturbed input spans and model outputs, yielding a scalable measure computable on large models via automatic differentiation and low-rank approximation. Unlike attention-based or correlational attribution heuristics, GIF satisfies local geometric soundness, and we provide a fully mechanized Lean 4 proof that it upper-bounds the true information flow induced by a given prompt under local regularity assumptions.   We evaluate GIF on integrity and confidentiality tasks across multiple prompt-injection and privacy-leakage benchmarks. GIF achieves near-perfect recall even without a downstream declassifier, outperforming attention-based baselines. Combined with lightweight LLM-based declassifiers, it matches or exceeds the F1 of direct LLM-as-judge baselines such as GPT-5.5 xhigh reasoning while using up to 81x lower token cost. GIF flows detected with small surrogate models transfer to larger state-of-the-art models and other model families, even when the surrogate is up to 200x smaller, suggesting black-box deployment without gradient access.",
+          "authors": [
+            "Adam Storek",
+            "Nikolaus Holzer",
+            "Zhuo Zhang",
+            "Suman Jana"
+          ],
+          "primary_category": "cs.AI",
+          "categories": [
+            "cs.AI"
+          ],
+          "published": "2026-06-22T12:54:04+00:00",
+          "link": "https://arxiv.org/pdf/2606.23277v1",
+          "tags": [
+            "keyword:agent-vuln",
+            "query:agent-vuln"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "information flow control for LLM agent security",
+          "llm_evidence_cn": "大语言模型代理安全信息流控制",
+          "llm_evidence": "大语言模型代理安全信息流控制",
+          "canonical_evidence": "大语言模型代理安全信息流控制",
+          "llm_tldr_en": "A semantic framework using Jacobian to track information flow in LLMs, addressing security and privacy risks in agentic systems.",
+          "llm_tldr_cn": "大语言模型在agent系统中处理敏感数据时面临信息泄露和注入攻击。现有信息流控制方法缺乏严格语义基础。本文提出几何信息流（GIF）框架，利用LLM的雅可比矩阵精确追踪输入到输出的信息流，避免传统方法的污点爆炸问题。实验表明GIF能有效识别安全敏感路径，为agent系统安全分析提供了新工具。",
+          "llm_tldr": "大语言模型在agent系统中处理敏感数据时面临信息泄露和注入攻击。现有信息流控制方法缺乏严格语义基础。本文提出几何信息流（GIF）框架，利用LLM的雅可比矩阵精确追踪输入到输出的信息流，避免传统方法的污点爆炸问题。实验表明GIF能有效识别安全敏感路径，为agent系统安全分析提供了新工具。",
+          "llm_tags": [
+            "query:agent-vuln"
+          ],
+          "matched_query_tag": "query:agent-vuln",
+          "matched_query_text": "large language model agent vulnerability analysis",
+          "matched_requirement_id": "req-2",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.23277v1",
+          "carry_days": 1
+        }
+      ]
     }
   }
 }
