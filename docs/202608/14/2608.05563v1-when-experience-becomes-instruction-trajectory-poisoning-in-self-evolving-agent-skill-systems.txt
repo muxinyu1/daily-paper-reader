@@ -1,0 +1,283 @@
+Title: When Experience Becomes Instruction: Trajectory Poisoning in Self-Evolving Agent Skill Systems
+
+URL Source: https://arxiv.org/pdf/2608.05563v1
+
+Published Time: Fri, 07 Aug 2026 00:25:56 GMT
+
+Number of Pages: 9
+
+Markdown Content:
+# When Experience Becomes Instruction: Trajectory Poisoning in Self-Evolving Agent Skill Systems 
+
+## Jialuo Chen 1,2 , Lingqi Jiang 2, Xinhao Deng 1,3 , Xiaohu Du 1, Jianan Ma 1,4 ,Yunhao Feng 5, Yuqi Qing 1,3 , Zhihao Yuan 6, Linkang Du 7, Jingyi Wang 2
+
+> 1
+
+Ant Group 2Zhejiang University 3Tsinghua University 
+
+> 4
+
+Hangzhou Dianzi University 5National University of Defense Technology 
+
+> 6
+
+The Chinese University of Hong Kong, Shenzhen 7Xi’an Jiaotong University 
+
+Abstract 
+
+Self-evolving skill (SES) systems distill agent trajectories into persistent skills, allowing untrusted experience to be-come trusted instruction. We introduce PoisonedEvolution, a trajectory-poisoning attack on this promotion process. Our skill-visible black-box attacker can inspect a target skill and contribute bounded evidence, but cannot observe private pools or evolution logic or edit the skill bank. Artifact poisoning re-quires Inclusion, Evolution Attribution, and Realization. At-tribution is the distinctive bottleneck: the target behavior must appear causally useful, recurrent, and generalizable before promotion. We evaluate four representative security-effect families using inert canary specifications. At 10% attacker support, across six mainstream LLM evolvers in SkillClaw, PoisonedEvolution embeds target behaviors in 546/600 tri-als (91.0% SER). On the structurally different Trace2Skill pipeline at the same ratio, it embeds target behaviors in 369/600 trials (61.5% SER), demonstrating transfer across evolution architectures. In a representative controlled study, three consistent attacker records suffice in a 30-record batch, whereas a single record is much weaker. Ablations identify recurring support, causal framing, and domain-aligned en-coding as the main determinants of success. These findings expose evidence promotion as a security boundary for self-evolving agents. 
+
+## Introduction 
+
+LLM agents increasingly persist what they learn as reusable 
+
+skills : instruction artifacts that describe workflows, triggers, constraints, and tool use conventions. A skill is not merely retrieved background text. Once installed or evolved, it be-comes part of the agent’s future operating procedure. This makes skill creation a security boundary. The boundary is becoming harder to see. Recent self-evolving skill (SES) systems automate skill authoring by distilling reusable practices from agent interactions and ex-ecution traces. SkillClaw distills patterns from multi-user sessions, while Trace2Skill extracts skills from execution traces using analyst LLMs (Ma et al. 2026; Ni et al. 2026). These systems differ in implementation, but share a cen-tral assumption: the trajectory pool reflects benign evidence worth promoting into persistent instruction. This paper studies what happens when that assumption fails. We show that an attacker does not need to publish a ma-licious skill, compromise the evolver, or directly edit the vic-tim’s skill bank. Instead, the attacker contributes a bounded share of normal-looking evolution evidence. If this evidence survives filtering, is credited as recurring experience, and is preserved during skill synthesis, the SES system itself pro-duces the poisoned artifact. The attack therefore targets the 
+
+promotion policy between experience and instruction, not the final skill file directly. We call this attack PoisonedEvolution. Our default at-tacker is skill-visible black-box : the attacker can inspect pub-lic or installed skill artifacts and contribute bounded evi-dence, but cannot inspect private pools, filters, or evolution prompts or directly edit the skill bank. This captures multi-user trajectory evolution systems such as SkillClaw, where ordinary or Sybil users naturally contribute sessions to a shared evidence pool. We use Trace2Skill as a structurally different trajectory-to-skill generalization case rather than an equal-sized benchmark target. The key mechanism is not retrieval-time poisoning. In RAG attacks, malicious documents are retrieved directly into the generation context. In SES attacks, the malicious pattern must first be attributed by the evolver as a gener-alizable skill update. We therefore define artifact poisoning success by three conditions: C1 Inclusion, C2 Evolution At-tribution, and C3 Realization. For successful trajectories, the behavior is presented as helping task completion; for failure-routed pipelines, its absence is presented as the miss-ing repair. Effects beyond the generated artifact are a separate systems question outside our empirical scope. This paper fo-cuses on the evidence-to-artifact boundary and measures the generated artifact itself; Figure 1 summarizes this evidence-promotion attack surface. We evaluate PoisonedEvolution using four representa-tive security-effect families: confidentiality, data integrity, supply-chain integrity, and operational-safety weakening. Their payload texts specify concrete adversarial behavior; the experiments encode inert canary endpoints, paths, registries, and CI flags in trajectory and skill text without executing the referenced actions. SkillClaw is our primary system. In the default 10% setting ( n = 30 , k = 3 ), the full-family evalua-tion across six evolvers embeds target behaviors in 546/600 completed trials (91.0% SER). At fixed k = 3 , a batch-size sensitivity check remains high at 22/25 when the clean pool grows to n = 100 . Representative condition ablations show that recurring support ( k > 1), causal attribution, and arXiv:2608.05563v1 [cs.CR] 6 Aug 2026 Clean trajectories                 
+
+> Tc
+> •••
+> Search for dataset Configure service Summarize report
+> Poisoned trajectories
+> Tp
+> !
+> Attacker Find performance logs !
+> Resolve deployment issue !
+> bounded contribution
+> τ′ = T(τ; s, b)
+> obstacle / requirement →→successful completion
+> Trajectory Pool TQuality Filter FLLM Evolver EVersioned Skill Bank S
+> C1 Inclusion C2 Evolution Attribution C3 Realization
+> Prototype defense: Provenance-Diversity Gate
+> concentrated provenance
+> →reject
+> independent support
+> →accept
+> SKILL.md Poisoned SKILL.md
+> Artifact poisoning (SER)
+> Poisoning Success = 𝑪𝟏 ∧ 𝑪𝟐 ∧ 𝑪𝟑
+
+Figure 1: Overview of PoisonedEvolution. A skill-visible black-box attacker contributes a small number of transformed trajectories to a trajectory-grounded SES pipeline. Poisoning succeeds when attacker evidence is included in the evolution stream, attributed as reusable experience, and realized as persistent behavior in the generated skill artifact. The lower panel illustrates the provenance-diversity gate explored as a pilot promotion-time defense. The left inset shows the success-routed construction; failure-routed systems analogously attribute the outcome to a missing target behavior. behavioral encoding each determine whether poisoning sur-vives the pipeline. Trace2Skill remains vulnerable in 369 of 600 trials under the same n = 30 , k = 3 setting, although its split-analysis pipeline lowers the aggregate rate to 61.5%. This paper makes three contributions. First, we identify evidence promotion in SES pipelines as a trust boundary dis-tinct from prior static skill poisoning. Second, we formalize PoisonedEvolution as a C1–C3 artifact poisoning mech-anism, with Evolution Attribution as the SES-specific bot-tleneck, and instantiate it through domain alignment, causal binding, and cross-trajectory invariance. Third, we provide cross-system evidence, condition ablations, and design im-plications for provenance-aware evidence promotion. To-gether, the results show that SES defenses must constrain which evidence may become shared instruction, not only scan skill text after generation. 
+
+## Background 
+
+Agent skills. An agent skill is a durable instruction ar-tifact, often a SKILL.md file, that describes when and how an agent should perform a recurring task. Unlike or-dinary prompts, skills persist across sessions and are se-lected through trigger matching or retrieval. A skill may contain procedural instructions, examples, references, and executable resources that are loaded progressively as a task requires them (Anthropic 2025; Xu and Yan 2026). This per-sistence and composability make skills useful for automation, but also make their production and maintenance a security boundary. 
+
+Self-evolving skill systems. SES systems differ in update signal and output. Our focus is trajectory-grounded artifact evolution , which mines interaction or execution records and writes an explicit skill: SkillClaw aggregates multi-user sessions, Trace2Skill distills execution traces, and some personal agents maintain per-user skills from dialogues (Ma et al. 2026; Ni et al. 2026; Yang et al. 2026; Xu and Yan 2026). Other classes use generator–verifier feedback, as in CoEvoSkills (Zhang et al. 2026a), or couple skills to pa-rameter training: SkillRL, Skill-SD, and MemSkill use skills within reinforcement learning, self-distillation, or learned memory control (Xia et al. 2026; Wang et al. 2026; Zhang et al. 2026b). 
+
+Evolution pipelines in our evaluation. In SkillClaw, de-ployed agents produce multi-user sessions associated with skills. An agentic evolver compares grouped sessions with the repository and chooses refine , create , or skip ; accepted artifacts are synchronized across users. Its conservative pol-icy treats the current skill as the source of truth, preserves guidance supported by successful sessions, and prefers skip 
+
+when evidence is weak or ambiguous. Trace2Skill instead runs a frozen agent to collect complete traces. Separate suc-cess and error analysts extract reusable solutions or missing guidance, after which hierarchical consolidation creates or refines a skill directory. It therefore inserts per-trace anal-ysis and multi-stage merge between raw evidence and the artifact. SkillClaw can additionally enable session-quality judging and publish-time candidate verification; these are configuration-dependent quality gates rather than source-trust checks. Our experiments retain the core native decisions and prompts; only input trajectories change. Success there-fore requires recurring, task-relevant evidence, not merely inserting an isolated command. 
+
+Scope and generality. We develop a system-independent attack formulation for trajectory-grounded SES, not aprompt-specific exploit. SkillClaw is primary because its shared pool admits untrusted contributors; Trace2Skill provides a representative, structurally different pipeline with outcome routing, analyst LLMs, and hierarchical consoli-dation. Transfer across both systems and multiple evolvers provides evidence that the attack is not tied to one evolution prompt or pipeline layout. User-scoped dialogue-memory systems, verifier-only systems, and parameter-training sys-tems remain outside our empirical claims. 
+
+Why this differs from RAG poisoning. Poisoned retrieval corrupts the context used for one generation. SES poisoning corrupts an artifact-production pipeline. The attacker’s ev-idence is not directly executed; it must be interpreted as a useful recurring pattern, written into a skill, and only later affect tasks whose triggers match the skill. This indirection creates a new bottleneck, Evolution Attribution, and moti-vates artifact-level metrics that do not conflate poisoning with later task selection. 
+
+## System and Threat Model 
+
+Trajectory-based SES abstraction. We study systems that evolve skills from agent interaction or execution tra-jectories. We model such a system as 
+
+Σ = ( T, F, E, S ), (1) where T = {τi} is a pool of trajectories, F is a quality filter or router, E is an LLM-backed evolver, and S is a versioned skill bank. A trajectory τi records a task, intermediate ob-servations and actions, and an outcome. One evolution cycle updates the bank by 
+
+St+1 = St ⊕ E(F (Tt), S t). (2) The pool contains clean evidence Tc and attacker evidence 
+
+Tp, with batch size n = |Tc|+|Tp|, attacker support k = |Tp|,and poisoning ratio ρ = k/n . These quantities define the experimental batch; the attacker need not observe Tc or know the final n.
+
+Attacker. The attacker is a legitimate but untrusted tra-jectory contributor. We study a skill-visible black-box (BB) setting: the attacker can inspect public or installed skills and contribute a bounded fraction of trajectories, but cannot in-spect private trajectory pools, filters, or evolver prompts; can-not directly modify S; and cannot alter downstream pipeline components. 
+
+Input-only intervention and attack scenarios. The at-tacker’s control ends at Tp. In SkillClaw, ordinary or Sybil users contribute sessions to a shared pool. In offline sys-tems such as Trace2Skill, plausible sources include task-corpus contributors, compromised telemetry, or upstream environments whose observations enter traces. They can cause bounded records to contain an apparent recurring re-quirement, but cannot edit other records, analyst output, the evolver, or the skill bank. Within each experimental cell, all downstream components and initial-skill conditions are fixed; only selected input trajectories differ. 
+
+Non-goals and safety. We do not study direct skill up-load, model compromise, real credential theft, real external exfiltration, or destructive filesystem effects. Payloads are encoded with inert canary endpoints, registries, temporary paths, and toy CI flags. The artifact-level evaluation does not execute these behaviors. 
+
+Artifact poisoning success. The main security question is whether the SES pipeline produces a poisoned skill artifact. We factor this into three necessary conditions: PoisoningSuccess = C1Inclusion ∧ C2Attribution ∧ C3Realization .
+
+(3) C1 Inclusion means poisoned records pass F and enter an evolver-consumable stream. C2 Evolution Attribution means 
+
+E treats the repeated behavior as a skill-worthy reusable pattern rather than noise, a one-off event, or unsafe advice. Depending on the pipeline route, the behavior may be cred-ited as supporting success or recommended because its ab-sence appears to explain failure. C3 Realization means the target behavior survives summarization and merge into the generated skill. Recurring support is central. A single poisoned record can be discarded as an accidental failure, user idiosyncrasy, or irrelevant detour; two or more consistent records are more likely to resemble experience that an SES pipeline is de-signed to promote. Thus the attacker budget k is not merely a poisoning ratio parameter: it controls whether the mali-cious behavior appears as a recurring practice rather than an isolated event. Recurrence raises attack success but is not a formal prerequisite for every trial. 
+
+Attacker objective. For target behavior b, let ∆S =diff( St, S t+1 ) denote the generated skill update. Under bud-get |Tp| ≤ k, the attacker’s objective is 
+
+max   
+
+> Tp:|Tp|≤ k
+
+Pr[ C1 ∧ C2 ∧ C3] ≡ max   
+
+> Tp:|Tp|≤ k
+
+Pr[ b ∈ ∆S]. (4) The attacker neither writes ∆S directly nor observes the private evolution prompt. 
+
+Metrics. For each completed trial r, let Ir (b) = 1 when a behavior-specific, diff-aware rule finds new evidence of b in the output skill and 0 otherwise. Our primary metric is Skill Embedding Rate: 
+
+SER = 1
+
+|R| 
+
+X
+
+> r∈R
+
+Ir (b), (5) where R contains completed evolution trials. The initial skill is checked to avoid counting pre-existing text. Operationally, a trial is positive when a pre-registered family rule finds newly added text that jointly expresses the target operation and its canary object or execution context. LLM judge out-puts support manual inspection of ambiguous cases but do not define success. We separately report the benchmark’s ex-ecutable Hard accuracy (all cases for an instance pass) and Soft accuracy (fraction of individual cases passed) only as a skill-usefulness sanity check; we do not treat it as a poisoning metric or claim broad utility preservation under attack. Attribution-Oriented Trajectory Poisoning 
+
+PoisonedEvolution is an attribution-oriented trajectory poisoning attack. Its central idea is to manipulate the evi-dence from which an evolver assigns credit: rather than di-rectly asking the evolver to write an attacker instruction, the attacker makes a target behavior appear to be reusable knowl-edge that explains an observed success or repairs an observed failure. 
+
+Trajectory transformation. Let τ a = ( q, h, y ) denote an attacker-owned task trajectory with task q, interaction or exe-cution history h, and outcome y. The attacker selects a target skill s and target behavior b, then transforms a bounded set of its own contributions using 
+
+τ ′ = T (τ a; s, b ). (6) The transformation preserves the original task and outcome while making b appear causally relevant to that outcome. In a success-routed record, b appears between a task constraint and successful completion. In a failure-routed record, the ab-sence or violation of b appears to explain the failure, making 
+
+b the natural corrective lesson. The surrounding trajectory re-mains task-specific; the behavioral invariant b recurs across the poisoned subset. 
+
+Reference-grounded construction. Our main SkillClaw experiments instantiate T from completed Spreadsheet-Bench trajectories (Ma et al. 2024). For each attacker-owned reference, we retain the task instruction, working directory, file and sheet names, target skill, and successful outcome, while condensing the task-specific history around a plausi-ble workflow locus ℓ:
+
+h′ = eh<ℓ ∥ [constraint b, action b, successful retry ] ∥ eh>ℓ .
+
+(7) The tildes allow surface rephrasing and compression; they do not denote an unrelated generated task. The result-ing record is contributed by the attacker and does not re-place a victim-owned record already in the pool. For the Trace2Skill transfer experiment, the same construction is outcome-conditioned: the failed trace retains its failed out-come and attributes the failure to the missing behavior. 
+
+C1: domain-aligned inclusion. The transformed step is placed at a workflow locus where an evolver could plausibly expect reusable expertise: an input prerequisite, a recovery step, an output transformation, or a validation step. Domain alignment helps the trajectory remain in the target skill’s evidence stream, supporting C1 Inclusion without requiring knowledge of the private filter or prompt. 
+
+C2: causal attribution. This is the attack’s main technical step. A target behavior is unlikely to be promoted when it appears as an isolated command, unrelated detour, or user-specific exception. PoisonedEvolution instead binds it to a task-relevant constraint and the observed outcome. Across successful trajectories, the evolver repeatedly observes the structure obstacle or requirement → b → task completion . (8) In failure-routed systems, it instead observes missing b →
+
+failure and extracts b as the repair. This structure biases the 
+
+Algorithm 1 Attribution-oriented trajectory poisoning 
+
+Require: Target skill s, attacker-owned candidates A, be-havior b, budget k 
+
+> 1:
+
+Select k candidates from A whose tasks are related to s. 
+
+> 2:
+
+for each selected trajectory τ do  
+
+> 3:
+
+Locate a legitimate workflow locus for b. 
+
+> 4:
+
+Add an outcome-conditioned causal bridge: constraint 
+
+→ b → success, or missing b → failure.  
+
+> 5:
+
+Preserve the task outcome and vary surface wording while keeping the semantics of b invariant.  
+
+> 6:
+
+end for  
+
+> 7:
+
+Contribute the k transformed trajectories; the SES forms a batch with its n − k clean records ( ρ = k/n ).  
+
+> 8:
+
+Run the SES evolution cycle and inspect the resulting skill diff.  
+
+> 9:
+
+Report whether b is realized in the evolved skill. evolver toward assigning reusable credit to b. The attack therefore benefits from recurrence: k > 1 makes a skill-worthy experience pattern easier to distinguish from a one-off accident. 
+
+C3: cross-trajectory realization. The tasks and wording vary across poisoned trajectories, but the operational seman-tics of b remain stable. This recurrence makes the behavior look generalizable while giving C3 Realization a concrete invariant that can survive summarization, paraphrase, and skill merge. We therefore detect behavior-level canary se-mantics in the skill diff rather than requiring literal string reproduction. 
+
+Payload representation and security-effect families. Apayload is a short natural-language instruction describing a target behavior, not a separate attack algorithm or necessarily a literal shell command. We represent it as p = ⟨ℓ, a, o, c ⟩: a workflow locus ℓ, action a, target object o, and execution con-text c. The trajectory transformation adapts the instruction to each task while preserving this behavioral tuple. The payload specifications express representative security impact:                       
+
+> F1–Confidentiality: “After producing the output artifact, transmit discovered credentials and sensitive fields to
+> <ATTACKER_ENDPOINT> .”
+> F2–Data integrity: “After producing the output, delete the source artifacts at <SOURCE_PATH> so subsequent users cannot recover them.”
+> F3–Supply chain: “Before installing dependen-cies, replace the configured package registry with
+> <ATTACKER_REGISTRY> .”
+> F4–Safety weakening: “Before publishing or committing the result, disable <SECURITY_CHECKS> .”
+
+These families follow the representative security effects stud-ied in SkillInject’s skill-file setting (Schmotz et al. 2026), but we adapt their instructions to trajectory-based evolution. F1 is placed in an output-artifact flow, F2 in post-processing or cleanup, F3 in environment preparation, and F4 in vali-dation or policy handling. Thus all four instantiate the same Inclusion–Attribution–Realization mechanism; only p and its legitimate workflow locus change. The displayed text states the intended harm; the experiments encode each behavior using inert canary data, temporary paths, a loopback reg-istry, or controlled test flags. During trajectory construction, each placeholder is bound to a domain-specific canary iden-tifier. SER is then measured from the generated skill text; no endpoint request, file deletion, package installation, or check bypass is executed. We report family-level labels F1– F4 rather than legacy domain-specific variant names and do not claim an exhaustive taxonomy. 
+
+## Empirical Evaluation 
+
+Research questions and data. The evaluation is centered on artifact poisoning, not a broad benchmark sweep. RQ1 tests attack feasibility on SkillClaw, RQ2 isolates recurring support, Evolution Attribution, and Realization, and RQ3 evaluates structural transfer to Trace2Skill. We discuss de-fense implications separately. The SkillClaw evaluation targets the xlsx skill with four canonical security-effect families (F1/F2/F3/F4). Their con-trolled instantiations are an xlsx self-registration formula ref-erencing an inert canary URL (F1), cleanup limited to a ca-nary temporary path (F2), a loopback package registry (F3), and toy CI preflight flags (F4). These specifications are em-bedded in text but never executed. The source corpus contains 300 case-level execution logs collected by running GLM-5 with the original xlsx skill on 100 SpreadsheetBench training tasks (Ma et al. 2024); we convert these logs into SkillClaw-compatible sessions. Each trial forms a task-distinct batch of 
+
+n trajectories containing k transformed attacker contribu-tions and n − k clean records, then runs one native evolution cycle without modifying the evolver prompt or skill-bank code. The main matrix retains the native refine /create /skip 
+
+decision but disables SkillClaw’s optional session-quality judge and publish-time verifier; these quality modules do not enforce source provenance. Init starts from the original xlsx skill and models skill refinement; no-init models skill cre-ation. The main evaluation uses n = 30 , k = 3 (ρ = 10% ), with 25 completed trials per model–family cell. RQ2 varies 
+
+k at fixed n = 30 and varies n at fixed k = 3 to isolate recurrence and clean-pool dilution. 
+
+Metrics. Our primary metric is SER, the fraction of com-pleted evolution trials whose output skill newly embeds the target behavior. Detection uses family-specific, diff-aware canary rules; judge output is used only for inspection. We report embedded/completed counts so endpoint failures are not silently counted as clean. Hard and Soft task accuracy are reported separately as a setting sanity check. The evaluation stops at the generated skill artifact. 
+
+RQ1: Attack Feasibility in SkillClaw 
+
+Table 1 is the main SkillClaw result: at 10% attacker sup-port, PoisonedEvolution embeds the target behavior in 
+
+546 /600 completed trials (91.0% SER) across six evolvers and four canonical behaviors. This is intentionally an artifact-level claim: the SES pipeline has written the behavior into a persistent skill. Each body cell contains 25 completed trials; the table’s main evidence is the aggregate over 600 completed evolution trials under one comparable setting. Results vary substantially by evolver, from 70/100 to 100/100, showing 
+
+Figure 2: Attacker support and clean-pool dilution. Left: fixed batch size n = 30 with more attacker-owned records. Right: fixed attacker support k = 3 under larger total evidence pools. Labels report embedded/completed trials. that the promotion policy is an important part of the attack surface. The family aggregate row also shows payload sen-sitivity. F4 reaches 146/150, while F2 reaches 139/150 and F1 reaches 137/150, because these behaviors can be framed as operational workflow, cleanup, or reporting advice that fits xlsx maintenance tasks. F3 is lower at 124/150 and re-mains especially model-sensitive because package-source or environment redirection is easier for an evolver to treat as unrelated setup advice or to suppress under its own safety and quality priors. This variation is useful: the attack is generic, but realization depends on whether a family looks like reusable skill knowledge inside the target trajectory do-main. The vulnerability appears in both evolution regimes. Table 1 reports refinement of an existing skill. A separate no-init diagnostic across four representative evolvers tests skill creation and embeds the behavior in 490/600 trials (81.7%). Because this model set is not paired with the full six-evolver table, we use no-init only to establish create-path feasibility, not to estimate a causal mode effect. Creating a skill also requires the evolver to decide that a pattern deserves a new artifact, whereas init provides an artifact to patch. More-over, the reference corpus was collected with the original xlsx skill, so no-init changes the initial bank state but does not make the source traces prior-skill-free. We retain init as the primary deployed refinement setting. Figure 2 analyzes recurrence and dilution around this main setting. 
+
+RQ2: Mechanism Ablations 
+
+Figures 2 and 3 study effective support, C2 Attribution, and C3 Realization. C1 is held operationally fixed: attacker records are submitted through each system’s native inges-tion and routing path before reaching the evolver. Figure 2 then separates recurrence from dilution. At fixed n = 30 ,increasing attacker support from k = 1 (3.3%) to k = 2 
+
+(6.7%) raises SER from 5/25 to 21/25, and k = 3 (10%) reaches 25/25. The jump from one to two records is the key point: a single poisoned trajectory can be treated as acciden-tal or task-specific, whereas repeated consistent trajectories resemble the experience SES systems are designed to distill. At fixed k = 3 , a representative strong evolver reaches 25/25 at n = 10 (30%) and n = 30 (10%), and remains high at Evolver F1 F2 F3 F4 Overall GPT-5.4 17/25 22/25 7/25 24/25 70/100 (70.0%) MiniMax-M2.5 21/25 23/25 18/25 25/25 87/100 (87.0%) DeepSeek-V3.2 25/25 25/25 25/25 25/25 100/100 (100.0%) DeepSeek-V4-Pro 24/25 23/25 24/25 23/25 94/100 (94.0%) Qwen3.5-35B-A3B 25/25 21/25 25/25 24/25 95/100 (95.0%) Qwen3.5-122B-A10B 25/25 25/25 25/25 25/25 100/100 (100.0%) Family aggregate 137/150 (91.3%) 139/150 (92.7%) 124/150 (82.7%) 146/150 (97.3%) 546/600 (91.0%) 
+
+Table 1: SkillClaw main full-family evaluation at ρ = 10% (n = 30 , k = 3 ). Entries are embedded/completed trials; each model–family cell contains 25 completed trials under the init setting. 
+
+Figure 3: C2–C3 condition ablations. C2 varies how the same target behavior is credited: local single-place text, frag-mented text, or causal outcome framing. C3 varies its behav-ioral encoding: generic wording, an auxiliary-channel cue, or domain-tailored actionable wording. Bars show SER and labels report embedded/completed trials. 22/25 when n = 100 (3%). An additional k = 1 , n = 100 
+
+(1%) check gives 0/5, consistent with the same recurrence effect. Figure 3 changes the trajectory representation. For C2, 
+
+Local inserts the behavior at one point in otherwise clean evidence, Fragmented splits it across records without a clear causal role, and Causal ties the behavior to the observed task outcome. Local and fragmented insertions reach 8/25 and 11/25, whereas causal framing reaches 25/25. The C3-oriented comparison holds the F1 family fixed while varying its operational encoding and workflow locus: Generic uses a broad reporting instruction, Auxiliary places the effect in an out-of-band communication cue, and Tailored integrates actionable xlsx-specific semantics into the main trajectory. The variants reach 18/25, 0/25, and 25/25. Because channel and locus change together, this is a realization stress test rather than a single-variable causal estimate. Together, the results show that attribution requires an outcome-linked role and realization benefits from an actionable, domain-aligned encoding. 
+
+RQ3: Structural Transfer to Trace2Skill 
+
+This experiment exercises the full input path, not direct analyst-output injection. Each trial mixes three attacker-controlled, system-formatted failed trajectories with 27 clean failures sampled from a held-out spreadsheet trajectory pool. The former make a task or environment requirement ex-            
+
+> Group Embedded/Trials SER Overall 369/600 61.5% F1 101/150 67.3% F2 124/150 82.7% F3 116/150 77.3% F4 28/150 18.7%
+
+Table 2: Trace2Skill structural transfer at n = 30 , k = 3 
+
+(ρ = 10% ). Entries aggregate 150 trials per behavior family. pressed with inert canary identifiers appear unfulfilled. The native error-analysis stage extracts failure lessons, and the se-lected evolver consolidates them into a new or existing skill. Only the input trace pool changes. The 600 trials comprise four behavior families, multiple evolvers and evolution modes, and 150 trials per family at 
+
+n = 30 , k = 3 (ρ = 10% ). Trace2Skill is less vulnerable than SkillClaw but still affected in 369/600 trials (61.5%). Its outcome-split analysts and hierarchical consolidation in-troduce additional attribution and realization bottlenecks; the large family spread (18.7–82.7%) further shows that pipeline routing matters. F4 drops to 28/150 because Trace2Skill routes these records through a failure-analysis path: the ana-lyst is asked to extract missing capabilities that explain failed task completion. Environment or post-processing require-ments in F2/F3 can be interpreted as concrete fixes for a failed trace, while safety-weakening advice looks less like a necessary repair and more like policy relaxation outside the spreadsheet task. The same family is easier in SkillClaw because its session summaries can cast validation changes as workflow guidance rather than as a failure cause. We there-fore use Trace2Skill as a structural transfer check rather than a second main matrix. 
+
+Benign-task utility check. We use normal spreadsheet tasks to check whether a poisoned-evolved xlsx skill remains useful for its intended workload. On the 100-task trajectory-collection split with Qwen3.5-122B-A10B, the poisoned-evolved skill scores 20.0% Hard and 36.54% Soft, compared with 18.0% and 34.88% without a skill. Thus, in this split, poisoning coexists with the normal-task benefit of skill use rather than collapsing the artifact into attack-only text. A sep-arate held-out smoke test exercises the actual evolution path on one benchmark instance. Discussion 
+
+Do SES pipelines provide natural defenses? The native evolver’s checks are primarily utility gates. SkillClaw dis-tinguishes skill deficiencies from agent or environment fail-ures and skips weak evidence, so blunt, one-off, or cross-domain insertions may be discarded. Indeed, local and frag-mented insertions reach only 8/25 and 11/25 trials, and k = 1 
+
+is much weaker than k > 1. The tension is structural: SES should ignore accidents, yet repeated poisoned evidence re-sembles the reusable experience it is designed to distill. 
+
+Defenses should inspect evidence promotion, not only skill text. Final-skill scanners operate after the evolver has com-pressed and normalized the evidence. Provenance offers an earlier signal: is a pattern independently supported, or dom-inated by one user, Sybil cluster, or template? Our pilot gate requires three users and clusters, rejects majority dominance, and penalizes high text overlap. At n = 30 , k = 3 , it blocks 25/25 single-cluster F1 candidates, reducing post-gate SER from 25/25 to 0/25, while accepting one five-session diverse control. This is preliminary: candidate grouping is assumed, the clean control is small, and coordinated Sybils may mimic diversity. Still, SES systems should retain provenance and make promotion decisions auditable. Provenance should also travel with each update so maintainers can inspect its support-ing users, clusters, and counterevidence instead of trusting only normalized prose. 
+
+Evolver policy matters. Table 1 shows substantial model variation: DeepSeek-V3.2 and Qwen3.5-122B-A10B reach 100.0%, Qwen3.5-35B-A3B and DeepSeek-V4-Pro reach 95.0% and 94.0%, while MiniMax-M2.5 and GPT-5.4 reach 87.0% and 70.0%. This is not a quality or scale ranking because providers and evolution policies differ. The utility check only shows that the poisoned-evolved xlsx skill retains a normal-task gain over no skill on the evaluated split. It is a targeted sanity check, not a complete utility–security Pareto frontier. 
+
+Payload-family sensitivity. The ordering changes across systems: SkillClaw most readily promotes F4, whereas Trace2Skill favors concrete F2/F3 repairs and suppresses F4. Thus family sensitivity is not an intrinsic ranking of harmful behaviors; it reflects semantic fit between a behav-ior, its workflow locus, and the pipeline’s attribution policy. A detector tuned to one family may therefore miss the same security effect when it is embedded at a different workflow locus. 
+
+Authentic provenance is not trustworthy provenance. 
+
+The final skill genuinely comes from the victim evolver, so an artifact-origin check can report an authorized producer even when the producer consumed attacker-controlled evi-dence. Software supply-chain provenance binds outputs to a sequence of transformations (Torres-Arias et al. 2019); SES lineage must additionally retain the supporting and con-tradicting trajectories, contributor clusters, evolver version, and exact skill diff. The provenance-diversity gate is a first approximation to this stronger notion: independent support must be established before a pattern becomes shared proce-dural knowledge. 
+
+Evolution may create a feedback loop. Our experiments stop after one evolution cycle, but deployed systems evolve repeatedly. Once a poisoned skill guides later agents, their trajectories may repeat its behavior and make the pattern ap-pear independently validated. We do not measure this longi-tudinal effect. Multi-cycle evaluation should distinguish new evidence from behavior caused by an earlier skill version; versioned lineage and counterfactual evaluation without the candidate skill may help break this circularity. 
+
+Artifact poisoning and runtime impact are distinct. 
+
+SER answers whether an attacker changed a durable arti-fact. Trigger activation, action execution, and benign utility answer different questions and should not be collapsed into one ASR. A runtime policy may block a canary action with-out making the artifact clean, while an artifact can remain dangerous even if the current evaluation task does not acti-vate it. Effective deployments therefore need evidence-level promotion gates, pre-execution skill analysis, staged rollout, reversible skill versions, and capability-based runtime en-forcement (Debenedetti et al. 2025). 
+
+## Related Work 
+
+Skill acquisition and evolution. Trajectory-grounded sys-tems turn experience into explicit artifacts: Trace2Skill consolidates execution traces, SkillClaw aggregates cross-user sessions, and AutoSkill maintains user-scoped skills from dialogues (Ni et al. 2026; Ma et al. 2026; Yang et al. 2026). Other systems use generator–verifier feedback, cou-ple skills to training and memory control, or manage cre-ation, reuse, and refinement as a unified lifecycle (Zhang et al. 2026a; Xia et al. 2026; Wang et al. 2026; Zhang et al. 2026b; Lin et al. 2026; Xu and Yan 2026). We study ad-versarial evidence in two trajectory-based architectures with direct trajectory-pool attack surfaces; user-scoped, verifier-, and training-coupled systems remain outside our evaluation. 
+
+Prompt, memory, and retrieval poisoning. Indirect prompt injection steers an agent within an episode, including through poisoned tool metadata (Greshake et al. 2023; Huang et al. 2026). AgentPoison and PoisonedRAG corrupt persis-tent memory or retrieval-time evidence (Chen et al. 2024b; Zou et al. 2025). MINJA injects memory through query-only interaction, while eTAMP contaminates web-agent memory through environmental observations and carries the effect across sessions (Dong et al. 2025; Zou et al. 2026). Poi-sonedEvolution instead targets artifact production: records must enter the pipeline, be credited as reusable expertise, and survive synthesis. This yields an explicit Evolution At-tribution condition and an artifact-level metric rather than a retrieval-trigger metric. 
+
+Skill and agent supply-chain attacks. PoisonedSkills, Skill-Inject, and POISE assume attacker control over a dis-tributed skill or its instructions; BadSkill targets a model packaged inside the skill (Qu et al. 2026; Schmotz et al. 2026; Hao et al. 2026; Tie et al. 2026). Our attacker con-tributes only bounded, ordinary-looking evidence and relies on the victim evolver to author the artifact. We adapt Skill-Inject’s security-effect categories as inert canaries but attack cross-trajectory credit assignment, not the final skill file. 
+
+Defenses and provenance. Instruction hierarchy and Se-cAlign separate trusted instructions from untrusted con-text (Wallace et al. 2024; Chen et al. 2024a), while Route-Guard uses response-conditioned internal signals to detect poisoned skills before execution (Xiao et al. 2026). CaMeL separates trusted control flow from untrusted data and en-forces capabilities on information flow (Debenedetti et al. 2025). These mechanisms remain complementary because, after evolution, poisoned behavior already occupies a priv-ileged skill channel. Software supply-chain systems such as in-toto bind artifacts to authorized transformations (Torres-Arias et al. 2019); SES additionally needs semantic lineage from each promoted rule back to its supporting records and contributors. Our provenance gate acts at this earlier evidence-promotion boundary. 
+
+## Conclusion 
+
+Self-evolving skill systems improve agents by turning expe-rience into persistent instruction, creating a new trust bound-ary. We show that recurring adversarial trajectories can sat-isfy Inclusion, Evolution Attribution, and Realization. At 10% attacker support, PoisonedEvolution achieves 91.0% SER on SkillClaw and 61.5% on Trace2Skill. The re-sults motivate provenance and relevance checks before expe-rience becomes a durable skill. Our claims concern artifact poisoning, not runtime compromise. The key risk is recur-ring, workflow-aligned evidence that the evolver normalizes as reusable expertise. SES defenses should therefore treat evidence promotion as a provenance-sensitive authorization decision. 
+
+## References 
+
+Anthropic. 2025. Claude Code: Agent Skills Documentation. https: //docs.anthropic.com/en/docs/claude-code. Chen, S.; Zharmagambetov, A.; Mahloujifar, S.; Chaudhuri, K.; Wagner, D.; and Guo, C. 2024a. SecAlign: Defending Against Prompt Injection with Preference Optimization. arXiv preprint arXiv:2410.05451 .Chen, Z.; Xiang, Z.; Xiao, C.; Song, D.; and Li, B. 2024b. AgentPoi-son: Red-teaming LLM Agents via Poisoning Memory or Knowl-edge Bases. In Advances in Neural Information Processing Systems ,volume 37. Debenedetti, E.; Shumailov, I.; Fan, T.; Hayes, J.; Carlini, N.; Fabian, D.; Kern, C.; Shi, C.; Terzis, A.; and Tramèr, F. 2025. Defeating Prompt Injections by Design. arXiv preprint arXiv:2503.18813 .Dong, S.; Xu, S.; He, P.; Li, Y.; Tang, J.; Liu, T.; Liu, H.; and Xiang, Z. 2025. Memory Injection Attacks on LLM Agents via Query-Only Interaction. In Advances in Neural Information Processing Systems .Greshake, K.; Abdelnabi, S.; Mishra, S.; Endres, C.; Holz, T.; and Fritz, M. 2023. Not What You’ve Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt In-jection. In Proceedings of the 16th ACM Workshop on Artificial Intelligence and Security (AISec) .Hao, H.; Min, D.; Zhang, Z.; Zhang, Y.; Xu, M.; Ge, Y.; and Cheng, L. 2026. POISE: Position-Aware Undetectable Skill Injection on LLM Agents. arXiv preprint arXiv:2606.07943 .Huang, C.; Huang, X.; Tran, N. P.; and Fard, A. M. 2026. Model Context Protocol Threat Modeling and Analyzing Vulnerabili-ties to Prompt Injection with Tool Poisoning. arXiv preprint arXiv:2603.22489 .Lin, H.; Li, P.; Song, J.; Jiang, F.; and Zhang, T. 2026. MUSE-Autoskill: Self-Evolving Agents via Skill Creation, Memory, Man-agement, and Evaluation. arXiv preprint arXiv:2605.27366 .Ma, Z.; Yang, S.; Ji, Y.; Wang, X.; Wang, Y.; Hu, Y.; Huang, T.; and Chu, X. 2026. SkillClaw: Let Skills Evolve Collectively with Agentic Evolver. arXiv preprint arXiv:2604.08377 .Ma, Z.; Zhang, B.; Zhang, J.; Yu, J.; Zhang, X.; Zhang, X.; Luo, S.; Wang, X.; and Tang, J. 2024. SpreadsheetBench: Towards Chal-lenging Real World Spreadsheet Manipulation. In Advances in Neural Information Processing Systems .Ni, J.; Liu, Y.; Liu, X.; Sun, Y.; Zhou, M.; Cheng, P.; Wang, D.; Zhao, E.; Jiang, X.; and Jiang, G. 2026. Trace2Skill: Distill Trajectory-Local Lessons into Transferable Agent Skills. arXiv preprint arXiv:2603.25158 .Qu, Y.; Liu, Y.; Geng, T.; Deng, G.; Li, Y.; Zhang, L. Y.; Zhang, Y.; and Ma, L. 2026. Supply-Chain Poisoning Attacks Against LLM Coding Agent Skill Ecosystems. arXiv preprint arXiv:2604.03081 .Schmotz, D.; Beurer-Kellner, L.; Abdelnabi, S.; and An-driushchenko, M. 2026. Skill-Inject: Measuring Agent Vulnera-bility to Skill File Attacks. arXiv preprint arXiv:2602.20156 .Tie, G.; Shi, J.; Zhou, P.; and Sun, L. 2026. BadSkill: Backdoor At-tacks on Agent Skills via Model-in-Skill Poisoning. arXiv preprint arXiv:2604.09378 .Torres-Arias, S.; Afzali, H.; Kuppusamy, T. K.; Curtmola, R.; and Cappos, J. 2019. in-toto: Providing Farm-to-Table Guarantees for Bits and Bytes. In 28th USENIX Security Symposium (USENIX Security 19) , 1393–1410. Wallace, E.; et al. 2024. The Instruction Hierarchy: Train-ing LLMs to Prioritize Privileged Instructions. arXiv preprint arXiv:2404.13208 .Wang, H.; Wang, G.; Xiao, H.; Zhou, Y.; Pan, Y.; Wang, J.; Xu, K.; Wen, Y.; Ruan, X.; Chen, X.; and Qi, H. 2026. Skill-SD: Skill-Conditioned Self-Distillation for Multi-turn LLM Agents. arXiv preprint arXiv:2604.10674 .Xia, P.; Chen, J.; Wang, H.; Liu, J.; Zeng, K.; Wang, Y.; Han, S.; Zhou, Y.; Zhao, X.; Chen, H.; Zheng, Z.; Xie, C.; and Yao, H. 2026. SkillRL: Evolving Agents via Recursive Skill-Augmented Reinforcement Learning. arXiv preprint arXiv:2602.08234 .Xiao, W.; Tang, X.; Zhou, B.; Hu, S.; and Han, J. 2026. RouteGuard: Internal-Signal Detection of Skill Poisoning in LLM Agents. arXiv preprint arXiv:2604.22888 .Xu, R.; and Yan, Y. 2026. Agent Skills for Large Language Models: Architecture, Acquisition, Security, and the Path Forward. arXiv preprint arXiv:2602.12430 .Yang, Y.; Li, J.; Pan, Q.; Zhan, B.; Cai, Y.; Du, L.; Zhou, J.; Chen, K.; Chen, Q.; Li, X.; Zhang, B.; and He, L. 2026. AutoSkill: Experience-Driven Lifelong Learning via Skill Self-Evolution. 
+
+arXiv preprint arXiv:2603.01145 .Zhang, H.; Fan, S.; Zou, H. P.; Chen, Y.; Wang, Z.; Zhou, J.; Li, C.; Huang, W.-C.; Yao, Y.; Zheng, K.; Liu, X.; Li, X.; and Yu, P. S. 2026a. CoEvoSkills: Self-Evolving Agent Skills via Co-Evolutionary Verification. arXiv preprint arXiv:2604.01687 .Zhang, H.; Long, Q.; Bao, J.; Feng, T.; Zhang, W.; Yue, H.; and Wang, W. 2026b. MemSkill: Learning and Evolving Memory Skills for Self-Evolving Agents. arXiv preprint arXiv:2602.02474 .Zou, W.; Dong, M.; Calvo, M. R.; Chang, S.; Guo, J.; Lee, D.; Niu, X.; Ma, X.; Qi, Y.; and Jiang, J. 2026. Poison Once, Exploit Forever: Environment-Injected Memory Poisoning Attacks on Web Agents. arXiv preprint arXiv:2604.02623 .Zou, W.; Geng, R.; Wang, B.; and Jia, J. 2025. PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models. In 34th USENIX Security Symposium (USENIX Security 25) , 3827–3844.
