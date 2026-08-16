@@ -1,0 +1,182 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-16T19:57:15.695119+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2608.12246v1",
+      "source": "arxiv",
+      "title": "VICBench: A Multi-Language Benchmark for Code Vulnerability Detection",
+      "abstract": "Evaluating security vulnerability detection tools requires benchmark datasets with vulnerability-inducing commits (VICs) - the commits that first introduce vulnerabilities into codebases. VICs are essential for determining the full range of vulnerable software versions. Existing vulnerability datasets suffer from limited programming language coverage, restricted patch complexity, and narrow project scope. Through our dual annotation by human experts and an agentic workflow, we create a benchmark - VICBench - of 100 verified VICs for 100 CVEs across 88 projects in Python, Java, and C++, covering 48 CWE types. VICBench features complex real-world vulnerability fixes averaging 38.6 lines and corresponding VICs of 252.5 lines - significantly larger than prior work. Our evaluation shows that state-of-the-art algorithms V-SZZ and LLM4SZZ achieve only 33.3%-40.1% F1, confirming that using existing approaches still entails significant manual effort. VICBench enables robust evaluation of vulnerability detection approaches.",
+      "authors": [
+        "Jin Lu",
+        "Xuening Han",
+        "Yang Zhong",
+        "Lin Tan",
+        "Kevin Luo",
+        "Andrew Gacek",
+        "Neha Rungta"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL",
+        "cs.SE"
+      ],
+      "published": "2026-08-12T16:45:49+00:00",
+      "link": "https://arxiv.org/pdf/2608.12246v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Multi-language code vulnerability detection benchmark built with agentic workflow; supports agent-based vulnerability detection.",
+      "llm_evidence_cn": "利用智能体工作流构建的多语言代码漏洞检测基准，支持智能体漏洞检测。",
+      "llm_evidence": "利用智能体工作流构建的多语言代码漏洞检测基准，支持智能体漏洞检测。",
+      "canonical_evidence": "利用智能体工作流构建的多语言代码漏洞检测基准，支持智能体漏洞检测。",
+      "llm_tldr_en": "VICBench is a multi-language benchmark of 100 verified vulnerability-inducing commits across 88 projects, built with human and agentic annotation, enabling evaluation of automated vulnerability detection tools.",
+      "llm_tldr_cn": "针对现有漏洞数据集语言覆盖有限、补丁复杂度低等问题，VICBench 通过人类专家与智能体工作流双重标注，构建了覆盖 Python/Java/C++ 的 100 个漏洞引入提交基准，包含 88 个项目、48 种 CWE 类型。该基准支持对代码漏洞自动检测工具进行更真实的多语言评测，为智能体漏洞挖掘研究提供了高质量测试集。",
+      "llm_tldr": "针对现有漏洞数据集语言覆盖有限、补丁复杂度低等问题，VICBench 通过人类专家与智能体工作流双重标注，构建了覆盖 Python/Java/C++ 的 100 个漏洞引入提交基准，包含 88 个项目、48 种 CWE 类型。该基准支持对代码漏洞自动检测工具进行更真实的多语言评测，为智能体漏洞挖掘研究提供了高质量测试集。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "Research papers on agent based vulnerability mining and detection",
+      "matched_requirement_id": "req-10",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.12273v1",
+      "source": "arxiv",
+      "title": "Convergent Detour Hijacking: Task-Preserving Resource Amplification in Skill-Based LLM Agents",
+      "abstract": "LLM agents increasingly rely on third-party skills, using natural-language descriptions for selection and instruction bodies for planning. This progressive-disclosure design exposes two sequential control points to untrusted publishers: a static skill may steer an otherwise correct task onto an unnecessarily costly trajectory. Prior work studies selection manipulation, malicious skill instructions, and tool-chain resource amplification largely separately, leaving their end-to-end composition unclear. We introduce Convergent Detour Hijacking (CDH), a text-only, runtime-independent attack that couples these stages. Under shared semantic cover, a description establishes relevance during selection, while an aligned body reuses that rationale to fabricate plausible dependencies during planning. CDH attracts an attacker-controlled coordinator alongside legitimate skills, recruits unnecessary benign skills into a bounded detour, and then re-enters the original route to preserve task completion. We evaluate it across multiple LLM backends and 491 held-out tasks under single-task and multi-turn conditions. On DeepSeek-V4-Pro, the matched coordinator is selected in 80.02% of tasks; among coordinator-hit runs that complete tasks, token consumption and end-to-end execution time increase by 66.91% and 92.45%, respectively, while aggregate task completion remains comparable. Thus, correct outcomes do not guarantee trajectory integrity or cost safety.",
+      "authors": [
+        "Junliang Liu",
+        "Ruoyu Li",
+        "Wenxin Tang",
+        "Jingyu Xiao",
+        "Zhenyu Liu",
+        "Jingheng Xu",
+        "Laizhong Cui"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-12T17:12:49+00:00",
+      "link": "https://arxiv.org/pdf/2608.12273v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Security attack on skill-based LLM agents enabling task-preserving resource amplification",
+      "llm_evidence_cn": "对基于技能的LLM代理实施安全攻击，通过收敛绕行劫持放大资源消耗",
+      "llm_evidence": "对基于技能的LLM代理实施安全攻击，通过收敛绕行劫持放大资源消耗",
+      "canonical_evidence": "对基于技能的LLM代理实施安全攻击，通过收敛绕行劫持放大资源消耗",
+      "llm_tldr_en": "This paper introduces Convergent Detour Hijacking (CDH), a text-only attack on skill-based LLM agents that combines selection manipulation with malicious skill instructions and tool-chain resource amplification, causing task-preserving but costly resource amplification.",
+      "llm_tldr_cn": "基于第三方技能的LLM代理在技能选择与指令体中存在多个控制点，攻击者可利用自然语言描述进行选择操纵，并配合恶意指令导致执行成本放大。本文提出收敛绕行劫持（CDH），一种纯文本、运行时无关的攻击，端到端组合这些阶段，使任务保持正确但消耗大量资源。该工作揭示技能供应链中的组合安全风险，并呼吁加强技能来源审查与执行监控。",
+      "llm_tldr": "基于第三方技能的LLM代理在技能选择与指令体中存在多个控制点，攻击者可利用自然语言描述进行选择操纵，并配合恶意指令导致执行成本放大。本文提出收敛绕行劫持（CDH），一种纯文本、运行时无关的攻击，端到端组合这些阶段，使任务保持正确但消耗大量资源。该工作揭示技能供应链中的组合安全风险，并呼吁加强技能来源审查与执行监控。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.09524v1",
+      "source": "arxiv",
+      "title": "STAIR: Effective Incident Response Using an End-to-End Agentic Planning Framework",
+      "abstract": "Incident response planning is critical for restoring compromised software systems after cyberattacks. Common practice relies on expert-driven playbooks that encode fixed response procedures, but these static workflows struggle to adapt to evolving incident states, changing recovery objectives, and execution feedback. Recent LLM-based planners and tool-using agents improve automation, yet they remain unstable in long-horizon response because they lack a unified basis for maintaining incident state, aligning actions with the current recovery stage, and reusing historical experience.   We present STAIR, an end-to-end agentic planning framework for incident response. The framework maintains the current incident as Graph-as-State, uses a Stage Router to dispatch planning to stage-specialized agents, and retrieves historical experiences to guide action selection. An Execution Harness executes actions, returns feedback to update the incident state, and validates action effects for future experience reuse. Across 100 Docker-based cyber ranges, our framework achieves a normalized defense score of 0.94 and improves over the strongest baseline by 9.5%.",
+      "authors": [
+        "Hanlin Jiang",
+        "Jionghao Huang",
+        "Shaofei Li",
+        "Bojia Yu",
+        "Peng Jiang",
+        "Yuxin Ren",
+        "Ning Jia",
+        "Yao Guo",
+        "Ding Li"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-10T12:25:12+00:00",
+      "link": "https://arxiv.org/pdf/2608.09524v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Agentic planning framework for incident response; directly relevant to agent-based security analysis.",
+      "llm_evidence_cn": "面向事件响应的智能体规划框架，直接涉及智能体安全分析。",
+      "llm_evidence": "面向事件响应的智能体规划框架，直接涉及智能体安全分析。",
+      "canonical_evidence": "面向事件响应的智能体规划框架，直接涉及智能体安全分析。",
+      "llm_tldr_en": "STAIR is an end-to-end agentic planning framework for incident response that maintains incident state as a graph and aligns actions with recovery stages, improving adaptation and stability of LLM-based response.",
+      "llm_tldr_cn": "针对现有专家剧本和LLM规划器在事件响应中状态维护差、长期规划不稳定的问题，STAIR 提出端到端智能体规划框架。它以图结构维护当前事件状态（Graph-as-State），利用阶段路由机制将动作与恢复阶段对齐，并支持复用历史经验。该框架旨在提升应急响应在演化事件状态下的适应性与有效性。为智能体在安全分析中的实际部署提供了规划与决策基础。",
+      "llm_tldr": "针对现有专家剧本和LLM规划器在事件响应中状态维护差、长期规划不稳定的问题，STAIR 提出端到端智能体规划框架。它以图结构维护当前事件状态（Graph-as-State），利用阶段路由机制将动作与恢复阶段对齐，并支持复用历史经验。该框架旨在提升应急响应在演化事件状态下的适应性与有效性。为智能体在安全分析中的实际部署提供了规划与决策基础。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.09643v1",
+      "source": "arxiv",
+      "title": "Activation Probes Surface Code-Security Signals that the Model's Output Misses",
+      "abstract": "AI coding agents now write a growing share of production code, and human security review does not scale at the rate code is generated. The agents in widest use are closed-weight, so a deploying team cannot read their internals. It can instead run an open-weight model as a reviewer over the agent's output. That reviewer's activations are readable. We ask whether reading those activations recovers a security signal that simply asking the same reviewer misses. We fit a single linear probe per model on a corpus of paired vulnerable-and-fixed Python functions, then test it without retraining on real disclosed vulnerabilities whose weakness type the probe never saw in training, across five open-weight reviewer models. On the vulnerabilities fixed by changing a single function, the probe scores the vulnerable function above its fix on 61-67% of cases for every model, beating the 50% chance line. It also beats the same model's prompted YES/NO win-rate read from its logits, under every prompt we try. Asking the model for a written verdict, even with chain-of-thought, returns the same answer on the vulnerable and fixed function most of the time and so cannot tell them apart. Model activations carry a code-security signal that prompting the same model misses.",
+      "authors": [
+        "Ivan Wiryadi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-08-10T14:22:46+00:00",
+      "link": "https://arxiv.org/pdf/2608.09643v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Activation probes surface code-security signals missed by model output, applied to AI coding agents",
+      "llm_evidence_cn": "激活探针揭示AI编码智能体输出中遗漏的代码安全信号",
+      "llm_evidence": "激活探针揭示AI编码智能体输出中遗漏的代码安全信号",
+      "canonical_evidence": "激活探针揭示AI编码智能体输出中遗漏的代码安全信号",
+      "llm_tldr_en": "This paper shows that linear probes on reviewer model activations recover security vulnerabilities in AI-generated code that the same model's textual output misses, enabling more reliable automated security review of AI coding agents.",
+      "llm_tldr_cn": "AI编码智能体生成大量代码，但人工安全审查难以跟上，而仅依赖模型输出可能遗漏漏洞信号。该文在开源审查模型的激活层上训练线性探针，在未见过的真实漏洞类型上进行测试，发现探针能恢复被输出遗漏的安全信号，为监管AI编码智能体的安全性提供了更可靠的自动化审查途径。",
+      "llm_tldr": "AI编码智能体生成大量代码，但人工安全审查难以跟上，而仅依赖模型输出可能遗漏漏洞信号。该文在开源审查模型的激活层上训练线性探针，在未见过的真实漏洞类型上进行测试，发现探针能恢复被输出遗漏的安全信号，为监管AI编码智能体的安全性提供了更可靠的自动化审查途径。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

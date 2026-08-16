@@ -1,0 +1,69 @@
+{
+  "label": "2026-08-16",
+  "date": "2026-08-16",
+  "generated_at": "2026-08-16T19:59:49",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202608/16/2608.12246v1-vicbench-a-multi-language-benchmark-for-code-vulnerability-detection",
+      "section": "deep",
+      "title_en": "VICBench: A Multi-Language Benchmark for Code Vulnerability Detection",
+      "authors": "Jin Lu, Xuening Han, Yang Zhong, Lin Tan, Kevin Luo, Andrew Gacek, Neha Rungta",
+      "date": "2026-08-12",
+      "pdf": "https://arxiv.org/pdf/2608.12246v1",
+      "score": "8.0",
+      "evidence": "利用智能体工作流构建的多语言代码漏洞检测基准，支持智能体漏洞检测。",
+      "tldr": "现有漏洞数据集在编程语言覆盖、补丁复杂度和项目范围上存在局限。通过人类专家与agentic工作流双重标注，构建了VICBench基准，包含100个已验证的漏洞引入提交，对应100个CVE，覆盖88个项目中Python、Java和C++共48种CWE类型。其真实漏洞修复平均38.6行，VIC平均252.5行，远超以往数据集。评估显示V-SZZ和LLM4SZZ等SOTA方法F1仅33.3%-40.1%，表明现有方法仍需大量人工，VICBench可促进漏洞检测方法的稳健评估。",
+      "tags": "query:agent-vuln",
+      "abstract_en": "Evaluating security vulnerability detection tools requires benchmark datasets with vulnerability-inducing commits (VICs) - the commits that first introduce vulnerabilities into codebases. VICs are essential for determining the full range of vulnerable software versions. Existing vulnerability datasets suffer from limited programming language coverage, restricted patch complexity, and narrow project scope. Through our dual annotation by human experts and an agentic workflow, we create a benchmark - VICBench - of 100 verified VICs for 100 CVEs across 88 projects in Python, Java, and C++, covering 48 CWE types. VICBench features complex real-world vulnerability fixes averaging 38.6 lines and corresponding VICs of 252.5 lines - significantly larger than prior work. Our evaluation shows that state-of-the-art algorithms V-SZZ and LLM4SZZ achieve only 33.3%-40.1% F1, confirming that using existing approaches still entails significant manual effort. VICBench enables robust evaluation of vulnerability detection approaches.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/16/2608.12273v1-convergent-detour-hijacking-task-preserving-resource-amplification-in-skill-based-llm-agents",
+      "section": "deep",
+      "title_en": "Convergent Detour Hijacking: Task-Preserving Resource Amplification in Skill-Based LLM Agents",
+      "authors": "Junliang Liu, Ruoyu Li, Wenxin Tang, Jingyu Xiao, Zhenyu Liu, Jingheng Xu, Laizhong Cui",
+      "date": "2026-08-12",
+      "pdf": "https://arxiv.org/pdf/2608.12273v1",
+      "score": "8.0",
+      "evidence": "对基于技能的LLM代理实施安全攻击，通过收敛绕行劫持放大资源消耗",
+      "tldr": "LLM代理依赖第三方技能，其渐进式披露设计暴露了两个控制点。现有研究孤立看待选择操纵、恶意指令和资源放大，未考虑端到端组合。提出的CDH攻击耦合选择与规划阶段，在保持任务完成的同时实现高额资源放大。实验表明命中率80.02%，token与时间分别增66.91%和92.45%，揭示正确结果不保证轨迹完整或成本安全。",
+      "tags": "query:agent-vuln",
+      "abstract_en": "LLM agents increasingly rely on third-party skills, using natural-language descriptions for selection and instruction bodies for planning. This progressive-disclosure design exposes two sequential control points to untrusted publishers: a static skill may steer an otherwise correct task onto an unnecessarily costly trajectory. Prior work studies selection manipulation, malicious skill instructions, and tool-chain resource amplification largely separately, leaving their end-to-end composition unclear. We introduce Convergent Detour Hijacking (CDH), a text-only, runtime-independent attack that couples these stages. Under shared semantic cover, a description establishes relevance during selection, while an aligned body reuses that rationale to fabricate plausible dependencies during planning. CDH attracts an attacker-controlled coordinator alongside legitimate skills, recruits unnecessary benign skills into a bounded detour, and then re-enters the original route to preserve task completion. We evaluate it across multiple LLM backends and 491 held-out tasks under single-task and multi-turn conditions. On DeepSeek-V4-Pro, the matched coordinator is selected in 80.02% of tasks; among coordinator-hit runs that complete tasks, token consumption and end-to-end execution time increase by 66.91% and 92.45%, respectively, while aggregate task completion remains comparable. Thus, correct outcomes do not guarantee trajectory integrity or cost safety.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/16/2608.09524v1-stair-effective-incident-response-using-an-end-to-end-agentic-planning-framework",
+      "section": "quick",
+      "title_en": "STAIR: Effective Incident Response Using an End-to-End Agentic Planning Framework",
+      "authors": "Hanlin Jiang, Jionghao Huang, Shaofei Li, Bojia Yu, Peng Jiang, Yuxin Ren, Ning Jia, Yao Guo, Ding Li",
+      "date": "2026-08-10",
+      "pdf": "https://arxiv.org/pdf/2608.09524v1",
+      "score": "7.0",
+      "evidence": "面向事件响应的智能体规划框架，直接涉及智能体安全分析。",
+      "tldr": "事件响应规划通常依赖静态专家剧本，难以适应动态变化。STAIR提出端到端智能体规划框架，以图形式维护事件状态，通过阶段路由分派专用代理，并检索历史经验指导动作。执行机制反馈更新状态并验证效果。在100个Docker靶场中防御分数达0.94，较基线提升9.5%。",
+      "tags": "query:agent-vuln",
+      "abstract_en": "Incident response planning is critical for restoring compromised software systems after cyberattacks. Common practice relies on expert-driven playbooks that encode fixed response procedures, but these static workflows struggle to adapt to evolving incident states, changing recovery objectives, and execution feedback. Recent LLM-based planners and tool-using agents improve automation, yet they remain unstable in long-horizon response because they lack a unified basis for maintaining incident state, aligning actions with the current recovery stage, and reusing historical experience.   We present STAIR, an end-to-end agentic planning framework for incident response. The framework maintains the current incident as Graph-as-State, uses a Stage Router to dispatch planning to stage-specialized agents, and retrieves historical experiences to guide action selection. An Execution Harness executes actions, returns feedback to update the incident state, and validates action effects for future experience reuse. Across 100 Docker-based cyber ranges, our framework achieves a normalized defense score of 0.94 and improves over the strongest baseline by 9.5%.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/16/2608.09643v1-activation-probes-surface-code-security-signals-that-the-models-output-misses",
+      "section": "quick",
+      "title_en": "Activation Probes Surface Code-Security Signals that the Model's Output Misses",
+      "authors": "Ivan Wiryadi",
+      "date": "2026-08-10",
+      "pdf": "https://arxiv.org/pdf/2608.09643v1",
+      "score": "7.0",
+      "evidence": "激活探针揭示AI编码智能体输出中遗漏的代码安全信号",
+      "tldr": "AI编程代理生成大量生产代码，人工安全审查难以扩展。常用代理是闭权重的，但可用开源模型作为审查器，其激活值可读。研究者对五个模型在配对的脆弱与修复Python函数上训练单一线性探针，并在未见过弱点类型的真实漏洞上测试，探针在单函数修复案例中61-67%将脆弱函数排在其修复之上，优于从logits读取的提示胜率；直接询问甚至思维链无法区分。结果表明激活值蕴含代码安全信号，为安全审查提供可解释、可扩展的检测手段。",
+      "tags": "query:agent-vuln",
+      "abstract_en": "AI coding agents now write a growing share of production code, and human security review does not scale at the rate code is generated. The agents in widest use are closed-weight, so a deploying team cannot read their internals. It can instead run an open-weight model as a reviewer over the agent's output. That reviewer's activations are readable. We ask whether reading those activations recovers a security signal that simply asking the same reviewer misses. We fit a single linear probe per model on a corpus of paired vulnerable-and-fixed Python functions, then test it without retraining on real disclosed vulnerabilities whose weakness type the probe never saw in training, across five open-weight reviewer models. On the vulnerabilities fixed by changing a single function, the probe scores the vulnerable function above its fix on 61-67% of cases for every model, beating the 50% chance line. It also beats the same model's prompted YES/NO win-rate read from its logits, under every prompt we try. Asking the model for a written verdict, even with chain-of-thought, returns the same answer on the vulnerable and fixed function most of the time and so cannot tell them apart. Model activations carry a code-security signal that prompting the same model misses.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

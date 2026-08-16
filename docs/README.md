@@ -6,56 +6,34 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-08-15
-- 运行时间：2026-08-15 19:59:37 UTC
+- 最新运行日期：2026-08-16
+- 运行时间：2026-08-16 19:59:44 UTC
 - 运行状态：成功
-- 本次总论文数：12
-- 精读区：6
-- 速读区：6
+- 本次总论文数：4
+- 精读区：2
+- 速读区：2
 
 ### 今日简报（AI）
-今日精读6篇、速读6篇，聚焦LLM Agent系统的安全威胁与长期运行机制。最值得关注的两项研究：《Compositional Threat Analysis…Order 66 Scenario》揭示代理系统潜在组合攻击路径，《Query-Only Backdoor Attacks》展示仅查询即可污染自我进化技能的后门风险。建议普通读者优先关注多智能体系统的传播性风险与逆向工程基准的最新进展。
-- 详情：[/202608/15/README](/202608/15/README)
+今日精读4篇论文，聚焦代码漏洞检测与LLM智能体安全，其中两项高分研究值得关注。  
+重点推荐《VICBench》多语言漏洞基准和《Convergent Detour Hijacking》智能体资源劫持攻击，分别揭示检测盲区与新型威胁路径。  
+若关注代码安全，建议优先精读VICBench以校准工具，并留意智能体资源滥用风险。
+- 详情：[/202608/16/README](/202608/16/README)
 
 ### 精读区论文标签
-1. [Compositional Threat Analysis of Latent Compromise in LLM Agent Systems: The Order 66 Scenario](/202608/15/2608.08131v1-compositional-threat-analysis-of-latent-compromise-in-llm-agent-systems-the-order-66-scenario)  
-   标签：评分：9.0/10、query:agent-vuln
-   evidence：对LLM智能体系统中潜在妥协的组合式威胁分析
-2. [Query-Only Backdoor Attacks on Self-Evolving Skills via Trajectory Poisoning](/202608/15/2608.08303v1-query-only-backdoor-attacks-on-self-evolving-skills-via-trajectory-poisoning)  
-   标签：评分：9.0/10、query:agent-vuln
-   evidence：通过轨迹投毒对自进化LLM智能体技能进行后门攻击
-3. [RangeFactory: Scalable Construction of Multi-Hop Cyber Ranges](/202608/15/2608.09526v1-rangefactory-scalable-construction-of-multi-hop-cyber-ranges)  
-   标签：评分：9.0/10、query:agent-vuln
-   evidence：从漏洞环境自动构建多跳网络靶场，支持LLM智能体攻击链
-4. [Beyond Handcrafted Security: Towards Self-Evolving Defense for LLM Agents](/202608/15/2608.12977v1-beyond-handcrafted-security-towards-self-evolving-defense-for-llm-agents)  
-   标签：评分：9.0/10、query:agent-vuln
-   evidence：提出面向LLM智能体的自演化运行时防御，针对智能体执行中的安全威胁与漏洞。
-5. [SHE: Trajectory-driven Safety Harness Evolution for LLM Agents](/202608/15/2608.09885v1-she-trajectory-driven-safety-harness-evolution-for-llm-agents)  
+1. [VICBench: A Multi-Language Benchmark for Code Vulnerability Detection](/202608/16/2608.12246v1-vicbench-a-multi-language-benchmark-for-code-vulnerability-detection)  
    标签：评分：8.0/10、query:agent-vuln
-   evidence：面向LLM智能体漏洞的安全防护演进
-6. [Generating Attacks for LLMs with GFlowNets](/202608/15/2608.10171v1-generating-attacks-for-llms-with-gflownets)  
+   evidence：利用智能体工作流构建的多语言代码漏洞检测基准，支持智能体漏洞检测。
+2. [Convergent Detour Hijacking: Task-Preserving Resource Amplification in Skill-Based LLM Agents](/202608/16/2608.12273v1-convergent-detour-hijacking-task-preserving-resource-amplification-in-skill-based-llm-agents)  
    标签：评分：8.0/10、query:agent-vuln
-   evidence：为LLM生成攻击以发现漏洞
+   evidence：对基于技能的LLM代理实施安全攻击，通过收敛绕行劫持放大资源消耗
 
 ### 速读区论文标签
-1. [Mind Viruses: Self-Propagating Ideas in Multi-Agent LLM Systems](/202608/15/2608.10218v1-mind-viruses-self-propagating-ideas-in-multi-agent-llm-systems)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：研究多智能体LLM系统中自我传播思想带来的安全风险
-2. [The Next Challenge for Agentic Cybersecurity: A Realistic, Contamination-Free Reverse Engineering Benchmark](/202608/15/2608.11469v1-the-next-challenge-for-agentic-cybersecurity-a-realistic-contamination-free-reverse-engineering-benchmark)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：为AI智能体提供逆向工程基准，使其能分析二进制软件，是自动化漏洞挖掘的关键步骤。
-3. [Beyond Memory: A Transactional Continuity Kernel for Long-Lived AI Agents](/202608/15/2608.11632v1-beyond-memory-a-transactional-continuity-kernel-for-long-lived-ai-agents)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：持久AI智能体状态治理，防止特权提升与未审计暴露
-4. [InterSAGE: The Secure and Verifiable Interoperability Protocol for An Internet of Agents](/202608/15/2608.13030v1-intersage-the-secure-and-verifiable-interoperability-protocol-for-an-internet-of-agents)  
-   标签：评分：8.0/10、query:agent-vuln
-   evidence：面向多智能体互操作的安全协议
-5. [Multi-Agent AI Safety as an Institutional Design Problem](/202608/15/2608.09828v1-multi-agent-ai-safety-as-an-institutional-design-problem)  
+1. [STAIR: Effective Incident Response Using an End-to-End Agentic Planning Framework](/202608/16/2608.09524v1-stair-effective-incident-response-using-an-end-to-end-agentic-planning-framework)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：研究多智能体AI系统通过制度规则实现安全，与自主智能体系统安全风险相关。
-6. [Labels Are Not Endpoints: Treatment Leakage and Construct Validity in MCP Agent Security Evaluation](/202608/15/2608.12880v1-labels-are-not-endpoints-treatment-leakage-and-construct-validity-in-mcp-agent-security-evaluation)  
+   evidence：面向事件响应的智能体规划框架，直接涉及智能体安全分析。
+2. [Activation Probes Surface Code-Security Signals that the Model's Output Misses](/202608/16/2608.09643v1-activation-probes-surface-code-security-signals-that-the-models-output-misses)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：审计MCP智能体安全评估的构念效度与处理泄漏
+   evidence：激活探针揭示AI编码智能体输出中遗漏的代码安全信号
 
 
 <div class="dpr-home-promo-card">
