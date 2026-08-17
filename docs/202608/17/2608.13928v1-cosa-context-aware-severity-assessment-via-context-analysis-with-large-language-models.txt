@@ -1,0 +1,568 @@
+Title: CoSA: Context-Aware Severity Assessment via Context Analysis with Large Language Models
+
+URL Source: https://arxiv.org/pdf/2608.13928v1
+
+Published Time: Mon, 17 Aug 2026 00:23:23 GMT
+
+Number of Pages: 23
+
+Markdown Content:
+# CoSA: Context-Aware Severity Assessment via Context Analysis with Large Language Models 
+
+## JINFENG JIANG, Singapore Management University, Singapore 
+
+## YIKUN LI ∗, Singapore Management University, Singapore 
+
+## CHENGRAN YANG, Singapore Management University, Singapore 
+
+## TING ZHANG, Monash University, Australia 
+
+## WEN BIN LEOW, GovTech, Singapore 
+
+## YIDE YIN, GovTech, Singapore 
+
+## ENG LIEH OUH, Singapore Management University, Singapore 
+
+## LWIN KHIN SHAR, Singapore Management University, Singapore 
+
+## DAVID LO, Singapore Management University, Singapore 
+
+Accurate vulnerability severity assessment is essential for prioritizing remediation, yet manually assessing Common Vulnerability Scoring System (CVSS) base metrics remains labor-intensive. Existing automated approaches often fail to capture the repository-level evidence required for assessing many CVSS base metrics. Such repository-aware assessment is challenging because relevant evidence is scattered across the entire repository under heavy noise. To address these challenges, we present CoSA, a Co ntext-aware vulnerability Severity Assessment approach that infers CVSS base metrics from repository artifacts. CoSA constructs a code property graph (CPG) and applies a two-stage repository-pruning strategy: lightweight static pruning to preserve structurally proximal context, followed by an agentic large language model (LLM)-guided pruning step to retain CVSS-relevant context while collecting supporting evidence. The LLM then consolidates the retrieved repository context into compact, CVSS metric-wise textual summaries, which are fed into a lightweight transformer predictor. We also construct a higher-quality repository-level dataset comprising 6,816 CVSS labeled instances spanning 90 Common Weakness Enumeration (CWE) types. Experiments on real-world vulnerabilities show that CoSA consistently outperforms function-level and pure-LLM baselines. It improves prediction accuracy by 14.4% and Macro-F1 by 15.3% over the best-performing baseline, suggesting that explicit, metric-oriented repository context retrieval is crucial for practical and reliable automated severity assessment. CCS Concepts: • Security and privacy → Software security engineering .Additional Key Words and Phrases: Large Language Models, Vulnerability Severity Assessment  
+
+> ∗
+
+Yikun Li is the corresponding author (yikunli@smu.edu.sg). Authors’ Contact Information: Jinfeng Jiang, jfjiang@smu.edu.sg, Singapore Management University, Singapore, Singapore; Yikun Li ∗, yikunli@smu.edu.sg, Singapore Management University, Singapore, Singapore; Chengran Yang, cryang@smu.edu.sg, Singapore Management University, Singapore, Singapore; Ting Zhang, Ting.Zhang@monash.edu, Monash University, Melbourne, Australia; Wen Bin Leow, leow_wen_bin@tech.gov.sg, GovTech, Singapore, Singapore; Yide Yin, YIN_Yide@tech.gov.sg, GovTech, Singapore, Singapore; Eng Lieh Ouh, elouh@smu.edu.sg, Singapore Management University, Singapore, Singapore; Lwin Khin Shar, lkshar@smu.edu.sg, Singapore Management University, Singapore, Singapore; David Lo, davidlo@smu.edu.sg, Singapore Management University, Singapore, Singapore. Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for components of this work owned by others than the author(s) must be honored. Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee. Request permissions from permissions@acm.org. © 2018 Copyright held by the owner/author(s). Publication rights licensed to ACM. Manuscript submitted to ACM Manuscript submitted to ACM 1arXiv:2608.13928v1 [cs.CR] 14 Aug 2026 2 Jiang et al.   
+
+> ACM Reference Format:
+> Jinfeng Jiang, Yikun Li ∗, Chengran Yang, Ting Zhang, Wen Bin Leow, Yide Yin, Eng Lieh Ouh, Lwin Khin Shar, and David Lo. 2018. CoSA: Context-Aware Severity Assessment via Context Analysis with Large Language Models. J. ACM 37, 4, Article 111 (August 2018), 23 pages. https://doi.org/XXXXXXX.XXXXXXX
+
+1 Introduction 
+
+Modern software systems are deeply intertwined. Cloud services, mobile applications, and open-source dependencies form supply-chain ecosystems in which a single flaw can lead to widespread compromise and operational disruption [31, 50]. Meanwhile, public vulnerability reporting continues to accelerate: 39,962 Common Vulnerabilities and Exposures (CVEs) were published in 2024, increasing further to 48,185 in 2025 [13]. NIST reports that CVE submissions increased by 32% in 2024, that the prior processing rate is no longer sufficient to keep up with incoming submissions, and that the National Vulnerability Database (NVD) backlog is still growing while exploring machine learning to automate parts of vulnerability processing [38]. On the other hand, automated repository and pipeline-level vulnerability detection tools often surface orders of magnitude more candidate issues than those ultimately curated and assigned CVE identifiers [18]. In this setting, severity assessment becomes a practical bottleneck for vulnerability management, as it determines which issues should be fixed with higher priority, and how risks are communicated across technical and non-technical stakeholders. In practice, severity assessment is primarily based on scorecards such as the Common Vulnerability Scoring System (CVSS) [11, 35]. CVSS v3.x expresses the intrinsic exploitability and impact of a vulnerability through a series of base metrics and maps this set of features as a vector and normalizes them to a standardized severity band. It provides a standard for coordinating remediation between vendors, customers, and regulators. However, manually assigning accurate CVSS vectors is labor-intensive and requires expertise in both security and affected system. As the pace of disclosures increases [13, 38], there is strong pressure to automate software vulnerability severity assessment. Recent work therefore turns to automated vulnerability severity prediction. Based on the input signals they rely on, existing approaches can be roughly grouped into three categories: description-centric, hybrid, and code-centric approaches. Description-centric models take only natural-language vulnerability descriptions as input, and use classical machine learning or deep text encoders to predict CVSS severity or full base vectors from CVE descriptions [7, 17, 20, 21, 43, 48, 51]. Hybrid approaches combine vulnerability descriptions with source code, prior CVSS vectors, and increasingly employ additional related web pages for prediction [5, 6, 14, 49, 54, 55]. However, the majority of these methods rely on the CVSS description, which means the severity can only be assigned after human analysis and reasoning, limiting the automation and efficiency of severity assessment. To address this limitation, researchers proposed several code-centric models that operate on commits, functions, or sliced vulnerable code [24, 25, 27, 41, 53], thus allowing for an earlier severity assessment that serves as a pre-processing step that accelerates following human intervention. While prior works [27, 46] have advanced automated severity assessment along multiple axes, accurate CVSS inference actually depends on a repository context that is large, scattered, and difficult to retrieve and organize. In practice, CVSS v3.x base metrics including Attack Vector (AV), Attack Complexity (AC), User Interaction (UI), Privileges Required (PR), Scope (S), and the impact metrics (C, I, A), which are rarely determined by the vulnerable function alone. Instead, they depend on how this function is reached through the program and how its effects propagate through subsequent operations. Consequently, the evidence needed for correct metric assignment is often distributed across multiple functions and call paths. This observation motivates our work: repository-aware severity assessment. 
+
+> Manuscript submitted to ACM
+
+CoSA : Context-Aware Severity Assessment via Context Analysis with Large Language Models 3However, CVSS-labeled data is often released without the repository-level context needed to judge reachability and effect propagation. Accordingly, repository-aware severity assessment faces four key challenges. 
+
+(C0) Missing repository-level context in CVSS-labeled datasets. CVSS is usually attached to CVE/advisory records [39, 44], and downstream datasets often expose only commit, file, or function-level artifacts [1, 53]. The repository-level context needed to decide reachability and effect propagation is rarely packaged, so reconstructing it from raw repositories is necessary. 
+
+(C1) Context scale and dispersion. CVSS-relevant evidence is frequently distributed across multi-hop call paths rather than localized within the vulnerable function, its file, or the patch hunk. As a result, narrow inputs used by existing works systematically omit the reachability and effect-propagation signals that govern base metric assignments. 
+
+(C2) Relevance selection under heavy noise. However, simple context expansion is expensive: real repositories exhibit branching call graphs, shared utility layers, and multiple usage scenarios. Much of this surrounding context is irrelevant to a specific vulnerability and can overwhelm downstream predictors. The key is to select a small, high-value subset of evidence that is most informative for CVSS. 
+
+(C3) Metric-wise evidence organization for prediction. Even after retrieving relevant context, the evidence should be consolidated into structured signals, so that predictions are grounded and stable rather than driven by unstructured long-context text. To address these challenges, we propose CoSA, a Co ntext-aware vulnerability Severity Assessment approach that infers CVSS v3.x base metrics from repository evidence. CoSA builds the code property graph (CPG), which is a representation of the repository. When a vulnerable function is detected, a two-stage pruning is performed to select key context. First, a lightweight static step restricts the search space to a structurally proximal neighborhood functions around the vulnerable function along call edges. This yields a compact candidate subgraph that still retains reachability and downstream effect paths that matter for CVSS decisions. Second, an LLM-based agent operates over the pruned subgraph to perform CVSS-guided evidence gathering. The agent iteratively inspects a small set of candidates, extracts only the information that matters to metric decisions, and discards irrelevant branches. The gathered information is organized into metric-wise evidence summaries, which are then fed into a lightweight prediction model. In this way, we address (C0) by reconstructing repository-level evidence from raw repositories via a whole-repo CPG, enabling explicit reasoning about reachability and downstream effect propagation, (C1) by traversing a multi-hop repository structure, (C2) by pruning to retain only high-value evidence, and (C3) by producing structured summaries to compress the input length for efficient prediction. Experimental results on real-world vulnerabilities demonstrate that our approach outperforms state of the art (SOTA) [53] on CVSS v3.x base severity prediction. In particular, CoSA improves prediction accuracy by 14.4% and macro-F1 by 15.3% relative to the best-performing baseline, highlighting the importance of explicit, metric-oriented repository context retrieval for practical vulnerability management. Our contributions are threefold: 
+
+• We construct a higher-quality repository-level dataset including 6,816 CVSS v3.x labeled metric instances that span 90 Common Weakness Enumeration (CWE) types for repository-aware severity assessment by consolidating and reconciling existing CVSS-labeled vulnerability resources and filtering inconsistent or low-signal entries. 
+
+• We propose CoSA, a scalable repository-evidence framework for CVSS v3.x base metric inference that explicitly models reachability and effect propagation through interprocedural structure while keeping the context bud-get controlled. By combining two-stage pruning with metric-wise evidence synthesis, CoSA turns dispersed 
+
+> Manuscript submitted to ACM
+
+4 Jiang et al. repository signals into decision-relevant inputs, enabling more grounded and stable predictions than code-only approaches. 
+
+• We conduct extensive experiments and analysis on real-world vulnerabilities, showing consistent improvements over representative baselines on severity classification. Beyond aggregate gains, we provide diagnostic evidence that the retrieved and organized context is the primary driver of performance, offering actionable guidance for practical severity assessment systems. 
+
+2 Background 2.1 Software Vulnerability Severity Assessment 
+
+Many vulnerability severity indicators and prioritization frameworks are used in practice, including the Exploit Prediction Scoring System (EPSS) [19], the Stakeholder-Specific Vulnerability Categorization (SSVC) [3], the Common Weakness Scoring System (CWSS) [36], and the OWASP Risk Rating [45], among them, the Common Vulnerability Scoring System (CVSS) [35] remains one of the most widely adopted standards for communicating the severity of software vulnerabilities [46, 54]. CVSS offers a metricized and reproducible procedure to quantify the intrinsic impact and exploitability of a flaw and to adapt that estimate over time and across environments. There are three major versions of CVSS in use today: v2 (2007) [9], v3.x (2015–2019) [10, 11], and the recently released v4.0 (2024) [12]. Our work focuses on CVSS v3.x (including v3.0 and v3.1), which is currently the most prevalent version in vulnerability databases and industry practice [14, 40]. 
+
+2.2 CVSS v3.x Base Metrics 
+
+Table 1. CVSS v3.x Base metrics, Allowed Values and Brief Meaning                            
+
+> Group Metric Abbr. Allowed values Brief meaning
+> Exploitability Attack Vector AV N (Network), A (Adjacent), L (Local), P (Physical) How remotely an attacker can reach the vulnerable component. Attack Complexity AC L (Low), H (High) Conditions beyond the attacker’s control that affect exploit success. Privileges Required PR N (None), L (Low), H (High) Level of privileges needed prior to successful exploitation. User Interaction UI N (None), R (Required) Whether exploitation requires a separate user to take an action. Scope Scope SU (Unchanged), C (Changed) Whether exploitation can impact resources beyond the vulnerable component’s authorization boundary. Impact Confidentiality Impact CN (None), L (Low), H (High) The impact to confidentiality of a successfully exploited vulnerability. Integrity Impact IN (None), L (Low), H (High) The impact to integrity of a successfully exploited vulnerability. Availability Impact AN (None), L (Low), H (High) The impact to availability of a successfully exploited vulnerability.
+
+In CVSS version 3.x, the base metrics capture properties of a vulnerability that are intended to be stable across time and deployments. The Temporal metrics allow adjustment for evolving conditions such as exploit code maturity, while the Environmental metrics adapt the score to local conditions such as compensating controls or asset importance. Within the base group, CVSS v3.x distinguishes Exploitability metrics, which describe the conditions and requirements for successfully exploiting a vulnerability, from Impact metrics, which describe the potential loss of confidentiality, 
+
+> Manuscript submitted to ACM
+
+CoSA : Context-Aware Severity Assessment via Context Analysis with Large Language Models 5integrity, or availability once exploitation occurs. It also includes Scope, which indicates whether successful exploitation can affect resources beyond the vulnerable component’s own authorization boundary. Further descriptions of these metrics are listed in Table 1. The resulting base score is calculated by the values of these metrics, and mapped to standard base severity bands, normalizing indicators across different domains to serve as a unified reference for triage prioritization and cross-stakeholder communication. CVSS v3.x computes the base score from an Exploitability sub-score and an Impact sub-score. Each metric value is first mapped to its numerical constant (e.g., 𝐴𝑉 ∈ { 0.85 , 0.62 , 0.55 , 0.20 }; 𝐴𝐶 ∈ { 0.77 , 0.44 }; 𝑈 𝐼 ∈ { 0.85 , 0.62 }; and 
+
+𝐶, 𝐼, 𝐴 ∈ { 0, 0.22 , 0.56 }; while 𝑃𝑅 depends on Scope). The equations are: Exploitability = 8.22 × 𝐴𝑉 × 𝐴𝐶 × 𝑃𝑅 × 𝑈 𝐼, (1) 
+
+𝐼𝑆𝐶 Base = 1 − ( 1 − 𝐶 )( 1 − 𝐼 )( 1 − 𝐴 ), (2) Impact =
+
+
+
+6.42 · 𝐼𝑆𝐶 Base , 𝑆 = 𝑈 , 
+
+7.52 (𝐼𝑆𝐶 Base − 0.029 ) − 3.25 (𝐼𝑆𝐶 Base − 0.02 )15 , 𝑆 = 𝐶, 
+
+(3) BaseScore =
+
+
+
+0, Impact ≤ 0,
+
+RoundUp (min (Impact + Exploitability , 10 )) , 𝑆 = 𝑈 , 
+
+RoundUp (min (1.08 (Impact + Exploitability ), 10 )) , 𝑆 = 𝐶. 
+
+(4) Here RoundUp (·) rounds upwards to one decimal place (often written as RoundUp (𝑥 ) = ⌈10 𝑥 ⌉/ 10; implementations should avoid floating-point artifacts). The qualitative base severity rating is determined by the resulting base score using the standard bands: None (0.0), Low (0.1–3.9), Medium (4.0–6.9), High (7.0–8.9), and Critical (9.0–10.0). 
+
+2.3 Case Study 
+
+To illustrate why inferring CVSS metrics from an isolated vulnerable function, a single source file, or a commit diff can be misleading, we present a micro case study centered on CVE-2020-21050 .According to the NVD record, Libsixel versions prior to v1.8.3 contain a stack buffer overflow in gif_process_raster 
+
+in fromgif.c (Figure 1(a)). The upstream patch (Figure 1(b)) hardens the GIF LZW decoder by introducing a maximum supported LZW code size (12 bits), sizing the LZW code table based on this bound, and rejecting inputs whose LZW minimum code size exceeds it, thus preventing out-of-bound writes during decoding. In CVSS v3.1, the Attack Vector metric captures how remotely an attacker can exploit the vulnerable component. 
+
+Network (AV:N) applies when the vulnerable component is tied to the network stack and exploitation is possible at the protocol level one or more network hops away, while Local (AV:L) applies when the vulnerable component is not network-related and the attacker’s path is through local read, write, execute capabilities. In this case study, neither the body of gif_process_raster nor the fixing commit provides enough context to determine which delivery setting applies. When considered in isolation, gif_process_raster is a delivery-agnostic parsing routine: it consumes bytes from an in-memory decoding state and performs LZW state transitions, without encoding whether those bytes originate from disk, stdin, or a network fetch. This can tempt an analyst to interpret the code as a local-only file parser and default to AV:L . However, the NVD-published CVSS v3.1 vector for CVE-2020-21050 assigns AV:N , motivating an examination of repository-level context to recover the missing delivery semantics. 
+
+> Manuscript submitted to ACM
+
+6 Jiang et al. gif_lzw codes[4096]; ... static SIXELSTATUS gif_process_raster( gif_context_t /* in */ *s, gif_t /* in */ *g ){lzw_cs = gif_get8(s); clear = 1 << lzw_cs; ... if (avail < 4096) { ... }}enum { gif_lzw_max_code_size = 12 }; gif_lzw codes[1 << gif_lzw_max_code_size]; lzw_cs = gif_get8(s); if (lzw_cs > gif_lzw_max_code_size) {sixel_helper_set_additional_message ("Unsupported GIF (LZW code size)"); status = SIXEL_RUNTIME_ERROR; goto end; }clear = 1 << lzw_cs; ... if (avail < (1 << gif_lzw_max_code_size)) { ... }SIXELSTATUS sixel_helper_load_image_file( char const *filename, ... int finsecure, /* true if do not verify SSL */ ... ) {status = sixel_chunk_new(&pchunk, filename, finsecure, cancel_flag, allocator); ... status = load_with_builtin(pchunk, ...); // eventually -> load_gif() -> gif_process_raster() }
+
+(a) Vulnerable function gif_process_raster() (b) Fixing patch commit 7808a06 (c) Indirect caller sixel_helper_load_image_ fi le() 
+
+Fig. 1. Case study on assessing the Attack Vector (AV) of CVE-2020-21050. Neither the vulnerable function (a) nor the fix (b) contains sufficient evidence to infer AV. The indirect caller context (c) reveals the missing delivery semantics needed for AV assessment. 
+
+The missing evidence emerges only when examining the indirect caller context. As shown in Figure 1(c), sixel_helper _load_image_file accepts an "insecure" flag ( finsecure ) that disables SSL certificate verification and delegates input materialization to a chunk-construction routine before dispatching the resulting byte buffer to format-specific decoders. This interface-level SSL control is consistent with builds and usages that support remote retrieval (e.g., via HTTPS in configurations that integrate libcurl ). In such deployments, a malicious GIF hosted remotely can be fetched and decoded within the same component that receives the network data, supporting an AV:N assessment. This case study demonstrates that CVSS-relevant evidence may sit outside the vulnerable function, file, and patch context, and that omitting a small but critical portion of repository-level context can change a base-metric assignment (here, the difference between an AV:N assessment based on repository-level information and an AV:L assessment based on implementation-specific information). 
+
+3 Methodology 3.1 Overview of CoSA 
+
+Figure 2 presents the workflow of CoSA, our repository-aware vulnerability severity assessment approach. When a vulnerability (hereafter “target”) is detected, CoSA first performs static repository pruning to remove unrelated regions from the full repository CPG. The pruned CPG and the target jointly define a target-related sub-CPG by traversing inter-procedural relationships to capture relevant context. Next, CoSA performs an agentic LLM-guided CPG pruning 
+
+Manuscript submitted to ACM CoSA : Context-Aware Severity Assessment via Context Analysis with Large Language Models 7step that further refines this subgraph into an LLM-Pruned sub-CPG, focusing the context around CVSS-relevant behaviors. On top of the refined graph, CoSA runs an iterative loop with two stages: information gathering that selects metric-relevant evidence from the pruned graph and information summarization that consolidates the evidence into structured, per-metric implications for the CVSS Base metrics. Finally, these structured summaries are fed into a lightweight transformer-based prediction model, which is fine-tuned using task-aligned inputs and labels to predict the CVSS Base metrics. The derived severity assessment is then constructed based on these predicted metrics, capturing both the vulnerable code and its broader repository context. Repository Pruning (static)  
+
+> CPG Pruning (agentic) Detected Vulnerability (target)
+> Repository CPG Target-Related Sub-CPG LLM-Pruned Sub-CPG
+> Prediction Model Severity Assessment
+> Information Gathering
+> Information Summarization Fine-tune
+
+Fig. 2. Workflow of CoSA. Starting from the full repository CPG, CoSA first performs static repository pruning to obtain a target-related sub-CPG around the detected vulnerability. An agentic LLM then further prunes this subgraph into an LLM-Pruned sub-CPG. On top of the refined graph, CoSA iterates between information gathering that collects metric-relevant evidence from selected functions, and information summarization that aggregates per-metric implications. The resulting summaries are fed into a fine-tuned prediction model to output CVSS Base metrics and the overall severity assessment. 
+
+3.2 Static Repository Pruning 
+
+The full repository CPG is usually too large to be processed directly by an LLM. Therefore, before invoking the agent, CoSA performs a lightweight static pruning step that keeps only functions that are structurally close to the vulnerable function. We represent the repository call graph as a directed graph 𝐺 = (𝑉 , 𝐸 ), where each vertex 𝑣 ∈ 𝑉 is a function, and each edge (𝑢, 𝑣 ) ∈ 𝐸 indicates that 𝑢 may call 𝑣 . Let 𝑡 ∈ 𝑉 be the vulnerable (target) function. Because we care about both how the vulnerability is reached and how its effects propagate, we collect bounded neighborhoods in both directions. Using 𝐷 𝐶𝑎𝑙𝑙𝑒𝑟 and 𝐷 𝐶𝑎𝑙𝑙𝑒𝑒 as the maximum caller and callee depths, respectively, we form a candidate node set 𝑉 cand as: 
+
+𝑉 cand = {𝑡 } ∪ uniq 𝜙 
+
+
+
+F (𝐷 𝐶𝑎𝑙𝑙𝑒𝑟 ) 
+
+> 𝐶𝑎𝑙𝑙𝑒𝑟
+
+(𝑡 )
+
+
+
+∪ uniq 𝜙 
+
+
+
+F (𝐷 𝐶𝑎𝑙𝑙𝑒𝑒 ) 
+
+> 𝐶𝑎𝑙𝑙𝑒𝑒
+
+(𝑡 )
+
+
+
+, (5) where F (𝐷 𝐶𝑎𝑙𝑙𝑒𝑟 ) 
+
+> 𝐶𝑎𝑙𝑙𝑒𝑟
+
+(𝑡 ) contains all functions that can reach 𝑡 within 𝐷 𝐶𝑎𝑙𝑙𝑒𝑟 caller hops, and F (𝐷 𝐶𝑎𝑙𝑙𝑒𝑒 ) 
+
+> 𝐶𝑎𝑙𝑙𝑒𝑒
+
+(𝑡 ) contains all functions reachable from 𝑡 within 𝐷 𝐶𝑎𝑙𝑙𝑒𝑒 callee hops. The operator uniq 𝜙 (·) performs a lightweight de-duplication to suppress redundant nodes that contribute little additional structural coverage (e.g., repeated call sites or re-converging 
+
+> Manuscript submitted to ACM
+
+8 Jiang et al. paths). Concretely, it keeps at most one representative per key 𝜙 (·) ; in practice, 𝜙 can be chosen as a stable identifier such as (function name, defining file) to avoid conflating distinct local/static functions that share the same symbol. This de-duplication is applied to both caller and callee neighborhoods to further control neighborhood growth without relying on any learned filtering. 
+
+3.3 Agentic LLM-Guided CPG Pruning and Bi-Directional Reasoning 
+
+After static pruning, CoSA obtains a compact sub-CPG 𝐺 0 around the vulnerable function 𝑡 . On top of this graph, we employ a large language model as an agent that explores caller and callee neighborhoods, prunes away irrelevant functions, and gathers per-metric evidence in a bi-directional manner. Pruning and information gathering happen simultaneously: whenever the agent decides to inspect a function, it both collects observations from that function and implicitly discards alternative branches. Figure 3 illustrates this process in five stages. Since CoSA explores both caller and callee neighborhoods symmetrically, absolute directional labels such as caller and callee are insufficient to express a function’s relative position with respect to the target. In particular, during exploration and pruning, what matters is not which side a function lies on, but how far it is from the target along the currently selected call chain, because our procedure expands outward to gather evidence and then aggregates that evidence back inward. Therefore, we introduce a target-centric notion of distance and use center and edge to denote relative proximity: functions closer to the target are center functions , whereas those farther away are edge functions . Importantly, these roles are relative and can change with the reference point—an intermediate function can be an edge function when viewed from the target, yet a center function when viewed from a more distant boundary node, capturing the inward–outward nature of our gather-and-summarize process. In Figure 3, the left part of 𝐺 0 represents the caller-side context, which characterizes the preconditions and interaction pattern of the call and thus supports the exploitability-oriented metrics 
+
+𝑀 𝐶𝑎𝑙𝑙𝑒𝑟 = {AC , AV , PR , UI , S}, (6) because these factors reveal how the vulnerability can be exploited, which are typically determined on the caller side. In contrast, the right part represents the callee-side context, which describes the resources and behavior affected after the call executes and thus supports the impact-oriented metrics 
+
+𝑀 𝐶𝑎𝑙𝑙𝑒𝑒 = {I, C, A, S}, (7) since the actual loss in integrity, confidentiality, and availability is determined by the callee’s state and operations. As the metric scope (S) can be influenced by both caller-side constraints and callee-side privilege changes, it appears in both 𝑀 𝐶𝑎𝑙𝑙𝑒𝑟 and 𝑀 𝐶𝑎𝑙𝑙𝑒𝑒 .
+
+Stage 1 ○: initialization at the target. At stage 1 ○ in Figure 3, the agent first focuses on the target function 𝑡 . The LLM is asked to produce an initial, observation-only description for each of the eight CVSS metrics as seen from 𝑡 , and choose which callers and callees of 𝑡 should be analyzed next. The result of this step includes per-metric observation lists associated with 𝑡 , and a first set of selected neighbors that will be visited in the next round. The target is therefore already marked as "Information gathered", while surrounding functions are still undecided. 
+
+Stages 2 ○– 3 ○: function-wise gathering and selection. The exploration phase then proceeds over the selected neighbors, as shown in stages 2 ○ and 3 ○. At any moment, the agent maintains a queue of functions to visit on each side. For every function 𝑓 dequeued from this queue, the agent performs two actions in a single LLM call: 
+
+> Manuscript submitted to ACM
+
+CoSA : Context-Aware Severity Assessment via Context Analysis with Large Language Models 9Target function Other function(s) Information gathered Summarized LLM select Summarize Excluded Function pruned 
+
+①⑤④③②
+
+Fig. 3. Agentic LLM-guided pruning and bi-directional reasoning over a target-centered sub-CPG: 1 ○ initialization at the target, where the target function is inspected and marked as information gathered, while its neighbors remain undecided; 2 ○ the first gather-and-select step, where selected functions are marked as information gathered and unselected branches are excluded and pruned; 3 ○ continued function-wise exploration along selected caller/callee chains with additional gathered nodes; 4 ○ edge-to-center summarization starts, producing summaries for boundary functions first; 5 ○ summaries are propagated inward until the target receives the final per-metric summaries. 
+
+(1) Information Gathering: based on the full body of 𝑓 and the observations already collected so far (for 𝑓 itself and for its predecessors), the LLM updates the observation lists of the relevant metrics. LLMs are explicitly required to state observation from the code and from existing notes in short factual sentences and not to summarize or judge the value of the metrics. (2) Select next functions: using the same context, the LLM chooses which callers and callees of 𝑓 should be analyzed next. These chosen neighbors are added to the queue; the remaining neighbors are treated as excluded for this analysis. This pattern of gather and select matches the transition from stage 1 ○ to stage 2 ○ and then to stage 3 ○ in Figure 3. Newly visited functions have their information gathered, while neighbors that are never selected are pruned from the CPG. The exploration phase stops once the queue is empty, which means that all functions deemed important by the agent have been visited at least once. 
+
+Stages 4 ○– 5 ○: edge-to-center summarization. After exploration, every selected function has a list of observation sentences for the metrics it contributes to, but these notes are still scattered across the graph. In the summarization 
+
+> Manuscript submitted to ACM
+
+10 Jiang et al. phase, shown as stages 4 ○ and 5 ○, the agent compresses these per-function observations into short summaries that are anchored at the target. Crucially, the summarization phase does not revisit the raw program graph, query additional function bodies, or re-use the observation of the current function. Instead, it operates on a stitched, injected representation constructed from the information gathered during exploration: caller-side contexts are placed before the current center function body, and callee-side contexts are inlined at the corresponding call sites. With the accumulated intermediate summaries, this injected view provides an execution-aligned context for compression, while keeping the evidence boundary fixed to what has already been collected. The summarization proceeds from edge to center. Intuitively, the most peripheral functions do not receive information from any further functions, so there is no need to summarize them. The observations of these peripheral functions are then propagated inward. For a non-outermost function, the LLM sees the injected stitched view of the current function and is instructed to consolidate and compress it into a higher-level summary. For metrics that are informed by a single direction (e.g., AV and UI on the caller side, or I and A on the callee side), the final metric text 𝑆 𝑚 is exactly the summary obtained at the target in that direction. For Scope (S), which appears in both 𝑀 𝐶𝑎𝑙𝑙𝑒𝑟 and 𝑀 𝐶𝑎𝑙𝑙𝑒𝑒 , we preserve both viewpoints by concatenating the caller-side and callee-side summaries. The collection of per-metric texts {𝑆 𝑚 } is then fed into the transformer-based predictor, which maps them to discrete CVSS Base metric scores. Because the predictor only consumes these observation-based summaries, the LLM’s influence is limited to shaping the information presented to the small model rather than directly outputting CVSS decisions. Figure 4 gives a concrete example of how CoSA collects, updates, and summarizes evidence for the Attack Vector (AV) metric. The figure groups the process into three blocks, which together illustrate how caller-side context is first accumulated and then consolidated into a target-anchored AV explanation. In the Information Gathering block, analysis begins in the center function process_download and produces an initial AV information record using only what is directly observable locally. At this point, the record can capture the usage of parameters and file-related operations, but it cannot determine the interaction channel by which these parameters are supplied. Next, selected caller-side functions are inspected in the Information Updating block. For each such function, the current AV information record associated with process_download is reused as context, and observation-only sentences are updated based on the edge functions’ code that reveals how inputs flow into the center function. Importantly, the update process is driven by the graph boundary: updating continues by moving outward along caller links until reaching the outmost functions of the explored subgraph. Only after the outmost functions have been reached, the process transitions from updating to summarization. In the Information Summarization block, CoSA first injects the previously gathered and updated information into an integrated evidence context, and then summarizes based on it. Concretely, caller-side contexts (including AV, AC, PR, UI, S) are placed before the center function body, while callee-side contexts (including I, C, A, S) are inserted at the corresponding call sites inside the center function, yielding a stitched, execution-relevant view of how the target is reached and what data flows into it. The summarizer then compresses this injected whole into a short metric-wise explanation anchored at the center function. This explanation consolidates what the explored callers reveal about how the center function becomes reachable, and provides the final metric-specific text passed to the downstream predictor. Overall, this micro-case highlights the intended workflow: CVSS metrics are not inferred from the target function alone, but are determined by progressively updating caller-side evidence, injecting all collected evidence into a unified context, and then summarizing back to a target-centered description. 
+
+> Manuscript submitted to ACM
+
+CoSA : Context-Aware Severity Assessment via Context Analysis with Large Language Models 11 int process_download(const char *user, const char *name) {char path[256]; /* build per-user file path */ snprintf(path, sizeof(path), "/srv/data/%s/%s",user, name); /* send the file to the caller */ return send_file(path); }void handle_client( int client_fd) {/* read data from a TCP socket */ n = recv(client_fd, buf, sizeof(buf) - 1, 0); if (n <= 0) return; buf[n] = '\0'; parse_user_file(buf, user, sizeof(user), file, sizeof(file)); process_download(user, file); }
+
+process_download: AV: process_download builds a  fi le path from its parameters and sends the  fi le to its caller; no remote input is involved so far. …(AC, UI, PR, S information) handle_client AV: handle_client reads bytes from a TCP socket and passes user-controlled values to process_download. …(AC, UI, PR, S information) AV: process_download itself only builds a fi le path from its parameters and sends the  fi le to its caller. It is invoked both by handle_client, which reads bytes from a TCP socket and forwards user-controlled parameters, and by generate_daily_report, which uses  fi xed local parameters in a scheduled task. …(AC, UI, PR, S summary) generate_daily_report AV: generate_daily_report calls process_download with 
+
+fi xed user and  fi le values as part of a scheduled task. no remote input is involved. …(AC, UI, PR, S information)                  
+
+> void generate_daily_report(void) {const char *user ="system"; const char *file ="daily_report.log"; /* periodic local task with fixed parameters */ process_download(user, file); }
+
+update 
+
+summarize 
+
+Further refine when the outmost functions are not reached 
+
+update 
+
+send to edge function(s) 
+
+Start summarizing when have reached the outmost functions 
+
+Information Gathering Information Updating Information Summarization Centre function Edge functions                        
+
+> [CALLER: handle_client]
+> AV: ... AC: ... UI: ... PR: ... S: ...
+> [CALLER: generate_daily_report]
+> AV: ... AC: ... UI: ... PR: ... S: ...
+> int process_download(const char *user, const char *name) {char path[256]; /* build per-user file path */ snprintf(path, sizeof(path), "/srv/data/%s/%s",user, name); /* send the file to the caller */ return send_file(path); }
+
+inject into centre function 
+
+Fig. 4. Micro-case of evidence update, injection, and summarization for Attack Vector (AV). The top flow shows how AV-related observations are first gathered at the center function, then iteratively updated by exploring caller-side functions outward to the boundary. Before summarization, all collected evidence is injected into a stitched context. The summarizer then compresses this injected whole into a target-anchored AV explanation that is passed to the downstream predictor. 
+
+Based on the evidence update and edge-to-center summarization processes described in Figures 3 and 4, Algorithm 1 formalizes the overall bi-directional reasoning procedure. Two LLM interfaces are used repeatedly. LLMUpdateSelect takes a function body and current evidence in one direction, appends observation-only sentences to the relevant metric evidence sets, and returns the next functions to inspect in that direction. LLMSummarize takes the injected representation of the current function together with already-produced child summaries, and produces per-metric summary texts that propagate from outmost functions back toward the target. In addition, RevTopo produces an edge-to-center processing order over the visited functions for a given direction. The resulting {𝑆 𝑚 } provides a unified, target-anchored textual view of evidence collected from both directions, and is directly consumed by the downstream predictors. 
+
+Manuscript submitted to ACM 12 Jiang et al. 
+
+Algorithm 1 Agentic LLM-Guided Bi-Directional Reasoning 
+
+Input: Static subgraph 𝐺 0 with vulnerable function 𝑡 ; caller metric set 𝑀 𝐶𝑎𝑙𝑙𝑒𝑟 ; callee metric set 𝑀 𝐶𝑎𝑙𝑙𝑒𝑒 ;
+
+Output: Textual evidence summaries 𝑆 𝑚 for all CVSS metrics 𝑚  
+
+> 1:
+
+for each direction 𝑑 ∈ { Caller , Callee } do  
+
+> 2:
+
+ToVisit ← [ 𝑡 ]; Visited ← { 𝑡 }; 
+
+> 3:
+
+𝐸 (𝑑 ) 
+
+> 𝑚
+
+(𝑓 ) ← ∅ for all functions 𝑓 and 𝑚 ∈ 𝑀 𝑑 ; 
+
+> 4:
+
+(Δ𝐸, Next ) ← LLMUpdateSelect( 𝑡, 𝑑, 𝑀 𝑑 , 𝐺 0, {𝐸 (𝑑 ) 
+
+> 𝑚
+
+});  
+
+> 5:
+
+Update 𝐸 (𝑑 ) 
+
+> 𝑚
+
+(𝑡 ) with Δ𝐸 ; 
+
+> 6:
+
+Enqueue all functions in Next into ToVisit ; 
+
+> 7:
+
+while ToVisit is not empty do  
+
+> 8:
+
+Dequeue function 𝑓 from ToVisit ; 
+
+> 9:
+
+(Δ𝐸, Next ) ← LLMUpdateSelect( 𝑓 , 𝑑, 𝑀 𝑑 , 𝐺 0, {𝐸 (𝑑 ) 
+
+> 𝑚
+
+});  
+
+> 10:
+
+Update 𝐸 (𝑑 ) 
+
+> 𝑚
+
+(𝑓 ) with Δ𝐸 ; 
+
+> 11:
+
+for each selected function 𝑔 ∈ Next do  
+
+> 12:
+
+if 𝑔 ∉ Visited then  
+
+> 13:
+
+Enqueue 𝑔 into ToVisit ; 
+
+> 14:
+
+Add 𝑔 to Visited ; 
+
+> 15:
+
+end if  
+
+> 16:
+
+end for  
+
+> 17:
+
+end while  
+
+> 18:
+
+Order ← RevTopo( 𝐺 0, Visited , 𝑑, 𝑡 );  
+
+> 19:
+
+for each function 𝑓 in Order do  
+
+> 20:
+
+{𝑆 (𝑑 ) 
+
+> 𝑚
+
+(𝑓 )} 𝑚 ∈𝑀 𝑑 ← LLMSummarize( 𝑓 , 𝑑, 𝑀 𝑑 , {𝐸 (𝑑 ) 
+
+> 𝑚
+
+}, {𝑆 (𝑑 ) 
+
+> 𝑚
+
+});  
+
+> 21:
+
+end for  
+
+> 22:
+
+end for  
+
+> 23:
+
+for each metric 𝑚 do  
+
+> 24:
+
+if 𝑚 ∈ 𝑀 𝐶𝑎𝑙𝑙𝑒𝑟 ∩ 𝑀 𝐶𝑎𝑙𝑙𝑒𝑒 then  
+
+> 25:
+
+𝑆 𝑚 ← 𝑆 (Caller ) 
+
+> 𝑚
+
+(𝑡 ) ∥ 𝑆 (Callee ) 
+
+> 𝑚
+
+(𝑡 ); 
+
+> 26:
+
+else if 𝑚 ∈ 𝑀 𝐶𝑎𝑙𝑙𝑒𝑟 then  
+
+> 27:
+
+𝑆 𝑚 ← 𝑆 (Caller ) 
+
+> 𝑚
+
+(𝑡 ); 
+
+> 28:
+
+else  
+
+> 29:
+
+𝑆 𝑚 ← 𝑆 (Callee ) 
+
+> 𝑚
+
+(𝑡 ); 
+
+> 30:
+
+end if  
+
+> 31:
+
+end for  
+
+> 32:
+
+return {𝑆 𝑚 };
+
+4 Experimental Setup 4.1 Dataset Construction 
+
+We construct our dataset by starting from function-level vulnerability instances in the PrimeVul [4] and TitanVul [26] benchmarks. While these benchmarks provide no CVSS annotations, they are curated to be high-quality and low-noise, and crucially, they link each vulnerability instance to a concrete repository state (commit hash) and a corresponding vulnerable function. Such curated linkage enables us to reliably localize the vulnerable function in a reproducible snapshot and recover the surrounding project context for downstream function-level parsing and static context extraction. For each benchmark instance, we clone the referenced repository and check out the corresponding commit, and then perform function-level parsing and static context extraction following Section 3.2. We discard instances that 
+
+> Manuscript submitted to ACM
+
+CoSA : Context-Aware Severity Assessment via Context Analysis with Large Language Models 13 cannot be reproduced due to missing repositories, missing commits, checkout failures, or failures in parsing/context extraction. We then use the provided vulnerability identifier (e.g., CVE ID) to query NVD for the CVSS v3.x vector, treat the retrieved vector as supervision for downstream metric-wise prediction, and retain only instances with a complete CVSS v3.x vector available. Some vulnerabilities span multiple modified hunks (or multiple files) within the same commit, which can result in near-duplicate function-level samples. To avoid over-counting and evaluation bias, we keep only one representative sample for each combination of CVE, repository, and commit. When there are multiple candidates, we randomly select one representative and remove the others. We additionally deduplicate overlapping instances across PrimeVul and TitanVul by matching CVE and function signature. When duplicates occur, we prefer TitanVul due to its more complete metadata and more reliable repository links. To prevent data leakage, we split the dataset by CVE identifier such that no CVE appears in more than one of the training, validation, or test sets. We shuffle these CVEs and allocate them into train/validation/test splits with a ratio of 8:1:1, and additionally enforce that each split contains all possible values of each CVSS v3.x metric to mitigate missing-class issues in evaluation. After filtering and de-duplication, we obtain 6,816 CVSS v3.x labeled metric instances, spanning 90 CWE types. 
+
+4.2 Baselines 
+
+We evaluate our approach against the following baselines. 
+
+Commercial and open-source LLM-based baselines. We consider LLM prompting baselines for CVSS v3.1 prediction under two widely used inference paradigms. First, we adopt a direct prompting baseline, where the LLM is prompted to predict each CVSS v3.1 base metric from the vulnerability-related input, and the base severity is then derived from the resulting metric vector. Second, motivated by previous work suggesting that agentic prompting can improve reasoning robustness and mitigate single-pass errors, we include a multi-agent baseline (EvalSVA-style [53]) instantiated on the same LLM. Concretely, we follow EvalSVA and organize agent interaction using the Preceding One Expert communication strategy: each agent (except the first) conditions on the original input and the response from the immediately preceding expert, and the final prediction for each base metric is taken from the last expert. We instantiate these two prompting strategies across both commercial and open-source LLMs to provide a broad and model-agnostic comparison. 
+
+Lightweight function-level models. Beyond commercial LLM baselines, we also compare against lightweight neural models that operate purely at the function level, which more closely resemble prior function-level vulnerability assessment methods. Specifically, we include a series of Transformer-based models (including CodeBERT [8], Graph-CodeBERT [16], and UniXcoder [15]) that take the same vulnerability-related input as our main method but restrict evidence to function-level context. These models are trained to predict all CVSS v3.1 base metrics and the resulting severity is derived accordingly. This baseline highlights the incremental benefit brought by richer context information. 
+
+4.3 Evaluation Metrics 
+
+We evaluate CVSS v3.x base severity as a multi-class classification task and report Accuracy, Macro-F1, and Weighted-F1 (abbreviated as Acc, M-F1, and W-F1 in the following paragraphs). Macro-F1 averages F1 scores across labels and thus better reflects performance on minority classes, while Weighted-F1 weights each label by its support and reflects overall 
+
+> Manuscript submitted to ACM
+
+14 Jiang et al. label consistency under class imbalance. In addition, we computed the base severity derived from the predicted base metrics according to the CVSS v3.1 standard and evaluated it using the same set of metrics. 
+
+4.4 Implementation Details 
+
+For the main information collection and synthesis stage, we use GPT-4.1 and pin it to a fixed snapshot ( gpt-4.1-2025-04-14 ) to reduce potential drift caused by model updates. To facilitate automatic parsing and downstream evaluation, we require every model to return output in a predefined JSON format. Concretely, our prompts explicitly specify the required JSON schema (fields, types, and constraints). We then perform strict JSON parsing and schema validation; if the output is malformed JSON or missing required fields, the system re-issues the request with corrective instructions to obtain a valid structured response. All neural models are implemented in PyTorch using the HuggingFace transformer training framework and are trained on NVIDIA H100 GPUs. Unless otherwise specified, we fine-tune a shared encoder with eight task-specific linear classification heads to jointly predict the eight CVSS v3.1 base metrics, and optimize the mean cross-entropy loss over these heads. We use the AdamW optimizer with weight decay 0 .01 [32], an initial learning rate of 𝜂 = 2 × 10 −5, a linear learning rate schedule with a warmup ratio of 0 .1, and mixed-precision training (FP16). By default, the batch size per-device is 16 with gradient accumulation steps of 2, resulting in an effective batch size of 32. We run experiments on three train/validation/test splits and report averaged results across splits. 
+
+5 Evaluation Results 
+
+Our experimental evaluation is designed to answer the following research questions (RQs): 
+
+• RQ1: How effectively does CoSA improve CVSS base severity prediction compared with LLM prompting baselines and function level predictors? 
+
+• RQ2: Which CVSS base metrics contribute most to the severity improvements brought by CoSA? 
+
+• RQ3: How consistent are the benefits of CoSA across different LLM instantiations and Transformer code encoder backbones? 
+
+5.1 RQ1: Overall effectiveness of CoSA on base severity prediction 
+
+We evaluate the overall effectiveness of CoSA on base severity prediction by comparing it against prompting based LLM baselines, including commercial and open source models, and lightweight Transformer based code encoders trained on function level information. All methods are assessed using Accuracy, Macro F1, and Weighted F1 on the derived CVSS v3.1 base severity label. Table 2 reports the base severity results. Overall, CoSA achieves the best performance with 47.22% accuracy, 34.15% Macro F1, and 47.72% Weighted F1, outperforming all LLM prompting baselines and all Transformer based function level predictors. Compared to the best transformers-based function level UniXcoder model, CoSA improves accuracy from 41.27% to 47.22% and Macro F1 from 29.62% to 34.15%, indicating that the gains are not limited to majority class effects and that non dominant severity labels are better recognized. The advantage of CoSA is also clear when compared against LLM based baselines. The strongest LLM baseline is Qwen3 Coder 30B A3B with EvalSVA, yet it still trails CoSA by 36.8% in accuracy and 43.1% in Macro F1 relatively. Even against the best commercial LLM result, Claude Sonnet 4 under Direct prompting, CoSA improves Macro F1 from 22.21% to 34.15% and Weighted F1 from 34.87% to 47.72%, showing that contextual augmentation yields substantially more reliable severity prediction than prompting alone. 
+
+> Manuscript submitted to ACM
+
+CoSA : Context-Aware Severity Assessment via Context Analysis with Large Language Models 15 
+
+> Table 2. Base severity prediction performance comparison in % across LLM prompting baselines and Transformer based function level predictors, together with CoSA. Direct prompts the LLM once to predict the CVSS v3.1 base metric vector and derives base severity from the predicted vector. EvalSVA follows the EvalSVA style multi agent prompting setup from prior work [53] using the Preceding One Expert communication strategy and takes the last expert as the final prediction.
+
+Category System / Model Approach Acc M-F1 W-F1 Commercial LLM GPT 4.1 Direct 23.81 17.90 22.48 EvalSVA 23.81 18.64 23.86 Claude Sonnet 4.0 Direct 33.33 22.21 34.87 EvalSVA 33.33 22.11 34.70 Open source LLM DeepSeek V3.2 Direct 21.43 17.99 27.21 EvalSVA 20.24 16.87 25.22 Qwen3 Coder 30B A3B Direct 27.38 17.31 28.34 EvalSVA 34.52 23.86 36.65 Llama 3.1 8B Direct 17.86 11.72 18.42 EvalSVA 15.48 12.00 19.16 Transformer CodeBERT — 35.32 18.81 27.30 GraphCodeBERT — 37.30 24.08 36.67 UniXcoder — 41.27 29.62 41.96 
+
+Proposed Method CoSA — 47.22 34.15 47.72 
+
+We further observe that the EvalSVA-style multi-agent prompting strategy does not consistently improve model performance across different architectures. For DeepSeek V3.2, EvalSVA leads to a slight degradation in performance, with accuracy decreasing from 21.43% to 20.24% and Macro F1 declining from 17.99% to 16.87%. A similar trend is observed for commercial LLMs. Compared to Direct prompting, EvalSVA alters the final metric decisions in 11.90% of cases for Claude Sonnet 4.0 and 1.34% for GPT-4.1. However, these decision changes do not translate into substantial improvements in base severity prediction. Claude Sonnet 4 maintains the same accuracy (33.33%), while its Macro F1 slightly decreases from 22.21% to 22.11%. GPT-4.1 exhibits only a marginal increase in Macro F1, from 17.90% to 18.64%, despite incurring more than twice the token consumption. Summary for RQ1 CoSA achieves the best overall base severity prediction performance, consistently outperforming both Transformer-based function-level encoders and prompting-based LLM baselines. Compared with the strongest Transformer-based model, it improves accuracy and Macro F1 by 14.4% and 15.3% respectively. Against the strongest LLM baseline, the relative gains further increase to 36.8% in accuracy and 43.1% in Macro F1. 
+
+5.2 RQ2: Metric level effectiveness across CVSS base metrics 
+
+To understand where the base severity improvements come from, we compare the strongest LLM prompting baseline, the strongest Transformer based function level encoder, and CoSA on each CVSS v3.1 base metric. Specifically, we retain 
+
+> Manuscript submitted to ACM
+
+16 Jiang et al. Qwen3 Coder 30B A3B with EvalSVA style multi agent prompting, UniXcoder trained on function level information only, and CoSA for this comparison.                                                                                                       
+
+> Table 3. Metric level performance comparison across CVSS v3.1 base metrics in % for three representative systems. LLM Prompt denotes the strongest prompting baseline in our setup, instantiated as Qwen3 Coder 30B A3B with EvalSVA style multi agent prompting where the final prediction is taken from the last expert. Transformer denotes the strongest Transformer based function level predictor, instantiated as UniXcoder trained on function only evidence.
+> Approach Attack Vector Attack Complexity Privileges Required User Interaction Acc M-F1 W-F1 Acc M-F1 W-F1 Acc M-F1 W-F1 Acc M-F1 W-F1 LLM Prompt 63.10 31.68 61.23 75.00 42.86 82.65 72.62 43.05 69.44 72.62 54.51 67.49 Transformer 73.41 41.39 72.08 92.86 48.14 89.44 78.97 50.65 78.17 76.59 69.10 74.69 CoSA 67.86 38.53 66.28 93.25 54.29 90.75 78.57 50.91 78.08 79.37 75.29 79.23
+> Approach Scope Integrity Impact Confidentiality Impact Availability Impact Acc M-F1 W-F1 Acc M-F1 W-F1 Acc M-F1 W-F1 Acc M-F1 W-F1 LLM Prompt 92.86 48.15 92.86 35.71 25.90 39.88 32.14 23.04 30.94 22.62 20.69 29.52 Transformer 97.62 60.51 96.58 55.56 39.68 54.36 57.54 44.50 56.17 82.54 37.16 77.70 CoSA 97.62 60.51 96.58 55.16 44.99 54.51 57.54 45.51 56.66 82.94 43.98 79.21
+
+Table 3 breaks down the performance by CVSS v3.1 base metrics and shows that the improvements of CoSA are concentrated on severity driving components. Relative to the Transformer baseline, CoSA improves Macro F1 on Availability Impact from 37.16% to 43.98% and on Integrity Impact from 39.68% to 44.99%, while Confidentiality Impact increases from 44.50% to 45.51%. On exploitation related metrics, CoSA shows clear gains on User Interaction, where Macro F1 increases from 69.10% to 75.29%, and on Attack Complexity, where Macro F1 increases from 48.14% to 54.29%. Attack Vector remains less stable, with CoSA lower than the Transformer baseline in both accuracy and Macro F1, suggesting that Attack Vector often depends on cues that are not consistently strengthened by the injected context. Compared with LLM Prompt, the advantage of CoSA is most pronounced on impact estimation. For Integrity Impact, Confidentiality Impact, and Availability Impact, CoSA achieves Macro F1 values of 44.99%, 45.51%, and 43.98%, while LLM Prompt attains 25.90%, 23.04%, and 20.69% on the same metrics. Scope shows limited headroom in this setting, since CoSA matches the Transformer baseline on Scope across all three metrics. Summary for RQ2 CoSA delivers its strongest gains on consequence-oriented impact estimation, increasing Availability Impact Macro F1 from 37.16% to 43.98% and Integrity Impact Macro F1 from 39.68% to 44.99%. It also improves exploitation precondition modeling, with User Interaction Macro F1 rising from 69.10% to 75.29% and Attack Complexity Macro F1 rising from 48.14% to 54.29%, indicating that injected context helps assemble dispersed cues into coherent metric-level decisions. 
+
+5.3 RQ3: Adaptability across Different LLM Instantiations and Transformer Backbones 
+
+We further assess the adaptability of CoSA by varying two factors in the contextual augmentation pipeline. The first factor is the final prediction backbone, where we consider CodeBERT, GraphCodeBERT, and UniXcoder. The second factor is the LLMs used for contextual augmentation, where we instantiate the same pipeline with GPT-4.1 
+
+> Manuscript submitted to ACM
+
+CoSA : Context-Aware Severity Assessment via Context Analysis with Large Language Models 17 (gpt-4.1-2025-04-14 ), Claude Sonnet 4.0 ( claude-sonnet-4-20250514 ), and DeepSeek-chat (the non-thinking mode of DeepSeek-V3.2). For each backbone, we compare CoSA augmented variants against a model trained on the same function level data but without contextual augmentation, which serves as an ablation that removes the LLM driven contextual augmentation component while keeping the backbone fixed. All configurations are evaluated on base severity using Accuracy, Macro-F1, and Weighted-F1.      
+
+> Table 4. Base severity performance across three function encoder backbones and three augmentation LLM instantiations. For each backbone, the reported Δvalues are the relative improvements over the corresponding Func-Level baseline trained on the same function only evidence. DeepSeek-chat, Claude Sonnet 4.0, and GPT-4.1 are used only to instantiate the contextual augmentation stage, while the backbone is kept fixed within each block.
+> Backbone Contextual Augmentation LLM Acc (%)
+
+ΔAcc (%) M-F1 (%) ΔM-F1 (%) W-F1 (%) ΔW-F1 (%) CodeBERT DeepSeek-chat 38.49 +8.98 25.44 +35.26 36.37 +33.22                                                 
+
+> Claude Sonnet 4.0 40.87 +15.72 24.34 +29.42 36.15 +32.41 GPT-4.1 40.48 +14.61 21.53 +14.46 33.95 +24.36 GraphCodeBERT DeepSeek-chat 39.29 +5.32 26.02 +8.05 36.86 +0.52 Claude Sonnet 4.0 40.08 +7.45 26.76 +11.12 38.60 +5.25
+> GPT-4.1 42.86 +14.91 26.35 +9.43 37.95 +3.49 UniXcoder DeepSeek-chat 44.84 +8.65 31.98 +7.97 44.41 +5.84 Claude Sonnet 4.0 46.03 +11.53 32.01 +8.07 46.51 +10.84 GPT-4.1 47.22 +14.42 34.15 +15.29 47.72 +13.73
+
+Table 4 shows that contextual augmentation improves base severity across all backbone and LLM combinations, as reflected by consistently positive relative improvements over the corresponding function level baseline. The mag-nitude of improvement is backbone dependent. On CodeBERT, the strongest improvements appear on Macro-F1 and Weighted-F1, reaching 35.26% and 33.22% relative improvement under DeepSeek-chat, suggesting that LLM driven contextual augmentation can substantially improve class balanced performance when the function encoder is limited. On GraphCodeBERT, the Weighted-F1 gains remain modest, ranging from 0.52% to 5.25% despite accuracy gains up to 14.91%, indicating that improvements can be metric specific for this backbone. With UniXcoder, the gains are more uniform across metrics, and GPT-4.1 achieves the best overall results, reaching 47.22% accuracy, 34.15% Macro-F1, and 47.72% Weighted-F1. The choice of augmentation LLM also interacts with the backbone. For CodeBERT, Claude Sonnet 4.0 yields the largest accuracy improvement of 15.72%, while DeepSeek-chat yields the largest Macro-F1 and Weighted-F1 improvements of 35.26% and 33.22%. For GraphCodeBERT, GPT-4.1 yields the largest accuracy improvement of 14.91%, while Claude Sonnet 4.0 yields the largest gains on Macro-F1 and Weighted-F1 at 11.12% and 5.25%. For UniXcoder, GPT-4.1 is consistently best across all three metrics, indicating that a stronger backbone can lead to more stable benefits from contextual augmentation. Summary for RQ3 Across three backbones and three LLM instantiations, contextual augmentation consistently improves base severity. The largest relative improvement is observed on CodeBERT, where Macro-F1 improves by 35.26%, while the best absolute performance is achieved on UniXcoder with GPT-4.1, reaching 47.22% accuracy and 34.15% Macro-F1. 
+
+> Manuscript submitted to ACM
+
+18 Jiang et al. 
+
+6 Related Work 
+
+Existing vulnerability severity assessment methods can be broadly organized into three streams: Descriptions , Hybrid ,and Code . Across these streams, the trajectory is consistent: approaches evolve from shallow, single-input classifiers toward multi-input, LLM-enabled pipelines, gradually expanding from coarse severity prediction to metric-level assessments. 
+
+Description-based approaches . Early work established the feasibility of text-only prediction using engineered features and classical learners [20]. CNN-based models then improved severity estimation from CVE descriptions [17, 37], while term-weighting schemes like TF-IGM enhanced lexical salience [21]. Broader model sweeps further suggested that both neural and boosted-tree baselines can be effective when trained on CVE descriptions [47]. Moving beyond a single score, linear pipelines showed that per-metric prediction of the full base vector is tractable [7]; subsequent work added explicit extraction steps to better structure the input before TextCNN classification [52]. Transformer fine-tuning then became the dominant paradigm for full-vector inference, including BERT ensembles [48] and XLNet variants [51], while CNN baselines remained competitive for severity and exploitability prediction under clean splits [43]. Two representative directions further enriched the textual channel: incorporating NVD-referenced pages as open-source intelligence to mitigate sparse CVE descriptions [22]; and applying curriculum schedules on issue reports to better handle label difficulty [46]. Most recently, studies explore using LLMs directly for vector inference, aiming for improved robustness under concept drift [33, 34]. 
+
+Hybrid-based approaches . As purely textual signals can be underspecified, hybrid methods align modalities to reduce ambiguity and stabilize predictions. A pragmatic bridge combines CVE text with an existing CVSSv2 vector to estimate v3.x full vectors, effectively transferring prior metric structure across CVSS versions [42]. Text-code fusion then appears in several forms: sequence encoders for text with relational GATs over code graphs for severity prediction [2, 5, 23]; GraphCodeBERT with multi-task heads to couple modalities across severity metrics [6]; and prompt-tuned CodeT5 to reduce labeled-data needs while covering multiple severity dimensions [54]. Beyond representation learning, demonstrations can also serve as hints for in-context LLM reasoning about severity [14, 55]. Finally, adding intention features (i.e., exploitability, scope, and impact) together with prompt tuning and MTL has been shown to stabilize severity estimates while enabling downstream guidance such as fix suggestions [49]. Overall, modality alignment (text, code, prior vectors/analysis) improves robustness to sparse descriptions and cross-domain drift. 
+
+Code-based approaches . In contrast to text-centric pipelines, code-first inputs like commits or functions can enable earlier estimation and provide stronger grounding in the change that introduced the vulnerability. Multi-task learning over commit diffs predicts the full base vector while encouraging cross-metric consistency [25]. Finer-grained slicing further centers the analysis on vulnerable functions, reducing noise from large code regions [24]. Function-level studies benchmark both classical and deep models for vector prediction, highlighting a substantial training-time gap between traditional machine learning (ML) and deep learning (DL), while also showing that multi-task learning (MTL) helps DL models perform more effectively [41]. Recently, multi-agent LLM judges operate on commit information to deliberate per-metric labels, explicitly optimizing for explainability and metric-wise consistency [53]. Collectively, code-only methods trade some coverage of descriptive cues for earlier availability and more direct linkage to program changes. 
+
+Takeaway . Overall, most existing severity assessment methods still mainly rely on vulnerability descriptions; even when code is incorporated, the input is usually limited to isolated artifacts such as a function slice or a commit diff. In contrast, considering repository-level context provides a broader basis for reasoning about severity beyond single functions or commits, which motivates the repository-level context-aware severity assessment explored in this work. 
+
+> Manuscript submitted to ACM
+
+CoSA : Context-Aware Severity Assessment via Context Analysis with Large Language Models 19 
+
+7 Threats to Validity 
+
+Threats to External Validity. Our evaluation may be threatened by data leakage introduced by highly correlated instances. In practice, a single vulnerability can correspond to multiple functions, which often share substantial overlap in code patterns, data structures, and surrounding context [4, 28–30]. If such functions are simultaneously included in the dataset, samples from the same vulnerability may become near-duplicates across splits, allowing the model to benefit from shared artifacts instead of learning transferable cues. To reduce this risk, we retain only one representative function per vulnerability, rather than incorporating all associated functions, thereby limiting redundancy and improving the fidelity of the generalization assessment. 
+
+Threats to Internal Validity. A further threat concerns the skewed label distributions in several CVSS metrics. This imbalance reflects real-world reporting tendencies, but it can bias learning toward majority classes and inflate performance under metrics such as overall accuracy or micro-averaged scores. As a result, strong aggregate results may obscure poor behavior on minority classes that remain practically important. To provide a more informative assessment, we report macro-averaged F1, which weights classes equally and better captures performance on under-represented categories. 
+
+Control of Validity. We take two complementary steps to manage these concerns. First, we curb correlation-driven leakage by using a single representative function for each vulnerability, preventing closely related functions from appearing across splits. Second, we mitigate the impact of label skew in evaluation by emphasizing macro-averaged F1, which discourages majority-class dominance and yields a more balanced view of model behavior across classes. 
+
+8 Conclusion and Future Work 
+
+This paper studies automated CVSS v3.x severity assessment from the perspective of repository-level context. Many Base metrics depend on how a vulnerable routine is reached and how its effects propagate through the whole repository, making function- or file-centric evidence insufficient and prone to systematic misclassification. The core difficulty is therefore not merely accessing code, but reliably retrieving, filtering, and organizing dispersed repository evidence into metric-oriented signals that can support stable CVSS inference. To address this challenge, we proposed CoSA, a context-aware severity assessment approach that operates directly on repository artifacts. CoSA constructs a code property graph from a detected vulnerable function and applies a two-stage pruning strategy to manage the scale and noise of real repositories. A lightweight static pruning step preserves structurally relevant neighborhoods, while an agentic LLM-guided pruning step further focuses the graph on CVSS-informative callers and callees and collects metrics-related evidence. The LLM consolidates the gathered information into compact, metric-wise summaries, enabling a lightweight transformer predictor to perform scalable inference without requiring long-context repository inputs at runtime. Empirically, we release a higher-quality repository-level benchmark comprising 6,816 CVSS v3.x labeled metric instances spanning 90 CWE types, providing a more realistic testbed for future research. CoSA outperforms function-only baselines on severity classification. Compared with the best-performing function-level models, it improves accuracy by 14.4% and macro-F1 by 15.3%. Relative to the strongest direct-prompting baseline, CoSA achieves even larger gains, boosting accuracy by 36.8% and macro-F1 by 43.1%. These findings underscore the value of explicit repository-level evidence acquisition and metric-oriented organization for practical vulnerability management. 
+
+> Manuscript submitted to ACM
+
+20 Jiang et al. There are several directions remaining for future work. First, integrating additional repository artifacts (e.g., build configurations, deployment descriptors, and privilege boundaries expressed outside source code) may further strengthen evidence for metrics such as AV, PR, and S. Second, incorporating human-in-the-loop review could improve robustness when evidence is ambiguous or environment-dependent. Finally, extending the framework to newer scoring standards and broader vulnerability taxonomies may help unify automated severity assessment across evolving ecosystems. 
+
+> Manuscript submitted to ACM
+
+CoSA : Context-Aware Severity Assessment via Context Analysis with Large Language Models 21 
+
+References 
+
+[1] Guru Bhandari, Amara Naseer, and Leon Moonen. 2021. CVEfixes: Automated Collection of Vulnerabilities and Their Fixes from Open-Source Software. In Proceedings of the 17th International Conference on Predictive Models and Data Analytics in Software Engineering (PROMISE ’21) . ACM. https://doi.org/10.1145/3475960.3475985 [2] Dan Busbridge, Dane Sherburn, Pietro Cavallo, and Nils Y Hammerla. 2019. Relational graph attention networks. arXiv preprint arXiv:1904.05811 
+
+(2019). [3] Cybersecurity and Infrastructure Security Agency (CISA). [n. d.]. Stakeholder-Specific Vulnerability Categorization (SSVC). https://www.cisa.gov/ stakeholder-specific-vulnerability-categorization-ssvc. Web page. [4] Yangruibo Ding, Yanjun Fu, Omniyyah Ibrahim, Chawin Sitawarin, Xinyun Chen, Basel Alomair, David Wagner, Baishakhi Ray, and Yizheng Chen. 2024. Vulnerability detection with code language models: How far are we? arXiv preprint arXiv:2403.18624 (2024). [5] Yukun Dong, Yeer Tang, Xiaotong Cheng, and Yufei Yang. 2023. DeKeDVer: A deep learning-based multi-type software vulnerability classification framework using vulnerability description and source code. Inf. Softw. Technol. 163, C (Nov. 2023), 14 pages. https://doi.org/10.1016/j.infsof.2023. 107290 [6] Xiaozhi Du, Shiming Zhang, Yanrong Zhou, and Hongyuan Du. 2024. A Vulnerability Severity Prediction Method Based on Bimodal Data and Multi-task Learning. Journal of Systems and Software 213 (2024), 112039. https://doi.org/10.1016/j.jss.2024.112039 [7] Clément Elbaz, Louis Rilling, and Christine Morin. 2020. Fighting N-day Vulnerabilities with Automated CVSS Vector Prediction at Disclosure. In 
+
+Proceedings of the 15th International Conference on Availability, Reliability and Security (ARES) . ACM. https://doi.org/10.1145/3407023.3407038 [8] Zhangyin Feng, Daya Guo, Duyu Tang, Nan Duan, Xiaocheng Feng, Ming Gong, Linjun Shou, Bing Qin, Ting Liu, Daxin Jiang, and Ming Zhou. 2020. CodeBERT: A Pre-Trained Model for Programming and Natural Languages. In Findings of the Association for Computational Linguistics: EMNLP 2020 ,Trevor Cohn, Yulan He, and Yang Liu (Eds.). Association for Computational Linguistics, Online, 1536–1547. https://doi.org/10.18653/v1/2020.findings-emnlp.139 [9] FIRST.Org, Inc. 2007. A Complete Guide to the Common Vulnerability Scoring System Version 2.0. https://www.first.org/cvss/v2/cvss-v2-guide.pdf. [10] FIRST.Org, Inc. 2015. CVSS V3.0 Specification. https://www.first.org/cvss/v3-0/cvss-v30-specification_v1.9.pdf. [11] FIRST.Org, Inc. 2019. Common Vulnerability Scoring System Version 3.1: Specification Document (Revision 1). https://www.first.org/cvss/v3-1/cvss-v31-specification_r1.pdf. [12] FIRST.Org, Inc. 2024. CVSS v4.0 Specification - 2024-06-18. https://www.first.org/cvss/v4-0/cvss-v40-specification.pdf. [13] Jerry Gamblin. 2026. 2025 CVE Data Review. Blog post. https://jerrygamblin.com/2026/01/01/2025-cve-data-review/ Reports 48,185 published CVEs in 2025 and 39,962 in 2024; statistics exclude rejected CVEs.. [14] Chaoyang Gao, Xiang Chen, and Guangbei Zhang. [n. d.]. SVA-ICL: Improving LLM-based Software Vulnerability Assessment via In-Context Learning and Information Fusion. https://doi.org/10.48550/arXiv.2505.10008 arXiv:2505.10008 [cs] [15] Daya Guo, Shuai Lu, Nan Duan, Yanlin Wang, Ming Zhou, and Jian Yin. 2022. UniXcoder: Unified Cross-Modal Pre-training for Code Representation. (March 2022). https://doi.org/10.48550/arXiv.2203.03850 arXiv:2203.03850 [cs.CL] Published in ACL 2022 (per arXiv record). [16] Daya Guo, Shuo Ren, Shuai Lu, Zhangyin Feng, Duyu Tang, Shujie Liu, Long Zhou, Nan Duan, Alexey Svyatkovskiy, Shengyu Fu, et al. 2020. Graphcodebert: Pre-training code representations with data flow. arXiv preprint arXiv:2009.08366 (2020). [17] Zhuobing Han, Xiaohong Li, Zhenchang Xing, Hongtao Liu, and Zhiyong Feng. 2017. Learning to Predict Severity of Software Vulnerability Using Only Vulnerability Description . In 2017 IEEE International Conference on Software Maintenance and Evolution (ICSME) . IEEE Computer Society, Los Alamitos, CA, USA, 125–136. https://doi.org/10.1109/ICSME.2017.52 [18] Jiangnan Huang and Bin Lin. 2025. Revisiting Security Practices for Github Actions Workflows . In 2025 IEEE/ACM 33rd International Conference on Program Comprehension (ICPC) . IEEE Computer Society, Los Alamitos, CA, USA, 73–77. https://doi.org/10.1109/ICPC66645.2025.00016 [19] Jay Jacobs, Sasha Romanosky, Benjamin Edwards, Michael Roytman, and Idris Adjerid. 2019. Exploit Prediction Scoring System (EPSS). arXiv preprint arXiv:1908.04856 (2019). https://arxiv.org/abs/1908.04856 [20] Atefeh Khazaei, Mohammad Ghasemzadeh, and Vali Derhami. 2016. An Automatic Method for CVSS Score Prediction Using Vulnerabilities Description. Journal of Intelligent & Fuzzy Systems 30, 1 (2016), 89–96. https://doi.org/10.3233/IFS-151733 [21] Patrick Kwaku Kudjo, Jinfu Chen, Minmin Zhou, Solomon Mensah, and Rubing Huang. 2019. Improving the Accuracy of Vulnerability Report Classification Using Term Frequency-Inverse Gravity Moment. In 2019 IEEE 19th International Conference on Software Quality, Reliability and Security (QRS) . 248–259. https://doi.org/10.1109/QRS.2019.00041 [22] Philipp Kühn, David N. Relke, and Christian Reuter. 2023. Common Vulnerability Scoring System Prediction Based on Open Source Intelligence Information Sources. Computers & Security 131 (2023), 103402. https://doi.org/10.1016/j.cose.2023.103402 [23] Siwei Lai, Liheng Xu, Kang Liu, and Jun Zhao. 2015. Recurrent convolutional neural networks for text classification. In Proceedings of the Twenty-Ninth AAAI Conference on Artificial Intelligence (Austin, Texas) (AAAI’15) . AAAI Press, 2267–2273. [24] Triet Huynh Minh Le and M. Ali Babar. 2022. On the use of fine-grained vulnerable code statements for software vulnerability assessment models. In Proceedings of the 19th International Conference on Mining Software Repositories (Pittsburgh, Pennsylvania) (MSR ’22) . Association for Computing Machinery, New York, NY, USA, 621–633. https://doi.org/10.1145/3524842.3528433 [25] Triet Huynh Minh Le, David Hin, Roland Croft, and M. Ali Babar. 2022. DeepCVA: automated commit-level vulnerability assessment with deep multi-task learning. , 13 pages. https://doi.org/10.1109/ASE51524.2021.9678622 Manuscript submitted to ACM 22 Jiang et al. 
+
+[26] Yikun Li, Ngoc Tan Bui, Ting Zhang, Martin Weyssow, Chengran Yang, Xin Zhou, Jinfeng Jiang, Junkai Chen, Huihui Huang, Huu Hung Nguyen, et al. 2025. Out of Distribution, Out of Luck: How Well Can LLMs Trained on Vulnerability Datasets Detect Top 25 CWE Weaknesses? arXiv preprint arXiv:2507.21817 (2025). [27] Yi Li, Aashish Yadavally, Jiaxing Zhang, Shaohua Wang, and Tien N. Nguyen. 2023. Commit-Level, Neural Vulnerability Detection and Assessment. In 
+
+Proceedings of the 31st ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering (San Francisco, CA, USA) (ESEC/FSE 2023) . Association for Computing Machinery, New York, NY, USA, 1024–1036. https://doi.org/10.1145/3611643.3616346 [28] Yikun Li, Ting Zhang, Jiakun Liu, Jinfeng Jiang, Yuheng Yieh, Yixin Yang, Wen Bin Leow, Yide Yin, Yintong Huo, Eng Lieh Ouh, et al. 2026. Graph Is the Verifier: Agentic Reinforcement Learning for Interprocedural Vulnerability Detection. arXiv preprint arXiv:2607.26656 (2026). [29] Yikun Li, Ting Zhang, Jieke Shi, Chengran Yang, Junda He, Xin Zhou, Jinfeng Jiang, Huihui Huang, Wen Bin Leow, Yide Yin, et al. 2026. Beyond Function-Level Analysis: Context-Aware Reasoning for Inter-Procedural Vulnerability Detection. arXiv preprint arXiv:2602.06751 (2026). [30] Yikun Li, Ting Zhang, Ratnadira Widyasari, Yan Naing Tun, Huu Hung Nguyen, Tan Bui, Ivana Clairine Irsan, Yiran Cheng, Xiang Lan, Han Wei Ang, et al. 2024. Cleanvul: Automatic function-level vulnerability detection in code commits using llm heuristics. arXiv preprint arXiv:2411.17274 
+
+(2024). [31] Chengwei Liu, Sen Chen, Lingling Fan, Bihuan Chen, Yang Liu, and Xin Peng. 2022. Demystifying the Vulnerability Propagation and Its Evolution via Dependency Trees in the NPM Ecosystem. In Proceedings of the 44th International Conference on Software Engineering (ICSE) . https://doi.org/10. 1145/3510003.3510142 [32] Ilya Loshchilov and Frank Hutter. 2019. Decoupled Weight Decay Regularization. In International Conference on Learning Representations (ICLR) .https://openreview.net/forum?id=Bkg6RiCqY7 [33] A. Manjunatha, R. Nithin, S. Kuruva, and A. Prabhu. 2024. CVE Severity Prediction From Vulnerability Description. Procedia Computer Science 232 (2024), 1606–1613. https://doi.org/10.1016/j.procs.2024.04.294 [34] Francesco Marchiori, Denis Donadel, and Mauro Conti. [n. d.]. Can LLMs Classify CVEs? Investigating LLMs Capabilities in Computing CVSS Vectors. https://doi.org/10.48550/arXiv.2504.10713 arXiv:2504.10713 [cs] [35] Peter Mell, Karen Scarfone, and Sasha Romanosky. 2006. Common Vulnerability Scoring System. IEEE Security and Privacy 4, 6 (Nov. 2006), 85–89. https://doi.org/10.1109/MSP.2006.145 [36] MITRE Corporation. [n. d.]. Common Weakness Scoring System (CWSS). https://cwe.mitre.org/cwss/. Web page. [37] Shunta Nakagawa, Tatsuya Nagai, Hideaki Kanehara, Keisuke Furumoto, Makoto Takita, Yoshiaki Shiraishi, Takeshi Takahashi, Masami Mohri, Yasuhiro Takano, and Masakatu Morii. 2019. Character-Level Convolutional Neural Network for Predicting Severity of Software Vulnerability from Vulnerability Description. IEICE Transactions on Information and Systems E102.D, 9 (2019), 1679–1682. https://www.jstage.jst.go.jp/article/transinf/ E102.D/9/E102.D_2018OFL0006/_article [38] National Institute of Standards and Technology (NIST). 2025. National Vulnerability Database (NVD) – March 19, 2025: NVD General Update. https://www.nist.gov/itl/nvd States CVE submissions increased 32% in 2024; backlog still growing; exploring machine learning to automate processing tasks.. [39] National Institute of Standards and Technology (NIST). 2026. NVD - Vulnerability Metrics (CVSS). https://nvd.nist.gov/vuln-metrics/cvss. Accessed: 2026-01-09. [40] National Vulnerability Database (NVD). 2022. Retirement of CVSS v2. https://nvd.nist.gov/General/News/retire-cvss-v2 Accessed: 2026-01-22. [41] Anh The Nguyen, Triet Huynh Minh Le, and M. Ali Babar. 2024. Automated Code-centric Software Vulnerability Assessment: How Far Are We? An Empirical Study in C/C++. In Proceedings of the 18th ACM/IEEE International Symposium on Empirical Software Engineering and Measurement 
+
+(Barcelona, Spain) (ESEM ’24) . Association for Computing Machinery, New York, NY, USA, 72–83. https://doi.org/10.1145/3674805.3686670 [42] Maciej Nowak, Michał Walkowski, and Sławomir Sujecki. [n. d.]. Machine Learning Algorithms for Conversion of CVSS Base Score from 2.0 to 3.x. In Computational Science – ICCS 2021 , Maciej Paszynski, Dieter Kranzlmüller, Valeria V. Krzhizhanovskaya, Jack J. Dongarra, and Peter M.A. Sloot (Eds.). Vol. 12744. Springer International Publishing, 255–269. https://doi.org/10.1007/978-3-030-77967-2_21 Series Title: Lecture Notes in Computer Science. [43] Ahmet Okutan and Mehdi Mirakhorli. 2022. Predicting the Severity and Exploitability of Vulnerability Reports Using Convolutional Neural Nets. In Proceedings of the IEEE/ACM 3rd International Workshop on Engineering and Cybersecurity of Critical Systems (EnCyCriS) at ICSE 2022 . ACM. https://doi.org/10.1145/3524489.3527298 [44] OpenSSF. 2026. Open Source Vulnerability (OSV) Schema. https://ossf.github.io/osv-schema/. Accessed: 2026-01-09. [45] OWASP Foundation. [n. d.]. OWASP Risk Rating Methodology. https://owasp.org/www-community/OWASP_Risk_Rating_Methodology. Web page. [46] Shengyi Pan, Lingfeng Bao, Jiayuan Zhou, Xing Hu, Xin Xia, and Shanping Li. [n. d.]. Towards More Practical Automation of Vulnerability Assessment. In Proceedings of the IEEE/ACM 46th International Conference on Software Engineering (Lisbon Portugal, 2024-04-12). ACM, 1–13. https://doi.org/10.1145/3597503.3639110 [47] Sefa Eren Sahin and Ayse Tosun. 2019. A conceptual replication on predicting the severity of software vulnerabilities. In Proceedings of the 23rd International Conference on Evaluation and Assessment in Software Engineering . 244–250. [48] Mustafizur R. Shahid and Hervé Debar. 2021. CVSS-BERT: Explainable Natural Language Processing to Determine the Severity of a Computer Security Vulnerability from its Description. In 2021 20th IEEE International Conference on Machine Learning and Applications (ICMLA) . 1600–1607. https://doi.org/10.1109/ICMLA52953.2021.00256 Manuscript submitted to ACM CoSA : Context-Aware Severity Assessment via Context Analysis with Large Language Models 23 
+
+[49] Hao Shen, Ming Hu, Xiaofei Xie, Jiaye Li, and Mingsong Chen. 2025. VulStamp: Vulnerability Assessment using Large Language Model. arXiv preprint arXiv:2506.11484 (2025). [50] Yijun Shen, Xiang Gao, Hailong Sun, and Yu Guo. 2025. Understanding vulnerabilities in software supply chains. Empirical Software Engineering 30, 20 (2025). https://doi.org/10.1007/s10664-024-10581-2 [51] Fan Shi, Shaofeng Kai, Jinghua Zheng, and Yao Zhong. 2022. XLNet-Based Prediction Model for CVSS Metric Values. Applied Sciences 12, 18 (2022). https://doi.org/10.3390/app12188983 [52] Xiaobing Sun, Zhenlei Ye, Lili Bo, Xiaoxue Wu, Ying Wei, Tao Zhang, and Bin Li. [n. d.]. Automatic software vulnerability assessment by extracting vulnerability elements. 204 ([n. d.]), 111790. https://doi.org/10.1016/j.jss.2023.111790 [53] Xin-Cheng Wen, Jiaxin Ye, Cuiyun Gao, Lianwei Wu, and Qing Liao. [n. d.]. EvalSVA: Multi-Agent Evaluators for Next-Gen Software Vulnerability Assessment. https://doi.org/10.48550/arXiv.2501.14737 arXiv:2501.14737 [cs] [54] Jiacheng Xue, Xiang Chen, Jiyu Wang, and Zhanqi Cui. [n. d.]. Towards prompt tuning-based software vulnerability assessment with continual learning. 150 ([n. d.]), 104184. https://doi.org/10.1016/j.cose.2024.104184 [55] Zhenlei Ye, Xiaobing Sun, Lili Bo, Sicong Cao, Xiaoxue Ren, Lianyong Qi, and Jiale Zhang. 2025. KG4VA: Constructing Vulnerability Knowledge Graph for Software Vulnerability Assessment . IEEE Transactions on Services Computing 18, 06 (Nov. 2025), 3932–3945. https://doi.org/10.1109/TSC. 2025.3607682 Manuscript submitted to ACM

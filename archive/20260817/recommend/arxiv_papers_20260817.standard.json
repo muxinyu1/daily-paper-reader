@@ -1,0 +1,370 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-17T20:12:40.175147+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 6,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2608.14216v1",
+      "source": "arxiv",
+      "title": "MazeRunner: Nonlinear Task and Clue Orchestration for LLM-driven Black-Box Automated Penetration Testing",
+      "abstract": "Penetration testing is essential yet resource-intensive. Although large language models (LLMs) show promise for automating security auditing, existing agents mainly execute end-to-end workflows in simplified linear scenarios. Real-world black-box testing is fundamentally nonlinear: the attack graph is initially unknown and must be incrementally inferred from environmental feedback. Observations may reveal multiple attack branches, failures are often ambiguous, and critical clues may span long action horizons. Existing agents therefore tend to become trapped in depth-first exploration, misdiagnose failures, and forget prior evidence. We present MazeRunner, an autonomous penetration testing system built on a three-agent task-and-clue orchestration framework. It separates global orchestration, context-intensive execution, and failure-oriented review while persistently maintaining task states and environmental evidence. This design supports action revision, prerequisite recovery, branch switching, and long-range clue correlation. We evaluate MazeRunner on 10 recently released HTB targets, limiting each system-target run to 20 million LLM tokens and preventing target-specific solution leakage. With Claude Sonnet 4.5, MazeRunner completes 47.7% of annotated subtasks, compared with 36.2% for PentestGPT-V2 and 34.2% for Claude Code. It achieves user-level or higher access on six targets, including root access on two; each same-model baseline reaches user-level access on only two targets and never obtains root access. Execution-trace analysis further shows that MazeRunner explores more attack branches and acquires shells more efficiently.",
+      "authors": [
+        "Zhenyuan Li",
+        "Yi Jiang",
+        "Junjie Cheng",
+        "Yaokun Li",
+        "Jing Qiu",
+        "Shouling Ji"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-08-14T11:46:15+00:00",
+      "link": "https://arxiv.org/pdf/2608.14216v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "autonomous LLM-driven penetration testing system for black-box software vulnerability discovery",
+      "llm_evidence_cn": "基于LLM驱动的自主渗透测试系统，用于黑盒软件漏洞发现",
+      "llm_evidence": "基于LLM驱动的自主渗透测试系统，用于黑盒软件漏洞发现",
+      "canonical_evidence": "基于LLM驱动的自主渗透测试系统，用于黑盒软件漏洞发现",
+      "llm_tldr_en": "MazeRunner is an autonomous penetration testing system with three-agent orchestration that handles nonlinear attack graphs and ambiguous failures, enabling LLM agents to discover vulnerabilities in real-world black-box settings.",
+      "llm_tldr_cn": "现有基于LLM的渗透测试代理多在简化的线性场景中运行，难以应对真实黑盒测试的非线性攻击图。MazeRunner提出一个三代理自主渗透测试系统，通过非线性任务编排与线索管理，使代理能从环境反馈中增量推断攻击路径、避开深度优先陷阱并记住关键线索。该系统改善了LLM代理在复杂漏洞发现中的探索效率和成功率。这表明AI代理能够用于自动化寻找软件安全漏洞，为智能漏洞挖掘提供了切实可行的方法。",
+      "llm_tldr": "现有基于LLM的渗透测试代理多在简化的线性场景中运行，难以应对真实黑盒测试的非线性攻击图。MazeRunner提出一个三代理自主渗透测试系统，通过非线性任务编排与线索管理，使代理能从环境反馈中增量推断攻击路径、避开深度优先陷阱并记住关键线索。该系统改善了LLM代理在复杂漏洞发现中的探索效率和成功率。这表明AI代理能够用于自动化寻找软件安全漏洞，为智能漏洞挖掘提供了切实可行的方法。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.14533v1",
+      "source": "arxiv",
+      "title": "Finding Vulnerabilities via LLM-Augmented Semantics-Aware Type-Checking",
+      "abstract": "Vulnerability detection via static analysis traditionally relies on security experts encoding insecure coding patterns into algorithmic rules. However, this approach often focuses on syntactic patterns and overlooks deeper semantic information in the code, such as the meanings of variable and function names. As software systems grow more complex, modeling vulnerabilities using only syntactic rules becomes increasingly challenging.   In this paper, we propose a semantics-aware approach to detecting software vulnerabilities. We present SETYPE, a semantics-aware type system that can be derived directly from source code based solely on the meanings of symbols and expressions in natural language. In the SETYPE type system, both type inference and checking are performed by Large Language Models (LLMs), and a failed type check indicates a potential vulnerability.   We prototype PYSETYPE to demonstrate the feasibility of SETYPE for detecting vulnerabilities in Python web applications. Our evaluation on real-world applications achieves 87% detection precision and 88% detection accuracy. Using PYSETYPE, we identified 15 potential zero-day vulnerabilities, nine of which were confirmed by developers.",
+      "authors": [
+        "Ruizhe Wang",
+        "Meng Xu",
+        "N. Asokan"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-08-14T17:49:19+00:00",
+      "link": "https://arxiv.org/pdf/2608.14533v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM-augmented semantics-aware type-checking for vulnerability detection; directly supports automatic vulnerability finding",
+      "llm_evidence_cn": "利用大语言模型增强语义感知类型检查进行漏洞检测，直接支持自动化漏洞发现",
+      "llm_evidence": "利用大语言模型增强语义感知类型检查进行漏洞检测，直接支持自动化漏洞发现",
+      "canonical_evidence": "利用大语言模型增强语义感知类型检查进行漏洞检测，直接支持自动化漏洞发现",
+      "llm_tldr_en": "SETYPE is a semantics-aware type system derived from source code using natural-language meanings of symbols, with LLM-augmented inference and checking. It detects software vulnerabilities beyond syntactic patterns, providing a transferable method for AI-based vulnerability mining.",
+      "llm_tldr_cn": "本文针对传统漏洞检测依赖语法规则、忽略代码符号语义信息的问题，提出SETYPE语义感知类型系统。该系统直接从源码中基于符号和表达式的自然语言含义推导类型，并利用大语言模型增强类型推断与检查过程。实验表明该方法能有效识别语义层面的漏洞，突破了传统语法规则的局限。该工作为AI辅助的漏洞挖掘提供了语义级检测技术，可直接支撑智能体漏洞发现任务。",
+      "llm_tldr": "本文针对传统漏洞检测依赖语法规则、忽略代码符号语义信息的问题，提出SETYPE语义感知类型系统。该系统直接从源码中基于符号和表达式的自然语言含义推导类型，并利用大语言模型增强类型推断与检查过程。实验表明该方法能有效识别语义层面的漏洞，突破了传统语法规则的局限。该工作为AI辅助的漏洞挖掘提供了语义级检测技术，可直接支撑智能体漏洞发现任务。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.13030v2",
+      "source": "arxiv",
+      "title": "InterSAGE: The Secure and Verifiable Interoperability Protocol for An Internet of Agents",
+      "abstract": "The emerging Internet of Agents enables LLM-powered agents to discover peers, invoke tools, and delegate tasks across organizational boundaries. Existing protocols increasingly define how agents exchange messages, but not how an agent proves its identity, authorization, advertised capabilities, or accountability after delegation. We present InterSAGE, a trust-native protocol suite that supplies this missing security substrate alongside, rather than in place of, communication protocols. InterSAGE comprises four layers: Persistent Identity, Discovery, Trust Negotiation, and Accountability. Its four core primitives are: (1) Agent Identity Cards that bind developer, code package, operator, and deployment context; (2) capability-aware discovery using DID-bound Verifiable Credential manifests; (3) trust negotiation combining monotonic capability attenuation with two-tier access control; and (4) kernel-mediated cryptographic audit trails that bind usage, delegation, and execution traces to agent identity without a consensus ledger. InterSAGE is designed to complement MCP, A2A, ANP, and AG-UI, allowing communication protocols to evolve independently while keeping trust semantics explicit, portable, and verifiable. We compare InterSAGE with more than 50 efforts spanning agent protocols, decentralized identity, OAuth/OIDC extensions, zero-trust governance, delegation, and audit architectures. We show that no prior architecture jointly enforces persistent identity, capability-aware discovery, trust negotiation, and accountability as a unified four-layer trust substrate for secure agent interoperability.",
+      "authors": [
+        "Zhenhua Zou",
+        "Sheng Guo",
+        "Qiuyang Zhan",
+        "Lepeng Zhao",
+        "Shuo Li",
+        "Zhuotao Liu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.MA",
+        "cs.NI"
+      ],
+      "published": "2026-08-13T10:00:13+00:00",
+      "link": "https://arxiv.org/pdf/2608.13030v2",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Addresses security risks and vulnerabilities in autonomous agent systems via identity, authorization, and accountability protocols",
+      "llm_evidence_cn": "面向自治智能体系统的安全风险，提供身份认证、授权与问责协议",
+      "llm_evidence": "面向自治智能体系统的安全风险，提供身份认证、授权与问责协议",
+      "canonical_evidence": "面向自治智能体系统的安全风险，提供身份认证、授权与问责协议",
+      "llm_tldr_en": "InterSAGE is a trust-native protocol suite for the Internet of Agents, supplying persistent identity, capability-aware discovery, trust negotiation, and accountability layers to secure LLM-powered agent interoperability, directly addressing security vulnerabilities in agent systems.",
+      "llm_tldr_cn": "本文针对大量大型语言模型智能体在跨组织协作中缺乏身份证明、授权验证与事后问责等安全漏洞，提出InterSAGE协议套件。该协议包括持久身份、发现、信任协商与问责四层，通过智能体身份卡和能力感知发现等原语为智能体互操作提供可验证的安全基底。这一工作直接面向自治智能体系统的安全风险，为智能体间的安全通信与权限管理提供了系统性方案。",
+      "llm_tldr": "本文针对大量大型语言模型智能体在跨组织协作中缺乏身份证明、授权验证与事后问责等安全漏洞，提出InterSAGE协议套件。该协议包括持久身份、发现、信任协商与问责四层，通过智能体身份卡和能力感知发现等原语为智能体互操作提供可验证的安全基底。这一工作直接面向自治智能体系统的安全风险，为智能体间的安全通信与权限管理提供了系统性方案。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.14074v1",
+      "source": "arxiv",
+      "title": "Mandato: Protocol-Level Enforcement of Digitally Signed Mandates on AI Agent Actions with Cryptographically Chained Audit Trails",
+      "abstract": "AI agents increasingly act on external systems through standardized tool-calling protocols such as the Model Context Protocol (MCP), yet no infrastructure layer constrains their actions to what a principal has verifiably authorized: authorization logic lives in application code, is neither signed nor independently auditable, and the resulting logs lack evidentiary value. We present Mandato, a governance proxy that enforces digitally signed mandates on agent actions at the protocol level. A mandate is a machine-readable, cryptographically signed authorization artifact specifying which tools an agent may invoke, under which parameter constraints and contextual conditions, for how long, and on whose behalf; the proxy evaluates every tool call against the applicable mandate chain, blocks non-conforming calls in line, and records every decision -- permit, deny, and the evidence for each -- in an append-only, hash-chained audit log designed for evidentiary use and periodically anchored via qualified timestamps. The mandate is deliberately modeled on the civil-law institution of delegation of authority, making the artifact legible to lawyers and auditors, not only to engineers. We give the mandate model and its decision semantics, the reference architecture as an MCP-transparent proxy with separated decision and enforcement points, and a mapping of the mechanism onto EU AI Act Articles 12 and 14, GDPR accountability, NIS2, and eIDAS 2, including a roadmap to qualified attestation through Qualified Trust Service Providers (QTSPs). We describe the implementation status of the reference system and a quantitative evaluation plan covering enforcement overhead, audit completeness, and tamper-evidence verification cost.",
+      "authors": [
+        "Giovanni Racioppi"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-14T08:33:43+00:00",
+      "link": "https://arxiv.org/pdf/2608.14074v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "protocol-level governance proxy enforcing signed authorization and audit trails to mitigate security risks in autonomous agent systems",
+      "llm_evidence_cn": "协议级治理代理，通过签名授权与审计追踪降低自主代理系统的安全风险",
+      "llm_evidence": "协议级治理代理，通过签名授权与审计追踪降低自主代理系统的安全风险",
+      "canonical_evidence": "协议级治理代理，通过签名授权与审计追踪降低自主代理系统的安全风险",
+      "llm_tldr_en": "Mandato is a governance proxy enforcing cryptographically signed mandates on AI agent tool calls at the protocol level, providing verifiable authorization and chained audit trails to mitigate risks in autonomous agents.",
+      "llm_tldr_cn": "AI代理通过标准工具调用协议在外部系统上执行操作，但缺乏可验证的授权约束，存在安全风险。Mandato提出一种协议级治理代理，用机器可读的数字签名授权工件约束代理可调用的工具、参数和上下文条件，并产生加密链式审计日志。该方法将授权逻辑从应用代码中解耦，使代理行为具备独立可审计性和证据价值。这为自主代理系统提供了基础性的安全治理基础设施，减少越权与滥用风险。",
+      "llm_tldr": "AI代理通过标准工具调用协议在外部系统上执行操作，但缺乏可验证的授权约束，存在安全风险。Mandato提出一种协议级治理代理，用机器可读的数字签名授权工件约束代理可调用的工具、参数和上下文条件，并产生加密链式审计日志。该方法将授权逻辑从应用代码中解耦，使代理行为具备独立可审计性和证据价值。这为自主代理系统提供了基础性的安全治理基础设施，减少越权与滥用风险。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.14303v1",
+      "source": "arxiv",
+      "title": "Detecting Contaminated Code-Generation Prompt Batches via Influence Functions",
+      "abstract": "Large language models (LLMs) are increasingly used for code generation, yet they remain vulnerable to prompts that elicit insecure implementations. Existing defenses typically rely on predefined threat models or known vulnerability patterns, limiting their effectiveness against novel attacks. We propose CodeSIFT, a threat-model-agnostic detection method that leverages influence functions to identify batches of prompts that induce anomalous model behavior. Rather than detecting specific vulnerabilities, CodeSIFT measures the parameter-space influence of generated code and uses a statistical test to determine whether a candidate prompt set deviates from a benign reference distribution. To evaluate our approach, we introduce two benchmark datasets covering a variety of vulnerabilities. We evaluate CodeSIFT on three open-weight code LLMs ranging from 3B to 7B parameters, achieving AUROC scores of up to 0.98 at moderate-to-high injection rates, while maintaining well-calibrated false positive rates and substantially outperforming static analysis baselines. These results suggest that influence-function-based detection is a promising direction for identifying malicious code-generation prompts without requiring prior knowledge of the underlying attack class.",
+      "authors": [
+        "Francesco Quinzan",
+        "Noor Munir",
+        "Yishun Lu",
+        "Stephen Roberts"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-08-14T13:37:53+00:00",
+      "link": "https://arxiv.org/pdf/2608.14303v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "detects prompts that induce insecure code from LLMs, a vulnerability analysis method for LLM-based code generation",
+      "llm_evidence_cn": "检测诱导LLM生成不安全代码的异常提示，属于LLM漏洞分析方法",
+      "llm_evidence": "检测诱导LLM生成不安全代码的异常提示，属于LLM漏洞分析方法",
+      "canonical_evidence": "检测诱导LLM生成不安全代码的异常提示，属于LLM漏洞分析方法",
+      "llm_tldr_en": "CodeSIFT uses influence functions to detect prompt batches that elicit insecure code from LLMs without predefined threat models, addressing novel attacks and avoiding reliance on known vulnerability patterns.",
+      "llm_tldr_cn": "LLM在代码生成中易受诱导出不安全实现的提示攻击，现有防御依赖预定义威胁模型或已知漏洞模式。该文提出CodeSIFT，通过影响函数度量生成代码在参数空间中的影响，用统计检验识别异常提示批次，并构造两个基准数据集验证，实现对未知攻击的威胁无关检测。",
+      "llm_tldr": "LLM在代码生成中易受诱导出不安全实现的提示攻击，现有防御依赖预定义威胁模型或已知漏洞模式。该文提出CodeSIFT，通过影响函数度量生成代码在参数空间中的影响，用统计检验识别异常提示批次，并构造两个基准数据集验证，实现对未知攻击的威胁无关检测。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.14352v1",
+      "source": "arxiv",
+      "title": "ATLAS: Discovering Agent Strategies through LLM-Guided Abstraction and Automata Learning",
+      "abstract": "Large Language Model (LLM)-based agents are increasingly used for complex tasks such as software testing and cybersecurity assessment. While these agents demonstrate impressive capabilities, their behavior is difficult to understand, explain, and analyze. Existing evaluations focus mainly on task success and execution traces, offering limited insight into the strategies employed by the agent. We present ATLAS (Automata Learning for Agent Trajectory Analysis and Strategy Discovery), an approach for recovering interpretable behavioral models from agent trajectories. ATLAS combines trace abstraction with automata learning to infer finite-state models that capture observed agent-environment interaction strategies. These models provide human-interpretable insights and support automated analyses of recurring behaviors, decision points, successful task-completion paths, and failure loops. As a proof of concept, we apply ATLAS to trajectories generated by an LLM-based penetration-testing agent. The resulting models expose high-level behavioral strategies for exploiting vulnerable machines that are difficult to identify from raw execution traces alone. We discuss how learned behavioral models can support explainability, model-guided exploration, auditing, and analysis of agentic systems. We further demonstrate symbolic model-based knowledge transfer from powerful frontier models to compact language models. In addition, we show how model transformations can derive concise explanations of agent behavior in a penetration-testing case study comprising 12 vulnerable machines. ATLAS highlights a new opportunity for model-driven engineering: transforming agent trajectories into explicit behavioral models that enable systematic understanding and analysis of otherwise opaque AI agents.",
+      "authors": [
+        "Ignacio D. Lopez-Miguel",
+        "Andreas Happe",
+        "Jürgen Cito",
+        "Ezio Bartocci",
+        "Bettina Könighofer",
+        "Martin Tappler"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.LG"
+      ],
+      "published": "2026-08-14T14:51:48+00:00",
+      "link": "https://arxiv.org/pdf/2608.14352v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Uses LLM-guided abstraction and automata learning to discover agent strategies in cybersecurity assessment",
+      "llm_evidence_cn": "利用LLM引导的抽象与自动机学习，在网络安全评估中发现智能体策略",
+      "llm_evidence": "利用LLM引导的抽象与自动机学习，在网络安全评估中发现智能体策略",
+      "canonical_evidence": "利用LLM引导的抽象与自动机学习，在网络安全评估中发现智能体策略",
+      "llm_tldr_en": "ATLAS recovers interpretable finite-state models from LLM agent trajectories, enabling strategy discovery for cybersecurity assessment and software testing.",
+      "llm_tldr_cn": "基于大语言模型的智能体在软件测试和网络安全评估中表现出色，但其行为难以理解和分析。ATLAS结合轨迹抽象与自动机学习，从智能体-环境交互轨迹中推断有限状态模型，捕捉智能体采用的策略。这些可解释模型帮助人类理解、解释和分析智能体行为，为安全评估中的智能体策略发现提供了新的工具。",
+      "llm_tldr": "基于大语言模型的智能体在软件测试和网络安全评估中表现出色，但其行为难以理解和分析。ATLAS结合轨迹抽象与自动机学习，从智能体-环境交互轨迹中推断有限状态模型，捕捉智能体采用的策略。这些可解释模型帮助人类理解、解释和分析智能体行为，为安全评估中的智能体策略发现提供了新的工具。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.11679v1",
+      "source": "arxiv",
+      "title": "AgenticTwin: An Agentic LLM Framework Integrated with Digital Twin for Anomaly Detection",
+      "abstract": "Digital twins are increasingly used to monitor and simulate the behavior of cyber-physical systems. Even with skilled operators, interpreting anomalies detected within digital twin pipelines is challenging, as the sheer complexity and volume of raw sensor data make thorough analysis difficult. Recent advances in large language models (LLMs) offer promising capabilities for reasoning and explanation, yet their integration into digital twin-driven anomaly analysis remains underexplored. In this work, we propose AgenticTwin, an agentic framework that integrates LLM-driven reasoning with a digital twin-based anomaly detection pipeline. The framework grounds LLM-generated explanations in outputs from a digital twin-driven anomaly classifier and enables human operators to ask relevant natural-language questions about the system. Beyond the framework itself, we introduce a benchmark-oriented evaluation pipeline constructed over synthetic anomalies injected into a real-world weather sensor dataset, enabling controlled generation of operator queries over anomaly events. We further evaluate the feasibility of deploying lightweight, open-source LLMs for practical cyber-physical environments. Experimental results demonstrate that structured agent collaboration and knowledge-grounded reasoning improve diagnosis quality, contextual retrieval, and mitigation quality across diverse possible anomaly scenarios.",
+      "authors": [
+        "Touseef Hasan",
+        "Mounika Ghanta",
+        "Souvika Sarkar",
+        "Ujjwal Guin"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.IR",
+        "cs.MA"
+      ],
+      "published": "2026-08-12T05:38:05+00:00",
+      "link": "https://arxiv.org/pdf/2608.11679v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "agentic LLM framework for anomaly detection in digital twin security analysis",
+      "llm_evidence_cn": "面向数字孪生异常检测的智能体LLM框架，属于智能体安全分析",
+      "llm_evidence": "面向数字孪生异常检测的智能体LLM框架，属于智能体安全分析",
+      "canonical_evidence": "面向数字孪生异常检测的智能体LLM框架，属于智能体安全分析",
+      "llm_tldr_en": "AgenticTwin integrates LLM-driven reasoning with digital twin anomaly detection, providing explainable insights for cyber-physical system monitoring. It addresses the complexity of interpreting anomalies and grounds LLM explanations in classifier outputs, improving security analysis.",
+      "llm_tldr_cn": "数字孪生系统被广泛用于监控和模拟网络物理系统，但海量原始传感器数据使操作员难以在复杂异常中进行深入分析。针对该挑战，AgenticTwin将LLM智能体的推理能力与数字孪生异常检测流水线相集成，把LLM生成的解释锚定在分类器的输出上，从而在帮助操作员理解异常的同时增强了整体安全分析的全局性和可解释性，为智能体驱动的网络物理系统安全分析拓展了新范式。",
+      "llm_tldr": "数字孪生系统被广泛用于监控和模拟网络物理系统，但海量原始传感器数据使操作员难以在复杂异常中进行深入分析。针对该挑战，AgenticTwin将LLM智能体的推理能力与数字孪生异常检测流水线相集成，把LLM生成的解释锚定在分类器的输出上，从而在帮助操作员理解异常的同时增强了整体安全分析的全局性和可解释性，为智能体驱动的网络物理系统安全分析拓展了新范式。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.13608v1",
+      "source": "arxiv",
+      "title": "Evaluating Agentic Learning Harness Capabilities Without Labels via the Scaling Hypothesis",
+      "abstract": "Agentic \"Continual Learning Harnesses\", systems that pair an LLM with retrieval or memory to improve from feedback without retraining, have shown growing value in cybersecurity. But their value is conventionally measured by gains against labeled benchmarks, an approach that often fails in operational security settings. Benchmark labels are scarce, stale, and unrepresentative, so a practitioner often cannot tell whether a given harness helps at all or which of two is better for their task. Traditional LLM-as-a-judge offers little signal because it is no stronger than the agent it evaluates, and distillation is unreliable on scarce, sporadic, and biased labels.   We propose a framework for evaluating learning harnesses end-to-end without a labeled benchmark, grounded in the scaling hypothesis. A stronger teacher model provides sparsely sampled corrections to a smaller student with a continual learning harness. We score a harness by how much its student converges toward the teacher over time. Across security tasks, model families, and harness designs, we show that improvement relative to the teacher correlates with improvement relative to a held-out gold standard, validating teacher-relative lift as a proxy for true harness uplift when labels are absent. We further show that LLM-as-a-judge between similarly powered models yields no usable signal. These results suggest that a teacher-sized model can be improved through the same harness when humans provide the same kind of sparse, high-precision corrections.",
+      "authors": [
+        "Aryan Luthra",
+        "Kshitij Jain",
+        "Siddharth Arya",
+        "Bobby Filar",
+        "Anna Bertiger"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-08-11T15:51:37+00:00",
+      "link": "https://arxiv.org/pdf/2608.13608v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "provides an evaluation framework for agentic learning harnesses in cybersecurity without label dependence, supporting agent-based security analysis",
+      "llm_evidence_cn": "为网络安全中的智能体学习框架提供无标签评估方法，支持智能体安全分析",
+      "llm_evidence": "为网络安全中的智能体学习框架提供无标签评估方法，支持智能体安全分析",
+      "canonical_evidence": "为网络安全中的智能体学习框架提供无标签评估方法，支持智能体安全分析",
+      "llm_tldr_en": "The paper proposes a framework for evaluating agentic continual learning harnesses in cybersecurity without relying on labeled benchmarks, addressing the scarcity and staleness of labels in operational settings.",
+      "llm_tldr_cn": "智能体持续学习框架在网络安全中日益有用，但传统有标签基准在真实安全场景中往往标签稀缺、过时且不具代表性。该文提出一个端到端评估框架，无需标签即可评估学习框架的效果，解决操作环境中难以判断harness是否有用的问题，为智能体安全分析工具评估提供新思路。",
+      "llm_tldr": "智能体持续学习框架在网络安全中日益有用，但传统有标签基准在真实安全场景中往往标签稀缺、过时且不具代表性。该文提出一个端到端评估框架，无需标签即可评估学习框架的效果，解决操作环境中难以判断harness是否有用的问题，为智能体安全分析工具评估提供新思路。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.13928v1",
+      "source": "arxiv",
+      "title": "CoSA: Context-Aware Severity Assessment via Context Analysis with Large Language Models",
+      "abstract": "Accurate vulnerability severity assessment is essential for prioritizing remediation, yet manually assessing Common Vulnerability Scoring System (CVSS) base metrics remains labor-intensive. Existing automated approaches often fail to capture the repository-level evidence required for assessing many CVSS base metrics. Such repository-aware assessment is challenging because relevant evidence is scattered across the entire repository under heavy noise.   To address these challenges, we present CoSA, a Context-aware vulnerability Severity Assessment approach that infers CVSS base metrics from repository artifacts. CoSA constructs a code property graph (CPG) and applies a two-stage repository-pruning strategy: lightweight static pruning to preserve structurally proximal context, followed by an agentic large language model (LLM)-guided pruning step to retain CVSS-relevant context while collecting supporting evidence. The LLM then consolidates the retrieved repository context into compact, CVSS metric-wise textual summaries, which are fed into a lightweight transformer predictor. We also construct a higher-quality repository-level dataset comprising 6,816 CVSS labeled instances spanning 90 Common Weakness Enumeration (CWE) types.   Experiments on real-world vulnerabilities show that CoSA consistently outperforms function-level and pure-LLM baselines. It improves prediction accuracy by 14.4% and Macro-F1 by 15.3% over the best-performing baseline, suggesting that explicit, metric-oriented repository context retrieval is crucial for practical and reliable automated severity assessment.",
+      "authors": [
+        "Jinfeng Jiang",
+        "Yikun Li",
+        "Chengran Yang",
+        "Ting Zhang",
+        "Wen Bin Leow",
+        "Yide Yin",
+        "Eng Lieh Ouh",
+        "Lwin Khin Shar",
+        "David Lo"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.SE"
+      ],
+      "published": "2026-08-14T03:57:41+00:00",
+      "link": "https://arxiv.org/pdf/2608.13928v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM-based vulnerability severity assessment via code property graph",
+      "llm_evidence_cn": "基于大语言模型的漏洞严重性评估方法",
+      "llm_evidence": "基于大语言模型的漏洞严重性评估方法",
+      "canonical_evidence": "基于大语言模型的漏洞严重性评估方法",
+      "llm_tldr_en": "CoSA presents a context-aware vulnerability severity assessment approach that constructs a code property graph and applies two-stage repository pruning to infer CVSS base metrics with LLMs, addressing repository-level evidence challenges.",
+      "llm_tldr_cn": "漏洞严重性评估对优先修复至关重要，但手动评估成本高，现有自动化方法缺乏仓库级证据。CoSA提出构建代码属性图并进行两阶段仓库剪枝，利用大语言模型从仓库构件推断CVSS基础指标。该自动化方法能更全面地利用仓库上下文中分散的证据，提升CVSS各指标推断的准确性与覆盖度，为漏洞优先级排序提供可靠支持。",
+      "llm_tldr": "漏洞严重性评估对优先修复至关重要，但手动评估成本高，现有自动化方法缺乏仓库级证据。CoSA提出构建代码属性图并进行两阶段仓库剪枝，利用大语言模型从仓库构件推断CVSS基础指标。该自动化方法能更全面地利用仓库上下文中分散的证据，提升CVSS各指标推断的准确性与覆盖度，为漏洞优先级排序提供可靠支持。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "vulnerability mining agent techniques",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

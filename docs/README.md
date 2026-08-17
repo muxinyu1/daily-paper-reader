@@ -6,34 +6,47 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-08-16
-- 运行时间：2026-08-16 19:59:44 UTC
+- 最新运行日期：2026-08-17
+- 运行时间：2026-08-17 20:19:28 UTC
 - 运行状态：成功
-- 本次总论文数：4
-- 精读区：2
-- 速读区：2
+- 本次总论文数：9
+- 精读区：6
+- 速读区：3
 
 ### 今日简报（AI）
-今日精读4篇论文，聚焦代码漏洞检测与LLM智能体安全，其中两项高分研究值得关注。  
-重点推荐《VICBench》多语言漏洞基准和《Convergent Detour Hijacking》智能体资源劫持攻击，分别揭示检测盲区与新型威胁路径。  
-若关注代码安全，建议优先精读VICBench以校准工具，并留意智能体资源滥用风险。
-- 详情：[/202608/16/README](/202608/16/README)
+今日精读6篇、速读3篇，共9篇论文，其中两篇以9.0分领跑，聚焦LLM驱动的黑盒渗透测试与语义感知漏洞检测。最值得关注的是《MazeRunner》与《Finding Vulnerabilities》两篇9分研究，分别呈现非线性任务编排在自动化攻击测试中的潜力，以及结合语义类型检查的漏洞挖掘新思路。建议普通读者优先精读这两篇高分论文，重点关注LLM如何提升安全测试的自动化与准确性。
+- 详情：[/202608/17/README](/202608/17/README)
 
 ### 精读区论文标签
-1. [VICBench: A Multi-Language Benchmark for Code Vulnerability Detection](/202608/16/2608.12246v1-vicbench-a-multi-language-benchmark-for-code-vulnerability-detection)  
+1. [MazeRunner: Nonlinear Task and Clue Orchestration for LLM-driven Black-Box Automated Penetration Testing](/202608/17/2608.14216v1-mazerunner-nonlinear-task-and-clue-orchestration-for-llm-driven-black-box-automated-penetration-testing)  
+   标签：评分：9.0/10、query:agent-vuln
+   evidence：基于LLM驱动的自主渗透测试系统，用于黑盒软件漏洞发现
+2. [Finding Vulnerabilities via LLM-Augmented Semantics-Aware Type-Checking](/202608/17/2608.14533v1-finding-vulnerabilities-via-llm-augmented-semantics-aware-type-checking)  
+   标签：评分：9.0/10、query:agent-vuln
+   evidence：利用大语言模型增强语义感知类型检查进行漏洞检测，直接支持自动化漏洞发现
+3. [InterSAGE: The Secure and Verifiable Interoperability Protocol for An Internet of Agents](/202608/17/2608.13030v2-intersage-the-secure-and-verifiable-interoperability-protocol-for-an-internet-of-agents)  
    标签：评分：8.0/10、query:agent-vuln
-   evidence：利用智能体工作流构建的多语言代码漏洞检测基准，支持智能体漏洞检测。
-2. [Convergent Detour Hijacking: Task-Preserving Resource Amplification in Skill-Based LLM Agents](/202608/16/2608.12273v1-convergent-detour-hijacking-task-preserving-resource-amplification-in-skill-based-llm-agents)  
+   evidence：面向自治智能体系统的安全风险，提供身份认证、授权与问责协议
+4. [Mandato: Protocol-Level Enforcement of Digitally Signed Mandates on AI Agent Actions with Cryptographically Chained Audit Trails](/202608/17/2608.14074v1-mandato-protocol-level-enforcement-of-digitally-signed-mandates-on-ai-agent-actions-with-cryptographically-chained-audit-trails)  
    标签：评分：8.0/10、query:agent-vuln
-   evidence：对基于技能的LLM代理实施安全攻击，通过收敛绕行劫持放大资源消耗
+   evidence：协议级治理代理，通过签名授权与审计追踪降低自主代理系统的安全风险
+5. [Detecting Contaminated Code-Generation Prompt Batches via Influence Functions](/202608/17/2608.14303v1-detecting-contaminated-code-generation-prompt-batches-via-influence-functions)  
+   标签：评分：8.0/10、query:agent-vuln
+   evidence：检测诱导LLM生成不安全代码的异常提示，属于LLM漏洞分析方法
+6. [ATLAS: Discovering Agent Strategies through LLM-Guided Abstraction and Automata Learning](/202608/17/2608.14352v1-atlas-discovering-agent-strategies-through-llm-guided-abstraction-and-automata-learning)  
+   标签：评分：8.0/10、query:agent-vuln
+   evidence：利用LLM引导的抽象与自动机学习，在网络安全评估中发现智能体策略
 
 ### 速读区论文标签
-1. [STAIR: Effective Incident Response Using an End-to-End Agentic Planning Framework](/202608/16/2608.09524v1-stair-effective-incident-response-using-an-end-to-end-agentic-planning-framework)  
+1. [AgenticTwin: An Agentic LLM Framework Integrated with Digital Twin for Anomaly Detection](/202608/17/2608.11679v1-agentictwin-an-agentic-llm-framework-integrated-with-digital-twin-for-anomaly-detection)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：面向事件响应的智能体规划框架，直接涉及智能体安全分析。
-2. [Activation Probes Surface Code-Security Signals that the Model's Output Misses](/202608/16/2608.09643v1-activation-probes-surface-code-security-signals-that-the-models-output-misses)  
+   evidence：面向数字孪生异常检测的智能体LLM框架，属于智能体安全分析
+2. [CoSA: Context-Aware Severity Assessment via Context Analysis with Large Language Models](/202608/17/2608.13928v1-cosa-context-aware-severity-assessment-via-context-analysis-with-large-language-models)  
    标签：评分：7.0/10、query:agent-vuln
-   evidence：激活探针揭示AI编码智能体输出中遗漏的代码安全信号
+   evidence：基于大语言模型的漏洞严重性评估方法
+3. [Evaluating Agentic Learning Harness Capabilities Without Labels via the Scaling Hypothesis](/202608/17/2608.13608v1-evaluating-agentic-learning-harness-capabilities-without-labels-via-the-scaling-hypothesis)  
+   标签：评分：6.0/10、query:agent-vuln
+   evidence：为网络安全中的智能体学习框架提供无标签评估方法，支持智能体安全分析
 
 
 <div class="dpr-home-promo-card">
