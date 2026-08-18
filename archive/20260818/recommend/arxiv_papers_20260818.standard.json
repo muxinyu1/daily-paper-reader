@@ -1,0 +1,585 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-18T20:53:16.211101+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 10,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 8,
+    "quick_skim_target": 11,
+    "quick_selected": 8
+  },
+  "deep_dive": [
+    {
+      "id": "2608.15108v1",
+      "source": "arxiv",
+      "title": "Beyond Direct Access: Resource Hijacking in LLM Agents",
+      "abstract": "Large language model agents are increasingly connected to high-value resources such as computing infrastructure, credentials, usage budgets, identities, private knowledge, communication channels, and organizational workflows. Existing agent security research mainly studies attacks on instructions, data, and tool behaviors, while high-value resources accessible to agents have received much less attention as direct attack targets. We are the first to identify and systematically study agent resource hijacking, a security blind spot in which attackers induce agents to invoke, consume, transfer, or control high-value resources for their own goals without directly obtaining those resources or their credentials. To study this threat, we introduce ResourceHijackBench together with an automated pipeline for generating resource hijacking cases. We organize high-value agent resources into six categories and construct 300 attack scenarios with 900 attack prompts. Each case runs in an isolated local environment that records actual resource use, allowing attacks to be evaluated from agent behavior rather than text responses alone. Without additional defenses, OpenClaw reaches an average attack success rate of 84.06%. The attack remains effective across different model backends, with average success rates ranging from 69.98% to 89.58%. Existing defenses reduce part of the risk, but the strongest evaluated defense still leaves an average attack success rate of 55.11%. These results show that high-value resources accessible to agents form an important and previously overlooked attack surface, and that current agent defenses are not sufficient to protect them from resource hijacking.",
+      "authors": [
+        "Puyu Zeng",
+        "Qibing Ren"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-15T08:16:59+00:00",
+      "link": "https://arxiv.org/pdf/2608.15108v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "systematic study of resource hijacking attacks on LLM agents",
+      "llm_evidence_cn": "针对LLM智能体资源劫持攻击的系统研究",
+      "llm_evidence": "针对LLM智能体资源劫持攻击的系统研究",
+      "canonical_evidence": "针对LLM智能体资源劫持攻击的系统研究",
+      "llm_tldr_en": "Identifies agent resource hijacking, a security blind spot where attackers induce LLM agents to use or transfer high-value resources for their own goals, and introduces ResourceHijackBench to study it.",
+      "llm_tldr_cn": "本文首次识别并系统研究LLM智能体资源劫持这一安全盲区：攻击者不直接获取资源或凭证，而是诱导智能体调用、消耗、转移或控制高价值资源。研究者提出ResourceHijackBench基准，用于评估智能体在面对此类攻击时的表现。该工作扩展了智能体安全研究从指令/数据攻击到资源层面，提醒开发者关注资源暴露面。",
+      "llm_tldr": "本文首次识别并系统研究LLM智能体资源劫持这一安全盲区：攻击者不直接获取资源或凭证，而是诱导智能体调用、消耗、转移或控制高价值资源。研究者提出ResourceHijackBench基准，用于评估智能体在面对此类攻击时的表现。该工作扩展了智能体安全研究从指令/数据攻击到资源层面，提醒开发者关注资源暴露面。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.15888v1",
+      "source": "arxiv",
+      "title": "Bounded Agents: Delegation Security for Multi-Agent AI Systems",
+      "abstract": "LLM-based agents can act on behalf of a user to access cloud services, call tools, or invoke agents. At session start, the agent's permissions are set but remain static, and each request is evaluated independently, without considering prior actions. Within its permissions, an agent may act contrary to the delegated task, combine individually permitted actions into a prohibited outcome, or delegate authority to a sub-agent without limiting it. A prompt injection poses a risk only if the agent has authority to perform such actions; this is therefore a problem of authorization architecture, not just the model. The Agentic Principal Chain (APC) tracks delegated authority from one principal to the next. APC evaluates each request against the accumulated session state using six authorization checks. APC carries forward and restricts delegated scope and budgets. Using composition closure, APC checks requests against prior actions to prevent prohibited combinations and enforces the decision outside the model. We prove Blast Radius Monotonicity and Composition Soundness for APC implementations; Composition Soundness is limited to prohibited combinations under a complete restriction set and serialized admission. We evaluated 3,154 instances including InjecAgent, AgentDojo, and ASB. Our compromised-model evaluation tests APC independently of model behavior by inserting the ground-truth attack call after the first legitimate tool call. AgentDojo exfiltration fell from 75-100% to 0% across all four domains; APC blocked all 544 InjecAgent data-stealing cases. Intent binding reduced destruction from 38.6% to 4.0% and manipulation from 90.5% to 12.1%. Authorization latency was 0.24 ms at the 99th percentile on an idle host; across 949 AgentDojo task-injection pairs, utility was 8.6 and 13.9 percentage points lower in the two settings. Implementation, evaluation tools, and data are publicly available.",
+      "authors": [
+        "Xabier Muruaga"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-08-16T18:38:00+00:00",
+      "link": "https://arxiv.org/pdf/2608.15888v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "delegation security framework for multi-agent AI systems",
+      "llm_evidence_cn": "面向多智能体AI系统的委派安全框架",
+      "llm_evidence": "面向多智能体AI系统的委派安全框架",
+      "canonical_evidence": "面向多智能体AI系统的委派安全框架",
+      "llm_tldr_en": "Proposes the Agentic Principal Chain (APC), a delegation security framework that tracks authorized authority across multi-agent systems, addressing delegation-based attacks, insufficiently limited sub-agents, and privilege escalation.",
+      "llm_tldr_cn": "本文针对多智能体系统中智能体可越权委派子智能体、组合权限导致越权等安全风险，提出Agentic Principal Chain (APC)框架。APC沿委派链追踪授权关系，并结合会话状态评估每次请求的权限。该工作将问题本质界定为授权架构而非单纯模型漏洞，为多智能体系统提供了安全委派机制。",
+      "llm_tldr": "本文针对多智能体系统中智能体可越权委派子智能体、组合权限导致越权等安全风险，提出Agentic Principal Chain (APC)框架。APC沿委派链追踪授权关系，并结合会话状态评估每次请求的权限。该工作将问题本质界定为授权架构而非单纯模型漏洞，为多智能体系统提供了安全委派机制。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.14876v1",
+      "source": "arxiv",
+      "title": "Workspace Topology as an Attack Vector in Agentic Coding Assistants",
+      "abstract": "Agentic coding assistants are finding widespread use, not just in new code development but in quickly ingesting and leveraging third-party code. This opens up a risk of malicious code being ingested as these coding tools operate with broad filesystem access inside developer workspaces. In this paper, we extensively study the impact of different dimensions of a novel attack surface we term workspace topology -- defined via directory depth, codebase modularity, in-file injection position and context framing -- on the attack success rate of adversarial prompt injection attempts.   We perform an empirical study of indirect prompt injection (IPI) across a diverse set of open-source repositories spanning 10 languages and 6 engineering domains, evaluating three IPI entry points against open-weight models operating open source code harnesses.   We find that workspace topology measurably affects IPI success. Specifically, changes in codebase modularity can significantly alter the Attack Success Rate (ASR), with highly modular environments demonstrating significantly lower attack success rates. Furthermore, context framing and introduction of security-cues in the workspace can also alter the ASR. Our findings offer practical value for the evaluation and security testing of coding agents across diverse settings, while underscoring the importance of an uncontaminated testing environment to obtain reliable results and conclusions.",
+      "authors": [
+        "Alexandre G. R. Day",
+        "Pradeep Yadlapalli",
+        "Sriram Venkatapathy",
+        "Thomas Paniagua",
+        "Nick Raines",
+        "Sahil Wadhwa",
+        "Himanshu Kumar",
+        "Andy Luo",
+        "Sudeep Panyam",
+        "Rikhiya Ghosh",
+        "Pranab Mohanty",
+        "Giri Iyengar"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL",
+        "cs.LG"
+      ],
+      "published": "2026-08-14T20:30:36+00:00",
+      "link": "https://arxiv.org/pdf/2608.14876v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Analyzes indirect prompt injection attacks in agentic coding assistants",
+      "llm_evidence_cn": "分析智能体编码助手中的间接提示注入攻击",
+      "llm_evidence": "分析智能体编码助手中的间接提示注入攻击",
+      "canonical_evidence": "分析智能体编码助手中的间接提示注入攻击",
+      "llm_tldr_en": "Shows agentic coding assistants are vulnerable to prompt injection via workspace topology, empirically studying directory depth, modularity, and injection position.",
+      "llm_tldr_cn": "本文研究智能体编码助手在摄取第三方代码时面临的恶意代码注入风险，提出工作区拓扑这一新型攻击面。作者通过在不同编程语言和工程领域的开源仓库中进行大量实验，考察目录深度、代码模块化、文件内注入位置和上下文框架对提示注入攻击成功率的影响。结果显示这些拓扑维度显著影响攻击成功率，揭示了智能体编码助手在文件系统和代码集成中的安全隐患。该工作为构建更安全的编码智能体提供了实证依据。",
+      "llm_tldr": "本文研究智能体编码助手在摄取第三方代码时面临的恶意代码注入风险，提出工作区拓扑这一新型攻击面。作者通过在不同编程语言和工程领域的开源仓库中进行大量实验，考察目录深度、代码模块化、文件内注入位置和上下文框架对提示注入攻击成功率的影响。结果显示这些拓扑维度显著影响攻击成功率，揭示了智能体编码助手在文件系统和代码集成中的安全隐患。该工作为构建更安全的编码智能体提供了实证依据。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.16246v1",
+      "source": "arxiv",
+      "title": "CompoSkill: Compositional Skill Chain Attacks from Individually Scanner-Passing LLM Agent Skills",
+      "abstract": "Autonomous AI agents tackling Long Horizon Tasks depend on marketplace skills that are certified one at a time: a scanner returns a safety verdict for each skill and declares the ecosystem safe if every package passes. We show that this assumption fails under skill composition. A skill may pass the per-skill scanner individually yet participate in a risky composition when an agent connects its outputs, capabilities, or side effects with those of other scanner-passing skills. This makes skill composition risk a path level property rather than a node level property, explaining why existing skill scanners that inspect individual packages achieve limited interception. To study this threat, we present CompoSkill, a framework that constructs skill composition attacks through a dual attacker system. The white-box attacker knows the victim's installed skill pool and directly injects explicit skill-id sequences; the black-box attacker knows only a role profile, downloads the top marketplace skills for that scenario, builds a Skill Composition Graph, and searches for high risk chains whose implicit lures never name skill identifiers. We further construct CompoSkill-Bench, a benchmark of 1,140 records built from long-horizon professional workflows across five threats and six scenarios on OpenClaw and Nanobot. CompoSkill achieves risk Chain Formation Rates (CFR) up to 83.3% in the white box setting and 80.6% in the black box setting, while existing skill scanners block only a limited fraction of the risky compositions. Finally, we observe a bridge-bonus-then-hop-decay pattern: a bridge skill can increase attack success, but Attack Success Rate (ASR) decreases once additional hops make the risk chain longer than three skills. These results expose a systematic gap in single skill certification for autonomous AI agents.",
+      "authors": [
+        "Mingxiao Liu",
+        "Zhoumian Jiang",
+        "Jianan Ma",
+        "Jian Zhang",
+        "Jialuo Chen",
+        "Xinhao Deng",
+        "Zhen Wang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-17T08:20:44+00:00",
+      "link": "https://arxiv.org/pdf/2608.16246v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "compositional attacks on LLM agent skills that pass individual scanners, showing path-level security risks in agent systems",
+      "llm_evidence_cn": "针对通过单个扫描器审查的LLM智能体技能进行组合攻击，揭示智能体系统中的路径级安全风险",
+      "llm_evidence": "针对通过单个扫描器审查的LLM智能体技能进行组合攻击，揭示智能体系统中的路径级安全风险",
+      "canonical_evidence": "针对通过单个扫描器审查的LLM智能体技能进行组合攻击，揭示智能体系统中的路径级安全风险",
+      "llm_tldr_en": "CompoSkill shows that LLM agent skills passing per-skill safety scans can still form dangerous compositions when chained by an agent, making skill composition risk a path-level property rather than node-level, and provides a framework to study these compositional attacks.",
+      "llm_tldr_cn": "针对自主智能体依赖市集技能且单个技能均能通过安全扫描的现象，提出CompoSkill框架。该框架证明一个技能在单独审核时是安全的，但当多个技能由智能体连接组合时，其输出、能力或副作用可能形成危险链路，现有逐技能扫描无法有效拦截。该工作将技能组合风险从节点级提升为路径级，为智能体生态系统的安全评估提供了新视角和建模工具。",
+      "llm_tldr": "针对自主智能体依赖市集技能且单个技能均能通过安全扫描的现象，提出CompoSkill框架。该框架证明一个技能在单独审核时是安全的，但当多个技能由智能体连接组合时，其输出、能力或副作用可能形成危险链路，现有逐技能扫描无法有效拦截。该工作将技能组合风险从节点级提升为路径级，为智能体生态系统的安全评估提供了新视角和建模工具。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.16843v1",
+      "source": "arxiv",
+      "title": "Security of Foundation-Model-Powered Embodied Agents: Attack Surfaces, Attacks, Defenses, and Evaluation",
+      "abstract": "Foundation models are increasingly used for perception, reasoning, planning, and action generation in embodied agents, creating security risks that can propagate from digital inputs to physical behavior. Existing surveys often organize threats by mechanisms such as jailbreaks, prompt injection, backdoors, poisoning, or adversarial examples, but these categories do not consistently identify where an adversary first enters the embodied control loop. We present a trust-boundary-centric survey of foundation-model-powered embodied-agent security. Using a first-compromised-trust-boundary principle, we separate attack surface from attack mechanism and organize the system into five layers and twelve attack surfaces spanning the model supply chain, user instructions, context and memory, physical semantic environments, multimodal perception, world state, internal reasoning, task planning, action interfaces, middleware, multi-agent communication, and execution control. Based on 58 attack records and 61 defense records collected through August 15, 2026, we analyze representative attacks, cross-layer propagation, defense placement, and evaluation practices. Our quantitative analysis shows that attack research is concentrated on multimodal perception and action interfaces, while defenses are especially concentrated on action-level and runtime protection. Context and long-term memory, middleware and networking, world-state integrity, and multi-agent trust remain comparatively underexplored. We conclude with open challenges in state provenance, compositional defenses, long-horizon attack propagation, physical realizability, Byzantine multi-robot behavior, and unified closed-loop evaluation.",
+      "authors": [
+        "Jiawei Liu",
+        "Jiacheng Guo",
+        "Tian Zhang",
+        "Yiwei Xu",
+        "Juan Wang",
+        "Jinlin Fan",
+        "Bowen Xiao"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-08-17T17:28:49+00:00",
+      "link": "https://arxiv.org/pdf/2608.16843v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Survey of security risks and attack surfaces in embodied agents",
+      "llm_evidence_cn": "综述具身智能体的安全风险和攻击面",
+      "llm_evidence": "综述具身智能体的安全风险和攻击面",
+      "canonical_evidence": "综述具身智能体的安全风险和攻击面",
+      "llm_tldr_en": "A trust-boundary survey of embodied-agent security organizes five layers and twelve attack surfaces, unifying threats, attacks, and defenses.",
+      "llm_tldr_cn": "针对基于基础模型的具身智能体面临的安全风险，本文提出以信任边界为中心的安全综述视角。不同于按机制分类的现有综述，作者采用首失信任边界原则，将系统划分为五个层次和十二个攻击面，清晰区分攻击入口与攻击机制。该分类体系覆盖从数字输入到物理行为的攻击传播路径，并系统梳理现有攻击、防御与评估方法。该工作为具身智能体安全研究提供了结构化地图，有助于安全评估与防护设计。",
+      "llm_tldr": "针对基于基础模型的具身智能体面临的安全风险，本文提出以信任边界为中心的安全综述视角。不同于按机制分类的现有综述，作者采用首失信任边界原则，将系统划分为五个层次和十二个攻击面，清晰区分攻击入口与攻击机制。该分类体系覆盖从数字输入到物理行为的攻击传播路径，并系统梳理现有攻击、防御与评估方法。该工作为具身智能体安全研究提供了结构化地图，有助于安全评估与防护设计。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.14711v1",
+      "source": "arxiv",
+      "title": "Beyond Pass@k: Measuring Reliability and Security of Agentic Code Generation",
+      "abstract": "AI coding agent benchmarks rank agents with the Chen et al. (2021) pass@k estimator, but current implementations misapply it: they set n to the number of unit tests in a single submission rather than the number of independent rollout attempts, conflating test-suite size with attempt independence. We diagnose this operationalization error, prove it by counterexample, and propose reliability@k, the same estimator applied correctly, with n = independent rollouts and c = fully-passing rollouts per (task, agent) pair. In a synthetic multi-rollout benchmark, the misapplied metric inflates reported scores by 0.85-0.97 in absolute terms (0.96-0.98 reported vs. 0.00-0.12 corrected), and a cheap single-rollout proxy fails to substitute for repeated runs (Spearman $ρ= 0.417$). Motivated by evidence that functional correctness does not imply security safety, we additionally propose security-adjusted reliability@k, which counts only rollouts that are both functionally correct and free of high-severity insecure patterns. In an initial live-API test with three agents, the adjustment did not change any ranking under our current scanner and threshold, so we present it as a proposed complementary lens whose decisive evaluation requires better-powered future runs. Finally, a preliminary 5-task SWE-bench Verified pilot observes the same core concern in a real repository setting: macro-averaged hidden-test pass rate was 0.80 while strict task resolution was 0.20.",
+      "authors": [
+        "Jiajun Jiang",
+        "Sharon Zheng",
+        "Natan Vidra",
+        "Spurthi Setty"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-11T16:01:15+00:00",
+      "link": "https://arxiv.org/pdf/2608.14711v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "reliability metric for secure agentic code generation",
+      "llm_evidence_cn": "面向智能体代码生成可靠性与安全性的评测指标",
+      "llm_evidence": "面向智能体代码生成可靠性与安全性的评测指标",
+      "canonical_evidence": "面向智能体代码生成可靠性与安全性的评测指标",
+      "llm_tldr_en": "Corrects a common misapplication of pass@k in AI coding agent benchmarks by proposing reliability@k, which uses independent rollouts instead of test-suite size; experiments show the original metric inflates reported scores by up to 0.97.",
+      "llm_tldr_cn": "本文指出当前AI编码智能体基准错误应用pass@k估计量，将单元测试数量当作独立尝试次数，导致得分虚高。作者提出正确应用的reliability@k，以独立回滚次数为n，并在多回滚基准上证明原指标可使分数膨胀0.85-0.97。该工作为智能体代码生成的可靠性与安全性评估提供了更准确的度量，对安全关键应用具有重要意义。",
+      "llm_tldr": "本文指出当前AI编码智能体基准错误应用pass@k估计量，将单元测试数量当作独立尝试次数，导致得分虚高。作者提出正确应用的reliability@k，以独立回滚次数为n，并在多回滚基准上证明原指标可使分数膨胀0.85-0.97。该工作为智能体代码生成的可靠性与安全性评估提供了更准确的度量，对安全关键应用具有重要意义。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.15012v1",
+      "source": "arxiv",
+      "title": "SysEvolve: An AI-native, safe, autonomous adversarial attack-defense co-evolutionary system",
+      "abstract": "The rapid advancement of large language models (LLMs) has created a growing asymmetry in cybersecurity, where attack accelerates toward autonomous execution while defense remains predominantly human-intensive. Despite substantial prior work across cyber ranges, AI-driven attack, and AI-driven defense, this asymmetry persists. We trace it to a deeper root cause, that evolution itself has stalled on both sides at three layers. To overcome this, we propose co-evolution as the integrating insight, where attack and defense AI agents autonomously and safely drive each other's evolution through adversarial confrontation. Based on this insight, we present \\sysevolve, comprising three co-designed components, \\sysfield, \\sysspear, and \\sysarmor. \\sysfield constructs realistic multi-host ranges. \\sysspear generates efficient, safe attack schemes. \\sysarmor performs real-time, interpretable defense. Together they form a self-driven adversarial loop restoring evolution at all three layers. In evaluation, \\sysfield achieves zero-loss collection at 2.1\\% overhead and orchestrates 257 CVEs into 1,148 ranges, \\sysspear improves attack success by over 25\\% over baseline LLMs, and \\sysarmor achieves 10--1000$\\times$ greater precision than prior systems and detects real APT attacks in production at Huawei and Sangfor. Our evaluation also reveals three findings about LLM agent capabilities. First, multi-step composition and larger topologies expose agent capability gaps hidden by single-step evaluations. Second, the bottleneck lies after initial access in post-compromise state utilization. Third, LLM agents are susceptible to environmental interference. When decoy endpoints are deployed in the range, agent timeouts triple and downstream completion disappears despite the success rates of initial accesses are unchanged.",
+      "authors": [
+        "Yuhan Meng",
+        "Shaofei Li",
+        "Jionghao Huang",
+        "Jiandong Jin",
+        "Puyi Wang",
+        "Hanlin Jiang",
+        "Anis Yusof",
+        "Peng Jiang",
+        "Zhenkai Liang",
+        "Yao Guo",
+        "Ding Li"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-08-15T03:47:32+00:00",
+      "link": "https://arxiv.org/pdf/2608.15012v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Autonomous adversarial attack-defense co-evolution system with AI agents for cybersecurity",
+      "llm_evidence_cn": "面向网络安全的自主攻防协同进化系统，使用AI智能体",
+      "llm_evidence": "面向网络安全的自主攻防协同进化系统，使用AI智能体",
+      "canonical_evidence": "面向网络安全的自主攻防协同进化系统，使用AI智能体",
+      "llm_tldr_en": "Proposes SysEvolve, an AI-native system where attack and defense AI agents autonomously co-evolve through adversarial confrontation to address the growing asymmetry in cybersecurity.",
+      "llm_tldr_cn": "网络安全中攻击已趋于自主执行而防御仍依赖人力，这种不对称源于攻击与防御两侧的进化停滞。本文提出协同进化思想，设计SysEvolve系统，使攻击与防御AI智能体通过对抗性交锋自主且安全地驱动彼此进化。系统由现场、长矛与盾等多个组件协同构成，用于缓解攻防不对称并增强安全分析能力。",
+      "llm_tldr": "网络安全中攻击已趋于自主执行而防御仍依赖人力，这种不对称源于攻击与防御两侧的进化停滞。本文提出协同进化思想，设计SysEvolve系统，使攻击与防御AI智能体通过对抗性交锋自主且安全地驱动彼此进化。系统由现场、长矛与盾等多个组件协同构成，用于缓解攻防不对称并增强安全分析能力。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.15304v1",
+      "source": "arxiv",
+      "title": "Understanding Cognition-Induced Risks in Agentic AI Systems",
+      "abstract": "Frontier agentic systems powered by large language models (LLMs) exhibit human-like patterns of cognition. As these systems become deeply integrated across different domains, their cognitive engagement raises critical concerns for human society that remain insufficiently studied. To address this gap, we systematically analyze risks induced by expanding cognitive capabilities, following a three-level framework defined by their cognitive scope, from physical cognition to social cognition, and finally to self-referential cognition. We study their potential risks to human agency, autonomy, and control capability, corresponding to each cognitive level. We finally propose strategies to mitigate these risks and enhance the controllability of agentic AI systems, ensuring their long-term safe development.",
+      "authors": [
+        "Guanchu Wang",
+        "Qinuo Li",
+        "Mengnan Du",
+        "Xia Hu",
+        "Bowen Zhou"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-15T16:16:29+00:00",
+      "link": "https://arxiv.org/pdf/2608.15304v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Analyzes risks in autonomous agent systems and proposes mitigation strategies",
+      "llm_evidence_cn": "分析自主智能体系统的风险并提出缓解策略",
+      "llm_evidence": "分析自主智能体系统的风险并提出缓解策略",
+      "canonical_evidence": "分析自主智能体系统的风险并提出缓解策略",
+      "llm_tldr_en": "Analyzes cognitive risks in LLM agentic systems via a three-level framework, finding threats to human agency and control, and proposes mitigation strategies.",
+      "llm_tldr_cn": "本文针对由大语言模型驱动的智能体系统在认知能力扩展过程中引发的风险进行系统研究。作者提出三层次认知风险框架，涵盖物理认知、社会认知和自我参照认知，并在每一层分析对人类能动性、自主性和控制能力的潜在威胁。基于这些分析，论文提出增强智能体系统可控性的缓解策略。该工作为理解和治理智能体AI的社会风险提供了系统性的分析视角。",
+      "llm_tldr": "本文针对由大语言模型驱动的智能体系统在认知能力扩展过程中引发的风险进行系统研究。作者提出三层次认知风险框架，涵盖物理认知、社会认知和自我参照认知，并在每一层分析对人类能动性、自主性和控制能力的潜在威胁。基于这些分析，论文提出增强智能体系统可控性的缓解策略。该工作为理解和治理智能体AI的社会风险提供了系统性的分析视角。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.14863v1",
+      "source": "arxiv",
+      "title": "Evaluating Agentic Code Repair Capabilities in Distributed Systems",
+      "abstract": "LLM-based coding agents have advanced rapidly on single-process SWE tasks, with frontier models now clustering in the high-70s on SWE-bench Verified. Distributed-system debugging, however, remains an under-explored regime: bugs span processes, nodes, and protocol interactions, with root causes rarely recoverable from source alone and brute-force exploration intractable across non-deterministic interleavings. This leaves two gaps in LLM and agent evaluation: no code-repair benchmark targets distributed-system bugs, and no controlled study isolates how much externally provided debugging context changes agent success on them. We introduce DDBench, a code-repair benchmark of 60 historical bugs mined from 13 open-source distributed systems, partitioned into three difficulty tiers.   DDBench evaluates every case under two matched conditions: a symptom-only condition where the agent receives only the bug symptom and repository, and a context-augmented condition where it additionally receives a bounded debugging context (logs, traces, runtime state, and targeted code-investigation notes), isolating the effect of debugging context from model capability. The evaluation of ten LLMs on DDBench reveals several findings. First, distributed debugging exercises a reasoning dimension that single-process benchmarks do not surface: models' pass rates span 61 pp, and pairwise bootstrap separates 9 of 15 top-tier model pairs at p < 0.05 on DDBench's hardest case-set. Second, bounded debugging context lifts aggregate pass rate by +18.1 pp, and the lift is asymmetric: weaker models gain pass rate, while stronger models gain efficiency. Third, debugging context requires careful curation, as even faithful debugging context can sometimes mislead LLMs.",
+      "authors": [
+        "Yibo Yan",
+        "Huijuan Wang",
+        "Junzhou He",
+        "Yizhuo Liang",
+        "Shaoyu Wang",
+        "Huanchen Sun",
+        "Seo Jin Park"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.AI",
+        "cs.DC"
+      ],
+      "published": "2026-08-14T19:59:56+00:00",
+      "link": "https://arxiv.org/pdf/2608.14863v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "agentic code repair benchmark for distributed systems",
+      "llm_evidence_cn": "面向分布式系统的智能体代码修复基准",
+      "llm_evidence": "面向分布式系统的智能体代码修复基准",
+      "canonical_evidence": "面向分布式系统的智能体代码修复基准",
+      "llm_tldr_en": "DDBench benchmarks LLM coding agents on 60 real distributed-system bugs, showing that current agents struggle with cross-process bugs and benefit from external debugging context, addressing a gap in agent evaluation beyond single-process SWE tasks.",
+      "llm_tldr_cn": "本文针对分布式系统调试难题，提出DDBench基准，包含来自13个开源分布式系统的60个历史缺陷，弥补了现有代码修复基准仅覆盖单进程任务的不足。该基准用于评估LLM智能体在跨进程、跨节点缺陷上的修复能力，并控制外部调试上下文以考察其对智能体性能的影响。实验表明分布式缺陷对当前智能体仍极具挑战性，该工作为智能体代码修复与安全评估提供了重要基础。",
+      "llm_tldr": "本文针对分布式系统调试难题，提出DDBench基准，包含来自13个开源分布式系统的60个历史缺陷，弥补了现有代码修复基准仅覆盖单进程任务的不足。该基准用于评估LLM智能体在跨进程、跨节点缺陷上的修复能力，并控制外部调试上下文以考察其对智能体性能的影响。实验表明分布式缺陷对当前智能体仍极具挑战性，该工作为智能体代码修复与安全评估提供了重要基础。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.15016v1",
+      "source": "arxiv",
+      "title": "Hierarchical Agentic Incident Response with Digital-Twin-Validated Attack Inference",
+      "abstract": "Network incident response remains slow and labor-intensive as the defender must infer multi-stage attacks from partial observations and translate recovery decisions into reliable system commands. Decision-theoretic planners provide principled optimization but typically rely on abstract states and predefined actions, while large language model (LLM) agents can reason over operational context but may hallucinate attacks and responses. Toward automating response planning, we present a hierarchical agentic response framework that integrates LLM-based attack inference, rollout planning, and digital-twin validation. A fine-tuned LLM infers the attack progression and affected hosts from security alerts and system measurements. An emulated network digital twin replays the inferred attack and returns discrepancies between predicted and observed effects to calibrate the inference. A separately fine-tuned planning agent uses the rollout planning method to prioritize affected components at the tactical layer. At the operational layer, the planning agent proposes high-level recovery actions, and an execution agent translates selected actions into recovery and verification commands that are validated in the digital twin. We evaluate the framework on a 33-component enterprise-network testbed under three multi-stage attack scenarios. The results show that our framework outperforms frontier-LLM baselines in recovery success rate by 18--31%.",
+      "authors": [
+        "Yiran Gao",
+        "Juntao Chen",
+        "Tao Li"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-15T04:01:27+00:00",
+      "link": "https://arxiv.org/pdf/2608.15016v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "LLM-agent framework for network attack inference and incident response",
+      "llm_evidence_cn": "面向网络攻击推断与事件响应的LLM智能体框架",
+      "llm_evidence": "面向网络攻击推断与事件响应的LLM智能体框架",
+      "canonical_evidence": "面向网络攻击推断与事件响应的LLM智能体框架",
+      "llm_tldr_en": "Presents a hierarchical agentic framework for automated network incident response, combining LLM-based attack inference, rollout planning, and digital-twin validation to reduce hallucinations and improve reliability.",
+      "llm_tldr_cn": "针对网络事件响应缓慢且依赖人工的问题，本文提出一种分层智能体响应框架，将基于大语言模型的攻击推理、滚动规划与数字孪生验证相结合。该方法利用微调后的LLM从安全告警和系统测量中推断攻击进程，并通过仿真网络对推断结果进行验证，以缓解LLM的幻觉问题。实验表明该框架能有效提升响应规划的可靠性和自动化水平，为智能体驱动的安全运维提供了新思路。",
+      "llm_tldr": "针对网络事件响应缓慢且依赖人工的问题，本文提出一种分层智能体响应框架，将基于大语言模型的攻击推理、滚动规划与数字孪生验证相结合。该方法利用微调后的LLM从安全告警和系统测量中推断攻击进程，并通过仿真网络对推断结果进行验证，以缓解LLM的幻觉问题。实验表明该框架能有效提升响应规划的可靠性和自动化水平，为智能体驱动的安全运维提供了新思路。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.16411v1",
+      "source": "arxiv",
+      "title": "Towards Risk-free AI Agent Deployment",
+      "abstract": "LLM-based agents are rapidly moving from research prototypes into the core business processes of organizations, but these agents pose deployment risks to security, compliance, and functionality. In this article, we argue that risk-free deployment must be grounded in the agent's trajectory: the recorded sequence of reasoning steps, tool invocations, and environmental observations. Trajectories are available for any agent, and many failures are visible only in the trajectory. To make agents deployable and sustainable, we advocate agent testing and debugging as a systematic research direction for detecting and mitigating these risks. This article begins with the challenges of testing agents, including the oracle problem, non-determinism, trajectory validation, and the absence of adequacy metrics. We then turn to debugging agents, from automated failure attribution to repair and self-evolution. We distill these directions into a practical deployment-readiness checklist covering the full deployment lifecycle. Finally, we identify open problems, i.e., formal adequacy metrics, root-cause attribution over long-horizon trajectories, and the reliability of self-evolving agents, that the community must address to enable trustworthy agent deployment.",
+      "authors": [
+        "Yintong Huo",
+        "Rangeet Pan",
+        "Abhik Roychoudhury"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.AI"
+      ],
+      "published": "2026-08-17T11:07:07+00:00",
+      "link": "https://arxiv.org/pdf/2608.16411v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Discusses security, compliance, and functionality risks of LLM agents and proposes trajectory-based testing",
+      "llm_evidence_cn": "讨论LLM智能体的安全、合规与功能风险，提出基于轨迹的测试与调试",
+      "llm_evidence": "讨论LLM智能体的安全、合规与功能风险，提出基于轨迹的测试与调试",
+      "canonical_evidence": "讨论LLM智能体的安全、合规与功能风险，提出基于轨迹的测试与调试",
+      "llm_tldr_en": "Argues that risk-free AI agent deployment requires grounding in the agent trajectory, advocating systematic agent testing and debugging to detect and mitigate security, compliance, and functionality risks.",
+      "llm_tldr_cn": "LLM智能体进入企业核心流程带来安全、合规和功能性部署风险。本文认为无风险部署必须基于智能体轨迹，即推理步骤、工具调用与环境观察的记录。文章系统分析了智能体测试面临的神谕问题、非确定性、轨迹验证和充分性缺失等挑战，主张将智能体测试与调试作为系统研究方向以检测和缓解风险。该观点为自主智能体系统的安全风险防控提供了基础框架。",
+      "llm_tldr": "LLM智能体进入企业核心流程带来安全、合规和功能性部署风险。本文认为无风险部署必须基于智能体轨迹，即推理步骤、工具调用与环境观察的记录。文章系统分析了智能体测试面临的神谕问题、非确定性、轨迹验证和充分性缺失等挑战，主张将智能体测试与调试作为系统研究方向以检测和缓解风险。该观点为自主智能体系统的安全风险防控提供了基础框架。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.16402v1",
+      "source": "arxiv",
+      "title": "A Policy Algebra for Trust-Preserving Agentic AI Execution",
+      "abstract": "Large language model-based agentic frameworks primarily optimize capability: whether an agent can reason, retrieve information, call tools, delegate work, and complete a goal. Enterprise execution requires a stronger property. A successful result is not reliable if it was produced through unauthorized data access, widened delegated authority, unapproved side effects, unrecoverable budget consumption, or incomplete evidence. This paper defines reliable capability as a path property: an agent is reliably capable only when it completes a task through action events that remain admissible under identity, profile, tool, data, memory, budget, artifact, approval, and audit constraints. We propose a policy algebra that defines the reliability envelope within which agent capability may be exercised. Security profiles and runtime obligations compose through joins, intersections, budget narrowing, approval inheritance, and evidence accumulation; the resulting composition is both trust-preserving and the least restrictive state satisfying all governing inputs. The algebra also propagates restrictions across multi-agent calls and introduces cost-aware artifact materialization, which redirects open-ended execution toward a recoverable outcome as budget exposure grows. The evaluation is interpreted as a reliability-capability trade-off rather than a capability benchmark: the policy-algebra runtime intervenes on 94.8% of policy-violating events while retaining an 86.9% task-completion rate, eliminates the observed profile-monotonicity and zero-artifact-exhaustion violations, and increases audit completeness to 98.6%. The method provides researchers and practitioners with formal correctness conditions, executable decision semantics, and trace evidence for building agents that are not only capable, but reliably capable.",
+      "authors": [
+        "Bhaskar Tripathi",
+        "Anurag Kumar",
+        "Ramendra Kumar",
+        "Bhavesh Gadhe"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-17T10:59:15+00:00",
+      "link": "https://arxiv.org/pdf/2608.16402v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Defines reliability envelope against unauthorized data access, widened authority, and unapproved side effects in LLM agent execution",
+      "llm_evidence_cn": "定义了智能体执行中的可靠性边界，涵盖未授权数据访问、权限扩大和未批准副作用等安全风险",
+      "llm_evidence": "定义了智能体执行中的可靠性边界，涵盖未授权数据访问、权限扩大和未批准副作用等安全风险",
+      "canonical_evidence": "定义了智能体执行中的可靠性边界，涵盖未授权数据访问、权限扩大和未批准副作用等安全风险",
+      "llm_tldr_en": "LLM agent frameworks optimize capability but ignore trust; this paper defines reliable capability as a policy-admissible path and proposes a policy algebra for enterprise-grade safe agentic AI execution.",
+      "llm_tldr_cn": "现有大模型智能体框架主要优化能力，而企业级执行需要可靠性和可审计性。作者将可靠能力定义为在身份、工具、数据、内存、预算、审批等约束下均合规的动作路径，并提出一种策略代数来刻画这一可靠性边界。该方法补足了未授权访问、权限扩张、不可恢复消耗等安全风险防护机制，可为智能体的可信部署提供基础。",
+      "llm_tldr": "现有大模型智能体框架主要优化能力，而企业级执行需要可靠性和可审计性。作者将可靠能力定义为在身份、工具、数据、内存、预算、审批等约束下均合规的动作路径，并提出一种策略代数来刻画这一可靠性边界。该方法补足了未授权访问、权限扩张、不可恢复消耗等安全风险防护机制，可为智能体的可信部署提供基础。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.16422v1",
+      "source": "arxiv",
+      "title": "Proving the Utility of Large Language Models in Cybersecurity Simulations: A Comprehensive Examination",
+      "abstract": "Cyber threats continue to escalate in both frequency and sophistication, necessitating more adaptive and scalable defense strategies. This paper explores how Large Language Models (LLMs) can bolster cybersecurity simulations by automating the creation of synthetic environments and identifying latent vulnerabilities. We employ YAML as a structured representation format for simulating complex network configurations, thereby enabling Large Language Model-driven pipelines to support and improve reinforcement learning (RL) agent training. Comparative studies examine the advantages of LLM-based techniques over classical approaches such as Double Q-learning with Prioritized Experience Replay (PER), emphasizing increased efficiency, higher adaptability, and enhanced realism in cyberattack simulations. In empirical benchmarks across multiple synthetic topologies, LLM-instantiated Python agents achieved up to a 94.5% compromise rate while executing in 0.02-0.06 seconds per assessment---a ~25,000x to 50,000x speedup over traditional RL training cycles. Our findings underscore the transformative potential of integrating LLMs into cybersecurity research, ultimately paving the way for more intelligent and robust cyber-defense systems.",
+      "authors": [
+        "Stylianos Kampakis",
+        "Fabio Rovai",
+        "Marcos Charalambides",
+        "Theodosis Mourouzis",
+        "Chris Hicks"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-08-17T11:22:20+00:00",
+      "link": "https://arxiv.org/pdf/2608.16422v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM-driven identification of latent vulnerabilities in cyber simulations",
+      "llm_evidence_cn": "LLM驱动的网络模拟潜在漏洞识别",
+      "llm_evidence": "LLM驱动的网络模拟潜在漏洞识别",
+      "canonical_evidence": "LLM驱动的网络模拟潜在漏洞识别",
+      "llm_tldr_en": "This paper demonstrates how large language models can automate creation of synthetic cyber environments and identify latent vulnerabilities, using YAML-based configuration and RL agent training pipelines, with comparative studies showing improved efficiency over classical methods.",
+      "llm_tldr_cn": "针对网络威胁应对中需更高适应性和可扩展防御的需求，本文利用LLM自动生成合成网络环境并识别潜在漏洞。方法以YAML描述网络配置，驱动包含强化学习智能体训练的流水线，并与双重Q学习等经典方法对比。实验表明该技术能提升效率并支持更智能的防御策略开发。",
+      "llm_tldr": "针对网络威胁应对中需更高适应性和可扩展防御的需求，本文利用LLM自动生成合成网络环境并识别潜在漏洞。方法以YAML描述网络配置，驱动包含强化学习智能体训练的流水线，并与双重Q学习等经典方法对比。实验表明该技术能提升效率并支持更智能的防御策略开发。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.16465v1",
+      "source": "arxiv",
+      "title": "JailbreakSkill: Scaling Automated Red-Teaming with Reusable and Ever-Evolving Skills",
+      "abstract": "Automated red-teaming has produced a growing collection of attack strategies, yet they typically remain scattered across prompts and workflows, making them difficult to systematically integrate, reuse, and improve at scale. We introduce \\textsc{JailbreakSkill}, a skill-centric framework for scaling automated red-teaming through reusable and continuously evolving attack capabilities. \\textsc{JailbreakSkill} packages existing attack strategies into modular, agent-ready skills that can be directly reused and adaptively selected across tasks and target models. Beyond reuse, it closes the loop between attacking and learning: attack experience is used to diagnose, refine, combine, and discover new skills, which are added back to an ever-growing skill library. This evolution lifts macro-average ASR by 17.5 percentage points on AdvBench and 13.4 points on HarmBench, including a 48.6-point gain against GPT-5.4 on AdvBench, while yielding novel attack strategies such as reframing a direct request as an unfinished document-completion task. Several evolved skills also generalize to unseen prompts and target models without further adaptation. Our code is available at https://github.com/BattleWen/JailbreakSkill.",
+      "authors": [
+        "Xiaoyu Wen",
+        "Jiajia Li",
+        "Zhida He",
+        "Peng Yu",
+        "Chenxu Wang",
+        "Han Qi",
+        "Ziyuan Zhou",
+        "Cheng Jin",
+        "Ying Wen",
+        "Xingcheng Xu",
+        "Shuyue Hu",
+        "Tianhang Zheng",
+        "Chaochao Lu",
+        "Qiaosheng Zhang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-17T12:03:35+00:00",
+      "link": "https://arxiv.org/pdf/2608.16465v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "automated red-teaming with reusable agent skills",
+      "llm_evidence_cn": "基于可复用技能库的自动化红队测试",
+      "llm_evidence": "基于可复用技能库的自动化红队测试",
+      "canonical_evidence": "基于可复用技能库的自动化红队测试",
+      "llm_tldr_en": "JailbreakSkill organizes LLM attack strategies into modular agent-ready skills that can be reused, combined, and evolved, closing the loop between red-teaming attacks and skill learning.",
+      "llm_tldr_cn": "现有自动化红队攻击策略分散在提示与工作流中，难以系统复用和规模化演化。JailbreakSkill将攻击策略封装为模块化、可被智能体直接调用的技能，支持跨任务和跨模型复用，并通过攻击经验驱动技能的诊断、组合与发现，形成持续进化的攻击技能库。该框架显著提升了大语言模型红队测试的自动化水平与安全评估能力。",
+      "llm_tldr": "现有自动化红队攻击策略分散在提示与工作流中，难以系统复用和规模化演化。JailbreakSkill将攻击策略封装为模块化、可被智能体直接调用的技能，支持跨任务和跨模型复用，并通过攻击经验驱动技能的诊断、组合与发现，形成持续进化的攻击技能库。该框架显著提升了大语言模型红队测试的自动化水平与安全评估能力。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    }
+  ]
+}
