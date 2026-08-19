@@ -1,0 +1,251 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-19T20:14:37.828710+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2608.17153v1",
+      "source": "arxiv",
+      "title": "Towards Safer RAG: Only Agents Capable of System 2 Thinking may Access Untrusted Documents",
+      "abstract": "Retrieval-Augmented Generation (RAG) has significantly enhanced the performance of large language models (LLMs), yet these systems remain vulnerable to knowledge-poisoning attacks, in which misinformation in retrieved documents can influence the model's final outputs. Notably, an LLM may correctly detect that a document contains incorrect information while nevertheless being influenced by it. Prior work has addressed this vulnerability through the Cordon Principle, which prevents models responsible for final answer synthesis from directly accessing raw evidence. Although effective, this strict isolation can introduce substantial computational overhead. In this work, we propose a refined security principle: only agents capable of deliberative System 2 reasoning may access untrusted documents. To evaluate this principle, we introduce novel metrics that quantify the discrepancy between misinformation detection and downstream influence. We then empirically compare state-of-the-art reasoning language models with standard language models across these metrics. Our results show that reasoning-capable models are substantially more robust to corrupted evidence, without requiring the strict isolation imposed by the Cordon Principle. These findings provide empirical support for our refined principle and suggest a more practical foundation for secure RAG system design.",
+      "authors": [
+        "Mehrdad Ghassabi"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-08-17T21:37:20+00:00",
+      "link": "https://arxiv.org/pdf/2608.17153v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "security of RAG agents against knowledge poisoning; System 2 thinking gate",
+      "llm_evidence_cn": "RAG代理面对知识投毒的安全防护；系统2思维门控",
+      "llm_evidence": "RAG代理面对知识投毒的安全防护；系统2思维门控",
+      "canonical_evidence": "RAG代理面对知识投毒的安全防护；系统2思维门控",
+      "llm_tldr_en": "RAG systems are vulnerable to knowledge poisoning; the paper proposes allowing only agents with System 2 thinking to directly access untrusted documents, reducing overhead of strict isolation while maintaining safety.",
+      "llm_tldr_cn": "检索增强生成（RAG）系统仍容易受到知识投毒攻击，模型即使识别出错误信息也可能被影响。已有Cordon原则隔离原始证据有效但开销大。本文提出精细化安全原则：只有具备系统2思维能力的代理才能直接访问不可信文档，在保持防护效果的同时显著降低计算开销，为RAG代理安全提供了更高效的信任边界。",
+      "llm_tldr": "检索增强生成（RAG）系统仍容易受到知识投毒攻击，模型即使识别出错误信息也可能被影响。已有Cordon原则隔离原始证据有效但开销大。本文提出精细化安全原则：只有具备系统2思维能力的代理才能直接访问不可信文档，在保持防护效果的同时显著降低计算开销，为RAG代理安全提供了更高效的信任边界。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.17275v1",
+      "source": "arxiv",
+      "title": "When Agents Act on Web3: An Attack-Surface Survey of MCP, Skills, and Tool Calling",
+      "abstract": "AI agents increasingly act rather than merely read: across the Model Context Protocol (MCP) ecosystem, the share of deployed tools that modify external state has risen from 27% to 65% of tool use. When agents exercise this authority on public blockchains through MCP, skills, and tool calling, the consequences of an attack are governed by the blockchain execution layer rather than by conventional software assumptions. This survey argues that four properties of that layer (irreversibility, signing authority, continuous autonomy, and sequence-level composition) qualitatively change the threat model, turning the recoverable failures of generic agent security into a standing, irreversible loss. We organize the fragmented MCP-security literature into an attack-surface taxonomy, then contribute a Web3 risk-mapping matrix that ties each attack class to its amplified impact, the responsible amplifiers, a representative mitigation, and the residual gap. We synthesize defenses, including emerging blockchain-based mechanisms, and find them improving but insufficient: measured protections stop fewer than 30% of attacks, and model-level safety refuses fewer than 3%. We close by positioning the work against adjacent surveys and deriving a research agenda from the matrix's open cells.",
+      "authors": [
+        "Rabimba Karanjai",
+        "Yang Lu",
+        "Nour Diallo",
+        "Wujie Xiong",
+        "Lei Xu",
+        "Weidong",
+        "Shi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-18T02:04:58+00:00",
+      "link": "https://arxiv.org/pdf/2608.17275v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Surveys attack surface of AI agents acting on Web3 via MCP, skills, and tool calling; directly addresses agent security vulnerabilities",
+      "llm_evidence_cn": "综述AI智能体通过MCP、技能与工具调用在Web3行动时的攻击面；直接针对智能体安全漏洞",
+      "llm_evidence": "综述AI智能体通过MCP、技能与工具调用在Web3行动时的攻击面；直接针对智能体安全漏洞",
+      "canonical_evidence": "综述AI智能体通过MCP、技能与工具调用在Web3行动时的攻击面；直接针对智能体安全漏洞",
+      "llm_tldr_en": "A security survey showing AI agents that act on blockchains create irreversible attack surfaces; it identifies four blockchain-layer properties that change the threat model and organizes the fragmented MCP-security literature.",
+      "llm_tldr_cn": "该综述聚焦AI智能体从只读转向执行行动所带来的安全问题，特别是通过MCP、技能和工具调用在区块链上操作时，攻击后果由区块链执行层决定。文章论证不可逆性、签名授权、持续自治和顺序级组合四个属性从根本上改变了威胁模型，将通用智能体安全中可恢复的失败变为永久性损失，并梳理了零散的MCP安全文献。对理解自主智能体系统的安全风险具有重要意义。",
+      "llm_tldr": "该综述聚焦AI智能体从只读转向执行行动所带来的安全问题，特别是通过MCP、技能和工具调用在区块链上操作时，攻击后果由区块链执行层决定。文章论证不可逆性、签名授权、持续自治和顺序级组合四个属性从根本上改变了威胁模型，将通用智能体安全中可恢复的失败变为永久性损失，并梳理了零散的MCP安全文献。对理解自主智能体系统的安全风险具有重要意义。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.17597v1",
+      "source": "arxiv",
+      "title": "HarnessRisk: A Lifecycle-Oriented Benchmark for Agent Harness Safety",
+      "abstract": "Large language models are increasingly deployed through agent harnesses that manage tools, extensions, persistent state, permissions, and external actions. Existing safety benchmarks mainly target individual attack mechanisms or a limited subset of operational settings, making it difficult to compare how safety failures emerge across different harness responsibilities. We present HarnessRisk, a lifecycle oriented benchmark that organizes agent harness safety into six operational phases including Harness Configuration, Capability Extension, Runtime Operation, State Persistence, Action Control, and Incident Recovery. HarnessRisk contains 128 sandboxed cases, each pairing a benign user objective with an adversarial instruction embedded in an untrusted workflow artifact. We evaluate each trajectory using Utility, Attack Success Rate, Persistence, and Detection. Across three harnesses, six language models, and 14 model and harness configurations, attack success ranges from 12.6% to 80.9%, while Utility remains between 75.0% and 97.6%. Harness Configuration is the most vulnerable phase across all three harnesses, showing that attacks can succeed by altering security sensitive parameters within otherwise authorized workflows. We also find that explicit risk recognition does not reliably lead to safe action, as some configurations detect risks in more than 90% of runs while retaining substantial attack success. These results highlight the need to evaluate agent safety across multiple harness responsibilities and at the level of the deployed model and harness configuration.",
+      "authors": [
+        "Yajing Bai",
+        "Jinhao Duan",
+        "Jie Peng",
+        "Xianfeng Wu",
+        "Sijia Liu",
+        "Song Wang",
+        "Tianlong Chen"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-18T10:03:58+00:00",
+      "link": "https://arxiv.org/pdf/2608.17597v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Benchmark focused on LLM agent harness safety lifecycle covering configuration, runtime, state, action, recovery vulnerabilities",
+      "llm_evidence_cn": "针对大语言模型智能体外壳安全全生命周期的基准，覆盖配置、运行、状态、动作等风险",
+      "llm_evidence": "针对大语言模型智能体外壳安全全生命周期的基准，覆盖配置、运行、状态、动作等风险",
+      "canonical_evidence": "针对大语言模型智能体外壳安全全生命周期的基准，覆盖配置、运行、状态、动作等风险",
+      "llm_tldr_en": "HarnessRisk presents a lifecycle-oriented benchmark with 128 sandboxed cases to systematically evaluate LLM agent harness safety failures across six operational phases, pairing benign user objectives with adversarial instructions.",
+      "llm_tldr_cn": "大语言模型通过智能体外壳管理工具、权限、状态与外部动作，现有安全基准多覆盖单一攻击机制，难以比较各类安全故障。该文提出HarnessRisk，一个面向智能体外壳安全全生命周期的基准，包含配置、能力扩展、运行、状态持久化、动作控制和事故恢复六个阶段。基准提供128个沙箱用例，每个用例将良性用户目标与恶意指令配对。该基准有助于系统评估和比较不同外壳设计中的安全失效模式，提升智能体系统的安全性。",
+      "llm_tldr": "大语言模型通过智能体外壳管理工具、权限、状态与外部动作，现有安全基准多覆盖单一攻击机制，难以比较各类安全故障。该文提出HarnessRisk，一个面向智能体外壳安全全生命周期的基准，包含配置、能力扩展、运行、状态持久化、动作控制和事故恢复六个阶段。基准提供128个沙箱用例，每个用例将良性用户目标与恶意指令配对。该基准有助于系统评估和比较不同外壳设计中的安全失效模式，提升智能体系统的安全性。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.17659v1",
+      "source": "arxiv",
+      "title": "MobileWorldSafety: Benchmarking GUI Agent Safety Against Environmental Injection Attacks in Android Apps",
+      "abstract": "LLM-powered GUI agents that autonomously operate smartphones are rapidly transitioning from research prototypes to early real-world deployment. However, because these agents routinely process untrusted environmental content, they are highly vulnerable to environmental injection attacks, which include indirect prompt injections and adversarial instructions. Such attacks can manipulate the behavior of agents without user awareness through diverse channels encountered in everyday mobile use. Despite these risks, existing benchmarks often fail to capture everyday user scenarios, lacking a systematic evaluation of GUI agents under environmental injection attacks on mobile devices. To address this gap, we introduce MobileWorldSafety, a benchmark of 142 risk tasks built on real Android applications. For each task, we define a programmatically verifiable risk indicator over the final system state and evaluate outcomes with a two-stage pipeline: rule-based verification handles unambiguous cases, while an LLM judge adjudicates ambiguous ones. This distinguishes safety failures from capability failures and enables objective and reproducible assessment. Evaluations on six agents, including both general agents and specialized GUI agents, demonstrate that all agents remain highly vulnerable, with attack success rates ranging from 40.4% to 66.9%. These findings indicate that current agents often fail to maintain safety alignment when adversarial content is presented as ordinary mobile context. MobileWorldSafety provides a foundation for quantifying these vulnerabilities and advancing research on robust mobile GUI agents.",
+      "authors": [
+        "Sujin Chen",
+        "Lijun Li",
+        "Tianyi Du",
+        "Jing Shao"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-18T11:33:22+00:00",
+      "link": "https://arxiv.org/pdf/2608.17659v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "GUI agent safety against environmental injection attacks",
+      "llm_evidence_cn": "GUI代理面对环境注入攻击的安全性",
+      "llm_evidence": "GUI代理面对环境注入攻击的安全性",
+      "canonical_evidence": "GUI代理面对环境注入攻击的安全性",
+      "llm_tldr_en": "Introduces MobileWorldSafety benchmark to systematically evaluate GUI agent safety against environmental injection attacks in Android apps, addressing the lack of realistic mobile scenarios.",
+      "llm_tldr_cn": "LLM驱动的GUI代理在手机上处理不可信环境内容时容易遭受环境注入攻击，如间接提示注入和对抗指令。现有基准缺乏日常用户场景，本文提出MobileWorldSafety基准，系统评估Android应用中GUI代理在环境注入攻击下的安全性。实验揭示代理可能被通过多样日常信道操纵，为移动代理安全研究提供了评测基础。",
+      "llm_tldr": "LLM驱动的GUI代理在手机上处理不可信环境内容时容易遭受环境注入攻击，如间接提示注入和对抗指令。现有基准缺乏日常用户场景，本文提出MobileWorldSafety基准，系统评估Android应用中GUI代理在环境注入攻击下的安全性。实验揭示代理可能被通过多样日常信道操纵，为移动代理安全研究提供了评测基础。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.17684v1",
+      "source": "arxiv",
+      "title": "Auditing Self-Evolution in Financial Agents: Capability Gains, Security Drift, and Execution-Interface Mismatch",
+      "abstract": "Self-evolving agents turn experience into reusable skills, workflows, or memories, but post-evolution accuracy alone does not show whether learned behavior preserves previously correct behavior or security. We audit SkillOpt, Agent Workflow Memory (AWM), and ReasoningBank in simulated e-banking using matched benign acquisition trajectories, sealed evaluation endpoints, execution-grounded checks, and independent state replay. On Qwen 3.7 Flash, SkillOpt raises benign utility from 0.741 to 0.837 while exposure to injected content rises from 0.820 to 0.943. Conditional attack success after exposure falls from 0.605 to 0.562, yet overall attack success rate (ASR) rises from 0.496 to 0.530 and unauthorized financial state changes rise to 0.685. Across three independently evolved lineages, capability, exposure, and unauthorized-state changes increase in all three, whereas ASR increases in only two. ReasoningBank raises utility to 0.859 without increasing aggregate ASR, although unauthorized state changes remain slightly above Static. AWM reveals a separate evaluation hazard: a literal WebArena text-action envelope disrupts tool execution in our native function-calling executor. In a post-hoc sensitivity test, removing only that envelope restores utility from 0.319 to 0.756, while exposure rises from 0.299 to 0.909 and ASR from 0.195 to 0.575. Auditing self-evolving financial agents therefore requires tracking regressions, attack-surface contact, unauthorized financial-state change, and artifact-executor compatibility, not accuracy alone.",
+      "authors": [
+        "Jialong Li",
+        "Jialing Zhu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-18T11:57:44+00:00",
+      "link": "https://arxiv.org/pdf/2608.17684v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Audits self-evolving LLM agents showing security drift and increased attack success under injected content",
+      "llm_evidence_cn": "审计自我进化智能体，发现进化后攻击成功率与安全暴露上升",
+      "llm_evidence": "审计自我进化智能体，发现进化后攻击成功率与安全暴露上升",
+      "canonical_evidence": "审计自我进化智能体，发现进化后攻击成功率与安全暴露上升",
+      "llm_tldr_en": "Self-evolving agents gain security drift: SkillOpt increases utility from 0.741 to 0.837 but exposure to injected content and attack success rate rise, highlighting need for security auditing of agent evolution.",
+      "llm_tldr_cn": "自我进化智能体从经验中学习技能，但其准确性提升不代表安全性保持。本文在模拟电子银行环境中审计SkillOpt、AWM和ReasoningBank三种机制，发现SkillOpt在提升正常效用的同时，对注入内容的暴露率从0.820升至0.943，整体攻击成功率从0.496升至0.530。研究表明自我进化会带来安全漂移，攻击成功率上升，需对进化机制进行执行接口层面的安全审计。",
+      "llm_tldr": "自我进化智能体从经验中学习技能，但其准确性提升不代表安全性保持。本文在模拟电子银行环境中审计SkillOpt、AWM和ReasoningBank三种机制，发现SkillOpt在提升正常效用的同时，对注入内容的暴露率从0.820升至0.943，整体攻击成功率从0.496升至0.530。研究表明自我进化会带来安全漂移，攻击成功率上升，需对进化机制进行执行接口层面的安全审计。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.17177v1",
+      "source": "arxiv",
+      "title": "Grounding AI Agents in Contracts: An Empirical Evaluation of Spec-Driven Test Generation",
+      "abstract": "LLM-based agents are increasingly used for coding tasks, where they have outperformed many classical approaches and scaled to repository-level tasks, such as test generation. However, when directly prompted to generate tests, these agents can fail to reason about the code and its underlying contracts, thereby missing edge cases and behavioral boundaries that affect test quality. To address this limitation, we propose Spec-Driven Test Generation, where we instruct an agent to first reason about -- and explicitly document -- code pre-conditions, post-conditions, and undefined behaviors. This intermediate semi-formal specification acts as a cognitive scaffold to guide subsequent test generation. Our evaluation on production bugs from Google shows that the spec-driven agent can deliver a 9.8 percentage points ($p = 0.0352$) improvement in bug detection rate and a 2.5 percentage point ($p = 0.0034$) improvement in branch coverage, compared to a traditional test generation agent baseline. Using LLM-as-a-Judge, we further show that test suites generated by the spec-driven agent are superior to the baseline and human-authored tests in 77.8% and 56.7% of the cases, respectively, and demonstrated improvements on following best practices, readability, and edge-case coverage.",
+      "authors": [
+        "Michele Tufano",
+        "James McClure",
+        "José Cambronero",
+        "Runxiang Cheng",
+        "Sherry Y. Shi",
+        "Renyao Wei",
+        "Dorothy Chen",
+        "Franjo Ivančić",
+        "Livio Dalloro",
+        "Pat Rondon"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE"
+      ],
+      "published": "2026-08-17T22:36:12+00:00",
+      "link": "https://arxiv.org/pdf/2608.17177v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Agent-based spec-driven test generation; directly reusable for automated vulnerability discovery",
+      "llm_evidence_cn": "基于智能体的规范驱动测试生成，可直接用于自动化漏洞发现",
+      "llm_evidence": "基于智能体的规范驱动测试生成，可直接用于自动化漏洞发现",
+      "canonical_evidence": "基于智能体的规范驱动测试生成，可直接用于自动化漏洞发现",
+      "llm_tldr_en": "Spec-driven test generation makes LLM agents first document pre/post-conditions and undefined behaviors, then generate tests. Evaluation on production bugs shows improved edge-case coverage.",
+      "llm_tldr_cn": "LLM编码智能体在直接生成测试时常常忽略代码契约和边界行为，导致测试质量不足。论文提出规范驱动测试生成，要求智能体先显式整理前置条件、后置条件与未定义行为，再基于这些半形式化规范生成测试用例。在Google生产代码缺陷上的实验表明，该方法改善了边界情况覆盖和bug捕获能力。这项工作为利用智能体自动发现软件缺陷（包括潜在漏洞）提供了有效的启发式方法。",
+      "llm_tldr": "LLM编码智能体在直接生成测试时常常忽略代码契约和边界行为，导致测试质量不足。论文提出规范驱动测试生成，要求智能体先显式整理前置条件、后置条件与未定义行为，再基于这些半形式化规范生成测试用例。在Google生产代码缺陷上的实验表明，该方法改善了边界情况覆盖和bug捕获能力。这项工作为利用智能体自动发现软件缺陷（包括潜在漏洞）提供了有效的启发式方法。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "how can AI agents be used to automatically find vulnerabilities in software",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
