@@ -6,38 +6,50 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-08-19
-- 运行时间：2026-08-19 20:18:03 UTC
+- 最新运行日期：2026-08-20
+- 运行时间：2026-08-20 20:42:07 UTC
 - 运行状态：成功
-- 本次总论文数：6
-- 精读区：5
-- 速读区：1
+- 本次总论文数：9
+- 精读区：6
+- 速读区：3
 
 ### 今日简报（AI）
-今日精读5篇、速读1篇，共6篇，重点聚焦AI代理安全与可靠评测方向。最值得关注两篇9分力作：系统2思维才能安全访问未信任文档，以及Web3代理工具调用的攻击面全景。普通读者建议优先了解RAG安全边界，并关注代理调用外部工具时的风险控制。
-- 详情：[/202608/19/README](/202608/19/README)
+- 今日共生成 9 篇推荐（精读 6 篇，速读 3 篇）
+- 精读：《Proof-of-Execution Memory: Defending LLM Agents Against Forged-Reasoning Attacks by Verifying What Actually Happened》（9.0/10）, 《Breaking Planner Integrity Boundary: Enviroment State-Text Injection Attack on LLM-Driven Embodied Agents》（9.0/10）
+- 速读：《A Graph-Based Reinforcement Learning Framework for Structured Drift Diagnosis and Recovery in Autonomous LLM Agents》（6.0/10）, 《Securing AI-Generated Code: A Just-in-Time Vulnerability Detection and Remediation Pipeline》（6.0/10）, 《TRUSS: Towards Task-Reliable and User-Safe Automated Agent Skill Generation》（6.0/10）
+- 这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。
+- 详情：[/202608/20/README](/202608/20/README)
 
 ### 精读区论文标签
-1. [Towards Safer RAG: Only Agents Capable of System 2 Thinking may Access Untrusted Documents](/202608/19/2608.17153v1-towards-safer-rag-only-agents-capable-of-system-2-thinking-may-access-untrusted-documents)  
+1. [Proof-of-Execution Memory: Defending LLM Agents Against Forged-Reasoning Attacks by Verifying What Actually Happened](/202608/20/2608.16032v1-proof-of-execution-memory-defending-llm-agents-against-forged-reasoning-attacks-by-verifying-what-actually-happened)  
    标签：评分：9.0/10、query:agent-vuln
-   evidence：RAG代理面对知识投毒的安全防护；系统2思维门控
-2. [When Agents Act on Web3: An Attack-Surface Survey of MCP, Skills, and Tool Calling](/202608/19/2608.17275v1-when-agents-act-on-web3-an-attack-surface-survey-of-mcp-skills-and-tool-calling)  
+   evidence：LLM代理漏洞分析、伪造记忆攻击与执行验证防御
+2. [Breaking Planner Integrity Boundary: Enviroment State-Text Injection Attack on LLM-Driven Embodied Agents](/202608/20/2608.16806v2-breaking-planner-integrity-boundary-enviroment-state-text-injection-attack-on-llm-driven-embodied-agents)  
    标签：评分：9.0/10、query:agent-vuln
-   evidence：综述AI智能体通过MCP、技能与工具调用在Web3行动时的攻击面；直接针对智能体安全漏洞
-3. [HarnessRisk: A Lifecycle-Oriented Benchmark for Agent Harness Safety](/202608/19/2608.17597v1-harnessrisk-a-lifecycle-oriented-benchmark-for-agent-harness-safety)  
+   evidence：针对LLM驱动的具身代理的环境状态文本注入攻击，直接研究LLM代理的脆弱性
+3. [Beyond the Transcript: Detecting Covert Co ordination in Latent Multi-Agent Communication](/202608/20/2608.19161v1-beyond-the-transcript-detecting-covert-co-ordination-in-latent-multi-agent-communication)  
    标签：评分：9.0/10、query:agent-vuln
-   evidence：针对大语言模型智能体外壳安全全生命周期的基准，覆盖配置、运行、状态、动作等风险
-4. [MobileWorldSafety: Benchmarking GUI Agent Safety Against Environmental Injection Attacks in Android Apps](/202608/19/2608.17659v1-mobileworldsafety-benchmarking-gui-agent-safety-against-environmental-injection-attacks-in-android-apps)  
-   标签：评分：9.0/10、query:agent-vuln
-   evidence：GUI代理面对环境注入攻击的安全性
-5. [Auditing Self-Evolution in Financial Agents: Capability Gains, Security Drift, and Execution-Interface Mismatch](/202608/19/2608.17684v1-auditing-self-evolution-in-financial-agents-capability-gains-security-drift-and-execution-interface-mismatch)  
+   evidence：通过潜在激活监控检测多智能体语言模型通信中的隐蔽有害协调
+4. [Emergent Misaligned Communication in Long-Horizon Multi-Agent LLM Commerce](/202608/20/2608.14825v1-emergent-misaligned-communication-in-long-horizon-multi-agent-llm-commerce)  
    标签：评分：8.0/10、query:agent-vuln
-   evidence：审计自我进化智能体，发现进化后攻击成功率与安全暴露上升
+   evidence：实证研究多智能体商务中LLM智能体间的误导与操纵性通信
+5. [CTIFoundry: An Agent-Native Corpus Scaffold for Cyber Threat Intelligence](/202608/20/2608.18613v1-ctifoundry-an-agent-native-corpus-scaffold-for-cyber-threat-intelligence)  
+   标签：评分：8.0/10、query:agent-vuln
+   evidence：构建链接CVE、CWE、CAPEC和ATT&CK的代理原生语料结构，支持LLM代理进行漏洞与威胁分析
+6. [Autonomous Cyber Defense in Connected Vehicles: A Multi-Agent Approach to V2X Security](/202608/20/2608.19135v1-autonomous-cyber-defense-in-connected-vehicles-a-multi-agent-approach-to-v2x-security)  
+   标签：评分：8.0/10、query:agent-vuln
+   evidence：面向V2X攻击检测的多智能体安全分析
 
 ### 速读区论文标签
-1. [Grounding AI Agents in Contracts: An Empirical Evaluation of Spec-Driven Test Generation](/202608/19/2608.17177v1-grounding-ai-agents-in-contracts-an-empirical-evaluation-of-spec-driven-test-generation)  
+1. [A Graph-Based Reinforcement Learning Framework for Structured Drift Diagnosis and Recovery in Autonomous LLM Agents](/202608/20/2608.14109v1-a-graph-based-reinforcement-learning-framework-for-structured-drift-diagnosis-and-recovery-in-autonomous-llm-agents)  
    标签：评分：6.0/10、query:agent-vuln
-   evidence：基于智能体的规范驱动测试生成，可直接用于自动化漏洞发现
+   evidence：处理自主LLM代理中的行为漂移，这是安全与可靠性风险
+2. [Securing AI-Generated Code: A Just-in-Time Vulnerability Detection and Remediation Pipeline](/202608/20/2608.16187v1-securing-ai-generated-code-a-just-in-time-vulnerability-detection-and-remediation-pipeline)  
+   标签：评分：6.0/10、query:agent-vuln
+   evidence：基于LLM的AI生成代码漏洞检测与修复流水线
+3. [TRUSS: Towards Task-Reliable and User-Safe Automated Agent Skill Generation](/202608/20/2608.17588v1-truss-towards-task-reliable-and-user-safe-automated-agent-skill-generation)  
+   标签：评分：6.0/10、query:agent-vuln
+   evidence：评估Agent技能的安全属性以防范有害副作用
 
 
 <div class="dpr-home-promo-card">

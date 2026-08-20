@@ -1,0 +1,369 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-20T20:35:54.664272+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 6,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2608.16032v1",
+      "source": "arxiv",
+      "title": "Proof-of-Execution Memory: Defending LLM Agents Against Forged-Reasoning Attacks by Verifying What Actually Happened",
+      "abstract": "LLM agents are stateless and rely on external memory to carry context between steps. Because agents treat that memory as trustworthy, an adversary who can write to it can steer their behavior. The FARMA attack does this with no malicious command: it inserts fabricated entries into the agent's reasoning memory claiming a required safety step is already done, so the agent skips it. SENTINEL, the defense proposed with FARMA, scores entries against a fixed list of suspicious wordings; its authors note that an attacker who knows the list can reword the forgery and evade it, and leave this open. We show the gap is worse than stated. An automated attacker that simply asks a language model to reword the forgery evades SENTINEL on its first try, reducing its protection to zero on every model tested. We also find a capability paradox: the attack succeeds far more often on stronger models (98-100% on GPT-4o and GPT-4o-mini) than on Llama-3.1-8B (44%), because more capable agents follow reworded claims more faithfully, so the threat grows with capability. We propose Proof-of-Execution Memory (PoEM), which does not inspect memory at all. PoEM keeps a separate, tamper-evident, HMAC-chained ledger of the safety steps that actually executed, writable only by the trusted action layer, and allows a skip only if the ledger confirms real execution. An attacker can change what memory says but cannot forge a ledger entry for a step that never ran, so rewording no longer helps. Across three models and three scenarios, PoEM drives attack success to 0% while leaving legitimate operation intact (0% false positives in eight of nine cells, 1.7% in the ninth, within sampling noise), whereas SENTINEL wrongly blocks 33-50% of legitimate operations. PoEM also withstands attacks aimed at itself, adds microseconds of overhead, and works unchanged in a real LangChain agent. PoEM protects exactly the decisions it gates.",
+      "authors": [
+        "Md Habibur Rahman",
+        "Jaeho Kim"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-08-17T02:54:04+00:00",
+      "link": "https://arxiv.org/pdf/2608.16032v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM agent vulnerability analysis, forged memory attacks, defense by execution verification",
+      "llm_evidence_cn": "LLM代理漏洞分析、伪造记忆攻击与执行验证防御",
+      "llm_evidence": "LLM代理漏洞分析、伪造记忆攻击与执行验证防御",
+      "canonical_evidence": "LLM代理漏洞分析、伪造记忆攻击与执行验证防御",
+      "llm_tldr_en": "Defends LLM agents against forged-reasoning memory attacks by verifying actual execution, addressing rewording evasions of fixed-list defenses like SENTINEL.",
+      "llm_tldr_cn": "LLM代理把上下文存在外部记忆中并完全信任，攻击者可以通过写入伪造记录来控制其行为，FARMA攻击就是这样插入虚假安全步骤的。SENTINEL防御用固定词表打分易被改写绕过。论文提出“执行证明记忆”机制，通过验证代理实际执行的事件来防御伪造推理攻击，并证明自动改写攻击确实能绕过旧防御。这种方法强化了代理对外部记忆的信任边界，对代理系统安全具有重要意义。",
+      "llm_tldr": "LLM代理把上下文存在外部记忆中并完全信任，攻击者可以通过写入伪造记录来控制其行为，FARMA攻击就是这样插入虚假安全步骤的。SENTINEL防御用固定词表打分易被改写绕过。论文提出“执行证明记忆”机制，通过验证代理实际执行的事件来防御伪造推理攻击，并证明自动改写攻击确实能绕过旧防御。这种方法强化了代理对外部记忆的信任边界，对代理系统安全具有重要意义。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.16806v2",
+      "source": "arxiv",
+      "title": "Breaking Planner Integrity Boundary: Enviroment State-Text Injection Attack on LLM-Driven Embodied Agents",
+      "abstract": "Large language model (LLM)-driven embodied agents rely on environment states to interpret scenes, generate high-level plans, and drive physical execution, making planner-visible state representations a critical security boundary. Existing attacks primarily manipulate user instructions, prompt contexts, model behavior, or perceptual inputs, while paying limited attention to whether environment-state text itself can serve as deceptive task evidence and propagate beyond planning to affect execution outcomes. Because embodied tasks are constrained by entity grounding, action preconditions, spatial relations, and environmental constraints, planning deviation alone does not guarantee adversarial execution.   To address this gap, we investigate environment-state text as an independent attack surface and present the first closed-loop Environment State-Text Injection (ESTI) attack for LLM-driven embodied agents. Without modifying the original user instruction, model parameters, or executor, ESTI reformulates an adversarial objective as false state evidence compatible with the current environment and influences planning and execution through object properties, spatial relations, affordances, task-stage rules, and execution feedback. We further develop ESTI-Bench to evaluate attack propagation across the planning-to-execution closed loop and compare ESTI with Vanilla IPI, EIRAD, and BADROBOT across ProgPrompt/VirtualHome, VoxPoser/RLBench, and AI2-THOR/iTHOR. ESTI consistently outperforms existing baselines, improving planning-level and execution-level attack success rates by up to 89.32\\% and 43.69\\%, respectively. Further analysis shows that grounding, consistency, and executability jointly determine whether manipulated state evidence can propagate through the embodied closed loop and produce verifiable environmental changes.",
+      "authors": [
+        "Jiawei Liu",
+        "Jiacheng Guo",
+        "Tian Zhang",
+        "Yiwei Xu",
+        "Juan Wang",
+        "Jinlin Fan",
+        "Bowen Xiao",
+        "Chi Guo",
+        "Keyan Guo",
+        "Hongxin Hu"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-08-17T17:02:07+00:00",
+      "link": "https://arxiv.org/pdf/2608.16806v2",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Environment state-text injection attacks on LLM-driven embodied agents; directly investigates vulnerability of LLM agents",
+      "llm_evidence_cn": "针对LLM驱动的具身代理的环境状态文本注入攻击，直接研究LLM代理的脆弱性",
+      "llm_evidence": "针对LLM驱动的具身代理的环境状态文本注入攻击，直接研究LLM代理的脆弱性",
+      "canonical_evidence": "针对LLM驱动的具身代理的环境状态文本注入攻击，直接研究LLM代理的脆弱性",
+      "llm_tldr_en": "Shows that environment-state text itself can act as deceptive task evidence in LLM-driven embodied agents, breaking planner integrity and affecting execution; a direct study of LLM agent vulnerability.",
+      "llm_tldr_cn": "LLM驱动的具身代理依赖环境状态文本来理解场景、生成计划并驱动执行，因此规划器可见的状态表示成为关键安全边界。现有攻击多操纵用户指令或感知输入，忽略环境状态文本本身可能作为欺骗性任务证据。本文提出环境状态文本注入攻击，利用实体接地、动作前置条件和空间约束，使计划偏差传导至真实执行。在具身代理任务上的实验证明该攻击能突破规划器完整性并造成对抗执行，揭示了环境状态是代理安全的新边界。",
+      "llm_tldr": "LLM驱动的具身代理依赖环境状态文本来理解场景、生成计划并驱动执行，因此规划器可见的状态表示成为关键安全边界。现有攻击多操纵用户指令或感知输入，忽略环境状态文本本身可能作为欺骗性任务证据。本文提出环境状态文本注入攻击，利用实体接地、动作前置条件和空间约束，使计划偏差传导至真实执行。在具身代理任务上的实验证明该攻击能突破规划器完整性并造成对抗执行，揭示了环境状态是代理安全的新边界。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "large language model agent vulnerability analysis",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.19161v1",
+      "source": "arxiv",
+      "title": "Beyond the Transcript: Detecting Covert Co ordination in Latent Multi-Agent Communication",
+      "abstract": "Language-model agents can communicate through continuous hidden states that are invisible in public transcripts, creating opportunities for covert harmful coordination. We introduce Verifiable Latent Alignments (VLA), an activation-aware framework for monitoring and steering these private communication channels. For every monitored decision, VLA links the private latent-state record and channel status to the resulting public action using a shared event identifier, enabling matched causal analysis. Our first contribution is a neutral-only three-layer monitor combining representation anomaly detection, counterfactual action-distribution influence, and sparse-autoencoder interpretation support. Our second contribution is a steerability framework spanning black-box behavioral instructions and white-box matched-neutral counterfactuals. Our third contribution is an evaluation on a controlled multi-agent auction benchmark covering homogeneous and heterogeneous model pairs, many-agent scalability, and intervention effectiveness. The sequential monitor achieves mean area under the receiver operating characteristic curve (AUROC) of 0.993 for homogeneous agents and 0.854 for heterogeneous pairs when text- and latent-collusion rows are pooled as positives. In Qwen3-0.6B auctions with 25-100 bidders, monitoring requires only a small normalized load relative to all possible directed pairs, while full white-box steering achieves 100% bid-distribution recovery and reduces collusive low-bid behavior by 47.3 percentage points. Because full white-box steering replays the matched neutral counterfactual, its exact recovery is a sanity check by construction. Overall, the controlled study shows that the evaluated private channel attacks can be monitored without training the primary monitor on attack examples and mitigated when matched counterfactual access is available.",
+      "authors": [
+        "Ramneet Kaur",
+        "Pradyumna Chari",
+        "Ramesh Raskar",
+        "Jugad Singh",
+        "Sumit Kumar Jha",
+        "Anirban Roy"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-08-19T17:43:22+00:00",
+      "link": "https://arxiv.org/pdf/2608.19161v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Detecting covert harmful coordination in latent multi-agent communication via activation monitoring.",
+      "llm_evidence_cn": "通过潜在激活监控检测多智能体语言模型通信中的隐蔽有害协调",
+      "llm_evidence": "通过潜在激活监控检测多智能体语言模型通信中的隐蔽有害协调",
+      "canonical_evidence": "通过潜在激活监控检测多智能体语言模型通信中的隐蔽有害协调",
+      "llm_tldr_en": "This paper addresses covert coordination between language-model agents via hidden states. It introduces Verifiable Latent Alignments (VLA), an activation-aware framework combining representation anomaly detection, counterfactual influence, and sparse autoencoders. VLA enables monitoring and steering of private communication channels, improving detection of covert harmful alignment.",
+      "llm_tldr_cn": "多智能体语言模型可通过连续隐藏状态进行秘密通信，带来隐蔽有害协调风险。论文提出可验证潜在对齐（VLA）框架，将潜在状态与公开行动通过共享事件标识关联，实现因果分析。该框架包含表征异常检测、反事实行动分布影响和稀疏自编码器解释支持三层监控，并能对私密通信通道进行引导。这项工作为防范多智能体系统中的隐藏安全风险提供了新工具。",
+      "llm_tldr": "多智能体语言模型可通过连续隐藏状态进行秘密通信，带来隐蔽有害协调风险。论文提出可验证潜在对齐（VLA）框架，将潜在状态与公开行动通过共享事件标识关联，实现因果分析。该框架包含表征异常检测、反事实行动分布影响和稀疏自编码器解释支持三层监控，并能对私密通信通道进行引导。这项工作为防范多智能体系统中的隐藏安全风险提供了新工具。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.14825v1",
+      "source": "arxiv",
+      "title": "Emergent Misaligned Communication in Long-Horizon Multi-Agent LLM Commerce",
+      "abstract": "Frontier LLM agents increasingly transact on behalf of separate principals, often using natural language rather than structured APIs. Much of the safety literature studies misaligned LLM behavior through adversarial-elicitation evaluations on single agents or stylized tasks. Its prevalence and structure in settings that combine long horizons, separate principals, real operational state, and inter-agent natural-language exchange remain insufficiently measured. We study 2,583 inter-agent emails from 20 one-year simulation runs of Vending-Bench Arena, a competitive vending environment spanning 13 frontier LLMs. We operationalize speech-act misalignment as emails containing false factual claims, manipulation, collusion, or threats, combining message content with ground-truth simulator state and logged reasoning traces to classify and validate such behavior. Under our primary classifier, 12.6% of emails are labeled misaligned; misalignment appears in all 20 runs and 74.7% of individual agent-runs. Both the magnitude and composition of this misalignment are preserved under repeated classification at different sampling temperatures and under full-pipeline replication with judges from two other frontier-model families. Misalignment is also reciprocal and stress-conditioned: receiving a misaligned email from a counterparty raises the odds of a misaligned reply by 1.65x, and low-inventory conditions raise them by 1.58x. Across tests of capability-asymmetric exploitation, we find no evidence that higher-capability models differentially exploit weaker counterparties, and model performance rank does not predict misalignment rates. Together, these results indicate that measurable, state-dependent misalignment can arise in competitive multi-agent environments without engineered elicitation, in patterns associated with operational scarcity and counterparty behavior rather than model capability alone.",
+      "authors": [
+        "Zeyuan Li",
+        "Lukas Petersson",
+        "Alessandro Acquisti",
+        "Michiel A. Bakker"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI"
+      ],
+      "published": "2026-08-14T18:56:12+00:00",
+      "link": "https://arxiv.org/pdf/2608.14825v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Empirically studies misaligned, manipulative communication among LLM agents in multi-agent commerce",
+      "llm_evidence_cn": "实证研究多智能体商务中LLM智能体间的误导与操纵性通信",
+      "llm_evidence": "实证研究多智能体商务中LLM智能体间的误导与操纵性通信",
+      "canonical_evidence": "实证研究多智能体商务中LLM智能体间的误导与操纵性通信",
+      "llm_tldr_en": "Analyzes 2,583 inter-agent emails from 20 simulations of multi-agent commerce, quantifying emergent misaligned communication such as false claims, manipulation, collusion, and threats.",
+      "llm_tldr_cn": "现有安全研究多关注单智能体对抗测试，对多智能体长周期交互中的不对齐行为度量不足。本文在包含13个前沿LLM的竞争性售货模拟环境中运行20次一年期仿真，分析2583封智能体间邮件，提出话语法不对齐的量化框架，发现虚假声明、操纵、共谋和威胁等行为的涌现。该研究为多智能体系统安全风险提供了实证证据，凸显了自主智能体间通信的安全隐患。",
+      "llm_tldr": "现有安全研究多关注单智能体对抗测试，对多智能体长周期交互中的不对齐行为度量不足。本文在包含13个前沿LLM的竞争性售货模拟环境中运行20次一年期仿真，分析2583封智能体间邮件，提出话语法不对齐的量化框架，发现虚假声明、操纵、共谋和威胁等行为的涌现。该研究为多智能体系统安全风险提供了实证证据，凸显了自主智能体间通信的安全隐患。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "multi-agent system security vulnerabilities",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.18613v1",
+      "source": "arxiv",
+      "title": "CTIFoundry: An Agent-Native Corpus Scaffold for Cyber Threat Intelligence",
+      "abstract": "Cyber threat intelligence (CTI) is increasingly consumed not by human analysts but by LLM agents that compose multi-step investigations at query time. The harness side of this shift has matured rapidly (planning loops, tool protocols, context management), but the corpus side has not: threat reports and vulnerability databases are still packaged for retrieval-augmented generation, as opaque chunks behind an embedding index. We argue that this substrate, not model capability, is the bottleneck on agentic CTI investigation, and present CTIFoundry, an agent-native corpus scaffold. At build time, CTIFoundry materializes the latent structure of a CTI corpus: a deterministic ontology graph over four authoritative knowledge bases (CVE, CWE, CAPEC, ATT&CK) whose official cross-references become typed, traversable edges; a span-grounded report layer whose canonical, alias-resolved cross-vendor entities index provenance-carrying chunks; and hybrid dense+lexical retrieval surfaces. At query time this structure is exposed through seven typed tools and three procedural skills mounted on a stock open-source agent harness. On the public CTIConnect benchmark, swapping only the action surface lifts the identically-harnessed agent by +0.19 to +0.28 overall F1 across a four-model, two-provider panel: a small model on CTIFoundry surpasses a flagship on the flat substrate, and the gain is not bought with search effort, since on both Claude models the scaffolded agent is more accurate at roughly half the tool calls. An ablation attributes it: typed structure carries the larger share, procedural skills convert structure into discipline, and the two compose super-additively, because skills bind only to structure that exists.",
+      "authors": [
+        "Yutong Cheng",
+        "Changze Li",
+        "Qian Cui",
+        "Wei Ding",
+        "Lingzhi Wang",
+        "Yan Chen",
+        "Peng Gao"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-08-19T07:00:29+00:00",
+      "link": "https://arxiv.org/pdf/2608.18613v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Agent-native corpus scaffold linking CVE, CWE, CAPEC, ATT&CK to support LLM agents in vulnerability and threat investigation",
+      "llm_evidence_cn": "构建链接CVE、CWE、CAPEC和ATT&CK的代理原生语料结构，支持LLM代理进行漏洞与威胁分析",
+      "llm_evidence": "构建链接CVE、CWE、CAPEC和ATT&CK的代理原生语料结构，支持LLM代理进行漏洞与威胁分析",
+      "canonical_evidence": "构建链接CVE、CWE、CAPEC和ATT&CK的代理原生语料结构，支持LLM代理进行漏洞与威胁分析",
+      "llm_tldr_en": "CTIFoundry builds an agent-native corpus scaffold materializing a deterministic ontology graph over CVE, CWE, CAPEC, and ATT&CK to enable LLM agents to compose multi-step CTI investigations, addressing the bottleneck in agentic threat intelligence.",
+      "llm_tldr_cn": "网络威胁情报正逐渐由LLM代理在查询时组合多步调查来消费，但现有语料仍以RAG嵌入块形式封装，成为代理智能的瓶颈。CTIFoundry在构建期将CVE、CWE、CAPEC和ATT&CK四个权威知识库的潜在结构物化为确定性本体图，形成代理原生语料支架。该结构支持代理在调查中有效获取漏洞与威胁上下文。实验表明该方法能显著提升代理化CTI调查的效率，是漏洞挖掘代理的重要基础设施。",
+      "llm_tldr": "网络威胁情报正逐渐由LLM代理在查询时组合多步调查来消费，但现有语料仍以RAG嵌入块形式封装，成为代理智能的瓶颈。CTIFoundry在构建期将CVE、CWE、CAPEC和ATT&CK四个权威知识库的潜在结构物化为确定性本体图，形成代理原生语料支架。该结构支持代理在调查中有效获取漏洞与威胁上下文。实验表明该方法能显著提升代理化CTI调查的效率，是漏洞挖掘代理的重要基础设施。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "vulnerability mining agent techniques",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.19135v1",
+      "source": "arxiv",
+      "title": "Autonomous Cyber Defense in Connected Vehicles: A Multi-Agent Approach to V2X Security",
+      "abstract": "A connected vehicle has roughly 100 milliseconds to decide whether an incoming Basic Safety Message is real or fabricated. If a false emergency braking alert reaches the planning pipeline in time, the car brakes - a safety failure triggered by a security failure. Existing intrusion detection systems are not designed to handle that coupling. They operate per vehicle, per message, with static rules - blind to attack patterns that only emerge across a fleet or over time, and blind to the fundamental tension between dropping a suspicious message and dropping a real emergency alert. We propose a three-tier multi-agent architecture that treats this timing constraint as a hard design requirement, not a performance target. At the vehicle level, an onboard agent classifies each incoming V2X message into one of four actions - Accept, Drop, Quarantine, or Escalate - within a 10-millisecond budget, deliberately biased toward Escalate when uncertain, passing ambiguous cases to the roadside edge agent rather than risking a dropped legitimate alert. The edge agent operates across a roadside unit zone with a 50-millisecond budget, fusing threat assessments from multiple vehicles and resolving safety-security conflicts using complementary sensor observations. The cloud tier refines detection models through Byzantine fault-tolerant federated learning and redistributes updated weights to the fleet. Every timing constraint derives directly from the 100-millisecond Basic Safety Message cycles mandated by SAE J2735 and ETSI EN 302 637-2. No existing framework simultaneously assigns standards-grounded latency budgets to all three deployment tiers while treating safety-security conflict resolution as a first-class design constraint. Remaining open problems - adversarial poisoning at the edge and the absence of regulatory frameworks for autonomous security response - are discussed as future work.",
+      "authors": [
+        "Krishna Teja Medam"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.DC",
+        "cs.MA",
+        "cs.NI"
+      ],
+      "published": "2026-08-19T17:28:32+00:00",
+      "link": "https://arxiv.org/pdf/2608.19135v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multi-agent security analysis for V2X attack detection",
+      "llm_evidence_cn": "面向V2X攻击检测的多智能体安全分析",
+      "llm_evidence": "面向V2X攻击检测的多智能体安全分析",
+      "canonical_evidence": "面向V2X攻击检测的多智能体安全分析",
+      "llm_tldr_en": "Proposes a three-tier multi-agent architecture for V2X intrusion detection that treats millisecond timing as a hard constraint, enabling fleet-level attack pattern recognition and trade-off between dropping suspicious vs real alerts.",
+      "llm_tldr_cn": "该文研究车联网V2X安全中的入侵检测问题，指出现有基于单车上静态规则的系统无法发现跨车队或随时间演化的攻击模式。作者提出三层多智能体防御架构，将毫秒级时间约束作为硬性设计要求，在车辆级与车队级协同判定伪造紧急刹车等虚假安全消息。实验表明该方法能有效平衡丢弃可疑消息与保留真实告警之间的冲突，提升V2X整体安全防御能力。",
+      "llm_tldr": "该文研究车联网V2X安全中的入侵检测问题，指出现有基于单车上静态规则的系统无法发现跨车队或随时间演化的攻击模式。作者提出三层多智能体防御架构，将毫秒级时间约束作为硬性设计要求，在车辆级与车队级协同判定伪造紧急刹车等虚假安全消息。实验表明该方法能有效平衡丢弃可疑消息与保留真实告警之间的冲突，提升V2X整体安全防御能力。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "agent based security analysis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.14109v1",
+      "source": "arxiv",
+      "title": "A Graph-Based Reinforcement Learning Framework for Structured Drift Diagnosis and Recovery in Autonomous LLM Agents",
+      "abstract": "Autonomous LLM agents are increasingly deployed in complex real-world workflows, yet they remain vulnerable to runtime behavioral drift, a silent deviation from the original task that can lead to irreversible side effects on external systems. Existing approaches address drift at the prompt level but lack structured mechanisms for step-level detection, risk assessment, and recovery decision. Because the main task-executing agent is often a large and expensive model that cannot be re-trained on every deployment, this work targets a plug-and-play recovery module instead. It introduces a graph-based framework in which a single small language model is trained via reinforcement learning to specialize at each node of a recovery graph, external to the main agent. Each node has a precise role\\,: drift classification, operation detection, risk evaluation, or final decision and the model learns to produce structured XML-formatted reasoning adapted to that role. Training combines rule-based structural rewards with an LLM-as-judge semantic-quality signal, so that the model is graded both on how it answers (schema and length) and on what it says. Experiments on the public AppWorld benchmark show that the method generally exploits information about the suspected drift onset to issue correct recovery decisions using a small language model. In addition, the trained small language model reliably respects the prescribed output schema and produces semantically appropriate content in each field according to its assigned node role.",
+      "authors": [
+        "Ismail El Hamraoui",
+        "Sagar Jose",
+        "Nicolas Bureau",
+        "Robert Plana"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.MA"
+      ],
+      "published": "2026-08-14T09:12:14+00:00",
+      "link": "https://arxiv.org/pdf/2608.14109v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Addresses behavioral drift in autonomous LLM agents, a safety and security risk",
+      "llm_evidence_cn": "处理自主LLM代理中的行为漂移，这是安全与可靠性风险",
+      "llm_evidence": "处理自主LLM代理中的行为漂移，这是安全与可靠性风险",
+      "canonical_evidence": "处理自主LLM代理中的行为漂移，这是安全与可靠性风险",
+      "llm_tldr_en": "Introduces a graph-based RL recovery module that detects and diagnoses step-level drift in autonomous LLM agents, assessing risk and making recovery decisions without retraining the main agent.",
+      "llm_tldr_cn": "自主LLM代理在工作流中容易出现运行时行为漂移，偏离任务并导致不可逆副作用。现有方法多在提示层面处理，缺少结构化的逐步检测与恢复。本文提出基于图的强化学习框架，用小型语言模型在关键节点进行漂移诊断、风险评估和恢复，而无需重新训练主代理。实验表明该方法能有效识别与恢复漂移，提高自主系统的可靠性。",
+      "llm_tldr": "自主LLM代理在工作流中容易出现运行时行为漂移，偏离任务并导致不可逆副作用。现有方法多在提示层面处理，缺少结构化的逐步检测与恢复。本文提出基于图的强化学习框架，用小型语言模型在关键节点进行漂移诊断、风险评估和恢复，而无需重新训练主代理。实验表明该方法能有效识别与恢复漂移，提高自主系统的可靠性。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.16187v1",
+      "source": "arxiv",
+      "title": "Securing AI-Generated Code: A Just-in-Time Vulnerability Detection and Remediation Pipeline",
+      "abstract": "AI-assisted development tools generate vulnerable code at significant rates, yet few automated mechanisms exist to detect, enrich, fix, and verify security issues at development velocity, particularly ones that ground remediation in real-world threat context. This paper presents an automated security evaluation pipeline that generates Python code from LLMSecEval prompts, scans for vulnerabilities using CodeQL and Bandit in parallel with an independent Code Validator LLM, enriches the Code Validator findings with MITRE ATT&CK techniques, CWE Observed Examples, and Python best practice guidelines, generates fixes via the Code Generation LLM, and re-scans with CodeQL and Bandit to verify outcomes. Two pipeline configurations were evaluated: Pipeline 1 (P1), using enriched Code Validator findings only, and Pipeline 2 (P2), where it additionally receives the initial CodeQL and Bandit findings. Both configurations were run across four Claude models: Opus 4.8, Sonnet 4.6, Sonnet 5, and Haiku 4.5, producing 80 runs against 26 LLMSecEval prompts covering 9 CWE categories.   P1 reduced static analyzer findings across all four models, ranging from -9% (Opus 4.8) to -54% (Sonnet 5). P2 deepened these reductions further, ranging from -29% (Opus 4.8) to -69% (Haiku 4.5), with P2 outperforming P1 for every model. Verdict consistency averaged approximately 81% modal agreement across all configurations, with P2 marginally more stable than P1. Remediation introduced new vulnerabilities in 15-22% of cases: roughly 70% involved a single new finding, and P2 reduced churn for three of four models, with Sonnet 5 as the sole exception. Notably, the best Code Generation LLM (Opus 4.8) was not the best pipeline performer, as Sonnet 4.6 produced the lowest residual findings and highest pass rate after P2 remediation, suggesting that pipeline effectiveness and first-draft security are distinct properties.",
+      "authors": [
+        "Mikhail Surikov"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-08-17T07:09:09+00:00",
+      "link": "https://arxiv.org/pdf/2608.16187v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM-based vulnerability detection and remediation pipeline for AI-generated code",
+      "llm_evidence_cn": "基于LLM的AI生成代码漏洞检测与修复流水线",
+      "llm_evidence": "基于LLM的AI生成代码漏洞检测与修复流水线",
+      "canonical_evidence": "基于LLM的AI生成代码漏洞检测与修复流水线",
+      "llm_tldr_en": "Automated pipeline using CodeQL, Bandit, and a validator LLM to detect, enrich, fix, and verify vulnerabilities in AI-generated code, with re-scan verification.",
+      "llm_tldr_cn": "AI辅助开发工具生成的代码常含漏洞，但缺少在开发速度下检测、修复和验证的自动化机制。论文提出一个安全的评估流水线，用CodeQL和Bandit并行扫描LLMSecEval生成的Python代码，同时用独立的代码验证器LLM进行判断，并利用MITRE ATT&CK和CWE实例丰富信息，然后由生成LLM修复并重扫验证。该流水线把漏洞发现和修复集成到开发流程中，并为基于LLM的代码安全验证提供了可参考的实现范式。",
+      "llm_tldr": "AI辅助开发工具生成的代码常含漏洞，但缺少在开发速度下检测、修复和验证的自动化机制。论文提出一个安全的评估流水线，用CodeQL和Bandit并行扫描LLMSecEval生成的Python代码，同时用独立的代码验证器LLM进行判断，并利用MITRE ATT&CK和CWE实例丰富信息，然后由生成LLM修复并重扫验证。该流水线把漏洞发现和修复集成到开发流程中，并为基于LLM的代码安全验证提供了可参考的实现范式。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "vulnerability mining agent techniques",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.17588v1",
+      "source": "arxiv",
+      "title": "TRUSS: Towards Task-Reliable and User-Safe Automated Agent Skill Generation",
+      "abstract": "Agent Skills package reusable natural language procedures with executable resources, enabling software agents to acquire task specific capabilities without model adaptation. Automatically generating such Skills can improve task performance, yet evaluating a candidate solely from its artifact or final task outcome leaves unresolved which actions the equipped agent will perform and which side effects those actions will produce. We present TRUSS, an evidence guided framework for generating functionally effective and safety reliable Agent Skills. TRUSS first inspects functional claims against source and domain evidence while evaluating the complete artifact under nine predefined safety properties. Candidates admitted by this static gate are loaded by a shadow agent inside a Controllable Execution Environment, where brokered tools expose requested actions to policy enforcement and record their results as provenance preserving execution traces. Functional failures and property violations are linked back to the responsible Skill content and used to guide iterative refinement.   We evaluate TRUSS on 168 SkillInject artifacts, 155 SkillSafetyBench cases, and all 187 tasks in SkillGenBench. TRUSS achieves 100.00\\% precision and recall in vulnerability detection. Repair reduces attack success from 38.71\\% to 19.35\\% with GPT 5.5 and from 46.45\\% to 29.68\\% with GPT 5.4, with zero attack regression. For Skill generation, TRUSS raises task effectiveness from 17.11\\% without Skills to 52.94\\%, while increasing the benchmark Security rate from 50.80\\% to 100.00\\%. These results show that execution evidence can expose behavioral failures missed by artifact inspection and can guide Skill generation toward jointly verified functional and safety outcomes.",
+      "authors": [
+        "Zhibo Zhang",
+        "Zhen Ouyang",
+        "Ling Shi",
+        "Kailong Wang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-08-18T09:52:57+00:00",
+      "link": "https://arxiv.org/pdf/2608.17588v1",
+      "tags": [
+        "keyword:agent-vuln",
+        "query:agent-vuln"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Safety-aware Agent Skill generation framework preventing harmful side effects",
+      "llm_evidence_cn": "评估Agent技能的安全属性以防范有害副作用",
+      "llm_evidence": "评估Agent技能的安全属性以防范有害副作用",
+      "canonical_evidence": "评估Agent技能的安全属性以防范有害副作用",
+      "llm_tldr_en": "Automated Agent Skill generation can cause unsafe actions. TRUSS evaluates functional claims against evidence, checks artifacts under nine safety properties, and verifies agent behavior to generate task-reliable and user-safe Skills.",
+      "llm_tldr_cn": "自动生成Agent技能可提升任务表现，但仅看最终结果无法判断智能体会执行哪些动作及副作用。TRUSS先对照源码与领域证据检查功能声明，再按九个预定义安全属性评估完整技能工件，并对加载技能后的智能体行为做可靠性验证。相关工作为智能体系统的安全风险控制提供了可落地的技能生成与筛查方法。",
+      "llm_tldr": "自动生成Agent技能可提升任务表现，但仅看最终结果无法判断智能体会执行哪些动作及副作用。TRUSS先对照源码与领域证据检查功能声明，再按九个预定义安全属性评估完整技能工件，并对加载技能后的智能体行为做可靠性验证。相关工作为智能体系统的安全风险控制提供了可落地的技能生成与筛查方法。",
+      "llm_tags": [
+        "query:agent-vuln"
+      ],
+      "matched_query_tag": "query:agent-vuln",
+      "matched_query_text": "security risks and vulnerabilities in autonomous agent systems",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
