@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-06T22:02:40.520394+00:00",
-  "updated_date": "20260906",
+  "generated_at": "2026-09-07T22:45:50.455080+00:00",
+  "updated_date": "20260907",
   "carryover_days": 9,
   "tag_states": {
     "agent-vuln": {
-      "updated_date": "20260906",
+      "updated_date": "20260907",
       "carryover_days": 9,
       "items": []
     }
